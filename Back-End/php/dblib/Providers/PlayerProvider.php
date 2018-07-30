@@ -14,7 +14,7 @@ require_once "DataAccessObjects/TableObject/DaoTableObjectFactory.php";
  * A responsabilidade desta classe é manter uma instância única para acessar o DataAccessObject de objetos e realizar a camada
  * de inteligência que transforma um objeto do banco de dados em um objeto com sentido lógico no programa.
  */
-class TableObjectProvider
+class PlayerProvider
 {
 
    /**
@@ -46,7 +46,7 @@ class TableObjectProvider
    /**
     * Retorna o singleton do provider.
     *
-    * @return TableObjectProvider Instância do provider.
+    * @return PlayerProvider Instância do provider.
     */
    public static function getInstance(): TableObjectProvider
    {

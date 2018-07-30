@@ -1,6 +1,6 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto FutMesaBackEnd
  *
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
@@ -10,26 +10,20 @@ namespace ValueObject;
 require_once "ValueObjects/ValueObject.php";
 
 /**
- * Tabela do banco de dados.
+ * Tabela de jogadores do banco de dados.
  */
-class TableObject extends ValueObject
+class Player extends ValueObject
 {
 
    /**
     *
-    * @var int Identificador do registro.
+    * @var int Identificador do jogador.
     */
    public $id;
 
    /**
     *
-    * @var string Nome.
+    * @var string Nome do jogador.
     */
    public $name;
-
-   /**
-    *
-    * @var string Descrição.
-    */
-   public $description;
 }

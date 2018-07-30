@@ -12,7 +12,7 @@ require_once "ValueObjects/TableObject.php";
 /**
  * A responsabilidade desta classe é ter todos os atributos e funções lógicas de acesso aos dados de um objeto de tabela.
  */
-class TableObject
+class Player
 {
 
    /**
