@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="TABLEOBJECT" primary="ID">
+    <column>ID</column>
+    <column>NAME</column>
+    <column>DESCRIPTION</column>
+    <row>
+      <value>1</value>
+      <value>Objeto A</value>
+      <value>Descrição A</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>Objeto B</value>
+      <value>Descrição B</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>Objeto C</value>
+      <value>Descrição C</value>
+    </row>
+    <row>
+      <value>4</value>
+      <value>Objeto D</value>
+      <value>Descrição D</value>
+    </row>
+    <row>
+      <value>5</value>
+      <value>Objeto E</value>
+      <value>Descrição E</value>
+    </row>
+  </table>
+</dataset>

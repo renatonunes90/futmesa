@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="WEBUSER" primary="ID">
+    <column>ID</column>
+    <column>NAME</column>
+    <column>LOGIN</column>
+    <column>PASS</column>
+    <column>EMAIL</column>
+    <column>ISADMIN</column>
+    <row>
+      <value>1</value>
+      <value>Sistema</value>
+      <value>system</value>
+      <value>6815d6b732ca29aa722ba2f5a5299f9f</value>
+      <value></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>Administrador</value>
+      <value>admin</value>
+      <value>21232f297a57a5a743894a0e4a801fc3</value>
+      <value></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>Teste</value>
+      <value>test</value>
+      <value></value>
+      <value></value>
+      <value>0</value>
+    </row>
+  </table>
+</dataset>
