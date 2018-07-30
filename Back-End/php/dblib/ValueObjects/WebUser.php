@@ -1,6 +1,6 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto FutMesaBackEnd
  *
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
@@ -23,12 +23,6 @@ class WebUser extends ValueObject
 
    /**
     *
-    * @var string E-mail do usuário.
-    */
-   public $email;
-
-   /**
-    *
     * @var string Login do usuário.
     */
    public $login;
@@ -44,11 +38,5 @@ class WebUser extends ValueObject
     * @var string Senha do usuário (criptografada).
     */
    public $pass;
-
-   /**
-    *
-    * @var boolean Flag indicando se o usuário é administrador.
-    */
-   public $isadmin;
 }
 ?>

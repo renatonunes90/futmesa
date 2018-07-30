@@ -4,31 +4,37 @@
   <table name="TABLEOBJECT" primary="ID">
     <column>ID</column>
     <column>NAME</column>
-    <column>DESCRIPTION</column>
     <row>
       <value>1</value>
-      <value>Objeto A</value>
-      <value>Descrição A</value>
+      <value>Jogador A</value>
     </row>
     <row>
       <value>2</value>
-      <value>Objeto B</value>
-      <value>Descrição B</value>
+      <value>Jogador B</value>
     </row>
     <row>
       <value>3</value>
-      <value>Objeto C</value>
-      <value>Descrição C</value>
+      <value>Jogador C</value>
     </row>
     <row>
       <value>4</value>
-      <value>Objeto D</value>
-      <value>Descrição D</value>
+      <value>Jogador D</value>
     </row>
     <row>
       <value>5</value>
-      <value>Objeto E</value>
-      <value>Descrição E</value>
+      <value>Jogador E</value>
+    </row>
+    <row>
+      <value>6</value>
+      <value>Jogador F</value>
+    </row>
+    <row>
+      <value>7</value>
+      <value>Jogador G</value>
+    </row>
+    <row>
+      <value>8</value>
+      <value>Jogador H</value>
     </row>
   </table>
 </dataset>

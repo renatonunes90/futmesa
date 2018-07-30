@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
+	<buildpathentry external="true" kind="lib" path="C:/php-7.2/phpunit-7.2.7.phar"/>
 	<buildpathentry kind="con" path="org.eclipse.dltk.USER_LIBRARY/PEAR"/>
 	<buildpathentry kind="src" path=""/>
 </buildpath>
