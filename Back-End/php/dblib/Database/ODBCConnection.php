@@ -1,6 +1,6 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto FutMesaBackEnd
  *
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
@@ -20,7 +20,7 @@ class ODBCConnection
     *
     * @var string
     */
-   private static $odbcName_ = "SAMPLE";
+   private static $odbcName_ = "FUTMESA";
 
    /**
     * Flag para determinar se é para mostrar mensagens de desenvolvimento.

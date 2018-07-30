@@ -1,73 +1,52 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto FutMesaBackEnd
  *
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
  */
 namespace DBLib;
 
-require_once "ValueObjects/TableObject.php";
+require_once "ValueObjects/Player.php";
 
 /**
- * A responsabilidade desta classe é ter todos os atributos e funções lógicas de acesso aos dados de um objeto de tabela.
+ * A responsabilidade desta classe é ter todos os atributos e funções lógicas de acesso aos dados de jogador.
  */
 class Player
 {
 
    /**
     *
-    * @var \ValueObject\TableObject VO do objeto.
+    * @var \ValueObject\Player VO do jogador.
     */
-   public $tableObjectVO_;
-
-   /**
-    *
-    * @var bool Indica se o usuário pode escrever no objeto.
-    */
-   public $canWrite_;
+   public $playerVO_;
 
    /**
     * Construtor padrão.
-    * Inicializa as variáveis da classe.
     *
-    * @param \ValueObject\TableObject $tableObjectVO
-    *           Objeto contendo as informações do objeto no banco de dados.
-    * @param bool $canWrite
-    *           [optional] Indica se o usuário pode escrever sobre o objeto.
+    * @param \ValueObject\Player $playerVO
+    *           Objeto contendo as informações do jogador no banco de dados.
     */
-   public function __construct( \ValueObject\TableObject $tableObjectVO, bool $canWrite = false)
+   public function __construct( \ValueObject\Player $playerVO )
    {
-      $this->tableObjectVO_ = $tableObjectVO;
-      $this->canWrite_ = $canWrite;
+      $this->playerVO_ = $playerVO;
    }
 
    /**
-    * Função para clonar um Asset.
+    * Função para clonar um jogador.
     */
    public function __clone()
    {
-      $this->tableObjectVO_ = clone $this->getTableObjectVO();
-      $this->canWrite_ = clone $this->canWrite();
+      $this->playerVO_ = clone $this->getPlayerVO();
    }
 
    /**
-    * Indica se o usuário pode modificar o objeto.
+    * Obtém o VO do jogador.
     *
-    * @return bool Bool indicando se o user pode modificar o objeto.
+    * @return \ValueObject\Player Objeto contendo as informações do jogador no banco de dados.
     */
-   public function canWrite(): bool
+   public function getPlayerVO(): \ValueObject\Player
    {
-      return $this->canWrite_;
-   }
-
-   /**
-    * Obtém o VO do objeto.
-    *
-    * @return \ValueObject\TableObject Objeto contendo as informações do objeto no banco de dados.
-    */
-   public function getTableObjectVO(): \ValueObject\TableObject
-   {
-      return $this->tableObjectVO_;
+      return $this->playerVO_;
    }
 }

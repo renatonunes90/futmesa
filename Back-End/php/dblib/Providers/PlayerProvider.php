@@ -1,17 +1,17 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto FutMesaBackEnd
  *
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
  */
 namespace DBLib;
 
-require_once "BusinessInteligence/TableObject/TableObject.php";
-require_once "DataAccessObjects/TableObject/DaoTableObjectFactory.php";
+require_once "BusinessInteligence/Player/Player.php";
+require_once "DataAccessObjects/Player/DaoPlayerFactory.php";
 
 /**
- * A responsabilidade desta classe é manter uma instância única para acessar o DataAccessObject de objetos e realizar a camada
+ * A responsabilidade desta classe é manter uma instância única para acessar o DataAccessObject de jogadores e realizar a camada
  * de inteligência que transforma um objeto do banco de dados em um objeto com sentido lógico no programa.
  */
 class PlayerProvider
@@ -19,19 +19,19 @@ class PlayerProvider
 
    /**
     *
-    * @var \DAO\DaoTableObjectInterface Instância do DAO a ser usada pelo provider.
+    * @var \DAO\DaoPlayerInterface Instância do DAO a ser usada pelo provider.
     */
-   private $daoTableObject_;
+   private $daoPlayer_;
 
    /**
     *
-    * @var array Lista de todos os objetos possíveis com os dados utilizados.
+    * @var array Lista de todos os jogadores do banco de dados.
     */
-   private $allObjects_;
+   private $allPlayers_;
 
    /**
     *
-    * @var TableObjectProvider Singleton do TableObjectProvider para evitar carregamentos desnecessários.
+    * @var PlayerProvider Singleton do PlayerProvider para evitar carregamentos desnecessários.
     */
    private static $instance_;
 
@@ -40,7 +40,7 @@ class PlayerProvider
     */
    private function __construct()
    {
-      $this->daoTableObject_ = \DAO\DaoTableObjectFactory::getDaoTableObject();
+      $this->daoPlayer_ = \DAO\DaoPlayerFactory::getDaoPlayer();
    }
 
    /**
@@ -48,7 +48,7 @@ class PlayerProvider
     *
     * @return PlayerProvider Instância do provider.
     */
-   public static function getInstance(): TableObjectProvider
+   public static function getInstance(): PlayerProvider
    {
       if( !self::$instance_ )
       {
@@ -59,35 +59,35 @@ class PlayerProvider
    }
 
    /**
-    * Busca um objeto pelo seu identificador.
+    * Busca um jogador pelo seu identificador.
     *
     * @param int $id
-    *           Identificador do objeto.
-    * @return TableObject|NULL Um objeto ou nulo se ele não existir.
+    *           Identificador do jogador.
+    * @return Player|NULL Um jogador ou nulo se ele não existir.
     */
-   public function getTableObject( int $id ): ?TableObject
+   public function getPlayer( int $id ): ?Player
    {
-      $this->loadAllObjects();
-      return $this->allObjects_[ $id ];
+      $this->loadAllPlayers();
+      return array_key_exists( $id, $this->allPlayers_ ) ? $this->allPlayers_[ $id ] : null;
    }
 
    /**
-    * Busca uma lista de objetos pelos seus identificadores.
+    * Busca uma lista de jogadores pelos seus identificadores.
     *
     * @param array $ids
-    *           Identificadores dos objetos.
+    *           Identificadores dos jogadores.
     * @return array Array de objetos.
     */
-   public function getTableObjects( array $ids ): array
+   public function getPlayers( array $ids ): array
    {
       $objects = array ();
-      $this->loadAllObjects();
+      $this->loadAllPlayers();
 
       foreach( $ids as &$id )
       {
-         if( isset( $this->allObjects_[ $id ] ) )
+         if( isset( $this->allPlayers_[ $id ] ) )
          {
-            $objects[] = $this->allObjects_[ $id ];
+            $objects[] = $this->allPlayers_[ $id ];
          }
       }
 
@@ -95,32 +95,22 @@ class PlayerProvider
    }
 
    /**
-    * Busca todos os objetos.
+    * Busca todos os jogadores.
     *
-    * @return array Lista de objetos que existem no banco de dados.
+    * @return array Lista de jogadores que existem no banco de dados.
     */
-   public function getAllObjects(): array
+   public function getAllPlayers(): array
    {
-      $this->loadAllObjects();
-      return $this->allObjects_;
-   }
-
-   /**
-    * Retorna a quantidade de objetos existentes.
-    *
-    * @return int A quantidade de objetos no banco.
-    */
-   public function getObjectCount(): int
-   {
-      return count( $this->getAllObjects() );
+      $this->loadAllPlayers();
+      return $this->allPlayers_;
    }
 
    /**
     * Limpa todos os objetos carregados.
     */
-   public function clearObjects(): void
+   public function clearPlayers(): void
    {
-      $this->allObjects_ = null;
+      $this->allPlayers_ = null;
    }
 
    /**
@@ -130,10 +120,10 @@ class PlayerProvider
     *           Lista de objetos a serem inseridos.
     * @return bool Indica se foi possível inserir o objeto ou não.
     */
-   public function insertTableObjects( array $objects ): bool
-   {
-      return $this->daoTableObject_->insertTableObjects( $objects );
-   }
+   // public function insertTableObjects( array $objects ): bool
+   // {
+   // return $this->daoTableObject_->insertTableObjects( $objects );
+   // }
 
    /**
     * Atualiza os dados de um objeto no banco de dados.
@@ -142,10 +132,10 @@ class PlayerProvider
     *           Lista de objetos a serem atualizados.
     * @return bool Indica se foi possível atualizar ou não.
     */
-   public function updateTableObjects( array $objects ): bool
-   {
-      return $this->daoTableObject_->updateTableObjects( $objects );
-   }
+   // public function updateTableObjects( array $objects ): bool
+   // {
+   // return $this->daoTableObject_->updateTableObjects( $objects );
+   // }
 
    /**
     * Remove um array de objetos a partir de seus IDs.
@@ -154,27 +144,27 @@ class PlayerProvider
     *           Array de identificadores de objetos.
     * @return int A quantidade de objetos removidos.
     */
-   public function deleteWebUsers( array $ids ): int
-   {
-      return $this->daoTableObject_->deleteTableObjects( $ids );
-   }
+   // public function deleteWebUsers( array $ids ): int
+   // {
+   // return $this->daoTableObject_->deleteTableObjects( $ids );
+   // }
 
    /**
-    * Carrega um mapa de todos os objetos.
+    * Carrega um mapa de todos os jogadores.
     *
     * @param bool $forceReload
     *           Se eles já estiverem carregados, não serão novamente se a flag não for true.
     */
-   private function loadAllObjects( bool $forceReload = false): void
+   private function loadAllPlayers( bool $forceReload = false): void
    {
-      if( $this->allObjects_ == null || $forceReload )
+      if( $this->allPlayers_ == null || $forceReload )
       {
-         $this->allObjects_ = array ();
-         $objectsVO = $this->daoTableObject_->getAllTableObjects();
+         $this->allPlayers_ = array ();
+         $objectsVO = $this->daoPlayer_->getAllPlayers();
 
          foreach( $objectsVO as &$obj )
          {
-            $this->allObjects_[ $obj->id ] = new TableObject( $obj, true );
+            $this->allPlayers_[ $obj->id ] = new Player( $obj );
          }
       }
    }
