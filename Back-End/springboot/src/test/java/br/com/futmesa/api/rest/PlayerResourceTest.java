@@ -108,7 +108,6 @@ public class PlayerResourceTest
    public void createOk()
    {
       final Player entity = new PlayerBuilder().any().build();
-      entity.setId( null );
       final ResponseEntity< Player > response = testRestTemplate.exchange( PLAYERS_ENDPOINT, HttpMethod.POST, getRequestEntity( entity ),
                Player.class );
       assertThat( response.getStatusCode() ).isEqualTo( HttpStatus.CREATED );
