@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.futmesa.api.domain.Player;
+import br.com.futmesa.api.exception.ErrorReturn;
 import br.com.futmesa.api.service.PlayerService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping ( "/players" )
@@ -35,6 +39,11 @@ public class PlayerResource
     }
 
    @PostMapping
+   @ApiOperation ( value = "Gera um novo jogador. Retorna objeto do jogador.", notes = "Cria uma nova instância de jogador. Jogador é uma pessoa cadastrada no sistema.", response = Player.class )
+   @ApiResponses ( value = {
+            @ApiResponse ( code = 200, message = "Jogador criado com sucesso.", responseContainer = "List", response = Player.class ),
+            @ApiResponse ( code = 400, message = "Requisição inválida", response = ErrorReturn.class ),
+            @ApiResponse ( code = 500, message = "Erro interno do servidor ou serviço", response = ErrorReturn.class ) } )
    public ResponseEntity< Player > create( @RequestBody @Valid @NotNull Player player )
    {
       if ( StringUtils.isEmpty( player.getName() ) )
@@ -63,6 +72,10 @@ public class PlayerResource
    }
 
    @GetMapping ( "/" )
+   @ApiOperation ( value = "Lista de jogadores cadastrados.", notes = "Retorna a lista de jogadores.", response = Player.class, responseContainer = "List" )
+   @ApiResponses ( value = {
+            @ApiResponse ( code = 200, message = "Lista de jogadores retornada com sucesso.", responseContainer = "List", response = Player.class ),
+            @ApiResponse ( code = 500, message = "Erro interno do servidor ou serviço.", response = ErrorReturn.class ) } )
    public ResponseEntity< List< Player > > getAll( @RequestParam ( value = "name", required = false ) final String name,
                                                                     @RequestParam ( value = "page", required = false ) Integer page,
                                                                     @RequestParam ( value = "size", required = false ) Integer size )
@@ -105,8 +118,4 @@ public class PlayerResource
 
       return new ResponseEntity< Player >( updatedPlayer.get(), HttpStatus.OK );
    }
-
-
-
 }
-
