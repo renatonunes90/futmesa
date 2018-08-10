@@ -40,6 +40,12 @@ public class PlayerService
    {
       log.debug( "Iniciando criação de player" );
 
+      final Optional< Player > alreadyExists = findOne( playerToCreate.getId() );
+      if ( alreadyExists.isPresent() )
+      {
+         return Optional.empty();
+      }
+      
       final Optional< Player > createdPlayer = Optional.ofNullable( playerRepository.save( playerToCreate ) );
       if ( createdPlayer.isPresent() )
       {

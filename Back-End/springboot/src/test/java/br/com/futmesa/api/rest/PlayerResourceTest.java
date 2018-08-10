@@ -105,6 +105,29 @@ public class PlayerResourceTest
    }
 
    @Test
+   public void createBadRequestWithDuplicatedId()
+   {
+      final Player entity = buildPlayer( PLAYER_A );
+      entity.setName( PLAYER_B );
+
+      final ResponseEntity< Player > response = testRestTemplate.exchange( PLAYERS_ENDPOINT, HttpMethod.POST, getRequestEntity( entity ),
+               Player.class );
+      assertThat( response.getStatusCode() ).isEqualTo( HttpStatus.BAD_REQUEST );
+   }
+
+   @Test
+   public void createErrorWithDuplicatedName()
+   {
+      buildPlayer( PLAYER_A );
+      final Player entity2 = new PlayerBuilder().any().build();
+      entity2.setName( PLAYER_A );
+
+      final ResponseEntity< Player > response = testRestTemplate.exchange( PLAYERS_ENDPOINT, HttpMethod.POST, getRequestEntity( entity2 ),
+               Player.class );
+      assertThat( response.getStatusCode() ).isEqualTo( HttpStatus.INTERNAL_SERVER_ERROR );
+   }
+
+   @Test
    public void createOk()
    {
       final Player entity = new PlayerBuilder().any().build();
