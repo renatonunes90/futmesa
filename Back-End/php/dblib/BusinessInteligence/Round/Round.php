@@ -7,6 +7,9 @@
  */
 namespace DBLib;
 
+use DAO\DaoGameFactory;
+
+require_once "DataAccessObjects/Game/DaoGameFactory.php";
 require_once "ValueObjects/Round.php";
 
 /**
@@ -22,6 +25,12 @@ class Round
    private $roundVO_;
 
    /**
+    *
+    * @var Array Mapa contendo os jogos da rodada indexados pelo seu identificador.
+    */
+   private $games_;
+
+   /**
     * Construtor padrão.
     *
     * @param \ValueObject\Round $roundVO
@@ -30,6 +39,7 @@ class Round
    public function __construct( \ValueObject\Round $roundVO )
    {
       $this->roundVO_ = $roundVO;
+      $this->games_ = array ();
    }
 
    /**
@@ -38,6 +48,13 @@ class Round
    public function __clone()
    {
       $this->roundVO_ = clone $this->getRoundVO();
+
+      $newGames = array ();
+      foreach ( $this->games_ as $g )
+      {
+         $newGames[] = clone $g;
+      }
+      $this->games_ = $newGames;
    }
 
    /**
@@ -48,5 +65,47 @@ class Round
    public function getRoundVO(): \ValueObject\Round
    {
       return $this->roundVO_;
+   }
+
+   /**
+    *
+    * @return array Lista de objetos de tipo Game.
+    */
+   public function getGames(): array
+   {
+      $this->loadGames();
+      return $this->games_;
+   }
+
+   /**
+    *
+    * @param int $gameId
+    *           Identificador do jogo.
+    * @return \DBLib\Game|NULL Objeto contendo o jogo ou null se ele não existir.
+    */
+   public function getGame( int $gameId ): ?\DBLib\Game
+   {
+      $game = null;
+      $this->loadGames();
+
+      if ( array_key_exists( $gameId, $this->games_ ) )
+      {
+         $game = $this->games_[ $gameId ];
+      }
+
+      return $game;
+   }
+
+   private function loadGames( bool $forceReload = false): void
+   {
+      if ( sizeOf( $this->games_ ) == 0 || $forceReload )
+      {
+         $dao = DaoGameFactory::getDaoGame();
+         $games = $dao->getAllGamesByRound( $this->roundVO_->id );
+         foreach ( $games as $g )
+         {
+            $this->games_[ $g->id ] = new Game( $g );
+         }
+      }
    }
 }
