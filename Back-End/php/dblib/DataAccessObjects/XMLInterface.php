@@ -14,8 +14,6 @@ namespace DAO;
 class XMLInterface
 {
 
-   const ERR = "Tabela não encontrada";
-
    /**
     *
     * @var string Caminho relativo do arquivo.
@@ -50,12 +48,12 @@ class XMLInterface
    {
       libxml_use_internal_errors( true );
 
-      if( file_exists( $filename ) )
+      if ( file_exists( $filename ) )
       {
          $this->file_ = simplexml_load_file( $filename );
          $error = libxml_get_errors();
 
-         if( $error )
+         if ( $error )
          {
             throw new XMLParserException( $error );
          }
@@ -86,14 +84,14 @@ class XMLInterface
       $result = array ();
       $tableId = $this->getTableId( $table );
 
-      if( $tableId >= 0 )
+      if ( $tableId >= 0 )
       {
          $tableObj = $this->getTable( $tableId );
 
          // monta o filtro com a chave primária
          $primaryKey = $this->getPrimaryKey( $tableObj );
 
-         if( $primaryKey[ 0 ] == "" )
+         if ( $primaryKey[ 0 ] == "" )
          {
             throw new XMLParserException( "Tabela não possui chave primária." );
          }
@@ -104,14 +102,14 @@ class XMLInterface
          $rows = $this->getRows( $tableObj, $filters );
 
          // se encontrou alguma linha, a(s) relaciona com as colunas da tabela.
-         if( !empty( $rows ) )
+         if ( !empty( $rows ) )
          {
             $result = $this->xmlToArray( $tableId, $rows );
          }
       }
       else
       {
-         throw new XMLParserException( ERR );
+         throw new XMLParserException( "Tabela '$table' não encontrada." );
       }
 
       return ( array ) $result[ 0 ];
@@ -130,22 +128,22 @@ class XMLInterface
       $results = array ();
       $i = 0;
 
-      if( $tableId >= 0 )
+      if ( $tableId >= 0 )
       {
          $tableObj = $this->getTable( $tableId );
          $count = count( $tableObj->row );
 
-         while( $i < $count )
+         while ( $i < $count )
          {
             $results[] = ( ( array ) $tableObj->row[ $i ]->value );
-            $i ++;
+            $i++;
          }
 
          return $this->xmlToArray( $tableId, $results );
       }
       else
       {
-         throw new XMLParserException( ERR );
+         throw new XMLParserException( "Tabela '$table' não encontrada." );
       }
    }
 
@@ -164,13 +162,13 @@ class XMLInterface
       $result = array ();
       $tableId = $this->getTableId( $table );
 
-      if( $tableId >= 0 )
+      if ( $tableId >= 0 )
       {
          $tableObj = $this->getTable( $tableId );
          $rows = $this->getRows( $tableObj, $filters );
 
          // se obteve alguma linha, a(s) relaciona com as colunas.
-         if( !empty( $rows ) )
+         if ( !empty( $rows ) )
          {
             $result = $this->xmltoArray( $tableId, $rows );
          }
@@ -179,7 +177,7 @@ class XMLInterface
       }
       else
       {
-         throw new XMLParserException( ERR );
+         throw new XMLParserException( "Tabela '$table' não encontrada." );
       }
    }
 
@@ -203,20 +201,20 @@ class XMLInterface
       $colCount = count( ( array ) $this->file_->table->column );
       $rowCount = count( ( array ) ( ( array ) $this->file_->table )[ "row" ] );
 
-      if( !empty( $primary[ 0 ] ) )
+      if ( !empty( $primary[ 0 ] ) )
       {
          // Se a tabela conter chave primária e a entrada for válida.
          $valid = ( bool ) $this->validatePrimary( $primary, $insert );
 
-         foreach( $primary as &$key )
+         foreach ( $primary as &$key )
          {
             $colId[ $key ] = $this->getColumnIndex( $this->file_->table, $key );
          }
 
          // caso não seja válida ou for nula, gera o próximo ID da chave primária baseado na última linha da tabela.
-         if( !( $valid ) )
+         if ( !( $valid ) )
          {
-            foreach( $colId as $key => $id )
+            foreach ( $colId as $key => $id )
             {
                $nextId = 1 + $this->file_->table->row[ count( $this->file_->table->row ) - 1 ]->value[ $id ];
                $insert[ $key ] = $nextId;
@@ -225,12 +223,12 @@ class XMLInterface
       }
 
       // se a entrada estiver com todos as colunas "preenchidas"
-      if( $colCount == count( $insert ) )
+      if ( $colCount == count( $insert ) )
       {
          $insert = $this->sortColumns( $insert );
          $this->file_->table->addChild( "row" );
 
-         foreach( $insert as &$val )
+         foreach ( $insert as &$val )
          {
             $this->file_->table->row[ $rowCount ]->addChild( "value", $val );
          }
@@ -266,16 +264,16 @@ class XMLInterface
 
       $primary = $this->getPrimaryKey( $this->file_->table );
 
-      foreach( $this->file_->table->row as $row )
+      foreach ( $this->file_->table->row as $row )
       {
-         if( ( $this->isContained( $this->file_->table, $row, $filters ) ) || ( $all ) )
+         if ( ( $this->isContained( $this->file_->table, $row, $filters ) ) || ( $all ) )
          {
-            foreach( $changes as $col => $val )
+            foreach ( $changes as $col => $val )
             {
                $colId = $this->getColumnIndex( $this->file_->table, $col );
 
                // se a coluna não for primária e existir
-               if( !( $this->isPrimary( $primary, $col ) ) && ( $colId >= 0 ) )
+               if ( !( $this->isPrimary( $primary, $col ) ) && ( $colId >= 0 ) )
                {
                   $this->file_->table->row[ $i ]->value[ $colId ] = $val;
                   $err = 1;
@@ -283,7 +281,7 @@ class XMLInterface
             }
          }
 
-         $i ++;
+         $i++;
       }
 
       $this->doc_->loadXML( $this->file_->asXML() );
@@ -309,34 +307,34 @@ class XMLInterface
       $i = 0;
 
       // verifica se alguma das chaves é primária, para só percorrer uma vez a tabela se for
-      foreach( array_keys( $filters ) as &$col )
+      foreach ( array_keys( $filters ) as &$col )
       {
-         if( $this->isPrimary( $this->getPrimaryKey( $this->file_->table ), $col ) )
+         if ( $this->isPrimary( $this->getPrimaryKey( $this->file_->table ), $col ) )
          {
             $hasPrimary = true;
          }
       }
 
-      foreach( $this->file_->table->row as $row )
+      foreach ( $this->file_->table->row as $row )
       {
-         if( $all || $this->isContained( $this->file_->table, $row, $filters ) )
+         if ( $all || $this->isContained( $this->file_->table, $row, $filters ) )
          {
             // identifica as linhas e remove depois pra não quebrar o foreach
             $removeRows[] = $i;
             $err = 1;
 
-            if( $hasPrimary && !$all )
+            if ( $hasPrimary && !$all )
             {
                break;
             }
          }
 
-         $i ++;
+         $i++;
       }
 
       // remove as linhas que deram match
       $removeRows = array_reverse( $removeRows );
-      foreach( $removeRows as $key )
+      foreach ( $removeRows as $key )
       {
          unset( $this->file_->table->row[ $key ] );
       }
@@ -358,16 +356,16 @@ class XMLInterface
       $foundTable = false;
       $i = 0;
 
-      while( ( !$foundTable ) && ( $i < $this->file_->count() ) )
+      while ( ( !$foundTable ) && ( $i < $this->file_->count() ) )
       {
-         if( strtolower( $this->file_->table[ $i ]->attributes()[ 0 ] ) == strtolower( $tablename ) )
+         if ( strtolower( $this->file_->table[ $i ]->attributes()[ 0 ] ) == strtolower( $tablename ) )
          {
             $foundTable = true;
          }
 
          else
          {
-            $i ++;
+            $i++;
          }
       }
 
@@ -410,9 +408,9 @@ class XMLInterface
    private function getColumnIndex( \SimpleXMLElement $tableObj, string $columnName ): int
    {
       $index = -1;
-      foreach( ( array ) $tableObj->column as $key => $column )
+      foreach ( ( array ) $tableObj->column as $key => $column )
       {
-         if( $column == $columnName )
+         if ( $column == $columnName )
          {
             $index = ( int ) $key;
             break;
@@ -438,11 +436,11 @@ class XMLInterface
       $rows = array ();
 
       // acha o index de cada coluna informada.
-      foreach( $filters as $column => $value )
+      foreach ( $filters as $column => $value )
       {
          $index = $this->getColumnIndex( $tableObj, $column );
 
-         if( $index < 0 )
+         if ( $index < 0 )
          {
             throw new XMLParserException( "Tabela não possui a coluna '$column' para filtrar." );
          }
@@ -451,16 +449,16 @@ class XMLInterface
       }
 
       // verifica quais linhas atendem aos filtros
-      foreach( $tableObj->row as $row )
+      foreach ( $tableObj->row as $row )
       {
          $match = true;
 
-         foreach( $indexFilters as $col => $value )
+         foreach ( $indexFilters as $col => $value )
          {
             $match &= ( $row->value[ $col ] == $value );
          }
 
-         if( $match )
+         if ( $match )
          {
             $rows[] = $row->value;
          }
@@ -485,35 +483,35 @@ class XMLInterface
       $results = array ();
       $rowCount = count( $rows );
 
-      foreach( ( array ) $this->file_->table[ $tableId ] as $index => $node )
+      foreach ( ( array ) $this->file_->table[ $tableId ] as $index => $node )
       {
          $table[ $index ] = $node;
       }
 
-      while( $n < $rowCount )
+      while ( $n < $rowCount )
       {
          unset( $values );
          $i = 0;
 
-         foreach( ( array ) $rows[ $n ] as $index => $node )
+         foreach ( ( array ) $rows[ $n ] as $index => $node )
          {
-            if( ( is_object( $node ) ) && ( empty( $node ) ) )
+            if ( ( is_object( $node ) ) && ( empty( $node ) ) )
             {
                $node = null;
             }
 
             $values[ $i ] = $node;
-            $i ++;
+            $i++;
          }
 
          $i = 0;
-         foreach( $table[ "column" ] as $col )
+         foreach ( $table[ "column" ] as $col )
          {
             $results[ $n ][ $col ] = $values[ $i ];
-            $i ++;
+            $i++;
          }
 
-         $n ++;
+         $n++;
       }
 
       return $results;
@@ -534,15 +532,15 @@ class XMLInterface
    {
       $match = !( empty( $filters ) || empty( $tableObj ) || empty( $row ) );
 
-      if( $match )
+      if ( $match )
       {
-         foreach( $filters as $col => $val )
+         foreach ( $filters as $col => $val )
          {
             $colId = $this->getColumnIndex( $tableObj, $col );
 
-            if( $colId >= 0 )
+            if ( $colId >= 0 )
             {
-               if( empty( $row->value[ $colId ] ) )
+               if ( empty( $row->value[ $colId ] ) )
                {
                   $match &= !( $val );
                }
@@ -575,21 +573,21 @@ class XMLInterface
    {
       $err = 1;
 
-      foreach( $primary as $colName )
+      foreach ( $primary as $colName )
       {
          $colId = $this->getColumnIndex( $this->file_->table, $colName );
-         if( $err < 1 || ( $entry[ $colName ] == null ) )
+         if ( $err < 1 || ( $entry[ $colName ] == null ) )
          {
             $err = 0;
             break;
          }
 
-         foreach( $this->file_->table->row as $row )
+         foreach ( $this->file_->table->row as $row )
          {
             $value = ( empty( ( ( array ) $row->value )[ $colId ] ) ) ? null : ( ( array ) $row->value )[ $colId ];
 
             // verifica se a chave primária da entrada gera conflito com alguma linha OU é nula.
-            if( $entry[ $colName ] == $value )
+            if ( $entry[ $colName ] == $value )
             {
                $err = 0;
                break;
@@ -613,9 +611,9 @@ class XMLInterface
    {
       $err = false;
 
-      foreach( $primaries as $key )
+      foreach ( $primaries as $key )
       {
-         if( $key == $colName )
+         if ( $key == $colName )
          {
             $err = true;
             break;
@@ -636,7 +634,7 @@ class XMLInterface
    {
       $final = array ();
       // associa o nome das colunas ao seu index na tabela.
-      foreach( $row as $col => $val )
+      foreach ( $row as $col => $val )
       {
          $indexArray[ $col ] = $this->getColumnIndex( $this->file_->table, $col );
       }
@@ -645,7 +643,7 @@ class XMLInterface
       asort( $indexArray );
 
       // e salva de volta no array
-      foreach( $indexArray as $col => $val )
+      foreach ( $indexArray as $col => $val )
       {
          $final[ $col ] = $row[ $col ];
       }
@@ -658,7 +656,6 @@ class XMLInterface
  * Classe que gera exceção para o XMLInterface.
  */
 class XMLParserException extends \Exception
-{
-}
+{}
 
 ?>

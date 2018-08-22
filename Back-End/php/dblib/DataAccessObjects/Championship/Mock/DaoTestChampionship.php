@@ -7,34 +7,54 @@
  */
 namespace DAO;
 
-require_once "DataAccessObjects/Player/DaoPlayerInterface.php";
+require_once "DataAccessObjects/Championship/DaoChampionshipInterface.php";
 require_once "DataAccessObjects/XMLInterface.php";
-require_once "ValueObjects/Player.php";
+require_once "ValueObjects/Championship.php";
 
 /**
- * Objeto para acessar o banco de dados de testes dos jogadores.
+ * Objeto para acessar o banco de dados de testes dos campeonatos.
  */
-class DaoTestPlayer implements DaoPlayerInterface
+class DaoTestChampionship implements DaoChampionshipInterface
 {
-   const PATH = "DataAccessObjects\\Player\\Mock\\PLAYER.xml";
+   const PATH = "DataAccessObjects\\Championship\\Mock\\CHAMPIONSHIP.xml";
+   const PARTICIPANT_PATH = "DataAccessObjects\\Championship\\Mock\\PARTICIPANT.xml";
 
    /**
     *
     * {@inheritdoc}
-    * @see DaoPlayerInterface::getAllPlayers()
+    * @see \DAO\DaoChampionshipInterface::getAllChampionships()
     */
-   public function getAllPlayers(): array
+   public function getAllChampionships(): array
    {
-      $players = array ();
+      $championships = array ();
       $database = new XMLInterface( self::PATH );
-      $result = $database->getAllObjects( self::PLAYER );
+      $result = $database->getAllObjects( self::CHAMPIONSHIP );
 
       foreach ( $result as &$item )
       {
-         $players[] = $this->convertToPlayer( $item );
+         $championships[] = $this->convertToChampionship( $item );
       }
 
-      return $players;
+      return $championships;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getParticipants()
+    */
+   public function getParticipants( int $championshipId ): array
+   {
+      $participants = array ();
+      $database = new XMLInterface( self::PARTICIPANT_PATH );
+      $result = $database->getFilteredObjects( "PARTICIPANT", array ( "IDCHAMPIONSHIP" => $championshipId ) );
+
+      foreach ( $result as &$item )
+      {
+         $participants[] = $item[ "IDPLAYER" ];
+      }
+
+      return $participants;
    }
 
    /**
@@ -103,17 +123,21 @@ class DaoTestPlayer implements DaoPlayerInterface
    // }
 
    /**
-    * Converte o resultado do banco de dados em um jogador.
+    * Converte o resultado do banco de dados em um campeonato.
     *
     * @param array $result
-    *           Mapa de resultados do banco para um jogador.
-    * @return \ValueObject\Player Jogador.
+    *           Mapa de resultados do banco para um campeonato.
+    * @return \ValueObject\Championship Campeonato.
     */
-   private function convertToPlayer( array $result ): \ValueObject\Player
+   private function convertToChampionship( array $result ): \ValueObject\Championship
    {
-      $object = new \ValueObject\Player();
+      $object = new \ValueObject\Championship();
       $object->id = $result[ self::ID ];
       $object->name = $result[ self::NAME ];
+      $object->basedate = $result[ self::BASEDATE ];
+      $object->dateincr = $result[ self::DATEINCR ];
+      $object->roundsbyday = $result[ self::ROUNDSBYDAY ];
+      $object->gamesbyround = $result[ self::GAMESBYROUND ];
       return $object;
    }
 }

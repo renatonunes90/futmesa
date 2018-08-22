@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xml>
 <dataset>
-  <table name="PLAYER" primary="ID">
-    <column>ID</column>
-    <column>NAME</column>
+  <table name="PARTICIPANT">
+    <column>IDCHAMPIONSHIP</column>
+    <column>IDPLAYER</column>
     <row>
       <value>1</value>
-      <value>Jogador A</value>
+      <value>1</value>
     </row>
     <row>
+      <value>1</value>
       <value>2</value>
-      <value>Jogador B</value>
     </row>
     <row>
+      <value>1</value>
       <value>3</value>
-      <value>Jogador C</value>
     </row>
     <row>
+      <value>1</value>
       <value>4</value>
-      <value>Jogador D</value>
     </row>
     <row>
+      <value>1</value>
       <value>5</value>
-      <value>Jogador E</value>
     </row>
     <row>
+      <value>1</value>
       <value>6</value>
-      <value>Jogador F</value>
     </row>
     <row>
+      <value>1</value>
       <value>7</value>
-      <value>Jogador G</value>
     </row>
     <row>
+      <value>1</value>
       <value>8</value>
-      <value>Jogador H</value>
     </row>
   </table>
 </dataset>
