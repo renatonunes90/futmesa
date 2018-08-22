@@ -33,7 +33,7 @@ class ChampionshipTest extends TestCase
    {
       $this->assertInstanceOf( "\ValueObject\Championship", $this->instance_->getChampionshipVO() );
    }
-   
+
    public function testGetPlayers()
    {
       $players = $this->instance_->getPlayers();
@@ -42,6 +42,40 @@ class ChampionshipTest extends TestCase
       {
          $this->assertInstanceOf( "\DbLib\Player", $p );
       }
+   }
+
+   public function testGetPlayer()
+   {
+      $player = $this->instance_->getPlayer( 1 );
+      $this->assertInstanceOf( "\DbLib\Player", $player );
+
+      $player = $this->instance_->getPlayer( -1 );
+      $this->assertNull( $player );
+
+      $player = $this->instance_->getPlayer( 9 );
+      $this->assertNull( $player );
+   }
+
+   public function testGetRounds()
+   {
+      $rounds = $this->instance_->getRounds();
+      $this->assertCount( 8, $rounds );
+      foreach ( $rounds as $r )
+      {
+         $this->assertInstanceOf( "\DbLib\Round", $r );
+      }
+   }
+
+   public function testGetRound()
+   {
+      $round = $this->instance_->getRound( 1 );
+      $this->assertInstanceOf( "\DbLib\Round", $round );
+
+      $round = $this->instance_->getRound( -1 );
+      $this->assertNull( $round );
+
+      $round = $this->instance_->getRound( 9 );
+      $this->assertNull( $round );
    }
 }
 ?>

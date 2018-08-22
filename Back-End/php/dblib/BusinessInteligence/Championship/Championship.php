@@ -8,7 +8,9 @@
 namespace DBLib;
 
 use DAO\DaoChampionshipFactory;
+use DAO\DaoRoundFactory;
 
+require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ValueObjects/Championship.php";
 
 /**
@@ -24,11 +26,17 @@ class Championship
    private $championshipVO_;
 
    /**
-    * 
+    *
     * @var array Mapa de objetos do tipo Player com os participantes do campeonato.
     */
    private $players_;
-   
+
+   /**
+    *
+    * @var array Mapa de objetos do tipo Round com as rodadas do campeonato, indexado pelo seu número.
+    */
+   private $rounds_;
+
    /**
     * Construtor padrão.
     *
@@ -38,7 +46,8 @@ class Championship
    public function __construct( \ValueObject\Championship $championshipVO )
    {
       $this->championshipVO_ = $championshipVO;
-      $this->players_ = array();
+      $this->players_ = array ();
+      $this->rounds_ = array ();
    }
 
    /**
@@ -47,12 +56,20 @@ class Championship
    public function __clone()
    {
       $this->championshipVO_ = clone $this->getChampionshipVO();
-      $newPlayers = array();
+
+      $newPlayers = array ();
       foreach ( $this->players_ as $p )
       {
-         $newPlayers = clone $p;
+         $newPlayers[] = clone $p;
       }
       $this->players_ = $newPlayers;
+
+      $newRounds = array ();
+      foreach ( $this->rounds_ as $r )
+      {
+         $newRounds[] = clone $r;
+      }
+      $this->rounds_ = $newRounds;
    }
 
    /**
@@ -64,24 +81,85 @@ class Championship
    {
       return $this->championshipVO_;
    }
-   
+
    /**
-    * 
+    *
     * @return array Lista de objetos de tipo Player que participam do campeonato.
     */
-   public function getPlayers() : array
-   {      
+   public function getPlayers(): array
+   {
       $this->loadPlayers();
       return $this->players_;
    }
-   
-   private function loadPlayers( bool $forceReload = false ) : void
+
+   /**
+    *
+    * @param int $playerId
+    *           Identificador do jogador.
+    * @return \DBLib\Player|NULL Objeto contendo o jogador ou null se ele não existir.
+    */
+   public function getPlayer( int $playerId ): ?\DBLib\Player
    {
-      if ( $this->players_ == null || $forceReload )
+      $player = null;
+      $this->loadPlayers();
+
+      if ( array_key_exists( $playerId, $this->players_ ) )
+      {
+         $player = $this->players_[ $playerId ];
+      }
+
+      return $player;
+   }
+
+   /**
+    *
+    * @return array Lista de objetos de tipo Round.
+    */
+   public function getRounds(): array
+   {
+      $this->loadRounds();
+      return $this->rounds_;
+   }
+
+   /**
+    *
+    * @param int $roundNumber
+    *           Número da rodada do campeonato.
+    * @return \DBLib\Round|NULL Objeto contendo a rodada ou null se ela não existir.
+    */
+   public function getRound( int $roundNumber ): ?\DBLib\Round
+   {
+      $round = null;
+      $this->loadRounds();
+
+      if ( array_key_exists( $roundNumber, $this->rounds_ ) )
+      {
+         $round = $this->rounds_[ $roundNumber ];
+      }
+
+      return $round;
+   }
+
+   private function loadPlayers( bool $forceReload = false): void
+   {
+      if ( sizeOf( $this->players_ ) == 0 || $forceReload )
       {
          $dao = DaoChampionshipFactory::getDaoChampionship();
          $participantIds = $dao->getParticipants( $this->championshipVO_->id );
          $this->players_ = PlayerProvider::getInstance()->getPlayers( $participantIds );
+      }
+   }
+
+   private function loadRounds( bool $forceReload = false): void
+   {
+      if ( sizeOf( $this->rounds_ ) == 0 || $forceReload )
+      {
+         $dao = DaoRoundFactory::getDaoRound();
+         $rounds = $dao->getAllRounds( $this->championshipVO_->id );
+         foreach ( $rounds as $r )
+         {
+            $this->rounds_[ $r->number ] = new Round( $r );
+         }
       }
    }
 }
