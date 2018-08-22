@@ -30,6 +30,13 @@ interface DaoChampionshipInterface
     */
    public function getAllChampionships(): array;
 
+   /**
+    * Busca todos os participantes de um campeonato.
+    * @param int $championshipId Identificador do campeonato.
+    * @return array Lista com os identificadores dos participantes.
+    */
+   public function getParticipants( int $championshipId ) : array;
+   
 /**
  * Inclui novos objetos na tabela no banco de dados.
  *

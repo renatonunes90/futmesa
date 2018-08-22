@@ -19,7 +19,7 @@ class Player
     *
     * @var \ValueObject\Player VO do jogador.
     */
-   public $playerVO_;
+   private $playerVO_;
 
    /**
     * Construtor padrão.

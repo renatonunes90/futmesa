@@ -50,7 +50,7 @@ class PlayerProvider
     */
    public static function getInstance(): PlayerProvider
    {
-      if( !self::$instance_ )
+      if ( !self::$instance_ )
       {
          self::$instance_ = new self();
       }
@@ -76,18 +76,18 @@ class PlayerProvider
     *
     * @param array $ids
     *           Identificadores dos jogadores.
-    * @return array Array de objetos.
+    * @return array Mapa de objetos indexados pelos seus identificadores.
     */
    public function getPlayers( array $ids ): array
    {
       $objects = array ();
       $this->loadAllPlayers();
 
-      foreach( $ids as &$id )
+      foreach ( $ids as &$id )
       {
-         if( isset( $this->allPlayers_[ $id ] ) )
+         if ( isset( $this->allPlayers_[ $id ] ) )
          {
-            $objects[] = $this->allPlayers_[ $id ];
+            $objects[ $id ] = $this->allPlayers_[ $id ];
          }
       }
 
@@ -157,12 +157,12 @@ class PlayerProvider
     */
    private function loadAllPlayers( bool $forceReload = false): void
    {
-      if( $this->allPlayers_ == null || $forceReload )
+      if ( $this->allPlayers_ == null || $forceReload )
       {
          $this->allPlayers_ = array ();
          $objectsVO = $this->daoPlayer_->getAllPlayers();
 
-         foreach( $objectsVO as &$obj )
+         foreach ( $objectsVO as &$obj )
          {
             $this->allPlayers_[ $obj->id ] = new Player( $obj );
          }

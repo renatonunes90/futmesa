@@ -56,6 +56,24 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getParticipants()
+    */
+   public function getParticipants( int $championshipId ): array
+   {
+      $objects = array ();
+      $result = $this->db_->selectAll( "SELECT p.idplayer FROM participant p WHERE p.idchampionship = $championshipId" );
+
+      foreach ( $result as &$r )
+      {
+         $objects[] = $r[ "IDPLAYER" ];
+      }
+
+      return $objects;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool

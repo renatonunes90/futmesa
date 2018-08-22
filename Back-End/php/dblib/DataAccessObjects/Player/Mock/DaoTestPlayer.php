@@ -9,14 +9,13 @@ namespace DAO;
 
 require_once "DataAccessObjects/Player/DaoPlayerInterface.php";
 require_once "DataAccessObjects/XMLInterface.php";
-require_once "ValueObjects/TableObject.php";
+require_once "ValueObjects/Player.php";
 
 /**
  * Objeto para acessar o banco de dados de testes dos jogadores.
  */
 class DaoTestPlayer implements DaoPlayerInterface
 {
-
    const PATH = "DataAccessObjects\\Player\\Mock\\PLAYER.xml";
 
    /**
@@ -30,7 +29,7 @@ class DaoTestPlayer implements DaoPlayerInterface
       $database = new XMLInterface( self::PATH );
       $result = $database->getAllObjects( self::PLAYER );
 
-      foreach( $result as &$item )
+      foreach ( $result as &$item )
       {
          $players[] = $this->convertToPlayer( $item );
       }

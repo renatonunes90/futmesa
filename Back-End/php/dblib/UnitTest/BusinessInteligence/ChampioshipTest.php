@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once "BusinessInteligence\Championship\Championship.php";
 require_once "Providers\ChampionshipProvider.php";
+require_once "ErrorHandlers/errorhandler.php";
 
 /**
  * Testes unitários para a classe Championship.
@@ -31,6 +32,16 @@ class ChampionshipTest extends TestCase
    public function testGetChampionshipVO()
    {
       $this->assertInstanceOf( "\ValueObject\Championship", $this->instance_->getChampionshipVO() );
+   }
+   
+   public function testGetPlayers()
+   {
+      $players = $this->instance_->getPlayers();
+      $this->assertCount( 8, $players );
+      foreach ( $players as $p )
+      {
+         $this->assertInstanceOf( "\DbLib\Player", $p );
+      }
    }
 }
 ?>

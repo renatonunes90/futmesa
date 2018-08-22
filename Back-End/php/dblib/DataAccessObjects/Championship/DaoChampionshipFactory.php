@@ -40,7 +40,7 @@ class DaoChampionshipFactory
       if ( self::$loadedDao_ === null )
       {
          require_once "DataAccessObjects/Championship/DaoChampionshipInterface.php";
-         if ( !isset( $_ENV[ "UnitTest" ] ) )
+         if ( getenv( "UnitTest" ) != "1" )
          {
             require_once "DataAccessObjects/Championship/Database/DaoChampionship.php";
             self::$loadedDao_ = new DaoChampionship( ODBCConnection::getConnection() );

@@ -37,10 +37,10 @@ class DaoPlayerFactory
     */
    public static function getDaoPlayer(): DaoPlayerInterface
    {
-      if( self::$loadedDao_ === null )
+      if ( self::$loadedDao_ === null )
       {
          require_once "DataAccessObjects/Player/DaoPlayerInterface.php";
-         if( !isset( $_ENV[ "UnitTest" ] ) )
+         if ( getenv( "UnitTest" ) != "1" )
          {
             require_once "DataAccessObjects/Player/Database/DaoPlayer.php";
             self::$loadedDao_ = new DaoPlayer( ODBCConnection::getConnection() );

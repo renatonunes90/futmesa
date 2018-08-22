@@ -17,6 +17,7 @@ require_once "ValueObjects/Championship.php";
 class DaoTestChampionship implements DaoChampionshipInterface
 {
    const PATH = "DataAccessObjects\\Championship\\Mock\\CHAMPIONSHIP.xml";
+   const PARTICIPANT_PATH = "DataAccessObjects\\Championship\\Mock\\PARTICIPANT.xml";
 
    /**
     *
@@ -35,6 +36,25 @@ class DaoTestChampionship implements DaoChampionshipInterface
       }
 
       return $championships;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getParticipants()
+    */
+   public function getParticipants( int $championshipId ): array
+   {
+      $participants = array ();
+      $database = new XMLInterface( self::PARTICIPANT_PATH );
+      $result = $database->getFilteredObjects( "PARTICIPANT", array ( "IDCHAMPIONSHIP" => $championshipId ) );
+
+      foreach ( $result as &$item )
+      {
+         $participants[] = $item[ "IDPLAYER" ];
+      }
+
+      return $participants;
    }
 
    /**
