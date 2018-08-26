@@ -96,6 +96,16 @@ class Round
       return $game;
    }
 
+   /**
+    *
+    * @param array $games
+    *           Lista de objetos de tipo Game.
+    */
+   public function setGames( array $games ): void
+   {
+      $this->games_ = $games;
+   }
+
    private function loadGames( bool $forceReload = false): void
    {
       if ( sizeOf( $this->games_ ) == 0 || $forceReload )

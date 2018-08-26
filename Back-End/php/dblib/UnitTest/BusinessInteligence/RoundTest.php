@@ -44,7 +44,7 @@ class RoundTest extends TestCase
       }
    }
 
-   public function testGetRound()
+   public function testGetGame()
    {
       $game = $this->instance_->getGame( 1 );
       $this->assertInstanceOf( "\DbLib\Game", $game );
@@ -52,7 +52,7 @@ class RoundTest extends TestCase
       $game = $this->instance_->getGame( -1 );
       $this->assertNull( $game );
 
-      $game = $this->instance_->getGame( 29 );
+      $game = $this->instance_->getGame( 5 );
       $this->assertNull( $game );
    }
 }
