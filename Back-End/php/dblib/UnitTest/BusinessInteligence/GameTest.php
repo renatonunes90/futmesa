@@ -23,16 +23,48 @@ class GameTest extends TestCase
     */
    private $instance_;
 
+   /**
+    * Campeonato com todos os jogos de teste.
+    *
+    * @var \DbLib\Championship
+    */
+   private $championship_;
+
    public function setUp()
    {
-      $championship = ChampionshipProvider::getInstance()->getChampionship( 1 );
-      $round = $championship->getRound( 1 );
+      $this->championship_ = ChampionshipProvider::getInstance()->getChampionship( 1 );
+      $round = $this->championship_->getRound( 1 );
       $this->instance_ = $round->getGame( 1 );
    }
 
    public function testGetGameVO()
    {
       $this->assertInstanceOf( "\ValueObject\Game", $this->instance_->getGameVO() );
+   }
+
+   public function testGetPlayer1()
+   {
+      $player1 = $this->instance_->getPlayer1();
+      $this->assertInstanceOf( "\DbLib\Player", $player1 );
+      $this->assertEquals( "Jogador A", $player1->getPlayerVO()->name );
+   }
+
+   public function testGetPlayer2()
+   {
+      $player2 = $this->instance_->getPlayer2();
+      $this->assertInstanceOf( "\DbLib\Player", $player2 );
+      $this->assertEquals( "Jogador B", $player2->getPlayerVO()->name );
+   }
+
+   public function getResult()
+   {
+      $result = $this->instance_->getResult();
+      $this->assertInstanceOf( "\DbLib\Result", $result );
+      $this->assertEquals( 0, $result->getWinner() );
+
+      // sem resultado no banco de dados
+      $game = $this->championship_->getRound( 4 )->getGame( 13 );
+      $this->assertNull( $game->getResult() );
    }
 }
 ?>

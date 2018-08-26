@@ -70,7 +70,7 @@ class DaoGameResult implements DaoGameResultInterface
 
       foreach ( $result as &$r )
       {
-         $objects[] = $this->convertToGameResult( $r );
+         $objects[ $r[ self::IDGAME ] ] = $this->convertToGameResult( $r );
       }
 
       return $objects;

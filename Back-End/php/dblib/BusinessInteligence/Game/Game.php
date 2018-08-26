@@ -7,11 +7,10 @@
  */
 namespace DBLib;
 
-use DAO\DaoPlayerFactory;
-use DAO\DaoGameResult;
 use DAO\DaoGameResultFactory;
 
 require_once "Result.php";
+require_once "DataAccessObjects/GameResult/DaoGameResultFactory.php";
 require_once "ValueObjects/Game.php";
 
 /**
@@ -129,7 +128,11 @@ class Game
       if ( $this->result_ == null || $forceReload )
       {
          $dao = DaoGameResultFactory::getDaoGameResult();
-         $this->result_ = new Result( $dao->getResult( $this->gameVO_->id ) );
+         $result = $dao->getResult( $this->gameVO_->id );
+         if ( $result !== null )
+         {
+            $this->result_ = new Result( $result );
+         }
       }
    }
 }
