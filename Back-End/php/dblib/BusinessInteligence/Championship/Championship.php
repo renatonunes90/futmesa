@@ -9,6 +9,8 @@ namespace DBLib;
 
 use DAO\DaoChampionshipFactory;
 use DAO\DaoRoundFactory;
+use DAO\DaoGameFactory;
+use DAO\DaoGameResultFactory;
 
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ValueObjects/Championship.php";
@@ -154,11 +156,37 @@ class Championship
    {
       if ( sizeOf( $this->rounds_ ) == 0 || $forceReload )
       {
-         $dao = DaoRoundFactory::getDaoRound();
-         $rounds = $dao->getAllRounds( $this->championshipVO_->id );
+         $daoResults = DaoGameResultFactory::getDaoGameResult();
+         $allResults = $daoResults->getAllResults( $this->championshipVO_->id );
+
+         $daoGames = DaoGameFactory::getDaoGame();
+         $allGames = $daoGames->getAllGames( $this->championshipVO_->id );
+         $gamesByRound = array ();
+         foreach ( $allGames as $g )
+         {
+            if ( !array_key_exists( $g->idround, $gamesByRound ) )
+            {
+               $gamesByRound[ $g->idround ] = array ();
+            }
+
+            $game = new Game( $g );
+            if ( array_key_exists( $g->id, $allResults ) && $allResults[ $g->id ] != null )
+            {
+               $game->setResult( new Result( $allResults[ $g->id ] ) );
+            }
+
+            $gamesByRound[ $g->idround ][ $g->id ] = $game;
+         }
+
+         $daoRound = DaoRoundFactory::getDaoRound();
+         $rounds = $daoRound->getAllRounds( $this->championshipVO_->id );
          foreach ( $rounds as $r )
          {
             $this->rounds_[ $r->number ] = new Round( $r );
+            if ( isset( $gamesByRound[ $r->id ] ) )
+            {
+               $this->rounds_[ $r->number ]->setGames( $gamesByRound[ $r->id ] );
+            }
          }
       }
    }

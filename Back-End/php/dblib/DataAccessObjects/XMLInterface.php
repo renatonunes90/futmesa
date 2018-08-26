@@ -455,7 +455,14 @@ class XMLInterface
 
          foreach ( $indexFilters as $col => $value )
          {
-            $match &= ( $row->value[ $col ] == $value );
+            if ( is_array( $value ) )
+            {
+               $match &= in_array( $row->value[ $col ], $value );
+            }
+            else
+            {
+               $match &= ( $row->value[ $col ] == $value );
+            }
          }
 
          if ( $match )

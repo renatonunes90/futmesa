@@ -9,13 +9,13 @@ namespace DAO;
 
 use Database\Database;
 
-require_once "DataAccessObjects/Round/DaoRoundInterface.php";
-require_once "ValueObjects/Round.php";
+require_once "DataAccessObjects/Game/DaoGameInterface.php";
+require_once "ValueObjects/Game.php";
 
 /**
- * Objeto para acessar o banco de dados das rodadas.
+ * Objeto para acessar o banco de dados dos jogos.
  */
-class DaoRound implements DaoRoundInterface
+class DaoGame implements DaoGameInterface
 {
 
    /**
@@ -38,16 +38,38 @@ class DaoRound implements DaoRoundInterface
    /**
     *
     * {@inheritdoc}
-    * @see \DAO\DaoRoundInterface::getAllRounds()
+    * @see \DAO\DaoGameInterface::getAllGames()
     */
-   public function getAllRounds( int $championshipId ): array
+   public function getAllGames( int $championshipId ): array
    {
       $objects = array ();
-      $result = $this->db_->selectAll( "SELECT r.* FROM round r WHERE r.idchampionship = $championshipId" );
+      $result = $this->db_->selectAll(
+               "SELECT g.*
+                                          FROM game g
+                                          JOIN round r ON ( r.id = g.idround )
+                                         WHERE r.idchampionship = $championshipId" );
 
       foreach ( $result as &$r )
       {
-         $objects[ $r[ self::ID ] ] = $this->convertToRound( $r );
+         $objects[] = $this->convertToGame( $r );
+      }
+
+      return $objects;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoGameInterface::getAllGamesByRound()
+    */
+   public function getAllGamesByRound( int $roundId ): array
+   {
+      $objects = array ();
+      $result = $this->db_->selectAll( "SELECT g.* FROM game g WHERE g.idround = $roundId" );
+
+      foreach ( $result as &$r )
+      {
+         $objects[] = $this->convertToGame( $r );
       }
 
       return $objects;
@@ -137,20 +159,20 @@ class DaoRound implements DaoRoundInterface
    // }
 
    /**
-    * Converte o resultado do banco de dados em uma rodada.
+    * Converte o resultado do banco de dados em um jogo.
     *
     * @param array $result
-    *           Mapa de resultados do banco para uma rodada.
-    * @return \ValueObject\Round Rodada.
+    *           Mapa de resultados do banco para um jogo.
+    * @return \ValueObject\Game Jogo.
     */
-   private function convertToRound( array $result ): \ValueObject\Round
+   private function convertToGame( array $result ): \ValueObject\Game
    {
-      $object = new \ValueObject\Round();
+      $object = new \ValueObject\Game();
       $object->id = $result[ self::ID ];
-      $object->idchampionship = $result[ self::IDCHAMPIONSHIP ];
-      $object->basedate = $result[ self::BASEDATE ];
-      $object->basehour = $result[ self::BASEHOUR ];
-      $object->number = $result[ self::NUMBER ];
+      $object->idround = $result[ self::IDROUND ];
+      $object->idplayer1 = $result[ self::IDPLAYER1 ];
+      $object->idplayer2 = $result[ self::IDPLAYER2 ];
+      $object->gametable = $result[ self::GAMETABLE ];
       return $object;
    }
 }

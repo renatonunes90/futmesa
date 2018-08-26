@@ -7,34 +7,55 @@
  */
 namespace DAO;
 
-require_once "DataAccessObjects/Round/DaoRoundInterface.php";
+require_once "DataAccessObjects/Game/DaoGameInterface.php";
 require_once "DataAccessObjects/XMLInterface.php";
-require_once "ValueObjects/Round.php";
+require_once "ValueObjects/Game.php";
 
 /**
- * Objeto para acessar o banco de dados de testes das rodadas.
+ * Objeto para acessar o banco de dados de testes dos jogos.
  */
-class DaoTestRound implements DaoRoundInterface
+class DaoTestGame implements DaoGameInterface
 {
-   const PATH = "DataAccessObjects\\Round\\Mock\\ROUND.xml";
+   const PATH = "DataAccessObjects\\Game\\Mock\\GAME.xml";
 
    /**
     *
     * {@inheritdoc}
-    * @see \DAO\DaoRoundInterface::getAllRounds()
+    * @see \DAO\DaoGameInterface::getAllGames()
     */
-   public function getAllRounds( int $championshipId ): array
+   public function getAllGames( int $championshipId ): array
    {
-      $rounds = array ();
+      $games = array ();
+      $rounds = DaoRoundFactory::getDaoRound()->getAllRounds( $championshipId );
+
       $database = new XMLInterface( self::PATH );
-      $result = $database->getFilteredObjects( self::ROUND, array ( self::IDCHAMPIONSHIP => $championshipId ) );
+      $result = $database->getFilteredObjects( self::GAME, array ( self::IDROUND => array_keys( $rounds ) ) );
 
       foreach ( $result as &$item )
       {
-         $rounds[ $item[ self::ID ] ] = $this->convertToRound( $item );
+         $games[ $item[ self::ID ] ] = $this->convertToGame( $item );
       }
 
-      return $rounds;
+      return $games;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoGameInterface::getAllGamesByRound()
+    */
+   public function getAllGamesByRound( int $roundId ): array
+   {
+      $games = array ();
+      $database = new XMLInterface( self::PATH );
+      $result = $database->getFilteredObjects( self::GAME, array ( self::IDROUND => $roundId ) );
+
+      foreach ( $result as &$item )
+      {
+         $games[ $item[ self::ID ] ] = $this->convertToGame( $item );
+      }
+
+      return $games;
    }
 
    /**
@@ -103,20 +124,20 @@ class DaoTestRound implements DaoRoundInterface
    // }
 
    /**
-    * Converte o resultado do banco de dados em uma rodada.
+    * Converte o resultado do banco de dados em um jogo.
     *
     * @param array $result
-    *           Mapa de resultados do banco para uma rodada.
-    * @return \ValueObject\Round Rodada.
+    *           Mapa de resultados do banco para um jogo.
+    * @return \ValueObject\Game Jogo.
     */
-   private function convertToRound( array $result ): \ValueObject\Round
+   private function convertToGame( array $result ): \ValueObject\Game
    {
-      $object = new \ValueObject\Round();
+      $object = new \ValueObject\Game();
       $object->id = $result[ self::ID ];
-      $object->idchampionship = $result[ self::IDCHAMPIONSHIP ];
-      $object->basedate = $result[ self::BASEDATE ];
-      $object->basehour = $result[ self::BASEHOUR ];
-      $object->number = $result[ self::NUMBER ];
+      $object->idround = $result[ self::IDROUND ];
+      $object->idplayer1 = $result[ self::IDPLAYER1 ];
+      $object->idplayer2 = $result[ self::IDPLAYER2 ];
+      $object->gametable = $result[ self::GAMETABLE ];
       return $object;
    }
 }

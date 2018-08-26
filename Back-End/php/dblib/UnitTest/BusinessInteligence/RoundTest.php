@@ -33,5 +33,27 @@ class RoundTest extends TestCase
    {
       $this->assertInstanceOf( "\ValueObject\Round", $this->instance_->getRoundVO() );
    }
+
+   public function testGetGames()
+   {
+      $games = $this->instance_->getGames();
+      $this->assertCount( 4, $games );
+      foreach ( $games as $g )
+      {
+         $this->assertInstanceOf( "\DbLib\Game", $g );
+      }
+   }
+
+   public function testGetGame()
+   {
+      $game = $this->instance_->getGame( 1 );
+      $this->assertInstanceOf( "\DbLib\Game", $game );
+
+      $game = $this->instance_->getGame( -1 );
+      $this->assertNull( $game );
+
+      $game = $this->instance_->getGame( 5 );
+      $this->assertNull( $game );
+   }
 }
 ?>
