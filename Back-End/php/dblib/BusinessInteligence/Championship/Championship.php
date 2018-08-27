@@ -142,6 +142,18 @@ class Championship
       return $round;
    }
 
+   /**
+    * Força o recarregamento das informações do campeonato.
+    */
+   public function refresh(): void
+   {
+      $this->players_ = array ();
+      $this->rounds_ = array ();
+
+      $this->loadPlayers( true );
+      $this->loadRounds( true );
+   }
+
    private function loadPlayers( bool $forceReload = false): void
    {
       if ( sizeOf( $this->players_ ) == 0 || $forceReload )

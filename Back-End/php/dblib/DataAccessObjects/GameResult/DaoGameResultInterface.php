@@ -38,6 +38,14 @@ interface DaoGameResultInterface
     */
    public function getResult( int $gameId ): ?\ValueObject\GameResult;
 
+   /**
+    * Inclui um novo resultado no banco de dados.
+    *
+    * @param \ValueObject\GameResult $result
+    * @return bool Flag indicando se foi possível inserir o resultado.
+    */
+   public function insertResult( \ValueObject\GameResult $result ): bool;
+
 /**
  * Inclui novos objetos na tabela no banco de dados.
  *

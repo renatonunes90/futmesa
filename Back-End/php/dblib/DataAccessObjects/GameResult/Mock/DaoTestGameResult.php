@@ -61,6 +61,28 @@ class DaoTestGameResult implements DaoGameResultInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoGameResultInterface::insertResult()
+    */
+   public function insertResult( \ValueObject\GameResult $result ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $res = true;
+
+      $input = array ();
+      $input[ self::IDGAME ] = $result->idgame;
+      $input[ self::SCORE1 ] = $result->score1;
+      $input[ self::SCORE2 ] = $result->score2;
+      $input[ self::INPUTDATE ] = $result->inputdate;
+      $input[ self::IDWINNER ] = $result->idwinner;
+
+      $res = ( $database->insertItem( $input ) > -1 );
+
+      return $res;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool

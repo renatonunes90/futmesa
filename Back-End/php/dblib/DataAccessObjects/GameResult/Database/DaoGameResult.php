@@ -79,6 +79,26 @@ class DaoGameResult implements DaoGameResultInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoGameResultInterface::insertResult()
+    */
+   public function insertResult( \ValueObject\GameResult $result ): bool
+   {
+      $res = true;
+
+      $values = array ();
+      $val = array_values( ( array ) $result );
+      $values[] = $val;
+
+      $query = "INSERT INTO gameresult ( idgame, score1, score2, inputdate, idwinner )
+                     VALUES ( ?, ?, ?, ?, ? )";
+      $res = $this->db_->executeMultiplePrepared( $query, $values );
+
+      return $res;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool

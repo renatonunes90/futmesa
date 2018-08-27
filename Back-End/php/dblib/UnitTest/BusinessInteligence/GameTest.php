@@ -63,7 +63,7 @@ class GameTest extends TestCase
       $this->assertEquals( 0, $result->getWinner() );
 
       // sem resultado no banco de dados
-      $game = $this->championship_->getRound( 4 )->getGame( 13 );
+      $game = $this->championship_->getRound( 4 )->getGame( 15 );
       $this->assertNull( $game->getResult() );
    }
 }
