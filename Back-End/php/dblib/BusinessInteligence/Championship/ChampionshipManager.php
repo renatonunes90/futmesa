@@ -10,6 +10,7 @@ namespace DBLib;
 use DAO\DaoGameResultFactory;
 
 require_once "BusinessInteligence\Championship\Championship.php";
+require_once "BusinessInteligence\Championship\Classification.php";
 require_once "ErrorHandlers\ChampionshipManagerException.php";
 
 /**
@@ -67,8 +68,97 @@ class ChampionshipManager extends Championship
       }
    }
 
-   public function computateRound(): void
-   {}
+   public function getClassification( int $roundNumber ): array
+   {
+      // TODO: implementar testes
+      $classifications = array ();
+
+      $players = $this->getPlayers();
+      foreach ( $players as $p )
+      {
+         $classifications[] = $this->evaluateClassification( $p->getPlayerVO()->id, $roundNumber );
+      }
+
+      usort( $classifications,
+               function ( $a, $b )
+               {
+                  if ( $a->getPoints() > $b->getPoints() )
+                  {
+                     return -1;
+                  }
+                  else if ( $a->getPoints() < $b->getPoints() )
+                  {
+                     return 1;
+                  }
+                  else
+                  {
+                     if ( $a->getWins() > $b->getWins() )
+                     {
+                        return -1;
+                     }
+                     elseif ( $a->getWins() < $b->getWins() )
+                     {
+                        return 1;
+                     }
+                     else
+                     {
+                        if ( $a->getGoalDIfference() > $b->getGoalDIfference() )
+                        {
+                           return -1;
+                        }
+                        elseif ( $a->getGoalDIfference() < $b->getGoalDIfference() )
+                        {
+                           return 1;
+                        }
+                        else
+                        {
+                           return 0;
+                        }
+                     }
+                  }
+               } );
+
+      return $classifications;
+   }
+
+   private function evaluateClassification( int $playerId, int $roundNumber ): Classification
+   {
+      $games = $this->getGamesOfPlayer( $playerId, $roundNumber );
+      $classification = new Classification( $playerId, $roundNumber );
+
+      foreach ( $games as $g )
+      {
+         $result = $g->getResult();
+
+         // verifica vitória/empate/derrota
+         if ( $result->getWinnerId() == $playerId )
+         {
+            $classification->addWin();
+         }
+         else if ( $result->getWinnerId() == 0 )
+         {
+            $classification->addTie();
+         }
+         else
+         {
+            $classification->addLoss();
+         }
+
+         // verifica saldo
+         if ( $g->getPlayer1()->getPlayerVO()->id == $playerId )
+         {
+            $classification->addGoalsPro( $result->getScore1() );
+            $classification->addGoalsCon( $result->getScore2() );
+         }
+         else
+         {
+            $classification->addGoalsPro( $result->getScore2() );
+            $classification->addGoalsCon( $result->getScore1() );
+         }
+      }
+
+      return $classification;
+   }
 
    private function getGame( int $gameId ): ?\DbLib\Game
    {
@@ -82,5 +172,20 @@ class ChampionshipManager extends Championship
          }
       }
       return $game;
+   }
+
+   private function getGamesOfPlayer( int $playerId, int $roundNumber ): array
+   {
+      $games = array ();
+      for ( $i = 1; $i <= $roundNumber; $i++ )
+      {
+         $round = $this->getRound( $i );
+         $game = $round->getGameOfPlayer( $playerId );
+         if ( $game != null && $game->getResult() != null )
+         {
+            $games[] = $game;
+         }
+      }
+      return $games;
    }
 }

@@ -107,6 +107,17 @@ class Game
 
    /**
     *
+    * @param int $playerId
+    * @return bool Flag indicando se o jogador está no jogo.
+    */
+   public function hasPlayer( int $playerId ): bool
+   {
+      // @todo: implementar testes
+      return $playerId == $this->getPlayer1()->getPlayerVO()->id || $playerId == $this->getPlayer2()->getPlayerVO()->id;
+   }
+
+   /**
+    *
     * @return \DbLib\Result
     */
    public function setResult( \DbLib\Result $result ): void

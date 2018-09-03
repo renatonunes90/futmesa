@@ -97,6 +97,31 @@ class Round
    }
 
    /**
+    * Verifica e retrona qual jogo da rodada o jogador estava.
+    *
+    * @param int $playerId
+    *           Identificador do jogador.
+    * @return \DBLib\Game|NULL Objeto contendo o jogo do jogador ou null se ele não existir.
+    */
+   public function getGameOfPlayer( int $playerId ): ?\DBLib\Game
+   {
+      // @todo: implementar testes
+      $game = null;
+      $this->loadGames();
+
+      foreach ( $this->games_ as $g )
+      {
+         if ( $g->hasPlayer( $playerId ) )
+         {
+            $game = $g;
+            break;
+         }
+      }
+
+      return $game;
+   }
+
+   /**
     *
     * @param array $games
     *           Lista de objetos de tipo Game.
