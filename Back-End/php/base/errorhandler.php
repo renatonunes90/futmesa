@@ -106,10 +106,10 @@ function logFileError( string $errMsg ): void
 
    $logpath = sys_get_temp_dir() . "\\" . $logpath;
 
-   if( !error_log( date( "Y/m/d H:i:s" ) . " - " . $errMsg . "\n", 3, $logpath ) )
-   {
+   //if( !error_log( date( "Y/m/d H:i:s" ) . " - " . $errMsg . "\n", 3, $logpath ) )
+   //{
       // não conseguiu escrever no arquivo de log
-   }
+   //}
 }
 
 set_error_handler( "errorHandler", error_reporting() );
