@@ -1,11 +1,11 @@
 version: '3'
 services:
   db:
-    image: jacobalberty/firebird:3-ss
+    image: jacobalberty/firebird
     ports:
-      - 3050:3050
+      - 3051:3050
     volumes:
-      - ./Database:/var/lib/firebird/2.5/data/ 
+      - ./Database:/databases
   php:
     image: futmesa-backend
     ports:

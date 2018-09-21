@@ -1,6 +1,9 @@
 <?php
 use DBLib\ChampionshipProvider;
 
+// grava hora para benchmark no caso de debug
+$debugtime = microtime( true );
+
 require_once "common/util.php";
 require_once "base/includes.php";
 

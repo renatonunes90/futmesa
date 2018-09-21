@@ -53,8 +53,10 @@ class Database
    public function __construct( string $database, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "odbc" ,"username" => "sysdba" ,"password" => "masterkey" ,"hostspec" => "localhost" ,"database" => $database );
-
+      $dsn = array ( "phptype" => "ibase" ,"username" => "sysdba" ,"password" => "masterkey" ,"hostspec" => "localhost:3050" ,"database" => $database );
+      
+      $conn  = \ibase_connect('localhost:3051/futmesa.fdb', 'sysdba', 'masterkey');
+      
       $this->db_ = \DB::connect( $dsn );
       if( \PEAR::isError( $this->db_ ) )
       {
