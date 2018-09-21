@@ -13,7 +13,7 @@ use Database\ODBCConnection;
 $debugtime = microtime( true );
 
 // Adicionando o caminho do PEAR relativo ao PHP usado.
-set_include_path( get_include_path() . ";" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
+set_include_path( get_include_path() . ":" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "/pear" );
 
 // Inicia a sessão para termos dados.
 session_start();

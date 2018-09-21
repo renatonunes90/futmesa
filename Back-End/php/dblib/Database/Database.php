@@ -8,11 +8,11 @@
 namespace Database;
 
 // Verifica se o include path ainda não tem o PEAR.
-$include_path = get_include_path();
-if( strpos( $include_path, "pear" ) === false )
-{
-   set_include_path( "$include_path;" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
-}
+// $include_path = get_include_path();
+// if( strpos( $include_path, "pear" ) === false )
+// {
+//    set_include_path( "$include_path;" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
+// }
 require_once "DB.php";
 
 /**
