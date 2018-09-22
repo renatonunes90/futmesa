@@ -56,22 +56,45 @@ class GameTest extends TestCase
       $this->assertEquals( "Jogador B", $player2->getPlayerVO()->name );
    }
 
-   public function getResult()
-   {
-      $result = $this->instance_->getResult();
-      $this->assertInstanceOf( "\DbLib\Result", $result );
-      $this->assertEquals( 0, $result->getWinner() );
-
-      // sem resultado no banco de dados
-      $game = $this->championship_->getRound( 4 )->getGame( 15 );
-      $this->assertNull( $game->getResult() );
-   }
-
    public function testHasPlayer()
    {
       $this->assertTrue( $this->instance_->hasPlayer( 1 ) );
       $this->assertTrue( $this->instance_->hasPlayer( 2 ) );
       $this->assertFalse( $this->instance_->hasPlayer( 4 ) );
+   }
+
+   public function testGetScore1()
+   {
+      $this->assertEquals( 1, $this->instance_->getScore1() );
+   }
+
+   public function testGetScore2()
+   {
+      $this->assertEquals( 1, $this->instance_->getScore2() );
+   }
+
+   public function testGetWinner()
+   {
+      $this->assertEquals( 0, $this->instance_->getWinner() );
+
+      $round = $this->championship_->getRound( 1 );
+      $anotherGame = $round->getGame( 2 );
+      $this->assertEquals( 1, $anotherGame->getWinner() );
+
+      $anotherGame = $round->getGame( 3 );
+      $this->assertEquals( 2, $anotherGame->getWinner() );
+   }
+
+   public function testGetWinnerId()
+   {
+      $this->assertEquals( 0, $this->instance_->getWinnerId() );
+
+      $round = $this->championship_->getRound( 1 );
+      $anotherGame = $round->getGame( 2 );
+      $this->assertEquals( 3, $anotherGame->getWinnerId() );
+
+      $anotherGame = $round->getGame( 3 );
+      $this->assertEquals( 6, $anotherGame->getWinnerId() );
    }
 }
 ?>

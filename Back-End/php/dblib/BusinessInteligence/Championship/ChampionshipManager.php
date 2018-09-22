@@ -7,7 +7,7 @@
  */
 namespace DBLib;
 
-use DAO\DaoGameResultFactory;
+use DAO\DaoGameFactory;
 
 require_once "BusinessInteligence\Championship\Championship.php";
 require_once "BusinessInteligence\Championship\Classification.php";
@@ -35,29 +35,22 @@ class ChampionshipManager extends Championship
       $game = $this->getGame( $gameId );
       if ( $game != null )
       {
-         $result = new \ValueObject\GameResult();
-         $result->idgame = $gameId;
-         $result->score1 = $score1;
-         $result->score2 = $score2;
-         $result->inputdate = date( "m-d-Y H:i" );
-         $result->idwinner = 0;
+         $game->getGameVO()->score1 = $score1;
+         $game->getGameVO()->score2 = $score2;
+         $game->getGameVO()->inputdate = date( "m-d-Y H:i" );
+         $game->getGameVO()->idwinner = 0;
 
          if ( $score1 > $score2 )
          {
-            $result->idwinner = $game->getGameVO()->idplayer1;
+            $game->getGameVO()->idwinner = $game->getGameVO()->idplayer1;
          }
          else if ( $score1 < $score2 )
          {
-            $result->idwinner = $game->getGameVO()->idplayer2;
+            $game->getGameVO()->idwinner = $game->getGameVO()->idplayer2;
          }
 
-         $daoResult = DaoGameResultFactory::getDaoGameResult();
-         if ( $daoResult->insertResult( $result ) )
-         {
-            // atualiza o jogo com o resultado em memória
-            $game->setResult( new Result( $result ) );
-         }
-         else
+         $daoResult = DaoGameFactory::getDaoGame();
+         if ( !$daoResult->updateResult( $game->getGameVO() ) )
          {
             throw new ChampionshipManagerException( "Erro inserindo resultado no banco de dados." );
          }
@@ -133,14 +126,12 @@ class ChampionshipManager extends Championship
 
       foreach ( $games as $g )
       {
-         $result = $g->getResult();
-
          // verifica vitória/empate/derrota
-         if ( $result->getWinnerId() == $playerId )
+         if ( $g->getWinnerId() == $playerId )
          {
             $classification->addWin();
          }
-         else if ( $result->getWinnerId() == 0 )
+         else if ( $g->getWinnerId() == 0 )
          {
             $classification->addTie();
          }
@@ -152,13 +143,13 @@ class ChampionshipManager extends Championship
          // verifica saldo
          if ( $g->getPlayer1()->getPlayerVO()->id == $playerId )
          {
-            $classification->addGoalsPro( $result->getScore1() );
-            $classification->addGoalsCon( $result->getScore2() );
+            $classification->addGoalsPro( $g->getScore1() );
+            $classification->addGoalsCon( $g->getScore2() );
          }
          else
          {
-            $classification->addGoalsPro( $result->getScore2() );
-            $classification->addGoalsCon( $result->getScore1() );
+            $classification->addGoalsPro( $g->getScore2() );
+            $classification->addGoalsCon( $g->getScore1() );
          }
       }
 
@@ -186,7 +177,7 @@ class ChampionshipManager extends Championship
       {
          $round = $this->getRound( $i );
          $game = $round->getGameOfPlayer( $playerId );
-         if ( $game != null && $game->getResult() != null )
+         if ( $game != null && $game->hasResult() )
          {
             $games[] = $game;
          }

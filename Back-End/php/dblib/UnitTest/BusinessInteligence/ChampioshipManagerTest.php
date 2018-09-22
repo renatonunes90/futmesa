@@ -33,13 +33,11 @@ class ChampionshipManagerTest extends TestCase
       $this->instance_->insertResult( 13, 3, 0 );
 
       $game = $this->instance_->getRound( 4 )->getGame( 13 );
-      $this->assertInstanceOf( "\DbLib\Result", $game->getResult() );
-      $this->assertEquals( 1, $game->getResult()->getWinner() );
+      $this->assertEquals( 1, $game->getWinner() );
 
       $this->instance_->refresh();
       $game = $this->instance_->getRound( 4 )->getGame( 13 );
-      $this->assertInstanceOf( "\DbLib\Result", $game->getResult() );
-      $this->assertEquals( 1, $game->getResult()->getWinner() );
+      $this->assertEquals( 1, $game->getWinner() );
    }
 
    /**

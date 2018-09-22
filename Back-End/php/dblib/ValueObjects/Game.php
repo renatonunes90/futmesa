@@ -44,4 +44,28 @@ class Game extends ValueObject
     * @var int Número da mesa de jogo.
     */
    public $gametable;
+
+   /**
+    *
+    * @var int Gols do jogador 1 no jogo.
+    */
+   public $score1;
+
+   /**
+    *
+    * @var int Gols do jogador 2 no jogo.
+    */
+   public $score2;
+
+   /**
+    *
+    * @var mixed Horário que o resultado foi inserido.
+    */
+   public $inputdate;
+
+   /**
+    *
+    * @var int Identificador do jogador vencedor.
+    */
+   public $idwinner;
 }
