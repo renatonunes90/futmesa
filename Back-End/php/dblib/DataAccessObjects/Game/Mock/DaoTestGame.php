@@ -61,6 +61,30 @@ class DaoTestGame implements DaoGameInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoGameInterface::updateResult()
+    */
+   public function updateResult( \ValueObject\Game $result ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $res = true;
+
+      $filter = array ();
+      $filter[ self::ID ] = $result->id;
+
+      $input = array ();
+      $input[ self::SCORE1 ] = $result->score1;
+      $input[ self::SCORE2 ] = $result->score2;
+      $input[ self::INPUTDATE ] = $result->inputdate;
+      $input[ self::IDWINNER ] = $result->idwinner;
+
+      $res = ( $database->updateFile( $filter, $input ) > -1 );
+
+      return $res;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool
@@ -138,6 +162,10 @@ class DaoTestGame implements DaoGameInterface
       $object->idplayer1 = $result[ self::IDPLAYER1 ];
       $object->idplayer2 = $result[ self::IDPLAYER2 ];
       $object->gametable = $result[ self::GAMETABLE ];
+      $object->score1 = $result[ self::SCORE1 ];
+      $object->score2 = $result[ self::SCORE2 ];
+      $object->inputdate = $result[ self::INPUTDATE ];
+      $object->idwinner = $result[ self::IDWINNER ];
       return $object;
    }
 }

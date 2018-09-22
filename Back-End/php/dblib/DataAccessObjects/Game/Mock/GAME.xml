@@ -7,12 +7,20 @@
     <column>IDPLAYER1</column>
     <column>IDPLAYER2</column>
     <column>GAMETABLE</column>
+    <column>SCORE1</column>
+    <column>SCORE2</column>
+    <column>INPUTDATE</column>
+    <column>IDWINNER</column>
     <row>
       <value>1</value>
       <value>1</value>
       <value>1</value>
       <value>2</value>
       <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>07.01.2018, 22:00:00.000</value>
+      <value>0</value>
     </row>
     <row>
       <value>2</value>
@@ -20,6 +28,10 @@
       <value>3</value>
       <value>4</value>
       <value>2</value>
+      <value>2</value>
+      <value>0</value>
+      <value>07.01.2018, 22:00:00.000</value>
+      <value>3</value>
     </row>
     <row>
       <value>3</value>
@@ -27,6 +39,10 @@
       <value>5</value>
       <value>6</value>
       <value>3</value>
+      <value>0</value>
+      <value>2</value>
+      <value>07.01.2018, 22:00:00.000</value>
+      <value>6</value>
     </row>
     <row>
       <value>4</value>
@@ -34,6 +50,10 @@
       <value>7</value>
       <value>8</value>
       <value>4</value>
+      <value>0</value>
+      <value>1</value>
+      <value>07.01.2018, 22:00:00.000</value>
+      <value>8</value>
     </row>
     <row>
       <value>5</value>
@@ -41,12 +61,20 @@
       <value>1</value>
       <value>3</value>
       <value>1</value>
+      <value>0</value>
+      <value>1</value>
+      <value>07.02.2018, 22:00:00.000</value>
+      <value>3</value>
     </row>
     <row>
       <value>6</value>
       <value>2</value>
       <value>2</value>
       <value>4</value>
+      <value>2</value>
+      <value>3</value>
+      <value>0</value>
+      <value>07.02.2018, 22:00:00.000</value>
       <value>2</value>
     </row>
     <row>
@@ -55,6 +83,10 @@
       <value>5</value>
       <value>7</value>
       <value>3</value>
+      <value>2</value>
+      <value>2</value>
+      <value>07.02.2018, 22:00:00.000</value>
+      <value>0</value>
     </row>
     <row>
       <value>8</value>
@@ -62,12 +94,20 @@
       <value>6</value>
       <value>8</value>
       <value>4</value>
+      <value>1</value>
+      <value>0</value>
+      <value>07.02.2018, 22:00:00.000</value>
+      <value>6</value>
     </row>
     <row>
       <value>9</value>
       <value>3</value>
       <value>1</value>
       <value>4</value>
+      <value>1</value>
+      <value>2</value>
+      <value>1</value>
+      <value>07.03.2018, 22:00:00.000</value>
       <value>1</value>
     </row>
     <row>
@@ -76,6 +116,10 @@
       <value>2</value>
       <value>3</value>
       <value>2</value>
+      <value>3</value>
+      <value>3</value>
+      <value>07.03.2018, 22:00:00.000</value>
+      <value>0</value>
     </row>
     <row>
       <value>11</value>
@@ -83,6 +127,10 @@
       <value>5</value>
       <value>8</value>
       <value>3</value>
+      <value>1</value>
+      <value>3</value>
+      <value>07.03.2018, 22:00:00.000</value>
+      <value>8</value>
     </row>
     <row>
       <value>12</value>
@@ -90,6 +138,10 @@
       <value>6</value>
       <value>7</value>
       <value>4</value>
+      <value>0</value>
+      <value>1</value>
+      <value>07.03.2018, 22:00:00.000</value>
+      <value>7</value>
     </row>
     <row>
       <value>13</value>
@@ -97,6 +149,10 @@
       <value>1</value>
       <value>5</value>
       <value>1</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>14</value>
@@ -104,6 +160,10 @@
       <value>3</value>
       <value>7</value>
       <value>2</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>15</value>
@@ -111,6 +171,10 @@
       <value>2</value>
       <value>6</value>
       <value>3</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>16</value>
@@ -118,6 +182,10 @@
       <value>4</value>
       <value>8</value>
       <value>4</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>17</value>
@@ -125,6 +193,10 @@
       <value>1</value>
       <value>6</value>
       <value>1</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>18</value>
@@ -132,6 +204,10 @@
       <value>3</value>
       <value>8</value>
       <value>2</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>19</value>
@@ -139,6 +215,10 @@
       <value>2</value>
       <value>5</value>
       <value>3</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>20</value>
@@ -146,6 +226,10 @@
       <value>4</value>
       <value>7</value>
       <value>4</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>21</value>
@@ -153,6 +237,10 @@
       <value>1</value>
       <value>7</value>
       <value>1</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>22</value>
@@ -160,6 +248,10 @@
       <value>3</value>
       <value>5</value>
       <value>2</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>23</value>
@@ -167,6 +259,10 @@
       <value>2</value>
       <value>8</value>
       <value>3</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>24</value>
@@ -174,6 +270,10 @@
       <value>4</value>
       <value>6</value>
       <value>4</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>25</value>
@@ -181,6 +281,10 @@
       <value>1</value>
       <value>8</value>
       <value>1</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>26</value>
@@ -188,6 +292,10 @@
       <value>3</value>
       <value>6</value>
       <value>2</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>27</value>
@@ -195,6 +303,10 @@
       <value>2</value>
       <value>7</value>
       <value>3</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
     <row>
       <value>28</value>
@@ -202,6 +314,10 @@
       <value>4</value>
       <value>5</value>
       <value>4</value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
     </row>
   </table>
 </dataset>

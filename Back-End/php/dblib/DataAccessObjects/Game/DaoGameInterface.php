@@ -21,6 +21,10 @@ interface DaoGameInterface
    const IDPLAYER1 = "IDPLAYER1";
    const IDPLAYER2 = "IDPLAYER2";
    const GAMETABLE = "GAMETABLE";
+   const SCORE1 = "SCORE1";
+   const SCORE2 = "SCORE2";
+   const INPUTDATE = "INPUTDATE";
+   const IDWINNER = "IDWINNER";
 
    /**
     * Busca todos os jogos de um campeonato do banco de dados.
@@ -37,6 +41,14 @@ interface DaoGameInterface
     * @return array Mapa de objetos do tipo Game indexados pelo seu identificador.
     */
    public function getAllGamesByRound( int $roundId ): array;
+
+   /**
+    * Atualiza o resultado de jogo no banco de dados.
+    *
+    * @param \ValueObject\Game $result
+    * @return bool Flag indicando se foi possível atualizar o resultado.
+    */
+   public function updateResult( \ValueObject\Game $result ): bool;
 
 /**
  * Inclui novos objetos na tabela no banco de dados.

@@ -7,10 +7,6 @@
  */
 namespace DBLib;
 
-use DAO\DaoGameResultFactory;
-
-require_once "Result.php";
-require_once "DataAccessObjects/GameResult/DaoGameResultFactory.php";
 require_once "ValueObjects/Game.php";
 
 /**
@@ -38,12 +34,6 @@ class Game
    private $player2_;
 
    /**
-    *
-    * @var \DBLib\Result
-    */
-   private $result_;
-
-   /**
     * Construtor padrão.
     *
     * @param \ValueObject\Game $gameVO
@@ -54,7 +44,6 @@ class Game
       $this->gameVO_ = $gameVO;
       $this->player1_ = null;
       $this->player2_ = null;
-      $this->result_ = null;
    }
 
    /**
@@ -97,21 +86,73 @@ class Game
 
    /**
     *
-    * @return \DbLib\Result
+    * @return int Número de gols do jogador 1. -1 se o jogo ainda não aconteceu.
     */
-   public function getResult(): ?\DbLib\Result
+   public function getScore1(): int
    {
-      $this->loadResult();
-      return $this->result_;
+      return $this->hasResult() ? $this->gameVO_->score1 : -1;
    }
 
    /**
     *
-    * @return \DbLib\Result
+    * @return int Número de gols do jogador 2. -1 se o jogo ainda não aconteceu.
     */
-   public function setResult( \DbLib\Result $result ): void
+   public function getScore2(): int
    {
-      $this->result_ = $result;
+      return $this->hasResult() ? $this->gameVO_->score2 : -1;
+   }
+
+   /**
+    *
+    * @return int Número do jogador vencedor (1 ou 2) ou 0 se houve empate. -1 se o jogo ainda não aconteceu.
+    */
+   public function getWinner(): int
+   {
+      $winner = -1;
+
+      if ( $this->hasResult() )
+      {
+         $winner = 0;
+
+         if ( $this->getScore1() > $this->getScore2() )
+         {
+            $winner = 1;
+         }
+         else if ( $this->getScore1() < $this->getScore2() )
+         {
+            $winner = 2;
+         }
+      }
+
+      return $winner;
+   }
+
+   /**
+    *
+    * @return int Identificador do jogador vencedor. -1 se o jogo ainda não aconteceu.
+    */
+   public function getWinnerId(): int
+   {
+      return $this->hasResult() ? $this->gameVO_->idwinner : -1;
+   }
+
+   /**
+    *
+    * @param int $playerId
+    * @return bool Flag indicando se o jogador está no jogo.
+    */
+   public function hasPlayer( int $playerId ): bool
+   {
+      return $playerId == $this->getPlayer1()->getPlayerVO()->id || $playerId == $this->getPlayer2()->getPlayerVO()->id;
+   }
+
+   /**
+    *
+    * @return bool Flag indicando se o resultado foi setado.
+    */
+   public function hasResult(): bool
+   {
+      return $this->gameVO_->score1 !== null && $this->gameVO_->score2 !== null;
    }
 
    private function loadPlayers( bool $forceReload = false): void
@@ -120,19 +161,6 @@ class Game
       {
          $this->player1_ = PlayerProvider::getInstance()->getPlayer( $this->gameVO_->idplayer1 );
          $this->player2_ = PlayerProvider::getInstance()->getPlayer( $this->gameVO_->idplayer2 );
-      }
-   }
-
-   private function loadResult( bool $forceReload = false): void
-   {
-      if ( $this->result_ == null || $forceReload )
-      {
-         $dao = DaoGameResultFactory::getDaoGameResult();
-         $result = $dao->getResult( $this->gameVO_->id );
-         if ( $result !== null )
-         {
-            $this->result_ = new Result( $result );
-         }
       }
    }
 }
