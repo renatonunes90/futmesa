@@ -112,7 +112,6 @@ class Game
     */
    public function hasPlayer( int $playerId ): bool
    {
-      // @todo: implementar testes
       return $playerId == $this->getPlayer1()->getPlayerVO()->id || $playerId == $this->getPlayer2()->getPlayerVO()->id;
    }
 

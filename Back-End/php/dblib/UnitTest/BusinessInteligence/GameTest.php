@@ -66,5 +66,12 @@ class GameTest extends TestCase
       $game = $this->championship_->getRound( 4 )->getGame( 15 );
       $this->assertNull( $game->getResult() );
    }
+
+   public function testHasPlayer()
+   {
+      $this->assertTrue( $this->instance_->hasPlayer( 1 ) );
+      $this->assertTrue( $this->instance_->hasPlayer( 2 ) );
+      $this->assertFalse( $this->instance_->hasPlayer( 4 ) );
+   }
 }
 ?>

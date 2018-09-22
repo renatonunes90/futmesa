@@ -105,7 +105,6 @@ class Round
     */
    public function getGameOfPlayer( int $playerId ): ?\DBLib\Game
    {
-      // @todo: implementar testes
       $game = null;
       $this->loadGames();
 

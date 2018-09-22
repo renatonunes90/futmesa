@@ -68,9 +68,14 @@ class ChampionshipManager extends Championship
       }
    }
 
+   /**
+    * Calcula a classificação do campeonato em uma dada rodada.
+    *
+    * @param int $roundNumber
+    * @return array Lista ordenada do melhor ao pior classificado no campeonato, com suas estatísticas.
+    */
    public function getClassification( int $roundNumber ): array
    {
-      // TODO: implementar testes
       $classifications = array ();
 
       $players = $this->getPlayers();
