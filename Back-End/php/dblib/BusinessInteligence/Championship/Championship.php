@@ -10,7 +10,6 @@ namespace DBLib;
 use DAO\DaoChampionshipFactory;
 use DAO\DaoRoundFactory;
 use DAO\DaoGameFactory;
-use DAO\DaoGameResultFactory;
 
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ValueObjects/Championship.php";
@@ -142,6 +141,18 @@ class Championship
       return $round;
    }
 
+   /**
+    * Força o recarregamento das informações do campeonato.
+    */
+   public function refresh(): void
+   {
+      $this->players_ = array ();
+      $this->rounds_ = array ();
+
+      $this->loadPlayers( true );
+      $this->loadRounds( true );
+   }
+
    private function loadPlayers( bool $forceReload = false): void
    {
       if ( sizeOf( $this->players_ ) == 0 || $forceReload )
@@ -156,9 +167,6 @@ class Championship
    {
       if ( sizeOf( $this->rounds_ ) == 0 || $forceReload )
       {
-         $daoResults = DaoGameResultFactory::getDaoGameResult();
-         $allResults = $daoResults->getAllResults( $this->championshipVO_->id );
-
          $daoGames = DaoGameFactory::getDaoGame();
          $allGames = $daoGames->getAllGames( $this->championshipVO_->id );
          $gamesByRound = array ();
@@ -170,11 +178,6 @@ class Championship
             }
 
             $game = new Game( $g );
-            if ( array_key_exists( $g->id, $allResults ) && $allResults[ $g->id ] != null )
-            {
-               $game->setResult( new Result( $allResults[ $g->id ] ) );
-            }
-
             $gamesByRound[ $g->idround ][ $g->id ] = $game;
          }
 

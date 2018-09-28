@@ -55,5 +55,14 @@ class RoundTest extends TestCase
       $game = $this->instance_->getGame( 5 );
       $this->assertNull( $game );
    }
+
+   public function getGameOfPlayer()
+   {
+      $game = $this->instance_->getGameOfPlayer( 5 );
+      $this->assertInstanceOf( "\DbLib\Game", $game );
+
+      $this->assertEquals( 5, $game->getPlayer1()->getPlayerVO()->id );
+      $this->assertEquals( 6, $game->getPlayer1()->getPlayerVO()->id );
+   }
 }
 ?>

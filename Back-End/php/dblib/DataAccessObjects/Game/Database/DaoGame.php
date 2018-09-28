@@ -78,6 +78,25 @@ class DaoGame implements DaoGameInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoGameInterface::updateResult()
+    */
+   public function updateResult( \ValueObject\Game $result ): bool
+   {
+      $res = true;
+
+      $values = array ();
+      $val = array ( $result->score1, $result->score2, $result->inputdate, $result->idwinner, $result->id );
+      $values[] = $val;
+
+      $query = "UPDATE game SET score1 = ?, score2 = ?, inputdate = ?, idwinner = ? WHERE id = ?";
+      $res = $this->db_->executeMultiplePrepared( $query, $values );
+
+      return $res;
+   }
+
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool
@@ -173,6 +192,10 @@ class DaoGame implements DaoGameInterface
       $object->idplayer1 = $result[ self::IDPLAYER1 ];
       $object->idplayer2 = $result[ self::IDPLAYER2 ];
       $object->gametable = $result[ self::GAMETABLE ];
+      $object->score1 = $result[ self::SCORE1 ];
+      $object->score2 = $result[ self::SCORE2 ];
+      $object->inputdate = $result[ self::INPUTDATE ];
+      $object->idwinner = $result[ self::IDWINNER ];
       return $object;
    }
 }

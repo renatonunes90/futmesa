@@ -50,7 +50,7 @@ class ChampionshipProvider
     */
    public static function getInstance(): ChampionshipProvider
    {
-      if( !self::$instance_ )
+      if ( !self::$instance_ )
       {
          self::$instance_ = new self();
       }
@@ -65,7 +65,7 @@ class ChampionshipProvider
     *           Identificador do campeonato.
     * @return Championship|NULL Um campeonato ou nulo se ele não existir.
     */
-   public function getChampionship( int $id ): ?Championship
+   public function getChampionship( int $id ): ?ChampionshipManager
    {
       $this->loadAllChampionships();
       return array_key_exists( $id, $this->allChampionships_ ) ? $this->allChampionships_[ $id ] : null;
@@ -83,9 +83,9 @@ class ChampionshipProvider
       $objects = array ();
       $this->loadAllChampionships();
 
-      foreach( $ids as &$id )
+      foreach ( $ids as &$id )
       {
-         if( isset( $this->allChampionships_[ $id ] ) )
+         if ( isset( $this->allChampionships_[ $id ] ) )
          {
             $objects[] = $this->allChampionships_[ $id ];
          }
@@ -157,14 +157,14 @@ class ChampionshipProvider
     */
    private function loadAllChampionships( bool $forceReload = false): void
    {
-      if( $this->allChampionships_ == null || $forceReload )
+      if ( $this->allChampionships_ == null || $forceReload )
       {
          $this->allChampionships_ = array ();
          $objectsVO = $this->daoChampionship_->getAllChampionships();
 
-         foreach( $objectsVO as &$obj )
+         foreach ( $objectsVO as &$obj )
          {
-            $this->allChampionships_[ $obj->id ] = new Championship( $obj );
+            $this->allChampionships_[ $obj->id ] = new ChampionshipManager( $obj );
          }
       }
    }
