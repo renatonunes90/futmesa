@@ -20,7 +20,7 @@ class ODBCConnection
     *
     * @var string
     */
-   private static $odbcName_ = "D:\\Projetos\\Futmesa\\Database\\FUTMESA.FDB";
+   private static $odbcName_ = "/FUTMESA.FDB";
 
    /**
     * Flag para determinar se é para mostrar mensagens de desenvolvimento.

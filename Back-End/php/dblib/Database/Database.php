@@ -8,10 +8,9 @@
 namespace Database;
 
 // Verifica se o include path ainda não tem o PEAR.
-$include_path = get_include_path();
-if( strpos( $include_path, "pear" ) === false )
+if( strpos( get_include_path(), "pear" ) === false && ( stripos( php_uname( "s" ), "Linux" ) === false )  )
 {
-   set_include_path( "$include_path;" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
+   set_include_path( get_include_path() . ";" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
 }
 
 require_once "DB.php";
@@ -54,8 +53,9 @@ class Database
    public function __construct( string $database, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "ibase" ,"username" => "sysdba" ,"password" => "masterkey" ,"hostspec" => "localhost" ,"database" => $database );
-      
+      $dsn = array ( "phptype" => "ibase" ,"username" => "SYSDBA" ,"password" => "masterkey" ,"hostspec" => "db" ,"database" => $database );
+      $conn  = ibase_connect('db:/FUTMESA.FDB', 'SYSDBA', 'masterkey' );
+      echo "CAIU AQUI".
       $this->db_ = \DB::connect( $dsn );
       if( \PEAR::isError( $this->db_ ) )
       {
