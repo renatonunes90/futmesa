@@ -8,11 +8,12 @@
 namespace Database;
 
 // Verifica se o include path ainda não tem o PEAR.
-// $include_path = get_include_path();
-// if( strpos( $include_path, "pear" ) === false )
-// {
-//    set_include_path( "$include_path;" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
-// }
+$include_path = get_include_path();
+if( strpos( $include_path, "pear" ) === false )
+{
+   set_include_path( "$include_path;" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
+}
+
 require_once "DB.php";
 
 /**
@@ -53,9 +54,7 @@ class Database
    public function __construct( string $database, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "ibase" ,"username" => "sysdba" ,"password" => "masterkey" ,"hostspec" => "localhost:3050" ,"database" => $database );
-      
-      $conn  = \ibase_connect('localhost:3051/futmesa.fdb', 'sysdba', 'masterkey');
+      $dsn = array ( "phptype" => "ibase" ,"username" => "sysdba" ,"password" => "masterkey" ,"hostspec" => "localhost" ,"database" => $database );
       
       $this->db_ = \DB::connect( $dsn );
       if( \PEAR::isError( $this->db_ ) )
@@ -116,7 +115,7 @@ class Database
       $this->lastError_ = "";
 
       // Prepara a consulta.
-      $prepared = odbc_prepare( $this->db_->connection, $sql );
+      $prepared = ibase_prepare( $this->db_->connection, $sql );
       if( $prepared === false )
       {
          $this->lastError_ = "Erro preparando SQL:\n$sql";
@@ -125,8 +124,10 @@ class Database
       {
          foreach( $values as $v )
          {
-            // executa a inserção no banco de dados
-            if( !( odbc_execute( $prepared, $v ) ) )
+            // workaround para passar o parâmetros como array para o execute
+            array_unshift( $v, $prepared );
+            $rc = call_user_func_array('ibase_execute', $v );
+            if( !$rc ) 
             {
                $this->lastError_ = "Erro com dados:\n" . implode( ",", $v );
                $result = false;
