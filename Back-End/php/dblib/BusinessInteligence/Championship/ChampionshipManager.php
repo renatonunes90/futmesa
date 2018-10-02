@@ -9,9 +9,9 @@ namespace DBLib;
 
 use DAO\DaoGameFactory;
 
-require_once "BusinessInteligence\Championship\Championship.php";
-require_once "BusinessInteligence\Championship\Classification.php";
-require_once "ErrorHandlers\ChampionshipManagerException.php";
+require_once "BusinessInteligence/Championship/Championship.php";
+require_once "BusinessInteligence/Championship/Classification.php";
+require_once "ErrorHandlers/ChampionshipManagerException.php";
 
 /**
  * A responsabilidade desta classe é ter todas funções lógicas de gerenciamento de um campeonato.
