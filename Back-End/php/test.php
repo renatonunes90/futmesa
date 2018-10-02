@@ -1,11 +1,12 @@
 <?php
 use DBLib\ChampionshipProvider;
+use DBLib\PlayerProvider;
 
 // grava hora para benchmark no caso de debug
 $debugtime = microtime( true );
 
-// require_once "common/util.php";
-// require_once "base/includes.php";
+require_once "common/util.php";
+require_once "base/includes.php";
 
 echo "Hello world!";
 echo "<br><br>";
@@ -19,6 +20,10 @@ require_once "dblib/dblib.php";
 echo "<br>incluiu";
 
 echo "<br><br>";
+echo "Todos os campeonatos:<BR>";
+test( ChampionshipProvider::getInstance()->getAllChampionships() );
 
-echo ChampionshipProvider::getInstance()->getAllChampionships();
+echo "<br><br>";
+echo "Todos os jogadores:<BR>";
+test( PlayerProvider::getInstance()->getAllPlayers() );
 ?>

@@ -8,6 +8,7 @@
 namespace DBLib;
 
 require_once "BusinessInteligence/Championship/Championship.php";
+require_once "BusinessInteligence/Championship/ChampionshipManager.php";
 require_once "DataAccessObjects/Championship/DaoChampionshipFactory.php";
 
 /**

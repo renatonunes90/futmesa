@@ -1,2 +1,6 @@
 Back-End/springboot/target/
 Back-End/springboot/.settings/
+Back-End/php/.settings/org.eclipse.php.core.prefs
+Back-End/php/dblib/resultsDB.xml
+Back-End/php/dblib/resultsXML.xml
+Back-End/php/.buildpath

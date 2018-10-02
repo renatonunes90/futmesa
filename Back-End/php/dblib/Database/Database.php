@@ -53,9 +53,8 @@ class Database
    public function __construct( string $database, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "ibase" ,"username" => "SYSDBA" ,"password" => "masterkey" ,"hostspec" => "db" ,"database" => $database );
-      $conn  = ibase_connect('db:/FUTMESA.FDB', 'SYSDBA', 'masterkey' );
-      echo "CAIU AQUI".
+      $dsn = array ( "phptype" => "ibase" ,"username" => "SYSDBA" ,"password" => "15ecd39ea0b46ede3cf5" ,"hostspec" => "db" ,"database" => $database );
+
       $this->db_ = \DB::connect( $dsn );
       if( \PEAR::isError( $this->db_ ) )
       {
