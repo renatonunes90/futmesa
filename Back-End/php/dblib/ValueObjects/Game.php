@@ -68,4 +68,22 @@ class Game extends ValueObject
     * @var int Identificador do jogador vencedor.
     */
    public $idwinner;
+   
+   /**
+    * Preenche as informações deste objeto a partir de outro do mesmo tipo.
+    *
+    * @param Game $game
+    */
+   public function copyData( Game $game ) : void
+   {
+      $this->id = $game->id;
+      $this->idround = $game->idround;
+      $this->idplayer1 = $game->idplayer1;
+      $this->idplayer2 = $game->idplayer2;
+      $this->gametable = $game->gametable;
+      $this->score1 = $game->score1;
+      $this->score2 = $game->score2;
+      $this->inputdate = $game->inputdate;
+      $this->idwinner = $game->idwinner;
+   }
 }

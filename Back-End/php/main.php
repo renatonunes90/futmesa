@@ -27,8 +27,6 @@ session_start();
 
 require_once "common/util.php";
 
-debugInterfaceMessage( "Iniciando" );
-
 getHeader();
 
 debugInterfaceMessage( "Inclusão de cabeçalhos" );
@@ -43,7 +41,7 @@ debugInterfaceMessage( "Conexão com o banco e inclusão de scripts padrões" );
 
 // recebe domínio e serviço a ser executado
 $module = request( "module" );
-$service = "service" . request( "service" );
+$service = "Service" . request( "service" );
 $function = request( "function" );
 
 // Se o domínio não for de autenticação, verifica se o usuário tem acesso.
@@ -102,6 +100,7 @@ else
    {
       $result = $records;
    }
+   else
    {
       $result = json_encode( RequestRecord::createRecords( $records ) );
    }

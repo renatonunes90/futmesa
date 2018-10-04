@@ -11,6 +11,9 @@ use DAO\DaoChampionshipFactory;
 use DAO\DaoRoundFactory;
 use DAO\DaoGameFactory;
 
+require_once "BusinessInteligence/Game/Game.php";
+require_once "BusinessInteligence/Round/Round.php";
+require_once "DataAccessObjects/Game/DaoGameFactory.php";
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ValueObjects/Championship.php";
 

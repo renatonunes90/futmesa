@@ -43,11 +43,11 @@ class DaoGame implements DaoGameInterface
    public function getAllGames( int $championshipId ): array
    {
       $objects = array ();
-      $result = $this->db_->selectAll(
-               "SELECT g.*
-                                          FROM game g
-                                          JOIN round r ON ( r.id = g.idround )
-                                         WHERE r.idchampionship = $championshipId" );
+      $result = $this->db_->selectAll( "
+               SELECT g.*
+                  FROM game g
+                  JOIN round r ON ( r.id = g.idround )
+                 WHERE r.idchampionship = $championshipId" );
 
       foreach ( $result as &$r )
       {

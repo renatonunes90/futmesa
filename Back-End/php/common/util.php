@@ -62,7 +62,15 @@ function includeService( string $moduleName, string $serviceName ): void
    // require_once "base/serviceabstract.php";
    if( file_exists( "modules/$moduleName/services/$serviceName.php" ) )
    {
-      set_include_path( get_include_path() . ";" . "modules/$moduleName" );
+      if ( stripos( php_uname( "s" ), "Linux" ) !== false )
+      {
+         set_include_path( get_include_path() . ":" . "./modules/$moduleName" );
+      }
+      else
+      {
+         set_include_path( get_include_path() . ";" . "modules/$moduleName" );
+      }
+      
       require_once "modules/$moduleName/services/$serviceName.php";
    }
 }

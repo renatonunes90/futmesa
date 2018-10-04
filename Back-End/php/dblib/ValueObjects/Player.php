@@ -26,4 +26,15 @@ class Player extends ValueObject
     * @var string Nome do jogador.
     */
    public $name;
+   
+   /**
+    * Preenche as informações deste objeto a partir de outro do mesmo tipo.
+    *
+    * @param Player $player 
+    */
+   public function copyData( Player $player ) : void
+   {
+      $this->id = $player->id;
+      $this->name = $player->name;
+   }
 }

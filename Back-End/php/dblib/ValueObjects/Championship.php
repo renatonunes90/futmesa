@@ -50,4 +50,20 @@ class Championship extends ValueObject
     * @var int Jogos por rodada.
     */
    public $gamesbyround;
+   
+   /**
+    * Preenche as informações deste objeto a partir de outro do mesmo tipo.
+    * 
+    * @param Championship $championship
+    */
+   public function copyData( Championship $championship ) : void
+   {
+      $this->id = $championship->id;
+      $this->name = $championship->name;
+      $this->basedate = $championship->basedate;
+      $this->dateincr = $championship->dateincr;
+      $this->roundsbyday = $championship->roundsbyday;
+      $this->gamesbyround = $championship->gamesbyround;
+   }
+   
 }

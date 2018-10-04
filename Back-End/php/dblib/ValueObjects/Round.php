@@ -10,7 +10,7 @@ namespace ValueObject;
 require_once "ValueObjects/ValueObject.php";
 
 /**
- * Tabela de rodades dos campeonatos do banco de dados.
+ * Tabela de rodadas dos campeonatos do banco de dados.
  */
 class Round extends ValueObject
 {
@@ -44,4 +44,18 @@ class Round extends ValueObject
     * @var int Número de da rodada no campeonato.
     */
    public $number;
+   
+   /**
+    * Preenche as informações deste objeto a partir de outro do mesmo tipo.
+    *
+    * @param Round $round
+    */
+   public function copyData( Round $round ) : void
+   {
+      $this->id = $round->id;
+      $this->idchampionship = $round->idchampionship;
+      $this->basedate = $round->basedate;
+      $this->basehour = $round->basehour;
+      $this->numer = $round->number;
+   }
 }
