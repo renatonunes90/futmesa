@@ -8,6 +8,8 @@
 require_once "BusinessInteligence/Game/Game.php";
 require_once "ValueObjects/Game.php";
 
+require_once "dto/DtoPlayer.php";
+
 /**
  * A responsabilidade desta classe é encapsular os atributos de um jogo para retonar em uma requisição HTTP.
  */
