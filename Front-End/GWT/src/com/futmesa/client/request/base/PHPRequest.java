@@ -87,7 +87,7 @@ public final class PHPRequest
     */
    public void request( int timeout, List< String > params, String requestId )
    {
-      RequestBuilder builder = new RequestBuilder( RequestBuilder.POST, "" );// Const.SERVER_PATH );
+      RequestBuilder builder = new RequestBuilder( RequestBuilder.POST, "server/main.php" );// Const.SERVER_PATH );
       builder.setHeader( "Content-Type", "application/x-www-form-urlencoded" );
       builder.setTimeoutMillis( timeout * 1000 );
 
