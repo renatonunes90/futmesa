@@ -54,7 +54,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface
 		{
 		      ViewportInterface v = null;
 	         v = new ClassificationViewport();
-	         v
+	         
 
 		      BaseViewport.getInstance().setViewportContent( v );
 		      
