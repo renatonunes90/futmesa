@@ -1,0 +1,99 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:base="urn:import:com.example.project.client.base">
+
+	<ui:style src="../../resources/css/windows/mainviewport.css" />
+	
+	<ui:with field="consts" type="com.example.project.client.windows.main.MainViewportConsts" />
+
+	<!-- <ui:with field="margins" type="com.sencha.gxt.core.client.util.Margins">
+		<ui:attributes bottom="0" left="5" right="5" top="0" />
+	</ui:with>
+
+	<ui:with field="padding" type="com.sencha.gxt.core.client.util.Padding">
+		<ui:attributes bottom="0" left="20" right="20" top="0" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="navBarData">
+		<ui:attributes margins="{margins}" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="navBarDataRight">
+		<ui:attributes flex="1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="mainMenuData">
+		<ui:attributes height="70" width="1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="mainContainerData">
+		<ui:attributes height="1" width="1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.tips.ToolTipConfig" field="customToolTip">
+		<ui:attributes body="" closeable="true" mouseOffsetX="-50" mouseOffsetY="20" />
+	</ui:with>
+ -->
+	<g:VerticalPanel ui:field="vLayout" height="1000" >
+<!-- 		<container:child layoutData="{mainMenuData}"> -->
+<!-- 		<container:HBoxLayoutContainer HBoxLayoutAlign="STRETCH" padding="{padding}" styleName="{style.nav-bar}"> -->
+		<g:HorizontalPanel styleName="{style.nav-bar}">
+<!-- 				<container:child layoutData="{navBarData}"> -->
+<!-- 					<container:HBoxLayoutContainer HBoxLayoutAlign="STRETCH" pack="START" ui:field="modulesMenu"> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> <g:Hyperlink styleName="{style.selected} {style.a-button}" targetHistoryToken="module=controlloop" text="MALHAS"  -->
+<!--  							/> </container:child> <container:child layoutData="{navBarData}"> <g:Label styleName="{style.a-button} {style.a-disabled}" text="SENSORES" /> </container:child> --> -->
+<!-- 					</container:HBoxLayoutContainer> -->
+<!-- 				</container:child> -->
+<!-- 				<container:child layoutData="{navBarDataRight}"> -->
+<!-- 					<container:HBoxLayoutContainer HBoxLayoutAlign="STRETCH" pack="END"> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<button:TextButton height="70" icon="{triRes.help}" scale="LARGE" styleName="button {style.button}" text="&nbsp;" -->
+<!-- 								toolTipConfig="{customToolTip}" ui:field="btnHelp" /> -->
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<button:TextButton height="70" icon="{triRes.options}" scale="LARGE" styleName="button {style.button}" text="&nbsp;" -->
+<!-- 								ui:field="btnOptions" visible="false"> -->
+<!-- 								<button:menu> -->
+<!-- 									<menu:Menu> -->
+<!-- 										<g:Hyperlink styleName="{style.a-menu-item}" targetHistoryToken="panel=analysis" text="{consts.analysisManager}" width="100%" /> -->
+<!-- 									</menu:Menu> -->
+<!-- 								</button:menu> -->
+<!-- 							</button:TextButton> -->
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<button:TextButton height="70" icon="{triRes.user}" scale="LARGE" styleName="button {style.button}" text="{consts.user}" -->
+<!-- 								ui:field="btnUser" visible="false"> -->
+<!-- 								<button:menu> -->
+<!-- 									<menu:Menu> -->
+<!-- 										<g:Hyperlink styleName="{style.a-menu-item}" text="{consts.messageLog}" width="100%" ui:field="linkMessageLog" /> -->
+<!-- 										<g:Hyperlink styleName="{style.a-menu-item}" text="{consts.webUserManager}" width="100%" ui:field="linkUserManager" /> -->
+<!-- 										<g:Hyperlink styleName="{style.a-menu-item}" text="{consts.webUserGroupManager}" width="100%" ui:field="linkUserGroupManager" /> -->
+<!-- 									</menu:Menu> -->
+<!-- 								</button:menu> -->
+<!-- 							</button:TextButton> -->
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<button:TextButton height="70" scale="LARGE" styleName="button {style.button}" text="{consts.logout}" ui:field="miLogout" /> -->
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<g:Label styleName="{style.separator}" text="|" /> -->
+<!-- 						</container:child> -->
+<!-- 						<container:child layoutData="{navBarData}"> -->
+<!-- 							<g:Anchor href="http://www.trisolutions.com.br" styleName="{style.a-button} {style.a-padd}" target="_blank" text="TRISOLUTIONS" /> -->
+<!-- 						</container:child> -->
+<!-- 					</container:HBoxLayoutContainer> -->
+<!-- 				</container:child> -->
+				</g:HorizontalPanel>
+<!-- 			</container:HBoxLayoutContainer> -->
+<!-- 		</container:child> -->
+<!-- 		<container:child layoutData="{mainContainerData}"> -->
+			<g:Panel headerVisible="false" ui:field="cpContent"> </g:Panel>> 
+<!-- 			<gxt:ContentPanel headerVisible="false" ui:field="cpContent"> -->
+<!-- 			</gxt:ContentPanel> -->
+<!-- 		</container:child> -->
+	</g:VerticalPanel> 
+</ui:UiBinder> 

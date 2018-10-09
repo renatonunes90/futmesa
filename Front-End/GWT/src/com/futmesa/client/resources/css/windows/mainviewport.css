@@ -1,0 +1,78 @@
+/* Define o alinhamento do ícone do botão. */
+.button>div>div>div {
+	height: 45px !important;
+}
+
+.a-button {
+	height: 70px;
+	line-height: 70px;
+	padding: 0 0;
+}
+
+.a-button>a, .a-padd {
+	padding: 0 10px;
+}
+
+.a-button>a>img {
+	margin-top: 11px;
+}
+
+.a-disabled {
+	cursor: default !important;
+	opacity: 0.4 !important;
+}
+
+.a-menu-item>a {
+	color: #012fa7;
+	font-size: small;
+	font-weight: bold;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px 0 20px;
+	width: 100%;
+}
+
+.a-menu-item>a:hover {
+	color: #646464;
+}
+
+/* Menu com gradiente. */
+.nav-bar {
+	background: rgba(0, 22, 59, 1);
+	background: -moz-linear-gradient(left, rgba(0, 22, 59, 1) 0%,
+		rgba(1, 47, 167, 1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 22, 59, 1)),
+		color-stop(100%, rgba(1, 47, 167, 1)));
+	background: -webkit-linear-gradient(left, rgba(0, 22, 59, 1) 0%,
+		rgba(1, 47, 167, 1) 100%);
+	background: -o-linear-gradient(left, rgba(0, 22, 59, 1) 0%,
+		rgba(1, 47, 167, 1) 100%);
+	background: -ms-linear-gradient(left, rgba(0, 22, 59, 1) 0%,
+		rgba(1, 47, 167, 1) 100%);
+	background: linear-gradient(to right, rgba(0, 22, 59, 1) 0%,
+		rgba(1, 47, 167, 1) 100%);
+	color: #ffffff;
+	filter: literal("progid:DXImageTransform.Microsoft.gradient( startColorstr='#00163b', endColorstr='#012fa7', GradientType=1)"
+		);
+	font-weight: bold;
+}
+
+.nav-bar-right {
+	text-align: right;
+}
+
+.no-highlight>a:hover, .no-highlight>a:focus {
+	background-color: transparent !important;
+}
+
+.separator {
+	cursor: default !important;
+	height: 70px;
+	line-height: 70px;
+	padding: 0 10px;
+}
+
+.selected>a {
+	color: #646464;
+	background-color: #00f591;
+}

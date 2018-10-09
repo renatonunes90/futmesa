@@ -4,3 +4,9 @@ Back-End/php/.settings/org.eclipse.php.core.prefs
 Back-End/php/dblib/resultsDB.xml
 Back-End/php/dblib/resultsXML.xml
 Back-End/php/.buildpath
+Front-End/GWT/gwt-unitCache/
+Front-End/GWT/war/futmesa/gwt/
+Front-End/GWT/war/WEB-INF/classes/
+Front-End/GWT/war/WEB-INF/lib/
+Front-End/GWT/war/WEB-INF/deploy/
+Front-End/GWT/war/futmesa/
