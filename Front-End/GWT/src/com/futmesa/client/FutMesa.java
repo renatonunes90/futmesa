@@ -2,7 +2,7 @@ package com.futmesa.client;
 
 import com.futmesa.client.base.AppEntryPoint;
 import com.futmesa.client.base.FilterConfig;
-import com.futmesa.client.module.MainModule;
+import com.futmesa.client.module.main.MainModule;
 import com.futmesa.client.windows.main.BaseViewport;
 import com.google.gwt.user.client.History;
 

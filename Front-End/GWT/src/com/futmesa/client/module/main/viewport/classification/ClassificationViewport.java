@@ -1,24 +1,27 @@
-package com.futmesa.client.viewport.table;
+package com.futmesa.client.module.main.viewport.classification;
+
+import java.util.List;
 
 import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.FilterConfig;
 import com.futmesa.client.base.ViewportInterface;
+import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
- * Viewport com exemplos de utilização do SimpleGrid - classe de grid do TriGeA.
+ * Viewport com exemplos de utilização do SimpleGrid.
  */
-public class MainViewport
+public class ClassificationViewport
    implements ViewportInterface
 {
 
    private static final SampleTableViewportUiBinder uiBinder = GWT.create( SampleTableViewportUiBinder.class );
 
    interface SampleTableViewportUiBinder
-      extends UiBinder< HorizontalPanel, MainViewport >
+      extends UiBinder< HorizontalPanel, ClassificationViewport >
    {}
 
    @UiField
@@ -27,7 +30,7 @@ public class MainViewport
    /**
     * Construtor padrão.
     */
-   public MainViewport()
+   public ClassificationViewport()
    {
       uiBinder.createAndBindUi( this );
 
@@ -105,7 +108,7 @@ public class MainViewport
    @Override
    public String getHelp()
    {
-      // Viewport com exemplos de utilização do SimpleGrid - classe de grid do TriGeA.
+
       return FutMesaConsts.INSTANCE.helpPage();
    }
 
@@ -126,4 +129,8 @@ public class MainViewport
       // }
    }
 
+   public void setPlayers( Player[] players )
+   {
+	   
+   }
 }
