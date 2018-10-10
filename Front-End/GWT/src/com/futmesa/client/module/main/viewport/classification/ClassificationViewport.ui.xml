@@ -14,7 +14,6 @@
   </ui:style>
 
   <g:HTMLPanel ui:field='panel'>
-     <g:Label>Out of my way</g:Label>
     <table cellspacing='0' cellpadding='0' heigth='400px' style='width:100%;'>
       <tr>
         <td

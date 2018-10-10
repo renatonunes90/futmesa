@@ -1,14 +1,10 @@
 package com.futmesa.client.module.main.viewport.classification;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-import com.futmesa.client.FutMesaConsts;
-import com.futmesa.client.base.FilterConfig;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Player;
-import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -17,7 +13,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -37,19 +32,19 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 
 	@UiField(provided = false)
-	HTMLPanel panel;
+	protected HTMLPanel panel;
 	
 	/**
 	 * The main CellTable.
 	 */
 	@UiField(provided = true)
-	CellTable<Player> cellTable;
+	protected CellTable<Player> cellTable;
 
 	/**
 	 * The pager used to change the range of data.
 	 */
 	@UiField(provided = true)
-	SimplePager pager;
+	protected SimplePager pager;
 
 	/**
 	 * Construtor padrão.
@@ -124,33 +119,6 @@ public class ClassificationViewport implements ViewportInterface {
 	@Override
 	public Widget asWidget() {
 		return panel;
-	}
-
-	@Override
-	public FilterConfig getFilterConfig() {
-		return null;
-	}
-
-	@Override
-	public String getHelp() {
-
-		return FutMesaConsts.INSTANCE.helpPage();
-	}
-
-	@Override
-	public void updateView(FilterConfig filterConfig) {
-		// preenche os grids com as informações do TypeProvider
-		// List< Type > types = TypeProvider.getInstance().getAllTypes();
-		// List< Integer > alreadyAdded = new ArrayList<>();
-		// for ( int index = 0; index < types.size(); index++ )
-		// {
-		// example1.addRow( types.get( index ) );
-		// if ( alreadyAdded.indexOf( types.get( index ).getIdTypeOf() ) == -1 )
-		// {
-		// alreadyAdded.add( types.get( index ).getIdTypeOf() );
-		// example3.addRow( types.get( index ) );
-		// }
-		// }
 	}
 
 	public void addRows(JsArray<Player> players) {

@@ -5,6 +5,7 @@ import com.futmesa.client.base.ViewportInterface;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -19,7 +20,7 @@ public final class BaseViewport
    private static final ModulesViewportUiBinder uiBinder = GWT.create( ModulesViewportUiBinder.class );
 
    interface ModulesViewportUiBinder
-      extends UiBinder< VerticalPanel, BaseViewport >
+      extends UiBinder< Widget, BaseViewport >
    {}
 
    /**
@@ -52,7 +53,7 @@ public final class BaseViewport
    // protected Button miLogout;
 
    @UiField
-   protected VerticalPanel vLayout;
+   protected HTMLPanel vLayout;
 
    /**
     * Construtor padrão.

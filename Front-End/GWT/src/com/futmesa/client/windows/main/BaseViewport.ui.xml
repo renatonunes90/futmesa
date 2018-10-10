@@ -5,17 +5,12 @@
  	<ui:style src="baseviewport.css" /> 
 	
   	<ui:with field="consts" type="com.futmesa.client.windows.main.BaseViewportConsts" /> 
-<!-- 	<g:VerticalPanel ui:field="vLayout"> -->
-<!--     <g:Label>Keep your ducks</g:Label> -->
-<!--     <g:Label>in a row</g:Label> -->
-<!--   </g:VerticalPanel> -->
-  
-<!-- 	<g:VerticalPanel height="1000px"><g:Label>Estou aqui</g:Label></g:VerticalPanel> -->
-	<g:VerticalPanel width="100%" height="100%" ui:field="vLayout">
-		<g:HorizontalPanel width="100%" height="60px" styleName="{style.nav-bar}"> <g:Label>Keep your ducks</g:Label></g:HorizontalPanel>
-		<g:HorizontalPanel width="100%" height="100%" ui:field="cpContent"> 
-			
-				 
-		</g:HorizontalPanel>
-	</g:VerticalPanel> 
+
+   <g:HTMLPanel ui:field='vLayout'>
+    <g:HorizontalPanel width="100%" height="180px" styleName="{style.nav-bar}"> </g:HorizontalPanel>
+	<g:HorizontalPanel width="100%" height="100%" styleName="{style.cp-content}" ui:field="cpContent"> 
+	</g:HorizontalPanel>
+	<g:HorizontalPanel width="100%" height="60px" styleName="{style.nav-bar}"> </g:HorizontalPanel>
+  </g:HTMLPanel>
+
 </ui:UiBinder> 
