@@ -24,7 +24,6 @@ public class FutMesa implements EntryPoint
    }
 
    /**
-    * Ponto de entrada da interface. Mostra a tela de login e seta o listener para após o carregamento dos tipos.
     */
    public void onModuleLoad()
    {
@@ -37,26 +36,16 @@ public class FutMesa implements EntryPoint
     */
    private void initializeViewport()
    {
-      // LayoutPanel baseViewport = new LayoutPanel();
       RootPanel.get().add( BaseViewport.getInstance() );
-      // baseViewport.add( MainViewport.getInstance() );
-      // baseViewport.add( new Label( "TEXTO" ) );
-      // MainViewport.getInstance().setUserLogged( AuthWindow.getInstance().getWebUser().getName() );
 
       // listener para chamar o update da viewport quando a url é alterada
       History.addValueChangeHandler( handler -> updateViewport() );
 
-      // chama função que será implementada por cada ponto de entrada
-      onLoad();
-   }
-   
-   public void onLoad()
-   {
       mainModule = new MainModule();
       BaseViewport.getInstance().addModule( mainModule );
       this.updateViewport();
    }
-
+   
    public void updateViewport()
    {
       FilterConfig filter = new FilterConfig( History.getToken() );

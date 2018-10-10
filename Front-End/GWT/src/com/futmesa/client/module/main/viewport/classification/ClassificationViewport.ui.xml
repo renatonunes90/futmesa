@@ -1,21 +1,37 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-	<g:HorizontalPanel width="100%" height="100%" ui:field="portal">
-	<g:Label>Out of my way</g:Label>
-	</g:HorizontalPanel>
-<!-- 	<container:PortalLayoutContainer numColumns="2" ui:field="portal"> -->
-<!-- 		<container:portlet column="0"> -->
-<!-- 			<client:Portlet height="400" ui:field="firstTable" /> -->
-<!-- 		</container:portlet> -->
-<!-- 		<container:portlet column="0"> -->
-<!-- 			<client:Portlet height="1" ui:field="secondTable" /> -->
-<!-- 		</container:portlet> -->
-<!-- 		<container:portlet column="1"> -->
-<!-- 			<client:Portlet height="400" ui:field="thirdTable" /> -->
-<!-- 		</container:portlet> -->
-<!-- 		<container:portlet column="1"> -->
-<!-- 			<client:Portlet height="400" ui:field="fourthTable" /> -->
-<!-- 		</container:portlet> -->
-<!-- 	</container:PortalLayoutContainer> -->
-</ui:UiBinder> 
+  <ui:style>
+    .cellTable {
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+      margin-bottom: 4px;
+      margin-top: 10px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel ui:field='panel'>
+     <g:Label>Out of my way</g:Label>
+    <table cellspacing='0' cellpadding='0' heigth='400px' style='width:100%;'>
+      <tr>
+        <td
+          valign='top'>
+          <c:CellTable
+            addStyleNames='{style.cellTable}'
+            pageSize='15'
+            ui:field='cellTable' />
+        </td>
+      </tr>
+      <tr>
+        <td
+          align='center'>
+          <c:SimplePager
+            ui:field='pager' />
+        </td>
+      </tr>
+    </table>
+  </g:HTMLPanel>
+</ui:UiBinder>

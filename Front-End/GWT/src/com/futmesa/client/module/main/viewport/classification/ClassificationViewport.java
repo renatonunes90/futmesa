@@ -1,136 +1,164 @@
 package com.futmesa.client.module.main.viewport.classification;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.FilterConfig;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Player;
+import com.google.gwt.cell.client.EditTextCell;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
+import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SelectionModel;
 
 /**
  * Viewport com exemplos de utilização do SimpleGrid.
  */
-public class ClassificationViewport
-   implements ViewportInterface
-{
+public class ClassificationViewport implements ViewportInterface {
 
-   private static final SampleTableViewportUiBinder uiBinder = GWT.create( SampleTableViewportUiBinder.class );
+	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-   interface SampleTableViewportUiBinder
-      extends UiBinder< HorizontalPanel, ClassificationViewport >
-   {}
+	interface ClassificationViewportUiBinder extends UiBinder<Widget, ClassificationViewport> {
+	}
 
-   @UiField
-   protected HorizontalPanel portal;
+	@UiField(provided = false)
+	HTMLPanel panel;
+	
+	/**
+	 * The main CellTable.
+	 */
+	@UiField(provided = true)
+	CellTable<Player> cellTable;
 
-   /**
-    * Construtor padrão.
-    */
-   public ClassificationViewport()
-   {
-      uiBinder.createAndBindUi( this );
+	/**
+	 * The pager used to change the range of data.
+	 */
+	@UiField(provided = true)
+	SimplePager pager;
 
-      this.createExample1();
-   }
+	/**
+	 * Construtor padrão.
+	 */
+	public ClassificationViewport() {
 
-   /**
-    * Criação de exemplo 1 de tabela. Possui renderer customizado, filtros e listener de duplo clique.
-    */
-   public void createExample1()
-   {
-      // example1 = new SimpleGrid<>( tProperties.key() );
-      //
-      // // colunas padrões
-      // example1.addColumn( new ColumnConfig<>( tProperties.idType(), 100, SampleTableConsts.INSTANCE.id() ) );
-      // example1.addColumnWithTooltip( new ColumnConfig<>( tProperties.name(), 250, SampleTableConsts.INSTANCE.name() ) );
-      // example1.addColumnWithTooltip( new ColumnConfig<>( tProperties.typeOfName(), 250, SampleTableConsts.INSTANCE.typeOfName() ) );
-      // example1.addColumnWithTooltip( new ColumnConfig<>( tProperties.description(), 450, SampleTableConsts.INSTANCE.description() ) );
-      //
-      // // coluna com renderer customizado
-      // ColumnConfig< Type, Integer > custom = new ColumnConfig<>( tProperties.idTypeOf(), 150, SampleTableConsts.INSTANCE.button() );
-      // ButtonCell< Integer > customCell = new ButtonCell< Integer >()
-      // {
-      // @Override
-      // public void render( Context context, Integer value, SafeHtmlBuilder sb )
-      // {
-      // super.render( context, null, sb );
-      // }
-      // };
-      // customCell.setIcon( TriResources.INSTANCE.help() );
-      // customCell.addSelectHandler( handler ->
-      // {
-      // Type selected = example1.getSelectedItems().get( 0 );
-      // AlertMessageBox msgBox = new AlertMessageBox( SampleTableConsts.INSTANCE.warningTitle(),
-      // SampleTableMessages.INSTANCE.clickedMessage( selected.getIdTypeOf() ) );
-      // msgBox.show();
-      // } );
-      // custom.setCell( customCell );
-      // example1.addColumn( custom );
-      //
-      // // filtros
-      // example1.addFilter( new NumericFilter< Type, Integer >( tProperties.idType(), new IntegerPropertyEditor() ) );
-      // example1.addFilter( new StringFilter< Type >( tProperties.name() ) );
-      // example1.addFilter( new StringFilter< Type >( tProperties.description() ) );
-      //
-      // // ordenação default
-      // example1.addSortInfo( new StoreSortInfo< Type >( tProperties.name(), SortDir.ASC ) );
-      //
-      // // listener para duplo clique
-      // example1.addCellDoubleClickHandler( handler ->
-      // {
-      // Type selected = example1.getSelectedItems().get( 0 );
-      // AlertMessageBox msgBox = new AlertMessageBox( SampleTableConsts.INSTANCE.warningTitle(),
-      // SampleTableMessages.INSTANCE.doubleClickedMessage( selected.getName() ) );
-      // msgBox.show();
-      // } );
-      //
-      // // adiciona na tela
-      // firstTable.setHeading( SampleTableConsts.INSTANCE.firstTableHeader() );
-      // firstTable.add( example1 );
-   }
+		this.createExample1();
+	}
 
-   @Override
-   public HorizontalPanel asWidget()
-   {
-      return portal;
-   }
+	/**
+	 * Criação de exemplo 1 de tabela. Possui renderer customizado, filtros e
+	 * listener de duplo clique.
+	 */
+	public void createExample1() {
+		// Create a CellTable.
 
-   @Override
-   public FilterConfig getFilterConfig()
-   {
-      return null;
-   }
+		// Set a key provider that provides a unique key for each contact. If key is
+		// used to identify contacts when fields (such as the name and address)
+		// change.
+		cellTable = new CellTable<Player>(Player.KEY_PROVIDER);
+		cellTable.setWidth("100%", true);
 
-   @Override
-   public String getHelp()
-   {
+		// Do not refresh the headers and footers every time the data is updated.
+		cellTable.setAutoHeaderRefreshDisabled(true);
+		cellTable.setAutoFooterRefreshDisabled(true);
+		
+		// Create a Pager to control the table.
+		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+		pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
+		pager.setDisplay(cellTable);
 
-      return FutMesaConsts.INSTANCE.helpPage();
-   }
+		// Add a selection model so we can select cells.
+		final SelectionModel<Player> selectionModel = new MultiSelectionModel<Player>(Player.KEY_PROVIDER);
+		cellTable.setSelectionModel(selectionModel, DefaultSelectionEventManager.<Player>createCheckboxManager());
 
-   @Override
-   public void updateView( FilterConfig filterConfig )
-   {
-      // preenche os grids com as informações do TypeProvider
-      // List< Type > types = TypeProvider.getInstance().getAllTypes();
-      // List< Integer > alreadyAdded = new ArrayList<>();
-      // for ( int index = 0; index < types.size(); index++ )
-      // {
-      // example1.addRow( types.get( index ) );
-      // if ( alreadyAdded.indexOf( types.get( index ).getIdTypeOf() ) == -1 )
-      // {
-      // alreadyAdded.add( types.get( index ).getIdTypeOf() );
-      // example3.addRow( types.get( index ) );
-      // }
-      // }
-   }
+		// Initialize the columns.
+		initTableColumns(selectionModel);
 
-   public void setPlayers( Player[] players )
-   {
-	   
-   }
+		// Create the UiBinder.
+		uiBinder.createAndBindUi(this);
+	}
+
+	/**
+	 * Add the columns to the table.
+	 */
+	private void initTableColumns(final SelectionModel<Player> selectionModel) {
+
+		// First name.
+		Column<Player, String> firstNameColumn = new Column<Player, String>(new TextCell()) {
+			@Override
+			public String getValue(Player object) {
+				return String.valueOf(object.getId());
+			}
+		};
+		firstNameColumn.setSortable(true);
+
+		cellTable.addColumn(firstNameColumn, "Id");
+		cellTable.setColumnWidth(firstNameColumn, 20, Unit.PCT);
+
+		// Last name.
+		Column<Player, String> lastNameColumn = new Column<Player, String>(new TextCell()) {
+			@Override
+			public String getValue(Player object) {
+				return object.getName();
+			}
+		};
+		lastNameColumn.setSortable(true);
+		cellTable.addColumn(lastNameColumn, "Nome");
+		cellTable.setColumnWidth(lastNameColumn, 20, Unit.PCT);
+	}
+
+	@Override
+	public Widget asWidget() {
+		return panel;
+	}
+
+	@Override
+	public FilterConfig getFilterConfig() {
+		return null;
+	}
+
+	@Override
+	public String getHelp() {
+
+		return FutMesaConsts.INSTANCE.helpPage();
+	}
+
+	@Override
+	public void updateView(FilterConfig filterConfig) {
+		// preenche os grids com as informações do TypeProvider
+		// List< Type > types = TypeProvider.getInstance().getAllTypes();
+		// List< Integer > alreadyAdded = new ArrayList<>();
+		// for ( int index = 0; index < types.size(); index++ )
+		// {
+		// example1.addRow( types.get( index ) );
+		// if ( alreadyAdded.indexOf( types.get( index ).getIdTypeOf() ) == -1 )
+		// {
+		// alreadyAdded.add( types.get( index ).getIdTypeOf() );
+		// example3.addRow( types.get( index ) );
+		// }
+		// }
+	}
+
+	public void addRows(JsArray<Player> players) {
+		List<Player> data = new ArrayList<Player>();
+		for ( int i=0; i<players.length();i++ )
+		{
+			data.add( players.get(i));
+		}
+		cellTable.setRowData(data);
+	}
 }

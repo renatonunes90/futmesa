@@ -85,7 +85,7 @@ public final class BaseViewport
 
       // Coloca a tela na viewport e atualiza ela com o filtro.
       cpContent.add( panel );
-      // cpContent.forceLayout();
+      //cpContent.forceLayout();
    }
 
    /**
