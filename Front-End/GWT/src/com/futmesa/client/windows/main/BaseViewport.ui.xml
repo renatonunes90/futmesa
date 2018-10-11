@@ -6,11 +6,18 @@
 	
   	<ui:with field="consts" type="com.futmesa.client.windows.main.BaseViewportConsts" /> 
 
-   <g:HTMLPanel ui:field='vLayout'>
-    <g:HorizontalPanel width="100%" height="180px" styleName="{style.nav-bar}"> </g:HorizontalPanel>
-	<g:HorizontalPanel width="100%" height="100%" styleName="{style.cp-content}" ui:field="cpContent"> 
-	</g:HorizontalPanel>
-	<g:HorizontalPanel width="100%" height="60px" styleName="{style.nav-bar}"> </g:HorizontalPanel>
-  </g:HTMLPanel>
+    <g:DockLayoutPanel unit="EM" ui:field='vLayout'>
+      <g:north size="6">
+         <g:HorizontalPanel width="100%" height="120px" styleName="{style.nav-bar}" > </g:HorizontalPanel>
+      </g:north>
+
+      <g:center>
+         <g:HTMLPanel width="100%" height="400px" styleName="{style.cp-content}" ui:field="cpContent">ALGO </g:HTMLPanel>
+      </g:center>
+
+      <g:south size="3">
+		<g:HorizontalPanel width="100%" height="60px" styleName="{style.nav-bar}"> </g:HorizontalPanel>
+       </g:south>
+    </g:DockLayoutPanel>
 
 </ui:UiBinder> 

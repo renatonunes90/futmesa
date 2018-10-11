@@ -5,6 +5,7 @@ import com.futmesa.client.base.ViewportInterface;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -29,7 +30,7 @@ public final class BaseViewport
    private static BaseViewport singleton;
 
    @UiField
-   protected HorizontalPanel cpContent;
+   protected HTMLPanel cpContent;
 
    // @UiField
    // protected Button btnHelp;
@@ -53,7 +54,7 @@ public final class BaseViewport
    // protected Button miLogout;
 
    @UiField
-   protected HTMLPanel vLayout;
+   protected DockLayoutPanel vLayout;
 
    /**
     * Construtor padrão.
