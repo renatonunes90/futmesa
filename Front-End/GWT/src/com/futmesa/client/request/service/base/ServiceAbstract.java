@@ -111,13 +111,27 @@ public abstract class ServiceAbstract
    protected void request( String[] params, String requestId )
    {
       List< String > paramList = new ArrayList<>( Arrays.asList( params ) );
-      paramList.add( MODULE_STR + module );
-      paramList.add( SERVICE_STR + service );
-      parent.mask( requestId );
-      phpRequest.request( paramList, requestId );
-      requestCount++;
+      this.request( paramList, requestId );
    }
 
+   /**
+    * Função para emitir a requisição ao PHP.
+    *
+    * @param params
+    *           Lista dos parâmetros e valores do serviço do PHP.
+    * @param requestId
+    *           Identificador da requisição PHP.
+    * @see get( String data, String requestid )
+    */
+   protected void request( List< String > params, String requestId )
+   {
+      params.add( MODULE_STR + module );
+      params.add( SERVICE_STR + service );
+      parent.mask( requestId );
+      phpRequest.request( params, requestId );
+      requestCount++;
+   }
+   
    /**
     * Função para emitir a requisição ao PHP.
     *

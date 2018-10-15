@@ -1,0 +1,17 @@
+ .cellTable {
+   border-bottom: 1px solid #ccc;
+   text-align: left;
+   margin-bottom: 4px;
+   margin-top: 10px;
+   width: 60%;
+   heigth: 100%;
+ }
+ 
+ .customCellRow {
+    border-bottom: 0.2px solid #000;
+    margin: 2px;
+ }
+ 
+ .customEvenColumn {
+    background-color: #e0e0e0;
+ }
