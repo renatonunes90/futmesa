@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+
+a, body, button, div, form, input, h1, h2, h3, h4, h5, h6, html, li, p,
+	select, span, svg, table, td, tr, ul {
+}
+
+a, a:visited {
+	display: inline-block;
+	background-color: transparent;
+	color: white;
+	text-decoration: none;
+}
+
+a:hover, a:focus, a.selected {
+	color: #646464;
+	background-color: #00f591;
+}
+
+.button-selected {
+	background: #00d369;
+}
+
+.button:hover>div>div, .button-selected>div>div {
+	color: #646464;
+}
+
+.centered-image {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.centered-cover-image {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.empty-grid>div>div>table>tbody>tr>td>div {
+	color: #ffffff;
+}
+
+.list>div:first-child {
+	border-bottom: 2px solid #ffffff;
+}
+
+.list>div {
+	background: #012fa7;
+}
+
+.scroll-button {
+	background: #707070;
+	position: fixed;
+	top: 50%;
+	z-index: 2000;
+}
+
+.scroll-button {
+	-moz-box-shadow: 10px 10px 10px #303030;
+	-webkit-box-shadow: 10px 310x 10px #303030;
+	box-shadow: 10px 10px 10px #303030;
+}
+
+.scroll-button, .scroll-button>div {
+	-moz-border-radius: 70px;
+	-webkit-border-radius: 70px;
+	border-radius: 70px;
+}
+
+.scroll-button-left {
+	left: 20px;
+}
+
+.scroll-button-right {
+	right: 20px;
+}

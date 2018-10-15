@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" >
+
+ 	<ui:style src="baseviewport.css" /> 
+	
+  	<ui:with field="consts" type="com.futmesa.client.windows.main.BaseViewportConsts" /> 
+  
+    <g:DockLayoutPanel styleName="{style.dockLayout}" unit='EM' height="100%" ui:field='vLayout'>
+        <g:north size='8'>
+            <g:SimplePanel addStyleNames="{style.headerPanel} {style.gradientBar}">
+               <g:Label styleName="{style.titleDiv}">FutMesa Manager</g:Label>
+            </g:SimplePanel>
+        </g:north>
+        <g:south size="4">
+	         <g:SimplePanel addStyleNames="{style.footerPanel} {style.gradientBar}"> </g:SimplePanel> 
+      	</g:south>
+        <g:center>
+            <g:ScrollPanel styleName="{style.mainPanel}">
+                <g:FlowPanel styleName="{style.contentPanel}" ui:field='cpContent'>
+                    <g:Label>content</g:Label>
+                </g:FlowPanel>
+            </g:ScrollPanel>
+        </g:center>     
+     </g:DockLayoutPanel>
+    
+</ui:UiBinder> 

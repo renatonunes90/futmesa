@@ -33,6 +33,15 @@ class RequestRecord
    }
 
    /**
+    * 
+    * @return bool Flag indicando se o record é de erro ou não.
+    */
+   public function hasError() : bool
+   {
+      return $this->errMsg !== null;   
+   }
+   
+   /**
     * Define uma mensagem de erro para arequisição e limpa os dados da mesma.
     *
     * @param string $errMsg

@@ -1,6 +1,6 @@
 <?php
 /**
- * Projeto PHPSample
+ * Projeto Futmesa
  *
  * Ponto de entrada do PHP. Arquivo para tratar as requisições de serviços.
  *
@@ -64,25 +64,18 @@ $result = null;
 // inclui o script que possui o serviço.
 includeService( $module, $service );
 
-// Verifica se existe a classe do serviço.
+// verifica se existe a classe do serviço
 if( !class_exists( $service ) )
 {
-   $result = json_encode( RequestRecord::createError( "Domínio '$service' não encontrado." ) );
+   $result = RequestRecord::createError( "Domínio '$service' não encontrado." );
 }
-// Verifica se existe o método no serviço.
+// verifica se existe o método no serviço
 else if( !method_exists( $service, $function ) )
 {
-   $result = json_encode( RequestRecord::createError( "Função '$function' não encontrado no domínio '$service'." ) );
+   $result = RequestRecord::createError( "Função '$function' não encontrado no domínio '$service'." );
 }
 else
 {
-   // Se tiver timeout a requisição, altera o limite do php.
-   $timeout = request( "timeout", false );
-   if( $timeout != null )
-   {
-      set_time_limit( intval( $timeout ) );
-   }
-
    // busca os parâmetros da função
    $func = new ReflectionMethod( $service, $function );
    $params = array ();
@@ -91,41 +84,30 @@ else
       $params[] = request( $param->name, $param->isOptional() );
    }
 
-   // Executa serviço e pega o resultado.
+   // executa serviço e pega o resultado
    $executor = new $service();
    $records = $func->invokeArgs( $executor, $params );
-
-   // Verifica se não é download de arquivo, pois aí não retorna em JSON.
-   if( isset( $_REQUEST[ "download" ] ) )
-   {
-      $result = $records;
-   }
-   else
-   {
-      $result = json_encode( RequestRecord::createRecords( $records ) );
-   }
+   
+   // criar o objeto de retorno
+   $result = RequestRecord::createRecords( $records );
 }
 
-// Formata legal os resultados se for requisição de debug.
+// formata legal os resultados se for requisição de debug
 if( isset( $_REQUEST[ "debug" ] ) )
 {
-   if( isset( $_REQUEST[ "download" ] ) )
-   {
-      $result = print_r( $result, true );
-   }
-   else
-   {
-      $result = print_r( json_decode( $result ), true );
-   }
-   echo "<pre>$result</pre>";
+   $formatted = print_r( $result, true );
+   echo "<pre>$formatted</pre>";
 }
 else
 {
-   echo $result;
+   echo json_encode( $result );
 }
 
-// Se deu tudo certo, salva as alterações do banco de dados.
-ODBCConnection::getConnection()->commit();
+// se deu tudo certo, salva as alterações do banco de dados
+if ( !$result->hasError() )
+{
+   ODBCConnection::getConnection()->commit();
+}
 
 debugInterfaceMessage( "Total da requisição" );
 ?>
