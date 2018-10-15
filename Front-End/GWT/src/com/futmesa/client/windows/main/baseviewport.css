@@ -1,43 +1,40 @@
-/* Define o alinhamento do ícone do botão. */
-.button>div>div>div {
-	height: 45px !important;
+.dockLayout {
+	background-color: #f4f4f4;
 }
 
-.a-button {
-	height: 70px;
-	line-height: 70px;
-	padding: 0 0;
+.headerPanel {
+	margin-top: 0.5em;
+	margin-right: 0.5em;
+	margin-left: 0.5em;
+    width: auto;
+    height: auto;
 }
 
-.a-button>a, .a-padd {
-	padding: 0 10px;
+.footerPanel {
+   	width:  auto;
+    height: auto;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+	margin-left: 0.5em;
 }
 
-.a-button>a>img {
-	margin-top: 11px;
+.mainPanel {
+  position: relative;
+  left:0.5em;
+  right: 0.5em;
+  top: 0.5em;
+  bottom: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  background-color: #f0f0f0;
 }
 
-.a-disabled {
-	cursor: default !important;
-	opacity: 0.4 !important;
+.contentPanel {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-.a-menu-item>a {
-	color: #012fa7;
-	font-size: small;
-	font-weight: bold;
-	height: 25px;
-	line-height: 25px;
-	padding: 0 10px 0 20px;
-	width: 100%;
-}
-
-.a-menu-item>a:hover {
-	color: #646464;
-}
-
-/* Menu com gradiente. */
-.nav-bar {
+.gradientBar {
 	background: rgba(0, 22, 59, 1);
 	background: -moz-linear-gradient(left, rgba(40, 150, 150, 1) 0%,
 		rgba(100, 250, 250, 1) 100%);
@@ -57,26 +54,66 @@
 	font-weight: bold;
 }
 
-.nav-bar-right {
-	text-align: right;
+.titleDiv {
+	font-size: 32px;
+	font-color: #ffffff;
+	margin-left: 0.5em;
+	vertical-align: middle;
 }
 
-.no-highlight>a:hover, .no-highlight>a:focus {
-	background-color: transparent !important;
-}
+/* .a-button { */
+/* 	height: 70px; */
+/* 	line-height: 70px; */
+/* 	padding: 0 0; */
+/* } */
 
-.separator {
-	cursor: default !important;
-	height: 70px;
-	line-height: 70px;
-	padding: 0 10px;
-}
+/* .a-button>a, .a-padd { */
+/* 	padding: 0 10px; */
+/* } */
 
-.selected>a {
-	color: #646464;
-	background-color: #00f591;
-}
+/* .a-button>a>img { */
+/* 	margin-top: 11px; */
+/* } */
 
-.cp-content {
-	background-color: #f0f0f0;
-}
+/* .a-disabled { */
+/* 	cursor: default !important; */
+/* 	opacity: 0.4 !important; */
+/* } */
+
+/* .a-menu-item>a { */
+/* 	color: #012fa7; */
+/* 	font-size: small; */
+/* 	font-weight: bold; */
+/* 	height: 25px; */
+/* 	line-height: 25px; */
+/* 	padding: 0 10px 0 20px; */
+/* 	width: 100%; */
+/* } */
+
+/* .a-menu-item>a:hover { */
+/* 	color: #646464; */
+/* } */
+
+/* .nav-bar-right { */
+/* 	text-align: right; */
+/* } */
+
+/* .no-highlight>a:hover, .no-highlight>a:focus { */
+/* 	background-color: transparent !important; */
+/* } */
+
+/* .separator { */
+/* 	cursor: default !important; */
+/* 	height: 70px; */
+/* 	line-height: 70px; */
+/* 	padding: 0 10px; */
+/* } */
+
+/* .selected>a { */
+/* 	color: #646464; */
+/* 	background-color: #00f591; */
+/* } */
+
+/* .cp-content { */
+/* 	background-color: #f0f0f0; */
+/* } */

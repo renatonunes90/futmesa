@@ -5,6 +5,7 @@ import com.futmesa.client.module.main.MainModule;
 import com.futmesa.client.windows.main.BaseViewport;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 
@@ -36,7 +37,7 @@ public class FutMesa implements EntryPoint
     */
    private void initializeViewport()
    {
-      RootPanel.get().add( BaseViewport.getInstance() );
+      RootLayoutPanel.get().add( BaseViewport.getInstance() );
 
       // listener para chamar o update da viewport quando a url é alterada
       History.addValueChangeHandler( handler -> updateViewport() );

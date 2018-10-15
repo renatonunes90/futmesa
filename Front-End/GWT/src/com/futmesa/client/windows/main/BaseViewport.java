@@ -6,9 +6,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -21,7 +24,7 @@ public final class BaseViewport
    private static final ModulesViewportUiBinder uiBinder = GWT.create( ModulesViewportUiBinder.class );
 
    interface ModulesViewportUiBinder
-      extends UiBinder< Widget, BaseViewport >
+      extends UiBinder< DockLayoutPanel, BaseViewport >
    {}
 
    /**
@@ -30,7 +33,7 @@ public final class BaseViewport
    private static BaseViewport singleton;
 
    @UiField
-   protected HTMLPanel cpContent;
+   protected FlowPanel cpContent;
 
    // @UiField
    // protected Button btnHelp;
