@@ -60,14 +60,14 @@ class ChampionshipManager extends Championship
          throw new ChampionshipManagerException( "Tentativa de atribuir o resultado a uma partida inexistente neste campeonato." );
       }
    }
-
+   
    /**
     * Calcula a classificação do campeonato em uma dada rodada.
     *
     * @param int $roundNumber
     * @return array Lista ordenada do melhor ao pior classificado no campeonato, com suas estatísticas.
     */
-   public function getClassification( int $roundNumber ): array
+   public function getClassification( int $roundNumber = 0 ): array
    {
       $classifications = array ();
 
@@ -170,8 +170,10 @@ class ChampionshipManager extends Championship
       return $game;
    }
 
-   private function getGamesOfPlayer( int $playerId, int $roundNumber ): array
+   private function getGamesOfPlayer( int $playerId, int $roundNumber = 0 ): array
    {
+      $roundNumber = $roundNumber == 0 ? $this->getMaxRounds() : $roundNumber;
+      
       $games = array ();
       for ( $i = 1; $i <= $roundNumber; $i++ )
       {
@@ -183,5 +185,10 @@ class ChampionshipManager extends Championship
          }
       }
       return $games;
+   }
+   
+   private function getMaxRounds() : int
+   {
+      return max( array_keys( $this->getRounds() ) );
    }
 }

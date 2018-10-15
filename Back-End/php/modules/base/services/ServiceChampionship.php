@@ -80,7 +80,7 @@ class ServiceChampionship
       $championship = $this->provider_->getChampionship( $id );
       if ( $championship != null )
       {
-         $classification = $championship->getClassification( 3 );
+         $classification = $championship->getClassification();
          foreach ( $classification as $c )
          {
             $result[] = new DtoClassification( $c );
