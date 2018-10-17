@@ -21,7 +21,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.NoSelectionModel;
 
@@ -32,7 +32,7 @@ public class ClassificationViewport implements ViewportInterface {
 
 	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-	interface ClassificationViewportUiBinder extends UiBinder<SimplePanel, ClassificationViewport> {
+	interface ClassificationViewportUiBinder extends UiBinder<HorizontalPanel, ClassificationViewport> {
 	}
 
 	/**
@@ -52,6 +52,8 @@ public class ClassificationViewport implements ViewportInterface {
 	 */
 	interface Styles extends CssResource {
 
+		String classificationTitle();
+		
 		String customColumn();
 
 		String customEvenColumn();
@@ -153,7 +155,7 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 
 	@UiField(provided = false)
-	protected SimplePanel panel;
+	protected HorizontalPanel panel;
 
 	/**
 	 * The main CellTable.
@@ -180,7 +182,6 @@ public class ClassificationViewport implements ViewportInterface {
 		// used to identify contacts when fields (such as the name and address)
 		// change.
 		cellTable = new CellTable<Classification>(Classification.KEY_PROVIDER);
-		cellTable.setSelectionModel( new NoSelectionModel<Classification>() );
 //		cellTable.setWidth("100%", true);
 //		cellTable.setTitle("Tabela" );
 
@@ -208,7 +209,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(firstNameColumn, "Classificação");
-		cellTable.setColumnWidth(firstNameColumn, 100, Unit.PCT);
+		cellTable.setColumnWidth(firstNameColumn, 240, Unit.PX);
 
 		// Points
 		Column<Classification, String> pointsColumn = new Column<Classification, String>(new TextCell()) {
@@ -218,7 +219,7 @@ public class ClassificationViewport implements ViewportInterface {
 			}
 		};
 		cellTable.addColumn(pointsColumn, "P");
-		cellTable.setColumnWidth(pointsColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(pointsColumn, 60, Unit.PX);
 
 		// Games
 		Column<Classification, String> gamesColumn = new Column<Classification, String>(new TextCell()) {
@@ -229,7 +230,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(gamesColumn, "J");
-		cellTable.setColumnWidth(gamesColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(gamesColumn, 60, Unit.PX);
 
 		// Wins
 		Column<Classification, String> winsColumn = new Column<Classification, String>(new TextCell()) {
@@ -240,7 +241,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(winsColumn, "V");
-		cellTable.setColumnWidth(winsColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(winsColumn, 60, Unit.PX);
 
 		// Ties
 		Column<Classification, String> tiesColumn = new Column<Classification, String>(new TextCell()) {
@@ -251,7 +252,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(tiesColumn, "E");
-		cellTable.setColumnWidth(tiesColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(tiesColumn, 60, Unit.PX);
 
 		// Losses
 		Column<Classification, String> lossesColumn = new Column<Classification, String>(new TextCell()) {
@@ -262,7 +263,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(lossesColumn, "D");
-		cellTable.setColumnWidth(lossesColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(lossesColumn, 60, Unit.PX);
 
 		// Goals pro
 		Column<Classification, String> goalsProColumn = new Column<Classification, String>(new TextCell()) {
@@ -273,7 +274,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(goalsProColumn, "GP");
-		cellTable.setColumnWidth(goalsProColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(goalsProColumn, 60, Unit.PX);
 
 		// Goals con
 		Column<Classification, String> goalsConColumn = new Column<Classification, String>(new TextCell()) {
@@ -284,7 +285,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(goalsConColumn, "GC");
-		cellTable.setColumnWidth(goalsConColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(goalsConColumn, 60, Unit.PX);
 
 		// Goals difference
 		Column<Classification, String> goalsDifferenceColumn = new Column<Classification, String>(new TextCell()) {
@@ -295,7 +296,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(goalsDifferenceColumn, "SD");
-		cellTable.setColumnWidth(goalsDifferenceColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(goalsDifferenceColumn, 60, Unit.PX);
 
 		// Win rate
 		Column<Classification, String> winRateColumn = new Column<Classification, String>(new TextCell()) {
@@ -306,7 +307,7 @@ public class ClassificationViewport implements ViewportInterface {
 		};
 
 		cellTable.addColumn(winRateColumn, "%");
-		cellTable.setColumnWidth(winRateColumn, 40, Unit.PX);
+		cellTable.setColumnWidth(winRateColumn, 60, Unit.PX);
 	}
 
 	@Override

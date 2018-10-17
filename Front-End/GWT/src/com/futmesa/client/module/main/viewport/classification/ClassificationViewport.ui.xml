@@ -6,7 +6,13 @@
 
   <ui:style src="classificationviewport.css" /> 
 
-  <g:SimplePanel ui:field='panel'>
-     <c:CellTable addStyleNames='{style.cellTable}'  ui:field='cellTable' />
-  </g:SimplePanel>
+  <g:HorizontalPanel ui:field='panel'>
+    <g:VerticalPanel>
+     	<g:Label addStyleNames='{style.classificationTitle}'>Tabela</g:Label>
+     	<c:CellTable addStyleNames='{style.cellTable}'  ui:field='cellTable' />
+     </g:VerticalPanel>
+     <g:VerticalPanel>
+        <g:Label addStyleNames='{style.classificationTitle}'>Jogos</g:Label>
+     </g:VerticalPanel>
+  </g:HorizontalPanel>
 </ui:UiBinder>

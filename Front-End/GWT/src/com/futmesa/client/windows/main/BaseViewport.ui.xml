@@ -7,20 +7,21 @@
   	<ui:with field="consts" type="com.futmesa.client.windows.main.BaseViewportConsts" /> 
   
     <g:DockLayoutPanel styleName="{style.dockLayout}" unit='EM' height="100%" ui:field='vLayout'>
-        <g:north size='8'>
+        <g:north size='7'>
             <g:SimplePanel addStyleNames="{style.headerPanel} {style.gradientBar}">
                <g:Label styleName="{style.titleDiv}">FutMesa Manager</g:Label>
             </g:SimplePanel>
         </g:north>
-        <g:south size="4">
-	         <g:SimplePanel addStyleNames="{style.footerPanel} {style.gradientBar}"> </g:SimplePanel> 
-      	</g:south>
+<!--         <g:south size="4"> -->
+<!-- 	         <g:SimplePanel addStyleNames="{style.footerPanel} {style.gradientBar}"> </g:SimplePanel>  -->
+<!--       	</g:south> -->
         <g:center>
-            <g:ScrollPanel styleName="{style.mainPanel}">
-                <g:FlowPanel styleName="{style.contentPanel}" ui:field='cpContent'>
-                    <g:Label>content</g:Label>
-                </g:FlowPanel>
-            </g:ScrollPanel>
+            <g:HorizontalPanel width="100%" height="100%" horizontalAlignment="center">
+	            <g:ScrollPanel styleName="{style.mainPanel}">
+	                <g:FlowPanel styleName="{style.contentPanel}" ui:field='cpContent'>
+	                </g:FlowPanel>
+	            </g:ScrollPanel>
+            </g:HorizontalPanel>
         </g:center>     
      </g:DockLayoutPanel>
     

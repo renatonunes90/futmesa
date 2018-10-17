@@ -3,9 +3,7 @@
 }
 
 .headerPanel {
-	margin-top: 0.5em;
-	margin-right: 0.5em;
-	margin-left: 0.5em;
+	margin-top: 3em;
     width: auto;
     height: auto;
 }
@@ -55,10 +53,11 @@
 }
 
 .titleDiv {
-	font-size: 32px;
+	font-size: 30px;
 	font-color: #ffffff;
 	margin-left: 0.5em;
-	vertical-align: middle;
+	margin-top: 0.4em;
+
 }
 
 /* .a-button { */
