@@ -232,6 +232,7 @@ public class ClassificationTable {
 		// change.
 		cellTable = new CellTable<Classification>(Classification.KEY_PROVIDER);
 		cellTable.setStyleName( resources.styles().cellTable() );
+		cellTable.setSkipRowHoverStyleUpdate( true );
 
 		// Specify a custom table.
 		cellTable.setHeaderBuilder(new CustomHeaderBuilder(cellTable));
