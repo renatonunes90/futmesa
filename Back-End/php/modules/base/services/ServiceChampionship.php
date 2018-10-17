@@ -90,6 +90,22 @@ class ServiceChampionship
       return $result;
    }
    
+   public function getAllRounds( int $id ): array
+   {
+      $result = null;
+      
+      $championship = $this->provider_->getChampionship( $id );
+      if ( $championship != null )
+      {
+         $rounds = $championship->getRounds();
+         foreach ( $rounds as $r )
+         {
+            $result[] = new DtoRound( $r );
+         }
+      }
+      
+      return $result;
+   }
 }
 
 ?>
