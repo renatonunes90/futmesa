@@ -4,9 +4,11 @@ import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.FilterConfig;
 import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.ViewportInterface;
+import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.main.viewport.classification.ClassificationViewport;
 import com.futmesa.client.request.base.RequestRecord;
+import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.ServicePlayer;
 import com.futmesa.client.request.service.base.ServiceInterface;
 import com.futmesa.client.windows.main.BaseViewport;
@@ -23,14 +25,14 @@ public class MainModule extends ModuleInterface implements ServiceInterface
     */
    private FutMesaConsts consts = GWT.create( FutMesaConsts.class );
 
-   private ServicePlayer servicePlayer;
+   private ServiceChampionship serviceChampionship;
    
    /**
     * Construtor padrão.
     */
    public MainModule()
    {
-	   servicePlayer = new ServicePlayer( this );
+	   serviceChampionship = new ServiceChampionship( this );
       super.addMenu( consts.examplePage(), "module=main" );
       super.addMenu( consts.exampleTables(), "module=main&panel=table" );
    }
@@ -38,7 +40,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface
    @Override
    public void updatePanel( FilterConfig filter )
    {
-      servicePlayer.requestPlayers();
+      serviceChampionship.requestClassification(1);
    }
 
    @Override
@@ -54,12 +56,12 @@ public class MainModule extends ModuleInterface implements ServiceInterface
 	
 	@Override
 	public void onServiceResult(JavaScriptObject records, String requestId) {
-		if ( "getAllPlayers".equals( requestId ) )
+		if ( ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals( requestId ) )
 		{
 			 ClassificationViewport v = null;
 	         v = new ClassificationViewport();
-	         JsArray<Player> players = records.cast();
-	         v.addRows( players );
+	         JsArray<Classification> classification = records.cast();
+	         v.updateClassification( classification );
 
 		      BaseViewport.getInstance().setViewportContent( v );
 		      

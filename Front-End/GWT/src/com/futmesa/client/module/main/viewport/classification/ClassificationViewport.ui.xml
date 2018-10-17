@@ -4,33 +4,14 @@
   xmlns:g="urn:import:com.google.gwt.user.client.ui"
   xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-  <ui:style>
-    .cellTable {
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-      margin-bottom: 4px;
-      margin-top: 10px;
-    }
-  </ui:style>
+  <ui:style src="classificationviewport.css" /> 
 
-  <g:HTMLPanel ui:field='panel'>
-    <table cellspacing='0' cellpadding='0' heigth='400px' style='width:100%;'>
-      <tr>
-        <td
-          valign='top'>
-          <c:CellTable
-            addStyleNames='{style.cellTable}'
-            pageSize='15'
-            ui:field='cellTable' />
-        </td>
-      </tr>
-      <tr>
-        <td
-          align='center'>
-          <c:SimplePager
-            ui:field='pager' />
-        </td>
-      </tr>
-    </table>
-  </g:HTMLPanel>
+  <g:HorizontalPanel ui:field='panel'>
+    <g:VerticalPanel ui:field='leftPanel'>
+     	<g:Label addStyleNames='{style.classificationTitle}'>Tabela</g:Label>
+     </g:VerticalPanel>
+     <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
+        <g:Label addStyleNames='{style.classificationTitle}'>Jogos</g:Label>
+     </g:VerticalPanel>
+  </g:HorizontalPanel>
 </ui:UiBinder>

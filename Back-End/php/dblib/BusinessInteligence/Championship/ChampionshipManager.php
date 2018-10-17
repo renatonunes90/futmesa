@@ -110,7 +110,18 @@ class ChampionshipManager extends Championship
                         }
                         else
                         {
-                           return 0;
+                           if ( $a->getWinRate() > $b->getWinRate() )
+                           {
+                              return -1;
+                           }
+                           elseif ( $a->getWinRate() < $b->getWinRate() )
+                           {
+                              return 1;
+                           }
+                           else
+                           {
+                              return 0;
+                           }
                         }
                      }
                   }
