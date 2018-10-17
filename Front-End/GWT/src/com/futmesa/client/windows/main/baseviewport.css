@@ -22,14 +22,11 @@
   right: 0.5em;
   top: 0.5em;
   bottom: 0.5em;
+  margin-top: 40px;
+  margin-bottom: 40px;
   margin-left: 0.5em;
   margin-right: 0.5em;
   background-color: #ffffff;
-}
-
-.contentPanel {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
 }
 
 .gradientBar {

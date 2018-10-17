@@ -6,6 +6,7 @@ import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.module.main.viewport.classification.ClassificationViewport;
 import com.futmesa.client.request.base.RequestRecord;
 import com.futmesa.client.request.service.ServiceChampionship;
@@ -17,59 +18,61 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.core.shared.GWT;
 
+public class MainModule extends ModuleInterface implements ServiceInterface {
+	/**
+	 * Constantes de mensagens.
+	 */
+	private FutMesaConsts consts = GWT.create(FutMesaConsts.class);
 
-public class MainModule extends ModuleInterface implements ServiceInterface
-{
-   /**
-    * Constantes de mensagens.
-    */
-   private FutMesaConsts consts = GWT.create( FutMesaConsts.class );
+	private ServiceChampionship serviceChampionship;
 
-   private ServiceChampionship serviceChampionship;
-   
-   /**
-    * Construtor padrão.
-    */
-   public MainModule()
-   {
-	   serviceChampionship = new ServiceChampionship( this );
-      super.addMenu( consts.examplePage(), "module=main" );
-      super.addMenu( consts.exampleTables(), "module=main&panel=table" );
-   }
+	private ClassificationViewport classificationViewport;
 
-   @Override
-   public void updatePanel( FilterConfig filter )
-   {
-      serviceChampionship.requestClassification(1);
-   }
+	/**
+	 * Construtor padrão.
+	 */
+	public MainModule() {
+		classificationViewport = new ClassificationViewport();
+		serviceChampionship = new ServiceChampionship(this);
+		super.addMenu(consts.examplePage(), "module=main");
+		super.addMenu(consts.exampleTables(), "module=main&panel=table");
+	}
 
-   @Override
-   public String getModuleName()
-   {
-      return consts.moduleName();
-   }
+	@Override
+	public void updatePanel(FilterConfig filter) {
+		serviceChampionship.requestClassification(1);
+	}
+
+	@Override
+	public String getModuleName() {
+		return consts.moduleName();
+	}
 
 	@Override
 	public void mask(String requestId) {
-		
+
 	}
-	
+
 	@Override
 	public void onServiceResult(JavaScriptObject records, String requestId) {
-		if ( ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals( requestId ) )
-		{
-			 ClassificationViewport v = null;
-	         v = new ClassificationViewport();
-	         JsArray<Classification> classification = records.cast();
-	         v.updateClassification( classification );
+		if (ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals(requestId)) {
+			JsArray<Classification> classification = records.cast();
+			classificationViewport.updateClassification(classification);
 
-		      BaseViewport.getInstance().setViewportContent( v );
-		      
+			serviceChampionship.requestAllRounds(1);
+			
+		} else if (ServiceChampionship.GET_ALL_ROUNDS.equals(requestId)) {
+			ClassificationViewport v = null;
+			v = new ClassificationViewport();
+			JsArray<Round> rounds = records.cast();
+			classificationViewport.updateRounds(rounds);
+
+			BaseViewport.getInstance().setViewportContent(classificationViewport);
 		}
 	}
-	
+
 	@Override
 	public void unmask(String requestId) {
-		
+
 	}
 }

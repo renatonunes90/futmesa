@@ -12,6 +12,7 @@ public class ServiceChampionship extends ServiceAbstract {
 	public static final String SERVICE = "Championship";
 
 	public static final String GET_LAST_CLASSIFICATIONS = "getLastClassifications";
+	public static final String GET_ALL_ROUNDS = "getAllRounds";
 	
 	public ServiceChampionship(ServiceInterface parent) {
 		super(parent, MODULE, SERVICE);
@@ -23,6 +24,14 @@ public class ServiceChampionship extends ServiceAbstract {
 		params.add( "id=" + String.valueOf( id ) );
 		params.add( "function=" + GET_LAST_CLASSIFICATIONS );
 		request( params, GET_LAST_CLASSIFICATIONS );
+	}
+	
+	public void requestAllRounds( int id )
+	{
+		List<String> params = new ArrayList<String>();
+		params.add( "id=" + String.valueOf( id ) );
+		params.add( "function=" + GET_ALL_ROUNDS );
+		request( params, GET_ALL_ROUNDS );
 	}
 
 }

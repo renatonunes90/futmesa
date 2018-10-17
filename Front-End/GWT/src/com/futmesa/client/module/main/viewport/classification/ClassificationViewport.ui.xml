@@ -7,7 +7,7 @@
   <ui:style src="classificationviewport.css" /> 
 
   <g:HorizontalPanel ui:field='panel'>
-    <g:VerticalPanel ui:field='leftPanel'>
+    <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
      	<g:Label addStyleNames='{style.classificationTitle}'>Tabela</g:Label>
      </g:VerticalPanel>
      <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
