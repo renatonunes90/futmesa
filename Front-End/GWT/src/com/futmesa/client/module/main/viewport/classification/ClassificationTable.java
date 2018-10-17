@@ -22,25 +22,17 @@ import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextHeader;
 
 /**
- * Viewport com exemplos de utilização do SimpleGrid.
+ * Classe com a tabela de classificação de um campeonato.
  */
 public class ClassificationTable {
 
-	/**
-	 * The resources used by this example.
-	 */
+
 	interface Resources extends ClientBundle {
 
-		/**
-		 * Get the styles used but this example.
-		 */
 		@Source("classificationtable.css")
 		Styles styles();
 	}
 
-	/**
-	 * The CSS Resources used by this example.
-	 */
 	interface Styles extends CssResource {
 
 		String customClassificationHeader();
@@ -52,6 +44,10 @@ public class ClassificationTable {
 		String cellTable();
 	}
 
+	/**
+	 * Builder customizado para o header da classificação.
+	 *
+	 */
 	private class CustomHeaderBuilder extends AbstractHeaderOrFooterBuilder<Classification> {
 
 		private final String headerStyle;
@@ -64,12 +60,9 @@ public class ClassificationTable {
 
 		@Override
 		protected boolean buildHeaderOrFooterImpl() {
-			// Style style = dataGrid.getResources().style();
 
-			// Add a 2x2 header above the checkbox and show friends columns.
 			TableRowBuilder tr = startRow();
 
-			// Add column headers.
 			tr = startRow();
 
 			buildHeader(tr, "Classificação", true);
@@ -88,13 +81,6 @@ public class ClassificationTable {
 			return true;
 		}
 
-		/**
-		 * Renders the header of one column, with the given options.
-		 * 
-		 * @param out    the table row to build into
-		 * @param header the {@link Header} to render
-		 * @param column the column to associate with the header
-		 */
 		private void buildHeader(TableRowBuilder out, String headerStr, boolean isFirst) {
 
 			// Create the table cell.
@@ -115,7 +101,8 @@ public class ClassificationTable {
 	}
 
 	/**
-	 * Renders the data rows that display each contact in the table.
+	 * Builder customizado para a renderização de cada linha da clssificação.
+	 *
 	 */
 	private class CustomTableBuilder extends AbstractCellTableBuilder<Classification> {
 
@@ -126,8 +113,6 @@ public class ClassificationTable {
 		public CustomTableBuilder(CellTable<Classification> dataGrid) {
 			super(dataGrid);
 
-			// Cache styles for faster access.
-			// Calculate the cell styles.
 			cellStyles = resources.styles().customColumn();
 
 			evenCellStyles = new StringBuilder(resources.styles().customEvenColumn());
@@ -207,29 +192,16 @@ public class ClassificationTable {
 		}
 	}
 
-	/**
-	 * The main CellTable.
-	 */
 	private CellTable<Classification> cellTable;
 
-	/**
-	 * The resources used by this example.
-	 */
 	private Resources resources;
 
-	/**
-	 * Construtor padrão.
-	 */
 	public ClassificationTable() {
 
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
 
 		// Create a CellTable.
-
-		// Set a key provider that provides a unique key for each contact. If key is
-		// used to identify contacts when fields (such as the name and address)
-		// change.
 		cellTable = new CellTable<Classification>(Classification.KEY_PROVIDER);
 		cellTable.setStyleName( resources.styles().cellTable() );
 		cellTable.setSkipRowHoverStyleUpdate( true );

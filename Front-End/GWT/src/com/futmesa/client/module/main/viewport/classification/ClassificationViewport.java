@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Viewport com exemplos de utilização do SimpleGrid.
+ * Viewport datela de um campeonato, com a sua classificação e rodadas.
  */
 public class ClassificationViewport implements ViewportInterface {
 
@@ -38,7 +38,6 @@ public class ClassificationViewport implements ViewportInterface {
 
 		classification = new ClassificationTable();
 
-		
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
