@@ -3,6 +3,8 @@ package com.futmesa.client.module.main.viewport.classification;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
+import com.futmesa.client.module.main.viewport.classification.widgets.ClassificationTable;
+import com.futmesa.client.module.main.viewport.classification.widgets.GamesTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;

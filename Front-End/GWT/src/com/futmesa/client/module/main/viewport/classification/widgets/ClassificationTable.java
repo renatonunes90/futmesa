@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main.viewport.classification;
+package com.futmesa.client.module.main.viewport.classification.widgets;
 
 import java.util.ArrayList;
 import java.util.List;

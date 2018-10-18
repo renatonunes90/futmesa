@@ -1,6 +1,9 @@
-package com.futmesa.client.module.main.viewport.classification;
+package com.futmesa.client.module.main.viewport.classification.widgets;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.futmesa.client.businessinteligence.Classification;
@@ -16,6 +19,7 @@ import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
@@ -46,6 +50,8 @@ public class GamesTable {
 		
 		String customGamesSubHeader();
 
+		String customTableRow();
+		
 		String customColumn();
 
 		String gameTable();
@@ -116,6 +122,8 @@ public class GamesTable {
 
 		private final String cellStyles;
 		
+		private final String tableRowStyle;
+		
 		private final String subHeaderStyle;
 
 		public CustomTableBuilder(CellTable<Round> dataGrid) {
@@ -123,6 +131,7 @@ public class GamesTable {
 
 			cellStyles = resources.styles().customColumn();
 			subHeaderStyle = resources.styles().customGamesSubHeader();
+			tableRowStyle = resources.styles().customTableRow();
 		}
 
 		@Override
@@ -130,14 +139,25 @@ public class GamesTable {
 
      		TableRowBuilder row = startRow();
 			
+     		// adiciona a linha da rodada
 			TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
-	        td.text("Rodada " + String.valueOf( rowValue.getNumber() ) + " - " + rowValue.getBaseDate() + " " + rowValue.getBaseHour() ).endTD();
+	        td.text( resolveRound( rowValue )).endTD();
 	        row.endTR();
 		      
 			JsArray<Game> games = rowValue.getGames();
 			for (int i = 0; i < games.length(); i++) {
+				
+				// adiciona linha com a mesa do jogo
 				row = startRow();
-	
+				
+				td = row.startTD().colSpan(5).className(tableRowStyle);
+				td.text( "Mesa " + String.valueOf( games.get(i).getGameTable() ) );
+				td.endTD();
+				row.endTR();
+				
+				// adiciona linha do jogo
+				row = startRow();
+				
 				// Player 1
 				buildRow( row, games.get(i).getPlayer1Name(), true, false );
 	
@@ -173,6 +193,18 @@ public class GamesTable {
 			td.endTD();
 		}
 		
+		private String resolveRound( Round round )
+		{
+			StringBuilder roundStr = new StringBuilder( "Rodada " );
+			if ( round != null ) {
+				roundStr.append( String.valueOf( round.getNumber() ) );
+				
+				Date date = DateTimeFormat.getFormat( "yyyy-dd-MM HH:mm:ss"  ).parse( round.getBaseDate() + " " + round.getBaseHour() );
+				String dateString = DateTimeFormat.getFormat("dd-MM-yy hh:mm").format( date );
+				roundStr.append( " - " + dateString );
+			}
+			return roundStr.toString();
+		}
 	}
 
 	private HorizontalPanel panel;
