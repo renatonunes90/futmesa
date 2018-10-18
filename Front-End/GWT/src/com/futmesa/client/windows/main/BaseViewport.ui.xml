@@ -9,7 +9,7 @@
     <g:DockLayoutPanel styleName="{style.dockLayout}" unit='EM' height="100%" ui:field='vLayout'>
         <g:north size='7'>
             <g:SimplePanel addStyleNames="{style.headerPanel} {style.gradientBar}">
-               <g:Label styleName="{style.titleDiv}">FM Manager</g:Label>
+               <g:Label styleName="{style.titleDiv}" text='{consts.pageTitle}'></g:Label>
             </g:SimplePanel>
         </g:north>
         <g:center>

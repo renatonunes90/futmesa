@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.futmesa.client.businessinteligence.Classification;
+import com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -65,7 +66,7 @@ public class ClassificationTable {
 
 			tr = startRow();
 
-			buildHeader(tr, "Classificação", true);
+			buildHeader(tr, constants.classificationColumn(), true);
 			buildHeader(tr, "P", false);
 			buildHeader(tr, "J", false);
 			buildHeader(tr, "V", false);
@@ -196,8 +197,13 @@ public class ClassificationTable {
 
 	private Resources resources;
 
+	private ClassificationViewportConsts constants;
+
 	public ClassificationTable() {
 
+		// Create the internationalized error messages
+	    constants = GWT.create(ClassificationViewportConsts.class);
+		
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
 

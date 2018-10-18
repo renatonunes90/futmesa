@@ -4,14 +4,16 @@
   xmlns:g="urn:import:com.google.gwt.user.client.ui"
   xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
+  <ui:with field="consts" type="com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts" /> 
+  	
   <ui:style src="classificationviewport.css" /> 
 
   <g:HorizontalPanel ui:field='panel'>
     <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
-     	<g:Label addStyleNames='{style.classificationTitle}'>Tabela</g:Label>
+     	<g:Label addStyleNames='{style.classificationTitle}' text='{consts.classificationTitle}'></g:Label>
      </g:VerticalPanel>
      <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
-        <g:Label addStyleNames='{style.classificationTitle}'>Jogos</g:Label>
+        <g:Label addStyleNames='{style.classificationTitle}' text='{consts.gamesTitle}'></g:Label>
      </g:VerticalPanel>
   </g:HorizontalPanel>
 </ui:UiBinder>

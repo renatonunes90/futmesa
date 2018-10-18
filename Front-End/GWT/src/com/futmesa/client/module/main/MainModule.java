@@ -34,8 +34,8 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 	public MainModule() {
 		classificationViewport = new ClassificationViewport();
 		serviceChampionship = new ServiceChampionship(this);
-		super.addMenu(consts.examplePage(), "module=main");
-		super.addMenu(consts.exampleTables(), "module=main&panel=table");
+//		super.addMenu(consts.examplePage(), "module=main");
+//		super.addMenu(consts.exampleTables(), "module=main&panel=table");
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 	@Override
 	public String getModuleName() {
-		return consts.moduleName();
+		return "main"; //consts.moduleName();
 	}
 
 	@Override
