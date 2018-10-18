@@ -20,6 +20,7 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
 import com.google.gwt.user.cellview.client.AbstractHeaderOrFooterBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextHeader;
 
@@ -37,41 +38,40 @@ public class GamesTable {
 
 	interface Styles extends CssResource {
 
-		String customClassificationHeader();
+		String customGamesHeader();
+		
+		String customGamesSubHeader();
 
 		String customColumn();
 
-		String customEvenColumn();
-
-		String cellTable();
+		String gameTable();
 	}
 
 	/**
 	 * Builder customizado para o header da tabela de jogos.
 	 *
 	 */
-	private class CustomHeaderBuilder extends AbstractHeaderOrFooterBuilder<Game> {
+	private class CustomHeaderBuilder extends AbstractHeaderOrFooterBuilder<Round> {
 
 		private final String headerStyle;
+		
 
-		public CustomHeaderBuilder(CellTable<Game> dataGrid) {
+		public CustomHeaderBuilder(CellTable<Round> dataGrid) {
 			super(dataGrid, false);
 			setSortIconStartOfLine(false);
-			headerStyle = resources.styles().customClassificationHeader();
+			headerStyle = resources.styles().customGamesHeader();
 		}
 
 		@Override
 		protected boolean buildHeaderOrFooterImpl() {
 
-			TableRowBuilder tr = startRow();
+		      TableRowBuilder tr = startRow();
 
-			tr = startRow();
-
-			buildHeader(tr, "Jogador 1", true, false);
+			buildHeader(tr, "", true, false);
 			buildHeader(tr, "", false, false);
 			buildHeader(tr, "", false, false);
 			buildHeader(tr, "", false, false);
-			buildHeader(tr, "Jogador 2", false, true);
+			buildHeader(tr, "", false, true);
 
 			tr.endTR();
 
@@ -104,74 +104,84 @@ public class GamesTable {
 	 * Builder customizado para a renderização de cada linha da tabela de jogos.
 	 *
 	 */
-	private class CustomTableBuilder extends AbstractCellTableBuilder<Game> {
+	private class CustomTableBuilder extends AbstractCellTableBuilder<Round> {
 
 		private final String cellStyles;
+		
+		private final String subHeaderStyle;
 
-		public CustomTableBuilder(CellTable<Game> dataGrid) {
+		public CustomTableBuilder(CellTable<Round> dataGrid) {
 			super(dataGrid);
 
 			cellStyles = resources.styles().customColumn();
-
-//			evenCellStyles = new StringBuilder(resources.styles().customEvenColumn());
-//			evenCellStyles.append(" " + resources.styles().customColumn());
+			subHeaderStyle = resources.styles().customGamesSubHeader();
 		}
 
 		@Override
-		public void buildRowImpl(Game rowValue, int absRowIndex) {
+		public void buildRowImpl(Round rowValue, int absRowIndex) {
 
 			TableRowBuilder row = startRow();
-
-			// Player 1
-			TableCellBuilder td = row.startTD();
-			td.className(cellStyles);
-			td.style().textAlign(TextAlign.RIGHT).fontSize(17, Unit.PX).endStyle();
-			td.text(rowValue.getPlayer1Name() );
-			td.endTD();
-
-			// Score 1
-			td = row.startTD();
-			td.className(cellStyles);
-			String score1 = String.valueOf(rowValue.getScore1()) != "null" ? String.valueOf(rowValue.getScore1()) : "";
-			td.text(score1);
-			td.endTD();
-
-			// X
-			td = row.startTD();
-			td.className(cellStyles);
-			td.text( "X" );
-			td.endTD();
-
-			// Score 2
-			td = row.startTD();
-			td.className(cellStyles);
-			String score2 = String.valueOf(rowValue.getScore2()) != "null" ? String.valueOf(rowValue.getScore2()) : "";
-			td.text(score2);
-			td.endTD();
-
-			// Player 2
-			td = row.startTD();
-			td.className(cellStyles);
-			td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
-			td.text(rowValue.getPlayer2Name() );
-			td.endTD();
+	        TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
+	        td.text("Rodada " + String.valueOf( rowValue.getNumber() ) + " - " + rowValue.getBaseDate() + " " + rowValue.getBaseHour() ).endTD();
+	        row.endTR();
+		      
+			JsArray<Game> games = rowValue.getGames();
+			for (int i = 0; i < games.length(); i++) {
+				row = startRow();
+	
+				// Player 1
+				buildRow( row, games.get(i).getPlayer1Name(), true, false );
+	
+				// Score 1
+				String score1 = String.valueOf(games.get(i).getScore1()) != "null" ? String.valueOf(games.get(i).getScore1()) : "";
+				buildRow( row, score1, false, false );
+	
+				// X
+				buildRow( row, "X", false, false );
+	
+				// Score 2
+				String score2 = String.valueOf(games.get(i).getScore2()) != "null" ? String.valueOf(games.get(i).getScore2()) : "";
+				buildRow( row, score2, false, false );
+	
+				// Player 2
+				buildRow( row, games.get(i).getPlayer2Name(), false, true );
+			}
 
 			row.endTR();
 		}
+		
+		private void buildRow( TableRowBuilder row, String value, boolean isPlayer1, boolean isPlayer2  ) {
+			
+			TableCellBuilder td = row.startTD();
+			td.className(cellStyles);
+			if ( isPlayer1 ) {
+				td.style().textAlign(TextAlign.RIGHT).fontSize(17, Unit.PX).endStyle();
+			}
+			else if ( isPlayer2 ) {
+				td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
+			}
+			td.text( value );
+			td.endTD();
+		}
+		
 	}
 
-	private CellTable<Game> cellTable;
+	private CellTable<Round> cellTable;
 
 	private Resources resources;
+	
+	private Round currentRound;
 
 	public GamesTable() {
 
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
 
+		currentRound = null;
+		
 		// Create a CellTable.
-		cellTable = new CellTable<Game>(Game.KEY_PROVIDER);
-		cellTable.setStyleName( resources.styles().cellTable() );
+		cellTable = new CellTable<Round>(Round.KEY_PROVIDER);
+		cellTable.setStyleName( resources.styles().gameTable() );
 		cellTable.setSkipRowHoverStyleUpdate( true );
 
 		// Specify a custom table.
@@ -179,18 +189,23 @@ public class GamesTable {
 		cellTable.setTableBuilder(new CustomTableBuilder(cellTable));
 	}
 
-   public CellTable<Game> asWidget()
+   public CellTable<Round> asWidget()
    {
 	   return cellTable;
    }
 
-	public void updateRounds(JsArray<Round> rounds) {
-		
-		List<Game> data = new ArrayList<Game>();
+	public void updateRounds(JsArray<Round> rounds, int roundNumber ) {
+
+		List<Round> data = new ArrayList<Round>();
 		for (int i = 0; i < rounds.length(); i++) {
-			JsArray<Game> games = rounds.get(i).getGames();
-			for (int j = 0; j < games.length(); j++) {
-				data.add(games.get(j));
+			if ( rounds.get(i).getNumber() == roundNumber ) {
+				currentRound = rounds.get(i);
+			}
+		}
+		
+		for (int i = 0; i < rounds.length(); i++) {
+			if ( currentRound.getBaseDate().equals( rounds.get(i).getBaseDate() ) )			{
+				data.add( rounds.get( i ) );
 			}
 		}
 		cellTable.setRowData(data);

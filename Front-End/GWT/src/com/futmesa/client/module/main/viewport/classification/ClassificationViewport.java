@@ -60,6 +60,6 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 	
 	public void updateRounds(JsArray<Round> rounds) {
-		games.updateRounds( rounds );
+		games.updateRounds( rounds, 6 );
 	}
 }

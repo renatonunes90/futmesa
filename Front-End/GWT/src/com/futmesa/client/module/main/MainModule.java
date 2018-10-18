@@ -62,8 +62,6 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 			serviceChampionship.requestAllRounds(1);
 			
 		} else if (ServiceChampionship.GET_ALL_ROUNDS.equals(requestId)) {
-			ClassificationViewport v = null;
-			v = new ClassificationViewport();
 			JsArray<Round> rounds = records.cast();
 			classificationViewport.updateRounds(rounds);
 
