@@ -33,3 +33,15 @@
     font-size: 14px;
     font-family: opensans;
  }
+ 
+ .customNextBtn {
+ 	margin-top: 19px;
+ 	margin-left: -25px;
+ 	cursor: pointer;
+ }
+ 
+ .customPrevBtn {
+ 	margin-top: 19px;
+ 	margin-right: -25px;
+ 	cursor: pointer;
+ }

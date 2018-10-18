@@ -14,6 +14,8 @@ import com.google.gwt.dom.builder.shared.TableRowBuilder;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
@@ -23,6 +25,8 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextHeader;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * Classe com a tabela de classificação de um campeonato.
@@ -45,6 +49,10 @@ public class GamesTable {
 		String customColumn();
 
 		String gameTable();
+		
+		String customNextBtn();
+		
+		String customPrevBtn();
 	}
 
 	/**
@@ -65,20 +73,20 @@ public class GamesTable {
 		@Override
 		protected boolean buildHeaderOrFooterImpl() {
 
-		      TableRowBuilder tr = startRow();
+		    TableRowBuilder tr = startRow();
 
-			buildHeader(tr, "", true, false);
-			buildHeader(tr, "", false, false);
-			buildHeader(tr, "", false, false);
-			buildHeader(tr, "", false, false);
-			buildHeader(tr, "", false, true);
+			buildHeader(tr, true, false);
+			buildHeader(tr, false, false);
+			buildHeader(tr, false, false);
+			buildHeader(tr, false, false);
+			buildHeader(tr, false, true);
 
 			tr.endTR();
 
 			return true;
 		}
 
-		private void buildHeader(TableRowBuilder out, String headerStr, boolean isFirst, boolean isLast) {
+		private void buildHeader(TableRowBuilder out, boolean isFirst, boolean isLast) {
 
 			// Create the table cell.
 			TableCellBuilder th = out.startTH().className(headerStyle);
@@ -89,7 +97,7 @@ public class GamesTable {
 				th.style().width(120, Unit.PX).textAlign(TextAlign.LEFT).endStyle();
 			}
 
-			Header<String> header = new TextHeader(headerStr);
+			Header<String> header = new TextHeader( "" );
 
 			// Render the header.
 			Context context = new Context(0, 2, header.getKey());
@@ -120,8 +128,9 @@ public class GamesTable {
 		@Override
 		public void buildRowImpl(Round rowValue, int absRowIndex) {
 
-			TableRowBuilder row = startRow();
-	        TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
+     		TableRowBuilder row = startRow();
+			
+			TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
 	        td.text("Rodada " + String.valueOf( rowValue.getNumber() ) + " - " + rowValue.getBaseDate() + " " + rowValue.getBaseHour() ).endTD();
 	        row.endTR();
 		      
@@ -145,9 +154,9 @@ public class GamesTable {
 	
 				// Player 2
 				buildRow( row, games.get(i).getPlayer2Name(), false, true );
-			}
 
-			row.endTR();
+				row.endTR();
+			}
 		}
 		
 		private void buildRow( TableRowBuilder row, String value, boolean isPlayer1, boolean isPlayer2  ) {
@@ -166,11 +175,16 @@ public class GamesTable {
 		
 	}
 
+	private HorizontalPanel panel;
 	private CellTable<Round> cellTable;
 
 	private Resources resources;
 	
+	private List<Round> allRounds;
 	private Round currentRound;
+	
+	private Button prevRounds;
+	private Button nextRounds;
 
 	public GamesTable() {
 
@@ -178,6 +192,7 @@ public class GamesTable {
 		resources.styles().ensureInjected();
 
 		currentRound = null;
+		allRounds = new ArrayList<Round>();
 		
 		// Create a CellTable.
 		cellTable = new CellTable<Round>(Round.KEY_PROVIDER);
@@ -187,27 +202,107 @@ public class GamesTable {
 		// Specify a custom table.
 		cellTable.setHeaderBuilder(new CustomHeaderBuilder(cellTable));
 		cellTable.setTableBuilder(new CustomTableBuilder(cellTable));
+		
+		prevRounds = new Button( "<<", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				int nextRound = findRound( false );
+				if ( nextRound > 0 )  { 
+					updateRounds( nextRound );
+				}
+			}
+		});
+		prevRounds.setStyleName(resources.styles().customPrevBtn());
+		
+		nextRounds = new Button( ">>", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				int nextRound = findRound( true );
+				if ( nextRound > 0 )  { 
+					updateRounds( nextRound );
+				}
+			}
+		});
+		nextRounds.setStyleName(resources.styles().customNextBtn());
+		
+		panel = new HorizontalPanel();
+		panel.add(prevRounds);
+		panel.add(cellTable);
+		panel.add(nextRounds);
 	}
 
-   public CellTable<Round> asWidget()
+   public HorizontalPanel asWidget()
    {
-	   return cellTable;
+	   return panel;
    }
 
-	public void updateRounds(JsArray<Round> rounds, int roundNumber ) {
-
-		List<Round> data = new ArrayList<Round>();
+	public void setRounds(JsArray<Round> rounds, int currentRound ) {
+		allRounds.clear();
 		for (int i = 0; i < rounds.length(); i++) {
-			if ( rounds.get(i).getNumber() == roundNumber ) {
-				currentRound = rounds.get(i);
+			allRounds.add( rounds.get( i ) );
+		}
+		
+		updateRounds( currentRound );
+	}
+	
+	private void updateRounds( int nextRound ) {
+		List<Round> data = new ArrayList<Round>();
+		for ( Round r : allRounds) {
+			if ( r.getNumber() == nextRound ) {
+				currentRound = r;
+				break;
 			}
 		}
 		
-		for (int i = 0; i < rounds.length(); i++) {
-			if ( currentRound.getBaseDate().equals( rounds.get(i).getBaseDate() ) )			{
-				data.add( rounds.get( i ) );
+		for ( Round r : allRounds) {
+			if ( currentRound.getBaseDate().equals( r.getBaseDate() ) && r.getGames().length() > 0 )	{
+				data.add( r );
 			}
 		}
+		
 		cellTable.setRowData(data);
+		
+		updateButtons();
+	}
+	
+	private int findRound( boolean isNext ) {
+		
+		int expected = isNext ? 1 : -1;
+		
+		int nextRound = -1;
+		for ( Round r : allRounds) {
+			if ( r.getBaseDate().compareTo( currentRound.getBaseDate() ) == expected ) {
+				if ( isNext ) {
+					if ( nextRound == -1 || r.getNumber() < nextRound ) {
+						nextRound = r.getNumber();
+					}
+				}
+				else {
+					if ( nextRound == -1 || r.getNumber() > nextRound ) {
+						nextRound = r.getNumber();
+					}	
+				}
+			}
+		}
+		
+		return nextRound;
+	}
+	
+	private void updateButtons()
+	{
+		boolean hasNext = false;
+		boolean hasPrev = false;
+		
+		for ( Round r : allRounds) {
+			if ( r.getBaseDate().compareTo( currentRound.getBaseDate() ) == 1  ) {
+				hasNext = true;
+			}
+			if ( r.getBaseDate().compareTo( currentRound.getBaseDate() ) == -1  ) {
+				hasPrev = true;
+			}
+		}
+		
+		nextRounds.setEnabled( hasNext );
+		prevRounds.setEnabled( hasPrev );
 	}
 }
