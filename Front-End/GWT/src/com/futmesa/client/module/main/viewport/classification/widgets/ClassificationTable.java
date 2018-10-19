@@ -28,6 +28,9 @@ import com.google.gwt.user.cellview.client.TextHeader;
 public class ClassificationTable {
 
 
+	/**
+	 * Carrega os recursos de estilos da tabela.
+	 */
 	interface Resources extends ClientBundle {
 
 		@Source("classificationtable.css")
@@ -45,6 +48,56 @@ public class ClassificationTable {
 		String cellTable();
 	}
 
+	/**
+	 * Constantes da classe.
+	 */
+	private ClassificationViewportConsts constants;
+
+	/**
+	 * Estilos da tabela.
+	 */
+	private Resources resources;
+
+	private CellTable<Classification> cellTable;
+
+	public ClassificationTable() {
+
+	    constants = GWT.create(ClassificationViewportConsts.class);
+		
+		resources = GWT.create(Resources.class);
+		resources.styles().ensureInjected();
+
+		cellTable = new CellTable<Classification>(Classification.KEY_PROVIDER);
+		cellTable.setStyleName( resources.styles().cellTable() );
+		cellTable.setSkipRowHoverStyleUpdate( true );
+
+		// seta os builders customizados
+		cellTable.setHeaderBuilder(new CustomHeaderBuilder(cellTable));
+		cellTable.setTableBuilder(new CustomTableBuilder(cellTable));
+	}
+
+	/**
+	 * 
+	 * @return o Widget da tabela.
+	 */
+   public CellTable<Classification> asWidget()
+   {
+	   return cellTable;
+   }
+
+   /**
+    * Atualiza a tabela de classificação.
+    * 
+    * @param classifications
+    */
+	public void updateClassification(JsArray<Classification> classifications) {
+		List<Classification> data = new ArrayList<Classification>();
+		for (int i = 0; i < classifications.length(); i++) {
+			data.add(classifications.get(i));
+		}
+		cellTable.setRowData(data);
+	}
+	
 	/**
 	 * Builder customizado para o header da classificação.
 	 *
@@ -67,15 +120,15 @@ public class ClassificationTable {
 			tr = startRow();
 
 			buildHeader(tr, constants.classificationColumn(), true);
-			buildHeader(tr, "P", false);
-			buildHeader(tr, "J", false);
-			buildHeader(tr, "V", false);
-			buildHeader(tr, "E", false);
-			buildHeader(tr, "D", false);
-			buildHeader(tr, "GP", false);
-			buildHeader(tr, "GC", false);
-			buildHeader(tr, "SD", false);
-			buildHeader(tr, "%", false);
+			buildHeader(tr, constants.pointsColumn(), false);
+			buildHeader(tr, constants.gamesColumn(), false);
+			buildHeader(tr, constants.winsColumn(), false);
+			buildHeader(tr, constants.tiesColumn(), false);
+			buildHeader(tr, constants.lossesColumn(), false);
+			buildHeader(tr, constants.goalsProColumn(), false);
+			buildHeader(tr, constants.goalsConColumn(), false);
+			buildHeader(tr, constants.goalsDifferenceColumn(), false);
+			buildHeader(tr, constants.winRatioColumn(), false);
 
 			tr.endTR();
 
@@ -84,7 +137,7 @@ public class ClassificationTable {
 
 		private void buildHeader(TableRowBuilder out, String headerStr, boolean isFirst) {
 
-			// Create the table cell.
+			// inicia a célula
 			TableCellBuilder th = out.startTH().className(headerStyle);
 			if (isFirst) {
 				th.style().width(240, Unit.PX).textAlign(TextAlign.LEFT).endStyle();
@@ -92,11 +145,11 @@ public class ClassificationTable {
 
 			Header<String> header = new TextHeader(headerStr);
 
-			// Render the header.
+			// renderiza o header
 			Context context = new Context(0, 2, header.getKey());
 			renderHeader(th, context, header);
 
-			// End the table cell.
+			// finaliza a célula
 			th.endTH();
 		}
 	}
@@ -126,107 +179,40 @@ public class ClassificationTable {
 		public void buildRowImpl(Classification rowValue, int absRowIndex) {
 
 			TableRowBuilder row = startRow();
-
-			// Player
-			TableCellBuilder td = row.startTD();
-			td.className(cellStyles);
-			td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
-			td.text(String.valueOf(absRowIndex + 1) + " " + rowValue.getPlayerName());
-			td.endTD();
-
-			// Points
-			td = row.startTD();
-			td.className(evenCellStyles.toString());
-			td.style().fontWeight(FontWeight.BOLD).endStyle();
-			td.text(String.valueOf(rowValue.getPoints()));
-			td.endTD();
-
-			// Games
-			td = row.startTD();
-			td.className(cellStyles);
-			td.text(String.valueOf(rowValue.getNumberOfGames()));
-			td.endTD();
-
-			// Wins
-			td = row.startTD();
-			td.className(evenCellStyles.toString());
-			td.text(String.valueOf(rowValue.getWins()));
-			td.endTD();
-
-			// Ties
-			td = row.startTD();
-			td.className(cellStyles);
-			td.text(String.valueOf(rowValue.getTies()));
-			td.endTD();
-
-			// Losses
-			td = row.startTD();
-			td.className(evenCellStyles.toString());
-			td.text(String.valueOf(rowValue.getLosses()));
-			td.endTD();
-
-			// Goals pro
-			td = row.startTD();
-			td.className(cellStyles);
-			td.text(String.valueOf(rowValue.getGoalsPro()));
-			td.endTD();
-
-			// Goals con
-			td = row.startTD();
-			td.className(evenCellStyles.toString());
-			td.text(String.valueOf(rowValue.getGoalsCon()));
-			td.endTD();
-
-			// Goals difference
-			td = row.startTD();
-			td.className(cellStyles);
-			td.text(String.valueOf(rowValue.getGoalsDiff()));
-			td.endTD();
-
-			// Win rate
-			td = row.startTD();
-			td.className(evenCellStyles.toString());
-			td.text(numberFormatter.format(rowValue.getWinRate()));
-			td.endTD();
+			
+			buildRow( row, String.valueOf(absRowIndex + 1) + " " + rowValue.getPlayerName(), false, true, false );
+			buildRow( row, String.valueOf(rowValue.getPoints()), true, false, true );
+			buildRow( row, String.valueOf(rowValue.getNumberOfGames()), false, false, false );
+			buildRow( row, String.valueOf(rowValue.getWins()), true, false, false );
+			buildRow( row, String.valueOf(rowValue.getTies()), false, false, false );
+			buildRow( row, String.valueOf(rowValue.getLosses()), true, false, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsPro()), false, false, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsCon()), true, false, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsDiff()), false, false, false );
+			buildRow( row, numberFormatter.format(rowValue.getWinRate()), true, false, false );
 
 			row.endTR();
 		}
-	}
-
-	private CellTable<Classification> cellTable;
-
-	private Resources resources;
-
-	private ClassificationViewportConsts constants;
-
-	public ClassificationTable() {
-
-		// Create the internationalized error messages
-	    constants = GWT.create(ClassificationViewportConsts.class);
 		
-		resources = GWT.create(Resources.class);
-		resources.styles().ensureInjected();
-
-		// Create a CellTable.
-		cellTable = new CellTable<Classification>(Classification.KEY_PROVIDER);
-		cellTable.setStyleName( resources.styles().cellTable() );
-		cellTable.setSkipRowHoverStyleUpdate( true );
-
-		// Specify a custom table.
-		cellTable.setHeaderBuilder(new CustomHeaderBuilder(cellTable));
-		cellTable.setTableBuilder(new CustomTableBuilder(cellTable));
-	}
-
-   public CellTable<Classification> asWidget()
-   {
-	   return cellTable;
-   }
-
-	public void updateClassification(JsArray<Classification> classifications) {
-		List<Classification> data = new ArrayList<Classification>();
-		for (int i = 0; i < classifications.length(); i++) {
-			data.add(classifications.get(i));
+		private void buildRow(TableRowBuilder row, String text, boolean isEven, boolean isFirst, boolean isBold )
+		{
+			TableCellBuilder td = row.startTD();
+			if ( isEven ) {
+				td.className(evenCellStyles.toString());
+			}
+			else {
+				td.className(cellStyles);
+			}
+			
+			if ( isFirst ) {
+				td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
+			}
+			
+			if ( isBold ) {
+				td.style().fontWeight(FontWeight.BOLD).endStyle();
+			}
+			td.text( text );
+			td.endTD();
 		}
-		cellTable.setRowData(data);
 	}
 }
