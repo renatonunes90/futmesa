@@ -80,48 +80,25 @@ class ChampionshipManager extends Championship
       usort( $classifications,
                function ( $a, $b )
                {
-                  if ( $a->getPoints() > $b->getPoints() )
+                  if ( $a->getPoints() != $b->getPoints() )
                   {
-                     return -1;
-                  }
-                  else if ( $a->getPoints() < $b->getPoints() )
-                  {
-                     return 1;
+                     return $b->getPoints() - $a->getPoints();
                   }
                   else
                   {
-                     if ( $a->getWins() > $b->getWins() )
+                     if ( $a->getWins() != $b->getWins() )
                      {
-                        return -1;
-                     }
-                     elseif ( $a->getWins() < $b->getWins() )
-                     {
-                        return 1;
+                        return $b->getWins() - $a->getWins();
                      }
                      else
                      {
-                        if ( $a->getGoalDIfference() > $b->getGoalDIfference() )
+                        if ( $a->getGoalDIfference() != $b->getGoalDIfference() )
                         {
-                           return -1;
-                        }
-                        elseif ( $a->getGoalDIfference() < $b->getGoalDIfference() )
-                        {
-                           return 1;
+                           return $b->getGoalDIfference() - $a->getGoalDIfference();
                         }
                         else
                         {
-                           if ( $a->getWinRate() > $b->getWinRate() )
-                           {
-                              return -1;
-                           }
-                           elseif ( $a->getWinRate() < $b->getWinRate() )
-                           {
-                              return 1;
-                           }
-                           else
-                           {
-                              return 0;
-                           }
+                           return $b->getWinRate() - $a->getWinRate();
                         }
                      }
                   }

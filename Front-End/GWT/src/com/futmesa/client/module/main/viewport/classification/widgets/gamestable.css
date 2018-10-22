@@ -1,0 +1,54 @@
+ .gameTable {
+   border-bottom: 1px solid #ccc;
+   text-align: left;
+   margin-bottom: 4px;
+   margin-top: 10px;
+   width: 360px;
+   height: 100%;
+ }
+ 
+ .customGamesSubHeader {
+    text-align: center;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    width: 360px;
+    font-size: 11px;
+    font-family: opensans;
+    text-transform: uppercase;
+    color: #999999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+ }
+ 
+  .customGamesHeader {
+    width: 40px;
+    height: 0px;
+ }
+
+ .customTableRow {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 11px;
+    font-family: opensans;
+ }
+  
+ .customColumn {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    font-size: 14px;
+    font-family: opensans;
+ }
+ 
+ .customNextBtn {
+ 	margin-top: 19px;
+ 	margin-left: -30px;
+ 	cursor: pointer;
+ }
+ 
+ .customPrevBtn {
+ 	margin-top: 19px;
+ 	margin-right: -30px;
+ 	cursor: pointer;
+ }

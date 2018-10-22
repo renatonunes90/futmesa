@@ -56,6 +56,6 @@ class Round extends ValueObject
       $this->idchampionship = $round->idchampionship;
       $this->basedate = $round->basedate;
       $this->basehour = $round->basehour;
-      $this->numer = $round->number;
+      $this->number = $round->number;
    }
 }

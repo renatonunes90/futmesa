@@ -2,6 +2,9 @@ package com.futmesa.client.module.main.viewport.classification;
 
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Classification;
+import com.futmesa.client.businessinteligence.Round;
+import com.futmesa.client.module.main.viewport.classification.widgets.ClassificationTable;
+import com.futmesa.client.module.main.viewport.classification.widgets.GamesTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -31,17 +34,21 @@ public class ClassificationViewport implements ViewportInterface {
 
 	private ClassificationTable classification;
 
+	private GamesTable games;
+
 	/**
 	 * Construtor padrão.
 	 */
 	public ClassificationViewport() {
 
 		classification = new ClassificationTable();
+		games = new GamesTable();
 
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
 		leftPanel.add(classification.asWidget());
+		rightPanel.add(games.asWidget());
 		
 	}
 
@@ -52,5 +59,9 @@ public class ClassificationViewport implements ViewportInterface {
 
 	public void updateClassification(JsArray<Classification> classifications) {
 		classification.updateClassification(classifications);
+	}
+	
+	public void updateRounds(JsArray<Round> rounds) {
+		games.setRounds( rounds, 7 );
 	}
 }

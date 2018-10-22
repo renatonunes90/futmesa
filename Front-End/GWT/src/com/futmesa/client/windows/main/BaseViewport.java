@@ -33,7 +33,7 @@ public final class BaseViewport
    private static BaseViewport singleton;
 
    @UiField
-   protected FlowPanel cpContent;
+   protected HorizontalPanel mainPanel;
 
    // @UiField
    // protected Button btnHelp;
@@ -79,7 +79,7 @@ public final class BaseViewport
    public void setViewportContent( ViewportInterface panel )
    {
       // Deleta o conteúdo atual.
-      cpContent.clear();
+      mainPanel.clear();
 
       // Atualiza o help do módulo.
       // SafeHtmlBuilder sb = new SafeHtmlBuilder();
@@ -89,7 +89,7 @@ public final class BaseViewport
       // btnHelp.setVisible( help != null && !help.isEmpty() );
 
       // Coloca a tela na viewport e atualiza ela com o filtro.
-      cpContent.add( panel );
+      mainPanel.add( panel );
       //cpContent.forceLayout();
    }
 
