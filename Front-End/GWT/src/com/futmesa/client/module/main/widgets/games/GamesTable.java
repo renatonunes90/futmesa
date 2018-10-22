@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main.viewport.classification.widgets;
+package com.futmesa.client.module.main.widgets.games;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +59,7 @@ public class GamesTable {
 	/**
 	 * Constantes da classe.
 	 */
-	private ClassificationViewportConsts constants;
+	private GamesTableConsts constants;
 	
 	/**
 	 * Estilos da tabela.
@@ -88,13 +88,13 @@ public class GamesTable {
 	private List<Round> allRounds;
 	
 	/** 
-	 * Rodada corrente ques esrá sendo exibida.
+	 * Rodada corrente ques está sendo exibida.
 	 */
 	private Round currentRound;
 
 	public GamesTable() {
 
-	    constants = GWT.create(ClassificationViewportConsts.class);
+	    constants = GWT.create(GamesTableConsts.class);
 	    
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
@@ -146,6 +146,15 @@ public class GamesTable {
 	   return panel;
    }
 
+   /**
+    * 
+    * @return Rodada corrente que está sendo exibida.
+    */
+   public Round getCurrentRound()
+   {
+	   return currentRound;
+   }
+   
    /**
     * Atualiza as rodadas da tabela.
     * 

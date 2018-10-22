@@ -3,13 +3,16 @@ package com.futmesa.client.module.main.viewport.classification;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
-import com.futmesa.client.module.main.viewport.classification.widgets.ClassificationTable;
-import com.futmesa.client.module.main.viewport.classification.widgets.GamesTable;
+import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
+import com.futmesa.client.module.main.widgets.classification.ClassificationTable;
+import com.futmesa.client.module.main.widgets.games.GamesTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,12 +33,17 @@ public class ClassificationViewport implements ViewportInterface {
 	protected VerticalPanel leftPanel;
 	
 	@UiField(provided = false)
-	protected VerticalPanel rightPanel;
+	protected SimplePanel gameTablePanel;
 
+	@UiField(provided = false)
+	protected Button insertResultBtn;
+	
 	private ClassificationTable classification;
 
 	private GamesTable games;
 
+	private ResultsDialog resultsDialog;
+	
 	/**
 	 * Construtor padrão.
 	 */
@@ -43,13 +51,18 @@ public class ClassificationViewport implements ViewportInterface {
 
 		classification = new ClassificationTable();
 		games = new GamesTable();
+		resultsDialog = new ResultsDialog();
 
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
 		leftPanel.add(classification.asWidget());
-		rightPanel.add(games.asWidget());
+		gameTablePanel.add(games.asWidget());
 		
+		insertResultBtn.addClickHandler( handler ->{
+			resultsDialog.getDialog().center();
+			resultsDialog.getDialog();
+		});
 	}
 
 	@Override
@@ -62,6 +75,7 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 	
 	public void updateRounds(JsArray<Round> rounds) {
+		resultsDialog.setRounds( rounds );
 		games.setRounds( rounds, 7 );
 	}
 }

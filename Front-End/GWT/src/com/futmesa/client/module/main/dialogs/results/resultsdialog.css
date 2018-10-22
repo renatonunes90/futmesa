@@ -6,13 +6,8 @@
   text-transform: uppercase;
  } 
 
- .customLeftPanel {
-  padding-right: 20px;
- }
- 
- .customRightPanel {
-  padding-left: 30px;
-  border-left: 1px solid #c0c0c0;
+ .customPanel {
+  border: 10px;
  }
  
  .insertResultBtn {

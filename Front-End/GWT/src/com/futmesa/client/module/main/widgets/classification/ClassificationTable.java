@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main.viewport.classification.widgets;
+package com.futmesa.client.module.main.widgets.classification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class ClassificationTable {
 	/**
 	 * Constantes da classe.
 	 */
-	private ClassificationViewportConsts constants;
+	private ClassificationTableConsts constants;
 
 	/**
 	 * Estilos da tabela.
@@ -62,7 +62,7 @@ public class ClassificationTable {
 
 	public ClassificationTable() {
 
-	    constants = GWT.create(ClassificationViewportConsts.class);
+	    constants = GWT.create(ClassificationTableConsts.class);
 		
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
