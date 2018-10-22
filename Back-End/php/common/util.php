@@ -130,18 +130,9 @@ function isValidNumber( $number ): bool
  * @param boolean $logError
  *           Flag indicando se o erro deve ser salvo no log (true) ou mostrado ao usuário (false).
  */
-function serverError( $errorMessage, $logError = false): void
+function throwServerError( $errorMessage): void
 {
-   // loga o erro no arquivo e força mostrar o erro padrão para o usuário
-   if( $logError )
-   {
-      trigger_error( $errorMessage, E_USER_ERROR );
-   }
-   // ou retorna o erro para o usuário
-   else
-   {
-      trigger_error( $errorMessage );
-   }
+   trigger_error( $errorMessage );
 }
 
 /**
