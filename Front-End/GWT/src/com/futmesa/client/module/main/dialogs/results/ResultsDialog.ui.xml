@@ -9,7 +9,7 @@
   <ui:style src="resultsdialog.css" /> 
 
   <g:VerticalPanel ui:field='panel' addStyleNames='{style.customPanel}'>
-     <g:Label addStyleNames='{style.classificationTitle}' text='{consts.gamesTitle}'></g:Label>
+     <g:Label addStyleNames='{style.classificationTitle}' text="{consts.insertingResultsLabel}"></g:Label>
      <g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
    	 <g:Button ui:field='insertResultBtn' addStyleNames='{style.insertResultBtn}' text='Salvar Resultados'></g:Button>
   </g:VerticalPanel>

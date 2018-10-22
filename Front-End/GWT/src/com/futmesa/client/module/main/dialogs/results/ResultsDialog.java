@@ -71,6 +71,10 @@ public class ResultsDialog implements ViewportInterface {
 		return dialogBox;
 	}
 	
+//	public void setRound( Round round ) {
+//		games.setCurrentRound( round );
+//	}
+	
 	public void setRounds(JsArray<Round> rounds) {
 		games.setRounds( rounds, 7 );
 	}

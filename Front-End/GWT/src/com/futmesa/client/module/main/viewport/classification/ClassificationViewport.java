@@ -60,6 +60,7 @@ public class ClassificationViewport implements ViewportInterface {
 		gameTablePanel.add(games.asWidget());
 		
 		insertResultBtn.addClickHandler( handler ->{
+//			resultsDialog.setRound( games.getCurrentRound() );
 			resultsDialog.getDialog().center();
 			resultsDialog.getDialog();
 		});
