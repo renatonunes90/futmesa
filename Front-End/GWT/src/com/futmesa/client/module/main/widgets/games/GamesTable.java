@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.futmesa.client.businessinteligence.Game;
 import com.futmesa.client.businessinteligence.Round;
-import com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -92,6 +91,8 @@ public class GamesTable {
 	 */
 	private Round currentRound;
 
+	private ArrayList<Round> data;
+
 	public GamesTable() {
 
 	    constants = GWT.create(GamesTableConsts.class);
@@ -155,6 +156,19 @@ public class GamesTable {
 	   return currentRound;
    }
    
+   public List<Game> getDisplayedGames()
+   {
+	   List<Game> games = new ArrayList<Game>();
+	   for ( Round r : data )
+	   {
+		   for ( int i = 0; i < r.getGames().length(); i++ )
+		   {
+			   games.add( r.getGames().get( i ) );
+		   }
+	   }
+	   return games;
+   }
+   
    /**
     * Atualiza as rodadas da tabela.
     * 
@@ -171,7 +185,7 @@ public class GamesTable {
 	}
 	
 	private void updateRounds( int nextRound ) {
-		List<Round> data = new ArrayList<Round>();
+		data = new ArrayList<Round>();
 		for ( Round r : allRounds) {
 			if ( r.getNumber() == nextRound ) {
 				currentRound = r;

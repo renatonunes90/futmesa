@@ -60,7 +60,7 @@ public class ClassificationViewport implements ViewportInterface {
 		gameTablePanel.add(games.asWidget());
 		
 		insertResultBtn.addClickHandler( handler ->{
-//			resultsDialog.setRound( games.getCurrentRound() );
+			resultsDialog.setGames( games.getDisplayedGames() );
 			resultsDialog.getDialog().center();
 			resultsDialog.getDialog();
 		});
@@ -76,7 +76,6 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 	
 	public void updateRounds(JsArray<Round> rounds) {
-		resultsDialog.setRounds( rounds );
 		games.setRounds( rounds, 7 );
 	}
 }

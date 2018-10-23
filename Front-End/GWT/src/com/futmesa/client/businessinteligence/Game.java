@@ -103,5 +103,14 @@ public final class Game extends JavaScriptObject
   public final native String getIdWinner() /*-{
   	 return this.idwinner;
   }-*/;
+
+	public final native void setScore1(int score) /*-{
+		this.score1 = score;
+	}-*/;
+
+	public final native void setScore2(int score) /*-{
+		this.score2 = score;
+	}-*/;
+
 }
 

@@ -1,15 +1,11 @@
- .classificationTitle {
-  font-weight: bold;
-  font-size: 26px;	
-  margin-bottom: 15px;
-  font-family: ProximaNova,"Helvetica Neue",Arial,sans-serif;
-  text-transform: uppercase;
- } 
-
- .customPanel {
-  border: 10px;
+ .resultGameTable {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 390px;
  }
  
  .insertResultBtn {
     margin-top: 15px;
+    margin-bottom: 15px;
  }
