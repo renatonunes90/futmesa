@@ -40,15 +40,15 @@ public class GamesTable {
 
 	interface Styles extends CssResource {
 
+		String gameTable();
+		
 		String customGamesHeader();
 		
-		String customGamesSubHeader();
+		String customRoundSubHeader();
 
-		String customTableRow();
+		String customGameTableRow();
 		
 		String customColumn();
-
-		String gameTable();
 		
 		String customNextBtn();
 		
@@ -304,16 +304,16 @@ public class GamesTable {
 
 		private final String cellStyles;
 		
-		private final String tableRowStyle;
+		private final String customGameTableRow;
 		
-		private final String subHeaderStyle;
+		private final String customRoundSubHeader;
 
 		public CustomTableBuilder(CellTable<Round> dataGrid) {
 			super(dataGrid);
 
 			cellStyles = resources.styles().customColumn();
-			subHeaderStyle = resources.styles().customGamesSubHeader();
-			tableRowStyle = resources.styles().customTableRow();
+			customRoundSubHeader = resources.styles().customRoundSubHeader();
+			customGameTableRow = resources.styles().customGameTableRow();
 		}
 
 		@Override
@@ -322,7 +322,7 @@ public class GamesTable {
      		TableRowBuilder row = startRow();
 			
      		// adiciona a linha da rodada
-			TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
+			TableCellBuilder td = row.startTD().colSpan(5).className(customRoundSubHeader);
 	        td.text( resolveRound( rowValue )).endTD();
 	        row.endTR();
 		      
@@ -332,7 +332,7 @@ public class GamesTable {
 				// adiciona linha com a mesa do jogo
 				row = startRow();
 				
-				td = row.startTD().colSpan(5).className(tableRowStyle);
+				td = row.startTD().colSpan(5).className(customGameTableRow);
 				td.text( constants.tableLabel() + " " + String.valueOf( games.get(i).getGameTable() ) );
 				td.endTD();
 				row.endTR();

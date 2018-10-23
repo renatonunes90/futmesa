@@ -8,6 +8,12 @@ public interface ResultsDialogConsts
 {
    public static final ResultsDialogConsts INSTANCE = GWT.create( ResultsDialogConsts.class );
 
-   @DefaultStringValue ( "Inserting Results" )
-   String insertingResultsLabel();
+   @DefaultStringValue ( "Insert Results" )
+   String insertResultsLabel();
+
+   @DefaultStringValue ( "Save" )
+   String saveBtn();
+   
+   @DefaultStringValue ( "Cancel" )
+   String cancelBtn();
 }

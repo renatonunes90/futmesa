@@ -10,6 +10,9 @@
 
   <g:VerticalPanel ui:field='panel'>
      <c:CellTable ui:field='gameTable' addStyleNames='{style.resultGameTable}'></c:CellTable>
-   	 <g:Button ui:field='insertResultBtn' addStyleNames='{style.insertResultBtn}' text='Salvar Resultados'></g:Button>
+     <g:HorizontalPanel ui:field='btnPanel'>
+	     <g:Button ui:field='cancelBtn' addStyleNames='{style.cancelBtn}' text='{consts.cancelBtn}'></g:Button>
+	   	 <g:Button ui:field='insertResultBtn' addStyleNames='{style.insertResultBtn}' text='{consts.saveBtn}'></g:Button>
+   	 </g:HorizontalPanel>
   </g:VerticalPanel>
 </ui:UiBinder>
