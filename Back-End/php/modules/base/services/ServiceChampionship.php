@@ -119,8 +119,11 @@ class ServiceChampionship
          {
             try 
             {
-               $championship->insertResult( $r->id, $r->score1, $r->score2 );
-            } 
+               if ( $r->score1 != null && $r->score2 != null )
+               {
+                  $championship->insertResult( $r->id, $r->score1, $r->score2 );
+               } 
+            }
             catch ( Exception $e ) 
             {
                $result = false;
