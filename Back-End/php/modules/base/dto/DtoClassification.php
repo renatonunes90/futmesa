@@ -76,6 +76,12 @@ class DtoClassification
    public $winRate;
    
    /**
+    *
+    * @var array Lista com o estado dos últimos 5 jogos.
+    */
+   public $last5Games;
+   
+   /**
     * Construtor padrão.
     *
     * @param \DbLib\Classification $classification
@@ -93,6 +99,7 @@ class DtoClassification
       $this->numberOfGames = $classification->getNumberOfGames();
       $this->points = $classification->getPoints();
       $this->winRate = $classification->getWinRate();
+      $this->last5Games = $classification->getLast5Games();
    }
 
    public function __clone()

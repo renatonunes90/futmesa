@@ -112,20 +112,26 @@ class ChampionshipManager extends Championship
       $games = $this->getGamesOfPlayer( $playerId, $roundNumber );
       $classification = new Classification( $playerId, $roundNumber );
 
-      foreach ( $games as $g )
+      $gameStatus = array();
+      for ( $i=0; $i < sizeOf($games); $i++ )
       {
+         $g = $games[$i];
+         
          // verifica vitória/empate/derrota
          if ( $g->getWinnerId() == $playerId )
          {
             $classification->addWin();
+            $gameStatus[]  = "V";
          }
          else if ( $g->getWinnerId() == 0 )
          {
             $classification->addTie();
+            $gameStatus[]  = "E";
          }
          else
          {
             $classification->addLoss();
+            $gameStatus[]  = "D";
          }
 
          // verifica saldo
@@ -140,10 +146,13 @@ class ChampionshipManager extends Championship
             $classification->addGoalsCon( $g->getScore1() );
          }
       }
+      
+      // atualiza array com os últimos 5 jogos
+      $classification->setLast5Games( array_slice( array_reverse( $gameStatus ), 0, 5 ) );
 
       return $classification;
    }
-
+   
    private function getGame( int $gameId ): ?\DbLib\Game
    {
       $game = null;

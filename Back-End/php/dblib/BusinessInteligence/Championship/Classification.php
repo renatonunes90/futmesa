@@ -54,6 +54,12 @@ class Classification
     * @var int Número de gols sofridos do jogador.
     */
    private $goalsCon_;
+   
+   /**
+    * 
+    * @var array Lista com o estado dos últimos 5 jogos.
+    */
+   private $last5Games_;
 
    /**
     * Construtor padrão.
@@ -70,6 +76,7 @@ class Classification
       $this->losses_ = 0;
       $this->goalsPro_ = 0;
       $this->goalsCon_ = 0;
+      $this->last5Games_ = array();
    }
 
    public function __clone()
@@ -108,6 +115,11 @@ class Classification
       $this->goalsCon_ += $goals;
    }
 
+   public function setLast5Games( array $games ) : void
+   {
+      $this->last5Games_ = $games;   
+   }
+   
    /**
     *
     * @return int
@@ -205,5 +217,14 @@ class Classification
    public function getGoalsCon(): int
    {
       return $this->goalsCon_;
+   }
+   
+   /**
+    * 
+    * @return array
+    */
+   public function getLast5Games() : array
+   {
+      return $this->last5Games_;
    }
 }
