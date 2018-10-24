@@ -12,6 +12,7 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -32,6 +33,9 @@ public class ClassificationViewport implements ViewportInterface {
 	
 	@UiField(provided = false)
 	protected VerticalPanel leftPanel;
+
+	@UiField(provided = false)
+	protected VerticalPanel rightPanel;
 	
 	@UiField(provided = false)
 	protected SimplePanel gameTablePanel;
@@ -62,6 +66,9 @@ public class ClassificationViewport implements ViewportInterface {
 
 		leftPanel.add(classification.asWidget());
 		gameTablePanel.add(games.asWidget());
+		
+		rightPanel.setCellHorizontalAlignment( insertResultBtn, HasHorizontalAlignment.ALIGN_RIGHT);
+		//panel.setCellHorizontalAlignment( championshipLabel, HasHorizontalAlignment.ALIGN_CENTER );
 		
 		insertResultBtn.addClickHandler( handler ->{
 			resultsDialog.setChampionship( championship );

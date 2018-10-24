@@ -13,4 +13,7 @@ public interface ClassificationViewportConsts
 
    @DefaultStringValue ( "Games" )
    String gamesTitle();
+   
+   @DefaultStringValue ( "Alter Results" )
+   String alterResultsLabel();
 }

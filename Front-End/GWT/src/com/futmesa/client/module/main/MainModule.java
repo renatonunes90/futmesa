@@ -87,6 +87,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 			JsArray<Round> rounds = records.cast();
 			classificationViewport.updateRounds(rounds);
 
+			BaseViewport.getInstance().setChampionshipLabel( currentChampionship.getName() );
 			BaseViewport.getInstance().setViewportContent(classificationViewport);
 		}
 	}
