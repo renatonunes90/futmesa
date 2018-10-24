@@ -16,12 +16,19 @@ public class ServiceChampionship extends ServiceAbstract {
 	public static final String MODULE = "base";
 	public static final String SERVICE = "Championship";
 
+	public static final String GET_ALL_CHAMPIONSHIPS = "getAllChampionships";
 	public static final String GET_LAST_CLASSIFICATIONS = "getLastClassifications";
 	public static final String GET_ALL_ROUNDS = "getAllRounds";
 	public static final String INSERT_RESULTS = "insertResults";
 	
+	
 	public ServiceChampionship(ServiceInterface parent) {
 		super(parent, MODULE, SERVICE);
+	}
+	
+	public void requestChampionships()
+	{
+		request( "function=" + GET_ALL_CHAMPIONSHIPS, GET_ALL_CHAMPIONSHIPS );
 	}
 	
 	public void requestClassification( int id )
@@ -48,7 +55,7 @@ public class ServiceChampionship extends ServiceAbstract {
 		}
 		
 		List<String> params = new ArrayList<String>();
-		params.add( "championshipId=" + String.valueOf( id ) );
+		params.add( "id=" + String.valueOf( id ) );
 		params.add( "results=" + JsonUtils.stringify(js) );
 		params.add( "function=" + INSERT_RESULTS );
 		request( params, INSERT_RESULTS );

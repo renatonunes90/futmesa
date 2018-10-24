@@ -3,6 +3,7 @@ package com.futmesa.client.module.main;
 import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.FilterConfig;
 import com.futmesa.client.base.ModuleInterface;
+import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.module.main.viewport.classification.ClassificationViewport;
@@ -23,19 +24,31 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 	private ClassificationViewport classificationViewport;
 
+	private Championship currentChampionship;
+	
+	private int nextChampionship;
+	
 	/**
 	 * Construtor padrão.
 	 */
 	public MainModule() {
 		classificationViewport = new ClassificationViewport();
 		serviceChampionship = new ServiceChampionship(this);
+		
+		currentChampionship = null;
+		nextChampionship = -1;
 //		super.addMenu(consts.examplePage(), "module=main");
 //		super.addMenu(consts.exampleTables(), "module=main&panel=table");
 	}
 
 	@Override
 	public void updatePanel(FilterConfig filter) {
-		serviceChampionship.requestClassification(1);
+		
+		String championshipId = filter.getFilter( "championship" );
+		nextChampionship = parseIntSafe( championshipId );
+		currentChampionship = null;
+		
+		serviceChampionship.requestChampionships();
 	}
 
 	@Override
@@ -45,11 +58,30 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 	@Override
 	public void onServiceResult(JavaScriptObject records, String requestId) {
-		if (ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals(requestId)) {
+		
+		if ( ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals( requestId ) ) {
+			JsArray<Championship> championships = records.cast();
+			if ( nextChampionship > 0 ) {
+				for( int i =0; i <championships.length(); i++  ) {
+					if ( championships.get(i).getId() == nextChampionship ) {
+						currentChampionship = championships.get( i );
+						break;
+					}
+				}
+			}
+			
+			if ( currentChampionship == null ) {
+				currentChampionship = championships.get( 0 );
+			}
+			
+			classificationViewport.setChampionship( currentChampionship );
+			serviceChampionship.requestClassification( currentChampionship.getId() );
+			
+		} else if (ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals(requestId)) {
 			JsArray<Classification> classification = records.cast();
 			classificationViewport.updateClassification(classification);
 
-			serviceChampionship.requestAllRounds(1);
+			serviceChampionship.requestAllRounds( currentChampionship.getId() );
 			
 		} else if (ServiceChampionship.GET_ALL_ROUNDS.equals(requestId)) {
 			JsArray<Round> rounds = records.cast();
@@ -57,5 +89,15 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 			BaseViewport.getInstance().setViewportContent(classificationViewport);
 		}
+	}
+	
+	private int parseIntSafe( String value )
+	{
+		int parsedValue = -1;
+		try {
+			parsedValue = Integer.parseInt(value);
+		}catch (NumberFormatException e) {
+		}
+		return parsedValue;
 	}
 }

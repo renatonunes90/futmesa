@@ -3,6 +3,7 @@ package com.futmesa.client.module.main.dialogs.results;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Game;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.base.ServiceInterface;
@@ -85,6 +86,8 @@ public class ResultsDialog implements ServiceInterface {
 
 	private DialogBox dialogBox;
 
+	private Championship championship;
+	
 	private List<Game> currentGames;
 
 	@UiField(provided = false)
@@ -115,6 +118,7 @@ public class ResultsDialog implements ServiceInterface {
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
+		championship = null;
 		currentGames = new ArrayList<Game>();
 		serviceChampionship = new ServiceChampionship(this);
 
@@ -135,7 +139,7 @@ public class ResultsDialog implements ServiceInterface {
 		});
 
 		insertResultBtn.addClickHandler(handler -> {
-			serviceChampionship.insertResults(1, currentGames);
+			serviceChampionship.insertResults( championship.getId(), currentGames );
 		});
 	}
 
@@ -147,6 +151,11 @@ public class ResultsDialog implements ServiceInterface {
 		return dialogBox;
 	}
 
+	public void setChampionship( Championship championship )
+	{
+		this.championship = championship;
+	}
+	
 	public void setGames(List<Game> games) {
 		currentGames.clear();
 		currentGames.addAll(games);
@@ -200,7 +209,7 @@ public class ResultsDialog implements ServiceInterface {
 		Column<Game, String> versusColumn = new Column<Game, String>(new TextCell()) {
 			@Override
 			public String getValue(Game object) {
-				return "X";
+				return constants.versusSymbol();
 			}
 		};
 		gameTable.addColumn(versusColumn, header);
@@ -263,7 +272,7 @@ public class ResultsDialog implements ServiceInterface {
 		if ( ServiceChampionship.INSERT_RESULTS.equals( requestId ) ) {
 			dialogBox.hide();
 			Window.alert( constants.successMsg() );
-			Window.Location.reload();
+			Window.Location.assign( "?championship=" + championship.getId() );
 		}
 	}
 

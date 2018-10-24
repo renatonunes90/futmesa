@@ -1,6 +1,7 @@
 package com.futmesa.client.module.main.viewport.classification;
 
 import com.futmesa.client.base.ViewportInterface;
+import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
@@ -38,6 +39,8 @@ public class ClassificationViewport implements ViewportInterface {
 	@UiField(provided = false)
 	protected Button insertResultBtn;
 	
+	private Championship championship;
+	
 	private ClassificationTable classification;
 
 	private GamesTable games;
@@ -49,6 +52,7 @@ public class ClassificationViewport implements ViewportInterface {
 	 */
 	public ClassificationViewport() {
 
+		championship = null;
 		classification = new ClassificationTable();
 		games = new GamesTable();
 		resultsDialog = new ResultsDialog();
@@ -60,6 +64,7 @@ public class ClassificationViewport implements ViewportInterface {
 		gameTablePanel.add(games.asWidget());
 		
 		insertResultBtn.addClickHandler( handler ->{
+			resultsDialog.setChampionship( championship );
 			resultsDialog.setGames( games.getDisplayedGames() );
 			resultsDialog.getDialog().center();
 			resultsDialog.getDialog();
@@ -71,6 +76,11 @@ public class ClassificationViewport implements ViewportInterface {
 		return panel;
 	}
 
+	public void setChampionship( Championship championship )
+	{
+		this.championship = championship;
+	}
+	
 	public void updateClassification(JsArray<Classification> classifications) {
 		classification.updateClassification(classifications);
 	}

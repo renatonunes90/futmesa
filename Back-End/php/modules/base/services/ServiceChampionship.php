@@ -107,11 +107,11 @@ class ServiceChampionship
       return $result;
    }
    
-   public function insertResults( int $championshipId, string $results ) : bool
+   public function insertResults( int $id, string $results ) : bool
    {
       $result = true;
       
-      $championship = $this->provider_->getChampionship( $championshipId );
+      $championship = $this->provider_->getChampionship( $id );
       if ( $championship != null )
       {
          $resultObjects = json_decode( $results );
@@ -119,7 +119,7 @@ class ServiceChampionship
          {
             try 
             {
-               if ( $r->score1 != null && $r->score2 != null )
+               if ( $r->score1 !== null && $r->score2 !== null )
                {
                   $championship->insertResult( $r->id, $r->score1, $r->score2 );
                } 
