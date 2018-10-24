@@ -7,6 +7,7 @@ import java.util.List;
 import com.futmesa.client.request.base.PHPRequest;
 import com.futmesa.client.request.base.PHPRequestInterface;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.user.client.Window;
 
 
 /**
@@ -116,7 +117,7 @@ public abstract class ServiceAbstract
       }
       else
       {
-         // Info.display( new DefaultInfoConfig( "Erro", message ) );
+    	  Window.alert( message );
       }
    }
 }

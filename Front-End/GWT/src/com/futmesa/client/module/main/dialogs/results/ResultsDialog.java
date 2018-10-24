@@ -30,6 +30,7 @@ import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextHeader;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -76,6 +77,16 @@ public class ResultsDialog implements ServiceInterface {
 	 */
 	private Resources resources;
 
+	private ServiceChampionship serviceChampionship;
+
+	private Column<Game, String> score1Column;
+
+	private Column<Game, String> score2Column;
+
+	private DialogBox dialogBox;
+
+	private List<Game> currentGames;
+
 	@UiField(provided = false)
 	protected VerticalPanel panel;
 
@@ -90,16 +101,6 @@ public class ResultsDialog implements ServiceInterface {
 
 	@UiField(provided = false)
 	protected Button insertResultBtn;
-
-	private ServiceChampionship serviceChampionship;
-
-	private Column<Game, String> score1Column;
-
-	private Column<Game, String> score2Column;
-
-	private DialogBox dialogBox;
-
-	private List<Game> currentGames;
 
 	/**
 	 * Construtor padrão.
@@ -261,16 +262,21 @@ public class ResultsDialog implements ServiceInterface {
 	public void onServiceResult(JavaScriptObject records, String requestId) {
 		if ( ServiceChampionship.INSERT_RESULTS.equals( requestId ) ) {
 			dialogBox.hide();
+			Window.alert( constants.successMsg() );
+			Window.Location.reload();
 		}
 	}
 
-	interface ScoreCellTemplate extends SafeHtmlTemplates {
-		@Template("<input  type=\"number\" min=\"0\" max=\"20\" value=\"{0}\" tabindex=\"-1\" style=\"width:34px;\"></input>")
-		SafeHtml input(String value);
-	}
+	/**
+	 * Célula customizada para colocar o score do jogo.
+	 */
+	public static class ScoreInputCell extends AbstractInputCell<String, String> {
 
-	private static class ScoreInputCell extends AbstractInputCell<String, String> {
-
+		interface ScoreCellTemplate extends SafeHtmlTemplates {
+			@Template("<input  type=\"number\" min=\"0\" max=\"20\" value=\"{0}\" tabindex=\"-1\" style=\"width:34px;\"></input>")
+			SafeHtml input(String value);
+		}
+		
 		private static ScoreCellTemplate template;
 
 		public ScoreInputCell() {
@@ -321,7 +327,7 @@ public class ResultsDialog implements ServiceInterface {
 	}
 
 	/**
-	 *
+	 * Builder customizado para a renderização de cada linha da tabela de jogos.
 	 */
 	private class CustomTableBuilder extends AbstractCellTableBuilder<Game> {
 
@@ -351,7 +357,7 @@ public class ResultsDialog implements ServiceInterface {
 			td.endTD();
 
 			// versus
-			buildRow(row, "X", false, false);
+			buildRow(row, constants.versusSymbol(), false, false);
 
 			// score 2
 			td = row.startTD();
