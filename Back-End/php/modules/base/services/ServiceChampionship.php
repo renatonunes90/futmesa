@@ -106,6 +106,34 @@ class ServiceChampionship
       
       return $result;
    }
+   
+   public function insertResults( int $id, string $results ) : bool
+   {
+      $result = true;
+      
+      $championship = $this->provider_->getChampionship( $id );
+      if ( $championship != null )
+      {
+         $resultObjects = json_decode( $results );
+         foreach ( $resultObjects as $r ) 
+         {
+            try 
+            {
+               if ( $r->score1 !== null && $r->score2 !== null )
+               {
+                  $championship->insertResult( $r->id, $r->score1, $r->score2 );
+               } 
+            }
+            catch ( Exception $e ) 
+            {
+               $result = false;
+               throwServerError( $e->getMessage() );
+            }
+         }
+      }
+      
+      return $result;
+   }
 }
 
 ?>

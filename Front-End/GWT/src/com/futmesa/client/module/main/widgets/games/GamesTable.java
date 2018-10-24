@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main.viewport.classification.widgets;
+package com.futmesa.client.module.main.widgets.games;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.futmesa.client.businessinteligence.Game;
 import com.futmesa.client.businessinteligence.Round;
-import com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -41,15 +40,15 @@ public class GamesTable {
 
 	interface Styles extends CssResource {
 
+		String gameTable();
+		
 		String customGamesHeader();
 		
-		String customGamesSubHeader();
+		String customRoundSubHeader();
 
-		String customTableRow();
+		String customGameTableRow();
 		
 		String customColumn();
-
-		String gameTable();
 		
 		String customNextBtn();
 		
@@ -59,7 +58,7 @@ public class GamesTable {
 	/**
 	 * Constantes da classe.
 	 */
-	private ClassificationViewportConsts constants;
+	private GamesTableConsts constants;
 	
 	/**
 	 * Estilos da tabela.
@@ -88,13 +87,15 @@ public class GamesTable {
 	private List<Round> allRounds;
 	
 	/** 
-	 * Rodada corrente ques esrá sendo exibida.
+	 * Rodada corrente ques está sendo exibida.
 	 */
 	private Round currentRound;
 
+	private ArrayList<Round> data;
+
 	public GamesTable() {
 
-	    constants = GWT.create(ClassificationViewportConsts.class);
+	    constants = GWT.create(GamesTableConsts.class);
 	    
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
@@ -147,6 +148,28 @@ public class GamesTable {
    }
 
    /**
+    * 
+    * @return Rodada corrente que está sendo exibida.
+    */
+   public Round getCurrentRound()
+   {
+	   return currentRound;
+   }
+   
+   public List<Game> getDisplayedGames()
+   {
+	   List<Game> games = new ArrayList<Game>();
+	   for ( Round r : data )
+	   {
+		   for ( int i = 0; i < r.getGames().length(); i++ )
+		   {
+			   games.add( r.getGames().get( i ) );
+		   }
+	   }
+	   return games;
+   }
+   
+   /**
     * Atualiza as rodadas da tabela.
     * 
     * @param rounds Lista de rodadas.
@@ -162,7 +185,7 @@ public class GamesTable {
 	}
 	
 	private void updateRounds( int nextRound ) {
-		List<Round> data = new ArrayList<Round>();
+		data = new ArrayList<Round>();
 		for ( Round r : allRounds) {
 			if ( r.getNumber() == nextRound ) {
 				currentRound = r;
@@ -281,16 +304,16 @@ public class GamesTable {
 
 		private final String cellStyles;
 		
-		private final String tableRowStyle;
+		private final String customGameTableRow;
 		
-		private final String subHeaderStyle;
+		private final String customRoundSubHeader;
 
 		public CustomTableBuilder(CellTable<Round> dataGrid) {
 			super(dataGrid);
 
 			cellStyles = resources.styles().customColumn();
-			subHeaderStyle = resources.styles().customGamesSubHeader();
-			tableRowStyle = resources.styles().customTableRow();
+			customRoundSubHeader = resources.styles().customRoundSubHeader();
+			customGameTableRow = resources.styles().customGameTableRow();
 		}
 
 		@Override
@@ -299,7 +322,7 @@ public class GamesTable {
      		TableRowBuilder row = startRow();
 			
      		// adiciona a linha da rodada
-			TableCellBuilder td = row.startTD().colSpan(5).className(subHeaderStyle);
+			TableCellBuilder td = row.startTD().colSpan(5).className(customRoundSubHeader);
 	        td.text( resolveRound( rowValue )).endTD();
 	        row.endTR();
 		      
@@ -309,7 +332,7 @@ public class GamesTable {
 				// adiciona linha com a mesa do jogo
 				row = startRow();
 				
-				td = row.startTD().colSpan(5).className(tableRowStyle);
+				td = row.startTD().colSpan(5).className(customGameTableRow);
 				td.text( constants.tableLabel() + " " + String.valueOf( games.get(i).getGameTable() ) );
 				td.endTD();
 				row.endTR();

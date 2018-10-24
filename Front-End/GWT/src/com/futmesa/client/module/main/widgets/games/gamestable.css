@@ -7,7 +7,12 @@
    height: 100%;
  }
  
- .customGamesSubHeader {
+ .customGamesHeader {
+    width: 40px;
+    height: 0px;
+ }
+ 
+ .customRoundSubHeader {
     text-align: center;
     border-top: 1px solid #c0c0c0;
     border-bottom: 1px solid #c0c0c0;
@@ -20,12 +25,7 @@
     padding-bottom: 10px;
  }
  
-  .customGamesHeader {
-    width: 40px;
-    height: 0px;
- }
-
- .customTableRow {
+ .customGameTableRow {
     text-align: center;
     padding-top: 10px;
     font-size: 11px;

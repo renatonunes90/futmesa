@@ -8,9 +8,10 @@
   
     <g:DockLayoutPanel styleName="{style.dockLayout}" unit='EM' height="100%" ui:field='vLayout'>
         <g:north size='7'>
-            <g:SimplePanel addStyleNames="{style.headerPanel} {style.gradientBar}">
+            <g:VerticalPanel addStyleNames="{style.headerPanel} {style.gradientBar}">
                <g:Label styleName="{style.titleDiv}" text='{consts.pageTitle}'></g:Label>
-            </g:SimplePanel>
+               <g:Label ui:field='championshipLabel' addStyleNames='{style.championshipTitle}' text=''></g:Label>
+            </g:VerticalPanel>
         </g:north>
         <g:center>
             <g:HorizontalPanel styleName="{style.mainPanel}" ui:field='mainPanel' horizontalAlignment="center">

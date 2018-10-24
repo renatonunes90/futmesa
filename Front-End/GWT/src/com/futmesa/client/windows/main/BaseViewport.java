@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -34,6 +35,9 @@ public final class BaseViewport
 
    @UiField
    protected HorizontalPanel mainPanel;
+
+   @UiField
+   protected Label championshipLabel;
 
    // @UiField
    // protected Button btnHelp;
@@ -128,6 +132,11 @@ public final class BaseViewport
    public void setMessageLogLinkTarget( String target )
    {
       // linkMessageLog.setTargetHistoryToken( target );
+   }
+   
+   public void setChampionshipLabel( String text )
+   {
+	   championshipLabel.setText( text );
    }
 
    /**

@@ -14,42 +14,6 @@ public interface ClassificationViewportConsts
    @DefaultStringValue ( "Games" )
    String gamesTitle();
    
-   @DefaultStringValue ( "Classification" )
-   String classificationColumn();
-   
-   @DefaultStringValue ( "P" )
-   String pointsColumn();
-   
-   @DefaultStringValue ( "G" )
-   String gamesColumn();
-   
-   @DefaultStringValue ( "W" )
-   String winsColumn();
-   
-   @DefaultStringValue ( "T" )
-   String tiesColumn();
-   
-   @DefaultStringValue ( "L" )
-   String lossesColumn();
-   
-   @DefaultStringValue ( "GP" )
-   String goalsProColumn();
-   
-   @DefaultStringValue ( "GC" )
-   String goalsConColumn();
-   
-   @DefaultStringValue ( "GD" )
-   String goalsDifferenceColumn();
-   
-   @DefaultStringValue ( "%" )
-   String winRatioColumn();
-   
-   @DefaultStringValue ( "Round" )
-   String roundLabel();
-   
-   @DefaultStringValue ( "Table" )
-   String tableLabel();
-   
-   @DefaultStringValue ( "X" )
-   String versusSymbol();
+   @DefaultStringValue ( "Alter Results" )
+   String alterResultsLabel();
 }
