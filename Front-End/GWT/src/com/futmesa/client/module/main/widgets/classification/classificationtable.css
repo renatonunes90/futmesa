@@ -3,7 +3,7 @@
    text-align: left;
    margin-bottom: 4px;
    margin-top: 10px;
-   width: 780px;
+   width: 860px;
    heigth: 100%;
  }
  
@@ -31,4 +31,32 @@
     padding-bottom: 15px;
     font-size: 14px;
     font-family: opensans;
+ }
+
+ .customIcon {
+ 	border-radius: 50%;
+ 	border-bottom-left-radius: 50%;
+ 	border-bottom-right-radius: 50%;
+ 	border-top-left-radius: 50%;
+ 	border-top-right-radius: 50%;
+ 	display: inline-block;
+ 	height: 7px;
+ 	overflow-x: hidden;
+ 	overflow-y: hidden;
+ 	text-align: center;
+ 	width: 7px;
+ 	margin-right: 3px;
+ 	-webkit-font-smoothing: antialiased;
+ }
+  
+ .customWinIcon {
+ 	background-color: #51a81e;
+ }
+ 
+ .customNeutralIcon {
+    background-color: #cccccc;
+ }
+ 
+ .customLossIcon {
+ 	background-color: #ff0000;
  }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.futmesa.client.businessinteligence.Classification;
-import com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.builder.shared.TableCellBuilder;
 import com.google.gwt.dom.builder.shared.TableRowBuilder;
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -46,6 +46,14 @@ public class ClassificationTable {
 		String customEvenColumn();
 
 		String cellTable();
+		
+		String customIcon();
+		
+		String customWinIcon();
+		
+		String customNeutralIcon();
+		
+		String customLossIcon();
 	}
 
 	/**
@@ -119,28 +127,31 @@ public class ClassificationTable {
 
 			tr = startRow();
 
-			buildHeader(tr, constants.classificationColumn(), true);
-			buildHeader(tr, constants.pointsColumn(), false);
-			buildHeader(tr, constants.gamesColumn(), false);
-			buildHeader(tr, constants.winsColumn(), false);
-			buildHeader(tr, constants.tiesColumn(), false);
-			buildHeader(tr, constants.lossesColumn(), false);
-			buildHeader(tr, constants.goalsProColumn(), false);
-			buildHeader(tr, constants.goalsConColumn(), false);
-			buildHeader(tr, constants.goalsDifferenceColumn(), false);
-			buildHeader(tr, constants.winRatioColumn(), false);
+			buildHeader(tr, constants.classificationColumn(), true, false);
+			buildHeader(tr, constants.pointsColumn(), false, false);
+			buildHeader(tr, constants.gamesColumn(), false, false);
+			buildHeader(tr, constants.winsColumn(), false, false);
+			buildHeader(tr, constants.tiesColumn(), false, false);
+			buildHeader(tr, constants.lossesColumn(), false, false);
+			buildHeader(tr, constants.goalsProColumn(), false, false);
+			buildHeader(tr, constants.goalsConColumn(), false, false);
+			buildHeader(tr, constants.goalsDifferenceColumn(), false, false);
+			buildHeader(tr, constants.winRatioColumn(), false, false);
+			buildHeader(tr, constants.lastGamesColumn(), false, true);
 
 			tr.endTR();
 
 			return true;
 		}
 
-		private void buildHeader(TableRowBuilder out, String headerStr, boolean isFirst) {
+		private void buildHeader(TableRowBuilder out, String headerStr, boolean isFirst, boolean isLast) {
 
 			// inicia a célula
 			TableCellBuilder th = out.startTH().className(headerStyle);
 			if (isFirst) {
 				th.style().width(240, Unit.PX).textAlign(TextAlign.LEFT).endStyle();
+			} else if ( isLast ) {
+				th.style().width(80, Unit.PX).endStyle();
 			}
 
 			Header<String> header = new TextHeader(headerStr);
@@ -162,6 +173,9 @@ public class ClassificationTable {
 
 		private final StringBuilder evenCellStyles;
 		private final String cellStyles;
+		private final String winStyle;
+		private final String neutralStyle;
+		private final String lossStyle;
 		private NumberFormat numberFormatter;
 
 		public CustomTableBuilder(CellTable<Classification> dataGrid) {
@@ -172,6 +186,10 @@ public class ClassificationTable {
 			evenCellStyles = new StringBuilder(resources.styles().customEvenColumn());
 			evenCellStyles.append(" " + resources.styles().customColumn());
 
+			winStyle = resources.styles().customIcon() + " " + resources.styles().customWinIcon(); 
+			neutralStyle = resources.styles().customIcon() + " " + resources.styles().customNeutralIcon(); 
+			lossStyle = resources.styles().customIcon() + " " + resources.styles().customLossIcon(); 
+			
 			numberFormatter = NumberFormat.getFormat("###.##");
 		}
 
@@ -190,6 +208,7 @@ public class ClassificationTable {
 			buildRow( row, String.valueOf(rowValue.getGoalsCon()), true, false, false );
 			buildRow( row, String.valueOf(rowValue.getGoalsDiff()), false, false, false );
 			buildRow( row, numberFormatter.format(rowValue.getWinRate()), true, false, false );
+			buildLastGamesCell( row, rowValue.getLast5Games() );
 
 			row.endTR();
 		}
@@ -212,6 +231,24 @@ public class ClassificationTable {
 				td.style().fontWeight(FontWeight.BOLD).endStyle();
 			}
 			td.text( text );
+				
+			td.endTD();
+		}
+		
+		private void buildLastGamesCell(TableRowBuilder row, JsArrayString values )
+		{
+			TableCellBuilder td = row.startTD();
+			td.className(cellStyles);
+			
+			for ( int i =0; i< values.length();i++) {
+				if ( "V".equals( values.get(i) ) ) {
+					td.startSpan().className( winStyle ).endSpan();
+				} else if ( "D".equals( values.get(i) ) ) {
+					td.startSpan().className( lossStyle ).endSpan();
+				} else {
+					td.startSpan().className( neutralStyle ).endSpan();
+				}
+			}	
 			td.endTD();
 		}
 	}

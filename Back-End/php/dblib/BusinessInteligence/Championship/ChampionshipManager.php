@@ -148,7 +148,7 @@ class ChampionshipManager extends Championship
       }
       
       // atualiza array com os últimos 5 jogos
-      $classification->setLast5Games( array_slice( array_reverse( $gameStatus ), 0, 5 ) );
+      $classification->setLast5Games( array_slice( $gameStatus, -5, 5 ) );
 
       return $classification;
    }
