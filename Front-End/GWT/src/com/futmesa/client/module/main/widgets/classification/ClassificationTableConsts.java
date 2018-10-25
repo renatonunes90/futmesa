@@ -37,4 +37,7 @@ public interface ClassificationTableConsts
    
    @DefaultStringValue ( "%" )
    String winRatioColumn();
+   
+   @DefaultStringValue ( "Last Games" )
+   String lastGamesColumn();
 }

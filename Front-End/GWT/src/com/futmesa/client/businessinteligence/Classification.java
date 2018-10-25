@@ -1,6 +1,9 @@
 package com.futmesa.client.businessinteligence;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.dev.json.JsonString;
 import com.google.gwt.view.client.ProvidesKey;
 
 /**
@@ -109,6 +112,13 @@ public final class Classification extends JavaScriptObject
    */
   public final native double getWinRate() /*-{
       return this.@com.futmesa.client.businessinteligence.Classification::getPoints()() * 100 / ( this.@com.futmesa.client.businessinteligence.Classification::getNumberOfGames()() * 3 );
+  }-*/;
+  
+  /**
+   * @return Lista com o estado dos últimos 5 jogos.
+   */
+  public final native JsArrayString getLast5Games() /*-{
+  	 return this.last5Games;
   }-*/;
   
 }
