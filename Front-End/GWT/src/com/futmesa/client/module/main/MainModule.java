@@ -117,6 +117,11 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 		} else if ( ServicePlayer.GET_REVIEW_INFO.equals( requestId ) ) {
 			JsArray<SimpleMapInfo> infos = records.cast();
 			playerViewport.updateReviewInfo( infos );
+			
+			servicePlayer.requestStatisticsInfo( playerViewport.getPlayer().getId() );
+		} else if ( ServicePlayer.GET_STATISTICS_INFO.equals( requestId ) ) {
+			JsArray<SimpleMapInfo> infos = records.cast();
+			playerViewport.updateStatisticsInfo( infos );
 		}
 	}
 	

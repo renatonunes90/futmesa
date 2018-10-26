@@ -1,7 +1,8 @@
- .resultGameTable {
-  margin-top: 15px;
+.sectionTitle {
+  font-weight: bold;
+  font-size: 18px;	
   margin-left: 15px;
-  margin-right: 15px;
-  width: 390px;
- }
- 
+  margin-top: 25px;
+  font-family: ProximaNova,"Helvetica Neue",Arial,sans-serif;
+  text-transform: uppercase;
+ } 

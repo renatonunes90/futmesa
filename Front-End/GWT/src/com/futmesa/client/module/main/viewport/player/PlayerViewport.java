@@ -4,9 +4,7 @@ import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.businessinteligence.tablestructures.SimpleMapInfo;
 import com.futmesa.client.module.main.viewport.player.maintab.PlayerMainTab;
-import com.futmesa.client.request.service.base.ServiceInterface;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -90,5 +88,11 @@ public class PlayerViewport implements ViewportInterface {
 	{
 		mainTab.updateReviewTable( infos );
 	}
+	
+	public void updateStatisticsInfo( JsArray<SimpleMapInfo> infos )
+	{
+		mainTab.updateStatisticsCharts( infos );
+	}
+
 
 }

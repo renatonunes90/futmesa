@@ -8,7 +8,9 @@ public interface PlayerMainTabConsts
 {
    public static final PlayerMainTabConsts INSTANCE = GWT.create( PlayerMainTabConsts.class );
 
-   @DefaultStringValue ( "Player" )
-   String playerTitleLabel();
-   
+   @DefaultStringValue ( "Review" )
+   String reviewLabel();
+
+   @DefaultStringValue ( "Statistics" )
+   String  statisticsLabel();   
 }

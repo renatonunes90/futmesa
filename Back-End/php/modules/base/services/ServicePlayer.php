@@ -75,13 +75,11 @@ class ServicePlayer
       $player = $this->provider_->getPlayer( $id );
       if ( $player != null )
       {
-         $result[] = new DtoReviewInfo( "Vitórias", "54" );
+         $result[] = new DtoReviewInfo( "Vitorias", "54" );
          $result[] = new DtoReviewInfo( "Empates", "49" );
          $result[] = new DtoReviewInfo( "Derrotas", "45" );
-         $result[] = new DtoReviewInfo( "Aproveitamento", "47%" );
-         $result[] = new DtoReviewInfo( "Gols Pró", "70" );
+         $result[] = new DtoReviewInfo( "Gols Pro", "70" );
          $result[] = new DtoReviewInfo( "Gols Contra", "65" );
-         $result[] = new DtoReviewInfo( "Saldo de gols", "5" );
       }
       
       return $result;

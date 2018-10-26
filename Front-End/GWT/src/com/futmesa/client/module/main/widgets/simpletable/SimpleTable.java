@@ -37,6 +37,8 @@ public class SimpleTable {
 		String customSimpleHeader();
 
 		String customColumn();
+		
+		String customEvenRow();
 	}
 
 	/**
@@ -103,19 +105,23 @@ public class SimpleTable {
 	private class CustomTableBuilder extends AbstractCellTableBuilder<SimpleMapInfo> {
 
 		private final String cellStyles;
+		private final String evenRowStyle;
 
 		public CustomTableBuilder(CellTable<SimpleMapInfo> dataGrid) {
 			super(dataGrid);
 
 			cellStyles = resources.styles().customColumn();
+			evenRowStyle = resources.styles().customEvenRow();
 		}
 
 		@Override
 		public void buildRowImpl(SimpleMapInfo rowValue, int absRowIndex) {
 
 			TableRowBuilder row = startRow();
-
-			row = startRow();
+			
+			if ( absRowIndex % 2 == 1 ) {
+				row.className( evenRowStyle );
+			}
 
 			// key
 			buildRow(row, rowValue.getKey(), true );
