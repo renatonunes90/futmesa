@@ -1,9 +1,7 @@
 package com.futmesa.client.businessinteligence;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
-import com.google.gwt.dev.json.JsonString;
 import com.google.gwt.view.client.ProvidesKey;
 
 /**
@@ -44,6 +42,13 @@ public final class Classification extends JavaScriptObject
       return this.player.name;
    }-*/;
 
+   /**
+    * @return Retorna a posição no campeonato.
+    */
+   public final native int getPosition() /*-{
+   	 return this.position;
+   }-*/;
+   
   /**
    * @return Retorna o nome.
    */

@@ -12,8 +12,6 @@ import com.google.gwt.http.client.URL;
  */
 public final class PHPRequest
 {
-   public static final int REQUEST_TIMEOUT = 30;
-
    /**
     * Classe pai que vai receber o resultado das requisições.
     */
@@ -63,65 +61,28 @@ public final class PHPRequest
    }
 
    /**
-    * Faz uma requisição com timeout de 30 segundos.
-    * 
-    * @param params
-    *           Parâmetros da requisição.
-    * @param idRequest
-    *           Identificador da requisição.
-    */
-   public void request( List< String > params, String idRequest )
-   {
-      this.request( REQUEST_TIMEOUT, params, idRequest );
-   }
-
-   /**
     * /** Faz uma requisição com timeout em segundos.
     * 
-    * @param timeout
-    *           Timeout da requisição.
     * @param params
     *           Parâmetros da requisição.
     * @param requestId
     *           Identificador da requisição.
     */
-   public void request( int timeout, List< String > params, String requestId )
+   public void request( List< String > params, String requestId )
    {
       RequestBuilder builder = new RequestBuilder( RequestBuilder.POST, "server/main.php" );// Const.SERVER_PATH );
       builder.setHeader( "Content-Type", "application/x-www-form-urlencoded" );
-      builder.setTimeoutMillis( timeout * 1000 );
 
-      PHPCallback callback;
-      if ( params.contains( "download=1" ) )
-      {
-         callback = new PHPCallback( this, requestId, true, getFileName( params ) );
-      }
-      else
-      {
-         callback = new PHPCallback( this, requestId );
-      }
+      PHPCallback callback = new PHPCallback( this, requestId );
+
       try
       {
-         params.add( "timeout=" + Integer.toString( timeout ) );
          builder.sendRequest( this.encodeParameters( params ), callback );
       }
       catch ( RequestException ex )
       {
          callback.onError( null, ex );
       }
-   }
-
-   private String getFileName( List< String > params )
-   {
-      String rst = "file.txt";
-      for ( String s : params )
-      {
-         if ( s.startsWith( "filename=" ) || s.startsWith( "fileName=" ) )
-         {
-            rst = s.split( "=" )[ 1 ];
-         }
-      }
-      return rst;
    }
 
    /**

@@ -23,6 +23,12 @@ class DtoClassification
 
    /**
     *
+    * @var int Posição na classificação.
+    */
+   public $position;
+   
+   /**
+    *
     * @var int Número da rodada.
     */
    public $roundNumber;
@@ -90,6 +96,7 @@ class DtoClassification
    public function __construct( \DbLib\Classification $classification )
    {
       $this->player = new DtoPlayer( $classification->getPlayer() );
+      $this->position = $classification->getPosition();
       $this->roundNumber = $classification->getRoundNumber();
       $this->wins = $classification->getWins();
       $this->ties = $classification->getTies();

@@ -1,0 +1,36 @@
+ .playerTitle {
+  font-weight: bold;
+  font-size: 26px;	
+  margin-bottom: 15px;
+  font-family: ProximaNova,"Helvetica Neue",Arial,sans-serif;
+  text-transform: uppercase;
+ } 
+
+ .customTabHeader {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: ProximaNova,"Helvetica Neue",Arial,sans-serif;
+  text-transform: uppercase;
+ } 
+ 
+ .customHeaderPanel {
+
+ }
+ 
+ .customTabPanel {
+    width: 1200px;
+ 	height: 600px;
+ 	border: 0x;
+ }
+ 
+ .insertResultBtn {
+    margin-top: 15px;
+ }
+ 
+ .gwt-TabLayoutPanelTabs {
+    height: 50px;
+ }
+ 
+ .gwt-TabLayoutPanelTab {
+     height: 44px;
+ }

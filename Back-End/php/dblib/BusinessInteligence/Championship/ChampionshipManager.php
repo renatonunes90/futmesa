@@ -104,6 +104,12 @@ class ChampionshipManager extends Championship
                   }
                } );
 
+      // atualiza posição de cada jogador
+      for ( $i=0; $i < sizeOf( $classifications ); $i++ )
+      {
+         $classifications[$i]->setPosition( $i + 1 );
+      }
+      
       return $classifications;
    }
 

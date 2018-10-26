@@ -32,14 +32,14 @@ class ServicePlayer
       return $result;
    }
    
-   public function getPlayer( int $idPlayer ): ?DtoPlayer
+   public function getPlayer( int $id ): DtoPlayer
    {     
-      $result = array();
+      $result = new DtoPlayer( null );
       
-      $player = $this->provider_->getPlayer( $idPlayer );
+      $player = $this->provider_->getPlayer( $id );
       if ( $player != null )
       {
-         $result = $player->getPlayerVO();
+         $result = new DtoPlayer( $player );
       }
       
       return $result;

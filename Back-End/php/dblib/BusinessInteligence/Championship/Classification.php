@@ -21,6 +21,12 @@ class Classification
 
    /**
     *
+    * @var int Posição na classificação.
+    */
+   private $position_;
+   
+   /**
+    *
     * @var int Número da rodada.
     */
    private $roundNumber_;
@@ -120,6 +126,11 @@ class Classification
       $this->last5Games_ = $games;   
    }
    
+   public function setPosition( int $position ) : void
+   {
+      $this->position_ = $position;
+   }
+   
    /**
     *
     * @return int
@@ -165,6 +176,15 @@ class Classification
       return $this->player_;
    }
 
+   /**
+    *
+    * @return int
+    */
+   public function getPosition(): int
+   {
+      return $this->position_;
+   }
+   
    /**
     *
     * @return int

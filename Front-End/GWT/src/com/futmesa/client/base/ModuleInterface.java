@@ -24,7 +24,7 @@ public abstract class ModuleInterface
     * @param filter
     *           Objeto contendo os parâmetros do novo painel.
     */
-   public abstract void updatePanel( FilterConfig filter );
+   public abstract void updatePanel( URLFilter filter );
 
    /**
     * Função utilizada na criação do Módulo para retornar o nome do Módulo.
