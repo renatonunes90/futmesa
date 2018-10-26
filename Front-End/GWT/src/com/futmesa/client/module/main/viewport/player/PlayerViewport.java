@@ -88,7 +88,7 @@ public class PlayerViewport implements ViewportInterface {
 	
 	public void updateReviewInfo( JsArray<SimpleMapInfo> infos )
 	{
-		mainTab.udateGrid( infos );
+		mainTab.updateReviewTable( infos );
 	}
 
 }
