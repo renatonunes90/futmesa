@@ -5,13 +5,13 @@ import java.util.TreeMap;
 /**
  * Classe contendo as propriedades que são utilizadas na navegação da ferramenta através da URL.
  */
-public final class FilterConfig
+public final class URLFilter
 {
    private static final String DELIMITER = "=";
 
    private static final String SEPARATOR = "&";
 
-   public static final String PANEL = "panel";
+   public static final String VIEW = "view";
 
    public static final String MODULE = "module";
 
@@ -26,7 +26,7 @@ public final class FilterConfig
     * @param filterConfig
     *           Filtro de ativo/grupo virtual.
     */
-   public FilterConfig( String filterConfig )
+   public URLFilter( String filterConfig )
    {
       filters = new TreeMap<>();
       this.parseFilder( filterConfig );
@@ -40,6 +40,7 @@ public final class FilterConfig
     */
    private void parseFilder( String filterConfig )
    {
+	  filterConfig = filterConfig.replace("?","");
       String[] filterSplit = filterConfig.split( SEPARATOR );
       for ( String filter : filterSplit )
       {
@@ -111,9 +112,9 @@ public final class FilterConfig
     * 
     * @return String do painel do Módulo contido na URL.
     */
-   public String getPanel()
+   public String getView()
    {
-      return getFilter( PANEL, "" );
+      return getFilter( VIEW, "" );
    }
 
 }
