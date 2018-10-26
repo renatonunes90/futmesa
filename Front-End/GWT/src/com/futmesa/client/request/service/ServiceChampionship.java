@@ -9,7 +9,6 @@ import com.futmesa.client.request.service.base.ServiceInterface;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsonUtils;
-import com.google.gwt.http.client.URL;
 
 public class ServiceChampionship extends ServiceAbstract {
 

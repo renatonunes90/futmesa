@@ -7,6 +7,7 @@ import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.businessinteligence.Round;
+import com.futmesa.client.businessinteligence.tablestructures.SimpleMapInfo;
 import com.futmesa.client.module.main.viewport.classification.ClassificationViewport;
 import com.futmesa.client.module.main.viewport.player.PlayerViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
@@ -111,6 +112,11 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 			Player player = records.cast();
 			playerViewport.setPlayer(player);
 			BaseViewport.getInstance().setViewportContent(playerViewport);
+			
+			servicePlayer.requestReviewInfo( player.getId() );
+		} else if ( ServicePlayer.GET_REVIEW_INFO.equals( requestId ) ) {
+			JsArray<SimpleMapInfo> infos = records.cast();
+			playerViewport.updateReviewInfo( infos );
 		}
 	}
 	
