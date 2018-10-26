@@ -5,11 +5,15 @@ import java.util.List;
 
 import com.futmesa.client.businessinteligence.Classification;
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.cell.client.ClickableTextCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.dom.builder.shared.SpanBuilder;
 import com.google.gwt.dom.builder.shared.TableCellBuilder;
 import com.google.gwt.dom.builder.shared.TableRowBuilder;
+import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
@@ -19,8 +23,10 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
 import com.google.gwt.user.cellview.client.AbstractHeaderOrFooterBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.TextHeader;
+import com.google.gwt.user.client.Window;
 
 /**
  * Classe com a tabela de classificação de um campeonato.
@@ -68,6 +74,8 @@ public class ClassificationTable {
 
 	private CellTable<Classification> cellTable;
 
+	private Column<Classification, String> playerColumn;
+
 	public ClassificationTable() {
 
 	    constants = GWT.create(ClassificationTableConsts.class);
@@ -79,6 +87,20 @@ public class ClassificationTable {
 		cellTable.setStyleName( resources.styles().cellTable() );
 		cellTable.setSkipRowHoverStyleUpdate( true );
 
+		playerColumn = new Column<Classification, String>(new ClickableTextCell()) {
+		      @Override
+		      public String getValue(Classification object) {
+		    	  return String.valueOf(object.getPosition()) + " " + object.getPlayerName();
+		      }
+		    };
+		    
+		playerColumn.setFieldUpdater(new FieldUpdater<Classification, String>() {
+		      @Override
+		      public void update(int index, Classification object, String value) {
+		    	  Window.Location.assign( "?view=player&id=" + String.valueOf( object.getPlayerId() ) );
+		      }
+		    });
+			
 		// seta os builders customizados
 		cellTable.setHeaderBuilder(new CustomHeaderBuilder(cellTable));
 		cellTable.setTableBuilder(new CustomTableBuilder(cellTable));
@@ -198,22 +220,22 @@ public class ClassificationTable {
 
 			TableRowBuilder row = startRow();
 			
-			buildRow( row, String.valueOf(absRowIndex + 1) + " " + rowValue.getPlayerName(), false, true, false );
-			buildRow( row, String.valueOf(rowValue.getPoints()), true, false, true );
-			buildRow( row, String.valueOf(rowValue.getNumberOfGames()), false, false, false );
-			buildRow( row, String.valueOf(rowValue.getWins()), true, false, false );
-			buildRow( row, String.valueOf(rowValue.getTies()), false, false, false );
-			buildRow( row, String.valueOf(rowValue.getLosses()), true, false, false );
-			buildRow( row, String.valueOf(rowValue.getGoalsPro()), false, false, false );
-			buildRow( row, String.valueOf(rowValue.getGoalsCon()), true, false, false );
-			buildRow( row, String.valueOf(rowValue.getGoalsDiff()), false, false, false );
-			buildRow( row, numberFormatter.format(rowValue.getWinRate()), true, false, false );
+			buildPlayerCell( row, rowValue );
+			buildRow( row, String.valueOf(rowValue.getPoints()), true, true );
+			buildRow( row, String.valueOf(rowValue.getNumberOfGames()), false,  false );
+			buildRow( row, String.valueOf(rowValue.getWins()), true, false );
+			buildRow( row, String.valueOf(rowValue.getTies()), false, false );
+			buildRow( row, String.valueOf(rowValue.getLosses()), true, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsPro()), false, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsCon()), true, false );
+			buildRow( row, String.valueOf(rowValue.getGoalsDiff()), false, false );
+			buildRow( row, numberFormatter.format(rowValue.getWinRate()), true, false );
 			buildLastGamesCell( row, rowValue.getLast5Games() );
 
 			row.endTR();
 		}
 		
-		private void buildRow(TableRowBuilder row, String text, boolean isEven, boolean isFirst, boolean isBold )
+		private void buildRow(TableRowBuilder row, String text, boolean isEven, boolean isBold )
 		{
 			TableCellBuilder td = row.startTD();
 			if ( isEven ) {
@@ -223,15 +245,23 @@ public class ClassificationTable {
 				td.className(cellStyles);
 			}
 			
-			if ( isFirst ) {
-				td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
-			}
-			
 			if ( isBold ) {
 				td.style().fontWeight(FontWeight.BOLD).endStyle();
 			}
 			td.text( text );
 				
+			td.endTD();
+		}
+		
+		private void buildPlayerCell(TableRowBuilder row, Classification rowValue )
+		{
+			TableCellBuilder td = row.startTD();
+			td.className(cellStyles);
+			td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
+			SpanBuilder sp = td.startSpan();
+			sp.style().cursor( Cursor.POINTER ).endStyle();
+			renderCell(sp, createContext(0), playerColumn, rowValue);
+			sp.endSpan();
 			td.endTD();
 		}
 		
