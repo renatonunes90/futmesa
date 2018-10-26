@@ -47,6 +47,7 @@ public class ServiceChampionship extends ServiceAbstract {
 		request( params, GET_ALL_ROUNDS );
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void insertResults( int id, List<Game> games )
 	{
 		JsArray<Game> js = (JsArray<Game>) JavaScriptObject.createArray();
