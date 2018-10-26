@@ -15,6 +15,7 @@
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
 	<!-- Other module inherits -->
+	<inherits name = "com.googlecode.gwt.charts.Charts"/>
 	<!--<inherits name='com.example.project.client.GWTSample' /> -->
 
 	<!-- Specify the app entry point class. -->
