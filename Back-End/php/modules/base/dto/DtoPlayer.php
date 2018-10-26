@@ -17,12 +17,20 @@ class DtoPlayer extends \ValueObject\Player
    /**
     * Construtor padrão.
     *
-    * @param \DbLib\Championship $player
+    * @param ?\DbLib\Championship $player
     *           Objeto retornado da DBLib contendo as informações de um jogador.
     */
-   public function __construct( \DbLib\Player $player )
+   public function __construct( ?\DbLib\Player $player )
    {
-      $this->copyData( $player->getPlayerVO() );
+      if ( $player != null ) 
+      {
+         $this->copyData( $player->getPlayerVO() );
+      }
+      else 
+      {
+         $this->id = -1;
+         $this->name = "";
+      }
    }
 
 }
