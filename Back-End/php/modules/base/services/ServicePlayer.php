@@ -8,6 +8,7 @@
 use DBLib\PlayerProvider;
 
 require_once "dto/DtoPlayer.php";
+require_once "dto/DtoReviewInfo.php";
 
 class ServicePlayer
 {
@@ -40,6 +41,21 @@ class ServicePlayer
       if ( $player != null )
       {
          $result = new DtoPlayer( $player );
+      }
+      
+      return $result;
+   }
+   
+   public function getReviewInfo( int $id ): array
+   {
+      $result = array();
+      
+      $player = $this->provider_->getPlayer( $id );
+      if ( $player != null )
+      {
+         $result[] = new DtoReviewInfo( "Nome", $player->getPlayerVO()->name );
+         $result[] = new DtoReviewInfo( "Identificador", $player->getPlayerVO()->id );
+         $result[] = new DtoReviewInfo( "Algo", "Alguma coisa" );
       }
       
       return $result;
