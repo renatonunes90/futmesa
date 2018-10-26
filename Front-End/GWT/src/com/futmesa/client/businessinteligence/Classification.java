@@ -44,6 +44,13 @@ public final class Classification extends JavaScriptObject
       return this.player.name;
    }-*/;
 
+   /**
+    * @return Retorna a posição no campeonato.
+    */
+   public final native int getPosition() /*-{
+   	 return this.position;
+   }-*/;
+   
   /**
    * @return Retorna o nome.
    */
