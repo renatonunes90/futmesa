@@ -7,6 +7,7 @@
  */
 namespace Database;
 
+require_once "ConnectionInfo.php";
 require_once "Database.php";
 
 /**
@@ -46,8 +47,7 @@ class ODBCConnection
    {
       if( self::$dbConnection_ == null )
       {
-         require_once "ConnectionInfoLocal.php";
-         self::$config_ = new ConnectionInfoLocal();
+         self::$config_ = new ConnectionInfo( false );
          self::$dbConnection_ = new Database( self::$config_, self::$debug_ );
       }
 
