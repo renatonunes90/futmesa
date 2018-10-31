@@ -7,6 +7,8 @@
  */
 namespace Database;
 
+require_once "ConnectionInfoDeploy.php";
+require_once "ConnectionInfoLocal.php";
 require_once "Database.php";
 
 /**
@@ -18,9 +20,9 @@ class ODBCConnection
    /**
     * Nome da conexão odbc que será utilizada.
     *
-    * @var string
+    * @var ConnectionInfo
     */
-   private static $odbcName_ = "/firebird/data/FUTMESA.FDB";
+   private static $config_;
 
    /**
     * Flag para determinar se é para mostrar mensagens de desenvolvimento.
@@ -46,7 +48,8 @@ class ODBCConnection
    {
       if( self::$dbConnection_ == null )
       {
-         self::$dbConnection_ = new Database( self::$odbcName_, self::$debug_ );
+         self::$config_ = new ConnectionInfoLocal();
+         self::$dbConnection_ = new Database( self::$config_, self::$debug_ );
       }
 
       return self::$dbConnection_;

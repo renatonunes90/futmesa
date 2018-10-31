@@ -45,16 +45,16 @@ class Database
    /**
     * Construtor padrão.
     *
-    * @param string $database
-    *           Nome do banco de dados.
+    * @param ConnectionInfo $connInfo
+    *           Informações da conexão ao banco de dados.
     * @param bool $debug
     *           Indica se vai mostrar mensagens de desenvolvimento a cada consulta.
     */
-   public function __construct( string $database, bool $debug = false)
+   public function __construct( ConnectionInfo $connInfo, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "ibase" ,"username" => "SYSDBA" ,"password" => "15ecd39ea0b46ede3cf5" ,"hostspec" => "db" ,"database" => $database );
-
+      $dsn = array ( "phptype" => "ibase" ,"username" => $connInfo->username ,"password" => $connInfo->pass ,"hostspec" => $connInfo->host ,"database" => $connInfo->database );
+      
       $this->db_ = \DB::connect( $dsn );
       if( \PEAR::isError( $this->db_ ) )
       {
