@@ -40,26 +40,38 @@ class ConnectionInfo
     * @var string
     */
    public $database = "";
-   
+
    /**
     * Cria o objeto com as propriedades da conexão.
-    * @param bool $deploy Flag indicando se devem ser usadas configurações de deploy. Caso negativo serão utilizadas configurações para conectar com o Docker.
+    *
+    * @param bool $deploy
+    *           Flag indicando se devem ser usadas configurações de deploy. Caso negativo serão utilizadas configurações para conectar com o
+    *           Docker.
+    * @param bool $docker
+    *           Flag indicando se o deploy será feito via docker.
     */
-   public function __construct( bool $deploy = false )
+   public function __construct( bool $deploy = false, bool $docker = true)
    {
-      if ( $deploy ) 
+      if ( $deploy )
       {
          $this->username = "keko";
          $this->pass = "mesa6277";
          $this->host = "firebird04-farm60.kinghost.net";
          $this->database = "/firebird/keko.gdb";
       }
-      else
+      else if ( $docker )
       {
          $this->username = "SYSDBA";
          $this->pass = "15ecd39ea0b46ede3cf5";
          $this->host = "db";
          $this->database = "/firebird/data/FUTMESA.FDB";
+      }
+      else
+      {
+         $this->username = "SYSDBA";
+         $this->pass = "masterkey";
+         $this->host = "localhost";
+         $this->database = "D:/Projetos/Futmesa/Database/FUTMESA.FDB";
       }
    }
 }

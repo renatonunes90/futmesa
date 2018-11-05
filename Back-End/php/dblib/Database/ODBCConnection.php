@@ -45,9 +45,9 @@ class ODBCConnection
     */
    public static function getConnection(): Database
    {
-      if( self::$dbConnection_ == null )
+      if ( self::$dbConnection_ == null )
       {
-         self::$config_ = new ConnectionInfo( false );
+         self::$config_ = new ConnectionInfo( false, false );
          self::$dbConnection_ = new Database( self::$config_, self::$debug_ );
       }
 

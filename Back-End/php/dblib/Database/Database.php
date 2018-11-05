@@ -8,7 +8,7 @@
 namespace Database;
 
 // Verifica se o include path ainda não tem o PEAR.
-if( strpos( get_include_path(), "pear" ) === false && ( stripos( php_uname( "s" ), "Linux" ) === false )  )
+if ( strpos( get_include_path(), "pear" ) === false && ( stripos( php_uname( "s" ), "Linux" ) === false ) )
 {
    set_include_path( get_include_path() . ";" . substr( PHP_BINARY, 0, strrpos( PHP_BINARY, "\\" ) ) . "\pear" );
 }
@@ -53,12 +53,16 @@ class Database
    public function __construct( ConnectionInfo $connInfo, bool $debug = false)
    {
       $this->debug_ = $debug || ( isset( $_REQUEST[ "debug" ] ) && $_REQUEST[ "debug" ] );
-      $dsn = array ( "phptype" => "ibase" ,"username" => $connInfo->username ,"password" => $connInfo->pass ,"hostspec" => $connInfo->host ,"database" => $connInfo->database );
-      
+      $dsn = array ( "phptype" => "ibase", "username" => $connInfo->username, "password" => $connInfo->pass, "hostspec" => $connInfo->host,
+               "database" => $connInfo->database );
+
       $this->db_ = \DB::connect( $dsn );
-      if( \PEAR::isError( $this->db_ ) )
+      if ( \PEAR::isError( $this->db_ ) )
       {
-         $this->debugMessages( array ( "Standard Message: " . $this->db_->getMessage() . "\n" ,"Standard Code: " . $this->db_->getCode() . "\n" ,"DBMS/User Message: " . $this->db_->getUserInfo() . "\n" ,"DBMS/Debug Message: " . $this->db_->getDebugInfo() . "\n" ) );
+         $this->debugMessages(
+                  array ( "Standard Message: " . $this->db_->getMessage() . "\n", "Standard Code: " . $this->db_->getCode() . "\n",
+                           "DBMS/User Message: " . $this->db_->getUserInfo() . "\n",
+                           "DBMS/Debug Message: " . $this->db_->getDebugInfo() . "\n" ) );
          $this->lastError_ = "Falha na conexão com o banco de dados. Verifique a configuração do seu ODBC: " . $this->db_->getMessage();
       }
       else
@@ -76,7 +80,7 @@ class Database
     */
    private function debugMessages( array $messages ): void
    {
-      if( $this->debug_ && count( $messages ) > 0 && strlen( $messages[ 0 ] ) > 0 )
+      if ( $this->debug_ && count( $messages ) > 0 && strlen( $messages[ 0 ] ) > 0 )
       {
          $this->debugTime();
          echo "<pre><code>";
@@ -90,7 +94,7 @@ class Database
     */
    private function debugTime(): void
    {
-      if( $this->debug_ )
+      if ( $this->debug_ )
       {
          $elapsed = number_format( microtime( true ) - $GLOBALS[ "debugtime" ], 3 );
          echo "<pre>$elapsed seconds</pre>";
@@ -110,23 +114,23 @@ class Database
    {
       $result = true;
 
-      $this->debugMessages( array ( $sql ,count( $values ) . " instâncias" ) );
+      $this->debugMessages( array ( $sql, count( $values ) . " instâncias" ) );
       $this->lastError_ = "";
 
       // Prepara a consulta.
       $prepared = ibase_prepare( $this->db_->connection, $sql );
-      if( $prepared === false )
+      if ( $prepared === false )
       {
          $this->lastError_ = "Erro preparando SQL:\n$sql";
       }
       else
       {
-         foreach( $values as $v )
+         foreach ( $values as $v )
          {
             // workaround para passar o parâmetros como array para o execute
             array_unshift( $v, $prepared );
-            $rc = call_user_func_array('ibase_execute', $v );
-            if( !$rc ) 
+            $rc = call_user_func_array( 'ibase_execute', $v );
+            if ( !$rc )
             {
                $this->lastError_ = "Erro com dados:\n" . implode( ",", $v );
                $result = false;
@@ -178,20 +182,20 @@ class Database
       $this->debugMessages( array ( $sql ) );
 
       $result = $this->db_->limitQuery( $sql, $offset, $limit );
-      if( \PEAR::isError( $result ) )
+      if ( \PEAR::isError( $result ) )
       {
          $this->lastError_ = $result->getMessage() . " " . $sql;
       }
-      else if( $result instanceof \DB_result )
+      else if ( $result instanceof \DB_result )
       {
          // converte para array
          $r = array ();
-         while( $result->fetchInto( $row ) )
+         while ( $result->fetchInto( $row ) )
          {
             // converte para minúsculo os nome dos campos
             // para ficar igual ao print de objetos
             $newrow = array ();
-            foreach( $row as $key => $value )
+            foreach ( $row as $key => $value )
             {
                $newrow[ strtolower( $key ) ] = $value;
             }
@@ -220,27 +224,27 @@ class Database
       $this->lastError_ = "";
       $return = null;
 
-      if( strlen( $sql ) < 65500 )
+      if ( strlen( $sql ) < 65500 )
       {
          $result = $this->db_->query( $sql );
 
-         if( \PEAR::isError( $result ) )
+         if ( \PEAR::isError( $result ) )
          {
             $this->lastError_ = $result->getMessage() . " " . $sql;
          }
          else
          {
             // caso de SELECT
-            if( $result instanceof \DB_result )
+            if ( $result instanceof \DB_result )
             {
                // converte para array
                $r = array ();
-               while( $result->fetchInto( $row ) )
+               while ( $result->fetchInto( $row ) )
                {
                   // converte para minúsculo os nome dos campos
                   // para ficar igual ao print de objetos
                   $newrow = array ();
-                  foreach( $row as $key => $value )
+                  foreach ( $row as $key => $value )
                   {
                      $newrow[ strtolower( $key ) ] = $value;
                   }
@@ -279,11 +283,11 @@ class Database
       $this->lastError_ = "";
 
       $return = array ();
-      if( strlen( $sql ) < 65500 )
+      if ( strlen( $sql ) < 65500 )
       {
          $results = $this->db_->getAll( $sql, $prepareFields, DB_FETCHMODE_ASSOC );
 
-         if( $results instanceof \DB_Error )
+         if ( $results instanceof \DB_Error )
          {
             $this->lastError_ = $results->getMessage() . " " . $sql;
          }
