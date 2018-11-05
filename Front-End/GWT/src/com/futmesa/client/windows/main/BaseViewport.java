@@ -5,6 +5,8 @@ import com.futmesa.client.base.ViewportInterface;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -12,6 +14,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -37,6 +41,9 @@ public final class BaseViewport
    protected HorizontalPanel mainPanel;
 
    @UiField
+   protected MenuBar menuBar;
+   
+   @UiField
    protected Label championshipLabel;
 
    // @UiField
@@ -47,16 +54,7 @@ public final class BaseViewport
    //
    // @UiField
    // protected Button btnUser;
-   //
-   // @UiField
-   // protected Hyperlink linkMessageLog;
-   //
-   // @UiField
-   // protected Hyperlink linkUserManager;
-   //
-   // @UiField
-   // protected Hyperlink linkUserGroupManager;
-   //
+
    // @UiField
    // protected Button miLogout;
 
@@ -70,6 +68,34 @@ public final class BaseViewport
    {
       uiBinder.createAndBindUi( this );
 
+      // Create a command that will execute on menu item selection
+      Command menuCommand = new Command() {
+        public void execute() {
+          Window.alert( "clicou");
+        }
+      };
+
+      // Create a menu bar
+      menuBar.setAutoOpen(true);
+      menuBar.setAnimationEnabled(true);
+
+      // Create a sub menu of recent documents
+      MenuBar championshipMenu = new MenuBar(true);
+      MenuBar playerMenu = new MenuBar(true);
+      
+      championshipMenu.addItem( new MenuItem( "Campeonato A", menuCommand ) );
+
+      // Create the file menu
+      MenuBar mainMenu = new MenuBar(true);
+      mainMenu.setAnimationEnabled(true);
+      
+      MenuItem mainItem = new MenuItem("   ", mainMenu);
+      mainItem.setPixelSize( 24, 24 );
+      menuBar.addItem( mainItem);
+      
+      mainMenu.addItem( new MenuItem( "Campeonatos",  championshipMenu ) );
+      mainMenu.addItem( new MenuItem( "Jogadores",  playerMenu ) );
+      
       // adiciona o listener para o logout
       // miLogout.addSelectHandler( listener -> AuthWindow.getInstance().logout() );
    }
