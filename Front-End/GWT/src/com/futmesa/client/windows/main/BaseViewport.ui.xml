@@ -13,7 +13,7 @@
                		<g:MenuBar ui:field="menuBar" styleName="{style.customMenuBar}"></g:MenuBar>
                		<g:Label styleName="{style.appTitle}" text='{consts.pageTitle}'></g:Label>
                </g:HorizontalPanel>
-               <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}' text='TESTE'></g:Label>
+               <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
             </g:HorizontalPanel>
         </g:north>
         <g:center>

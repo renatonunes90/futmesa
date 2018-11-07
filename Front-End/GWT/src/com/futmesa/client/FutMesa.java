@@ -1,20 +1,29 @@
 package com.futmesa.client;
 
 import com.futmesa.client.base.URLFilter;
+import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.module.main.MainModule;
+import com.futmesa.client.request.service.ServiceChampionship;
+import com.futmesa.client.request.service.ServicePlayer;
+import com.futmesa.client.request.service.base.ServiceInterface;
 import com.futmesa.client.windows.main.BaseViewport;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
  */
-public class FutMesa implements EntryPoint
+public class FutMesa implements EntryPoint, ServiceInterface
 {
 
+   private ServiceChampionship serviceChampionship;
+
+   private ServicePlayer servicePlayer;
+   
    private MainModule mainModule;
 
    /**
@@ -30,7 +39,8 @@ public class FutMesa implements EntryPoint
    public void onModuleLoad()
    {
       //AuthWindow.getInstance().checkAuth();
-      initializeViewport();
+      serviceChampionship = new ServiceChampionship( this );
+      serviceChampionship.requestChampionships();
    }
 
    /**
@@ -57,5 +67,17 @@ public class FutMesa implements EntryPoint
       // else
       // // módulo default
       // baseModule.updatePanel( filter );
+   }
+   
+   @Override
+   public void onServiceResult( JavaScriptObject records, String requestId )
+   {
+      if ( ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals( requestId )  ) 
+      {
+         JsArray<Championship> championships = records.cast();
+         BaseViewport.getInstance().setChampionships( championships );
+         
+         initializeViewport();
+      }
    }
 }
