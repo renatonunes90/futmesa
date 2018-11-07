@@ -17,8 +17,9 @@
             </g:HorizontalPanel>
         </g:north>
         <g:center>
-            <g:HorizontalPanel styleName="{style.mainPanel}" ui:field='mainPanel' horizontalAlignment="center">
-            </g:HorizontalPanel>
+            <g:SimplePanel styleName="{style.centerContainer}">
+	            <g:HorizontalPanel styleName="{style.mainPanel}" ui:field='mainPanel' horizontalAlignment="center"></g:HorizontalPanel>
+            </g:SimplePanel>
         </g:center>     
      </g:DockLayoutPanel>
     
