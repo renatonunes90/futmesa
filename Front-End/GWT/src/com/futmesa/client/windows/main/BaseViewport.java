@@ -3,6 +3,7 @@ package com.futmesa.client.windows.main;
 import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -213,11 +214,26 @@ public final class BaseViewport
          {
             public void execute()
             {
-               Window.alert( "clicou em " + championships.get( index ).getName() );
                Window.Location.assign( "?view=championship&id=" + String.valueOf( championships.get( index ).getId() ) );
             }
          };
          championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
+      }
+   }
+   
+   public void setPlayers( JsArray<Player> players ) 
+   {
+      for ( int i = 0; i < players.length(); i++ )
+      {
+         final int index = i;
+         Command menuCommand = new Command()
+         {
+            public void execute()
+            {
+               Window.Location.assign( "?view=player&id=" + String.valueOf( players.get( index ).getId() ) );
+            }
+         };
+         playerMenu.addItem( new MenuItem( players.get( i ).getName(), menuCommand ) );
       }
    }
 }

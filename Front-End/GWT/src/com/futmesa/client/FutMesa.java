@@ -2,6 +2,7 @@ package com.futmesa.client;
 
 import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.main.MainModule;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.ServicePlayer;
@@ -40,6 +41,8 @@ public class FutMesa implements EntryPoint, ServiceInterface
    {
       //AuthWindow.getInstance().checkAuth();
       serviceChampionship = new ServiceChampionship( this );
+      servicePlayer = new ServicePlayer( this );
+      
       serviceChampionship.requestChampionships();
    }
 
@@ -76,6 +79,13 @@ public class FutMesa implements EntryPoint, ServiceInterface
       {
          JsArray<Championship> championships = records.cast();
          BaseViewport.getInstance().setChampionships( championships );
+         
+         servicePlayer.requestPlayers();
+      }
+      else if ( ServicePlayer.GET_ALL_PLAYERS.equals( requestId ) )
+      {
+         JsArray<Player> players = records.cast();
+         BaseViewport.getInstance().setPlayers( players );
          
          initializeViewport();
       }

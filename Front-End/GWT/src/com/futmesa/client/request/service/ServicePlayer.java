@@ -10,7 +10,8 @@ public class ServicePlayer extends ServiceAbstract {
 
 	public static final String MODULE = "base";
 	public static final String SERVICE = "Player";
-	
+
+	public static final String GET_ALL_PLAYERS = "getAllPlayers";
 	public static final String GET_PLAYER = "getPlayer";
 	public static final String GET_REVIEW_INFO = "getReviewInfo";
 	public static final String GET_STATISTICS_INFO = "getStatisticsInfo";
@@ -21,7 +22,7 @@ public class ServicePlayer extends ServiceAbstract {
 	
 	public void requestPlayers()
 	{
-		request( "function=getAllPlayers", "getAllPlayers" );
+		request( "function=" + GET_ALL_PLAYERS, GET_ALL_PLAYERS );
 	}
 	
 	public void requestPlayer( int id )
