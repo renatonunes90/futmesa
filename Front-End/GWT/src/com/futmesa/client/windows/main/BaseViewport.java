@@ -2,18 +2,20 @@ package com.futmesa.client.windows.main;
 
 import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.ViewportInterface;
+import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -37,6 +39,9 @@ public final class BaseViewport
    protected HorizontalPanel mainPanel;
 
    @UiField
+   protected MenuBar menuBar;
+   
+   @UiField
    protected Label championshipLabel;
 
    // @UiField
@@ -47,29 +52,43 @@ public final class BaseViewport
    //
    // @UiField
    // protected Button btnUser;
-   //
-   // @UiField
-   // protected Hyperlink linkMessageLog;
-   //
-   // @UiField
-   // protected Hyperlink linkUserManager;
-   //
-   // @UiField
-   // protected Hyperlink linkUserGroupManager;
-   //
+
    // @UiField
    // protected Button miLogout;
 
    @UiField
    protected DockLayoutPanel vLayout;
 
+   private MenuBar playerMenu;
+
+   private MenuBar championshipMenu;
+   
    /**
     * Construtor padrão.
     */
    private BaseViewport()
    {
       uiBinder.createAndBindUi( this );
+      
+      // Create a menu bar
+      menuBar.setAutoOpen(true);
+      menuBar.setAnimationEnabled(true);
 
+      // Create a sub menu of recent documents
+      championshipMenu = new MenuBar(true);
+      playerMenu = new MenuBar(true);
+
+      // Create the file menu
+      MenuBar mainMenu = new MenuBar(true);
+      mainMenu.setAnimationEnabled(true);
+      
+      MenuItem mainItem = new MenuItem("   ", mainMenu);
+      mainItem.setPixelSize( 24, 24 );
+      menuBar.addItem( mainItem);
+      
+      mainMenu.addItem( new MenuItem( "Campeonatos",  championshipMenu ) );
+      mainMenu.addItem( new MenuItem( "Jogadores",  playerMenu ) );
+      
       // adiciona o listener para o logout
       // miLogout.addSelectHandler( listener -> AuthWindow.getInstance().logout() );
    }
@@ -184,5 +203,37 @@ public final class BaseViewport
    public Widget asWidget()
    {
       return vLayout;
+   }
+
+   public void setChampionships( JsArray<Championship> championships ) 
+   {
+      for ( int i = 0; i < championships.length(); i++ )
+      {
+         final int index = i;
+         Command menuCommand = new Command()
+         {
+            public void execute()
+            {
+               Window.Location.assign( "?view=championship&id=" + String.valueOf( championships.get( index ).getId() ) );
+            }
+         };
+         championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
+      }
+   }
+   
+   public void setPlayers( JsArray<Player> players ) 
+   {
+      for ( int i = 0; i < players.length(); i++ )
+      {
+         final int index = i;
+         Command menuCommand = new Command()
+         {
+            public void execute()
+            {
+               Window.Location.assign( "?view=player&id=" + String.valueOf( players.get( index ).getId() ) );
+            }
+         };
+         playerMenu.addItem( new MenuItem( players.get( i ).getName(), menuCommand ) );
+      }
    }
 }

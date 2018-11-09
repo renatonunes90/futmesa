@@ -14,7 +14,7 @@ public interface PlayerViewportConsts
    @DefaultStringValue ( "Main" )
    String mainTabLabel();
 
-   @DefaultStringValue ( "seasons" )
+   @DefaultStringValue ( "Seasons" )
    String seasonTabLabel();
    
    @DefaultStringValue ( "Historic" )

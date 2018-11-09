@@ -10,8 +10,11 @@ public class ServicePlayer extends ServiceAbstract {
 
 	public static final String MODULE = "base";
 	public static final String SERVICE = "Player";
-	
+
+	public static final String GET_ALL_PLAYERS = "getAllPlayers";
 	public static final String GET_PLAYER = "getPlayer";
+	public static final String GET_REVIEW_INFO = "getReviewInfo";
+	public static final String GET_STATISTICS_INFO = "getStatisticsInfo";
 	
 	public ServicePlayer(ServiceInterface parent) {
 		super(parent, MODULE, SERVICE);
@@ -19,7 +22,7 @@ public class ServicePlayer extends ServiceAbstract {
 	
 	public void requestPlayers()
 	{
-		request( "function=getAllPlayers", "getAllPlayers" );
+		request( "function=" + GET_ALL_PLAYERS, GET_ALL_PLAYERS );
 	}
 	
 	public void requestPlayer( int id )
@@ -28,6 +31,22 @@ public class ServicePlayer extends ServiceAbstract {
 		params.add( "id=" + String.valueOf( id ) );
 		params.add( "function=" + GET_PLAYER );
 		request( params, GET_PLAYER );
+	}
+	
+	public void requestReviewInfo( int id )
+	{
+		List<String> params = new ArrayList<String>();
+		params.add( "id=" + String.valueOf( id ) );
+		params.add( "function=" + GET_REVIEW_INFO );
+		request( params, GET_REVIEW_INFO );
+	}
+	
+	public void requestStatisticsInfo( int id )
+	{
+		List<String> params = new ArrayList<String>();
+		params.add( "id=" + String.valueOf( id ) );
+		params.add( "function=" + GET_STATISTICS_INFO );
+		request( params, GET_STATISTICS_INFO );
 	}
 
 }

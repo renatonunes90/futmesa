@@ -8,6 +8,7 @@
 use DBLib\PlayerProvider;
 
 require_once "dto/DtoPlayer.php";
+require_once "dto/DtoReviewInfo.php";
 
 class ServicePlayer
 {
@@ -40,6 +41,45 @@ class ServicePlayer
       if ( $player != null )
       {
          $result = new DtoPlayer( $player );
+      }
+      
+      return $result;
+   }
+   
+   public function getReviewInfo( int $id ): array
+   {
+      $result = array();
+      
+      $player = $this->provider_->getPlayer( $id );
+      if ( $player != null )
+      {
+         $result[] = new DtoReviewInfo( "Posição no Ranking", "2º" );
+         $result[] = new DtoReviewInfo( "Campeonatos Vencidos", "2" );
+         $result[] = new DtoReviewInfo( "Melhor Posição", "1º" );
+         $result[] = new DtoReviewInfo( "Melhor Temporada", "2018" );
+         $result[] = new DtoReviewInfo( "Maior Invencibilidade", "15 jogos" );
+         $result[] = new DtoReviewInfo( "Maior Goleada", "6 x 1" );
+         $result[] = new DtoReviewInfo( "Pior Derrota", "2 x 4" );
+         $result[] = new DtoReviewInfo( "Placar Frequente", "0 x 0" );
+         $result[] = new DtoReviewInfo( "Freguês", "Jogador A" );
+         $result[] = new DtoReviewInfo( "Carrasco", "Jogador H" );
+      }
+      
+      return $result;
+   }
+   
+   public function getStatisticsInfo( int $id ): array
+   {
+      $result = array();
+      
+      $player = $this->provider_->getPlayer( $id );
+      if ( $player != null )
+      {
+         $result[] = new DtoReviewInfo( "Vitorias", "54" );
+         $result[] = new DtoReviewInfo( "Empates", "49" );
+         $result[] = new DtoReviewInfo( "Derrotas", "45" );
+         $result[] = new DtoReviewInfo( "Gols Pro", "70" );
+         $result[] = new DtoReviewInfo( "Gols Contra", "65" );
       }
       
       return $result;

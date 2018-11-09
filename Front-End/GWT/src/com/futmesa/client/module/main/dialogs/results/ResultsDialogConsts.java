@@ -2,7 +2,6 @@ package com.futmesa.client.module.main.dialogs.results;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Constants;
-import com.google.gwt.i18n.client.Constants.DefaultStringValue;
 
 public interface ResultsDialogConsts
    extends Constants
