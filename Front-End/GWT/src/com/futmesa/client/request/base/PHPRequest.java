@@ -12,6 +12,10 @@ import com.google.gwt.http.client.URL;
  */
 public final class PHPRequest
 {
+   
+   private final String SERVER_ADDRESS = "http://www.keko.kinghost.net/futmesa/server/main.php";
+   //private final String SERVER_ADDRESS ="server/main.php";
+   
    /**
     * Classe pai que vai receber o resultado das requisições.
     */
@@ -70,7 +74,7 @@ public final class PHPRequest
     */
    public void request( List< String > params, String requestId )
    {
-      RequestBuilder builder = new RequestBuilder( RequestBuilder.POST, "server/main.php" );// Const.SERVER_PATH );
+      RequestBuilder builder = new RequestBuilder( RequestBuilder.POST, SERVER_ADDRESS );
       builder.setHeader( "Content-Type", "application/x-www-form-urlencoded" );
 
       PHPCallback callback = new PHPCallback( this, requestId );
