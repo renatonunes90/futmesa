@@ -14,6 +14,10 @@
                		<g:Label styleName="{style.appTitle}" text='{consts.pageTitle}'></g:Label>
                </g:HorizontalPanel>
                <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
+               <g:HorizontalPanel addStyleNames="{style.headerRightPanel}">
+                     <g:MenuBar ui:field="configMenuBar" styleName="{style.customConfigMenuBar}"></g:MenuBar>
+                     <g:FocusPanel ui:field="helpButton" styleName="{style.customHelpButton}"></g:FocusPanel>
+               </g:HorizontalPanel>
             </g:HorizontalPanel>
         </g:north>
         <g:center>

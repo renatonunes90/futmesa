@@ -51,9 +51,9 @@
 
 .customMenuBar {
 	cursor: pointer;
-	background-color: #3b9c00;
 	margin-top: 0.9em;
-  	margin-left: 5em;
+  	margin-left: 6.5em;
+  	padding-bottom: 12px;
   	border: 0px;
   	background-image: url("resources/images/menu.png");
   	height: 24px;
@@ -66,7 +66,7 @@
   	margin-left: 0.5em;
 	margin-top: 0.5em;
 	font-family: ProximaNova,"Helvetica Neue",Arial,sans-serif;
-    text-transform: uppercase;
+   text-transform: uppercase;
 }
 
 .pageTitle {
@@ -80,8 +80,30 @@
   font-weight: bold; 
 } 
 
-.gwt-MenuBarPopup {
-  margin: 10px 0px 0px 10px;
+.headerRightPanel {
+   position: absolute;
+   right: 0px;
+   top: 0px;
+}
+
+.customConfigMenuBar {
+   cursor: pointer;
+   margin-top: 1.2em;
+   margin-right: 1em;
+   border: 0px;
+   background-image: url("resources/images/config.png");
+   height: 24px;
+   width: 24px;
+}
+
+.customHelpButton {
+   cursor: pointer;
+   margin-top: 1.2em;
+   margin-right: 6.5em;
+   border: 0px;
+   background-image: url("resources/images/help.png");
+   height: 24px;
+   width: 24px;
 }
 
 /* .a-button { */

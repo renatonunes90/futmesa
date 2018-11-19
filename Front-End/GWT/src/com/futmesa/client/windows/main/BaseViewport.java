@@ -6,11 +6,14 @@ import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
@@ -24,6 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 public final class BaseViewport
    implements IsWidget
 {
+
    private static final ModulesViewportUiBinder uiBinder = GWT.create( ModulesViewportUiBinder.class );
 
    interface ModulesViewportUiBinder
@@ -40,16 +44,16 @@ public final class BaseViewport
 
    @UiField
    protected MenuBar menuBar;
-   
+
    @UiField
    protected Label championshipLabel;
 
-   // @UiField
-   // protected Button btnHelp;
+   @UiField
+   protected MenuBar configMenuBar;
 
-   // @UiField
-   // protected Button btnOptions;
-   //
+   @UiField
+   protected FocusPanel helpButton;
+
    // @UiField
    // protected Button btnUser;
 
@@ -62,35 +66,79 @@ public final class BaseViewport
    private MenuBar playerMenu;
 
    private MenuBar championshipMenu;
-   
+
    /**
     * Construtor padrão.
     */
    private BaseViewport()
    {
       uiBinder.createAndBindUi( this );
-      
+
+      createMainMenu();
+      createConfigMenu();
+
+      helpButton.setPixelSize( 24, 24 );
+   }
+
+   private void createMainMenu()
+   {
       // Create a menu bar
-      menuBar.setAutoOpen(true);
-      menuBar.setAnimationEnabled(true);
+      menuBar.setAutoOpen( true );
+      menuBar.setAnimationEnabled( true );
 
       // Create a sub menu of recent documents
-      championshipMenu = new MenuBar(true);
-      playerMenu = new MenuBar(true);
+      championshipMenu = new MenuBar( true );
+      playerMenu = new MenuBar( true );
 
       // Create the file menu
-      MenuBar mainMenu = new MenuBar(true);
-      mainMenu.setAnimationEnabled(true);
-      
-      MenuItem mainItem = new MenuItem("   ", mainMenu);
+      MenuBar mainMenu = new MenuBar( true );
+      mainMenu.setAnimationEnabled( true );
+
+      MenuItem mainItem = new MenuItem( "   ", mainMenu );
       mainItem.setPixelSize( 24, 24 );
-      menuBar.addItem( mainItem);
+      menuBar.addItem( mainItem );
+
+      mainMenu.addItem( new MenuItem( "Campeonatos", championshipMenu ) );
+      mainMenu.addItem( new MenuItem( "Jogadores", playerMenu ) );
+   }
+
+   private void createConfigMenu()
+   {
+      configMenuBar.setAutoOpen( true );
+      configMenuBar.setAnimationEnabled( true );
+
+      MenuBar mainMenu = new MenuBar( true );
+      mainMenu.setAnimationEnabled( true );
+
+      MenuItem mainItem = new MenuItem( "   ", mainMenu );
+      mainItem.setPixelSize( 24, 24 );
+      configMenuBar.addItem( mainItem );
+
+      Command menuCommand = new Command()
+      {
+         public void execute()
+         {
+            Window.Location.assign( "?view=championship&id=1"  );
+         }
+      };
       
-      mainMenu.addItem( new MenuItem( "Campeonatos",  championshipMenu ) );
-      mainMenu.addItem( new MenuItem( "Jogadores",  playerMenu ) );
+      mainMenu.addItem( new MenuItem( "Editar Campeonatos", menuCommand ) );
       
-      // adiciona o listener para o logout
-      // miLogout.addSelectHandler( listener -> AuthWindow.getInstance().logout() );
+      menuCommand = new Command()
+      {
+         public void execute()
+         {
+            Window.Location.assign( "?view=championship&id=1"  );
+         }
+      };
+      
+      mainMenu.addItem( new MenuItem( "Editar Jogadores", menuCommand ) );
+   }
+
+   @UiHandler ( "helpButton" )
+   protected void helpButtonClicked( ClickEvent e )
+   {
+      Window.alert( "AJUDA" );
    }
 
    /**
@@ -113,7 +161,7 @@ public final class BaseViewport
 
       // Coloca a tela na viewport e atualiza ela com o filtro.
       mainPanel.add( panel );
-      //cpContent.forceLayout();
+      // cpContent.forceLayout();
    }
 
    /**
@@ -152,10 +200,10 @@ public final class BaseViewport
    {
       // linkMessageLog.setTargetHistoryToken( target );
    }
-   
+
    public void setChampionshipLabel( String text )
    {
-	   championshipLabel.setText( text );
+      championshipLabel.setText( text );
    }
 
    /**
@@ -205,7 +253,7 @@ public final class BaseViewport
       return vLayout;
    }
 
-   public void setChampionships( JsArray<Championship> championships ) 
+   public void setChampionships( JsArray< Championship > championships )
    {
       for ( int i = 0; i < championships.length(); i++ )
       {
@@ -220,8 +268,8 @@ public final class BaseViewport
          championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
       }
    }
-   
-   public void setPlayers( JsArray<Player> players ) 
+
+   public void setPlayers( JsArray< Player > players )
    {
       for ( int i = 0; i < players.length(); i++ )
       {
