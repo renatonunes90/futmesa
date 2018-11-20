@@ -5,7 +5,7 @@ import java.util.TreeMap;
 /**
  * Classe contendo as propriedades que são utilizadas na navegação da ferramenta através da URL.
  */
-public final class URLFilter
+public class URLFilter
 {
    private static final String DELIMITER = "=";
 
@@ -18,7 +18,7 @@ public final class URLFilter
    /**
     * Mapa de filtros.
     */
-   private final TreeMap< String, String > filters;
+   private TreeMap< String, String > filters;
 
    /**
     * Construtor padrão que recebe um filtro.
@@ -29,9 +29,20 @@ public final class URLFilter
    public URLFilter( String filterConfig )
    {
       filters = new TreeMap<>();
-      this.parseFilder( filterConfig );
+      parseFilder( filterConfig );
    }
 
+   /**
+    * Construtor que recebe um módulo e uma view.
+    * 
+    */
+   public URLFilter( String module, String view )
+   {
+      filters = new TreeMap<>();
+      setFilter( MODULE, module );
+      setFilter( VIEW, view );
+   }
+   
    /**
     * Trata uma string de filtro e divide para um mapa de filtros.
     * 
@@ -40,14 +51,14 @@ public final class URLFilter
     */
    private void parseFilder( String filterConfig )
    {
-	  filterConfig = filterConfig.replace("?","");
+      filterConfig = filterConfig.replace("?","");
       String[] filterSplit = filterConfig.split( SEPARATOR );
       for ( String filter : filterSplit )
       {
          String[] fv = filter.split( DELIMITER );
          if ( fv.length == 2 )
          {
-            this.filters.put( fv[ 0 ], fv[ 1 ] );
+            filters.put( fv[ 0 ], fv[ 1 ] );
          }
       }
    }
@@ -80,7 +91,7 @@ public final class URLFilter
     */
    public String getFilter( String filter )
    {
-      return this.getFilter( filter, "" );
+      return getFilter( filter, "" );
    }
 
    /**
@@ -116,5 +127,42 @@ public final class URLFilter
    {
       return getFilter( VIEW, "" );
    }
+   
+   /**
+    * Adiciona um filtro na URL.
+    * 
+    * @param key
+    * @param value
+    */
+   public void addFilter( String key, String value )
+   {
+      setFilter( key, value );
+   }
 
+   /**
+    * Filtros no formato de uma URL.
+    * 
+    * @return
+    */
+   public String toURLString()
+   {
+      StringBuilder URLString = new StringBuilder( "?" );
+      for ( String key : filters.keySet() )
+      {
+         if ( URLString.length() > 1 ) 
+         {
+            URLString.append( SEPARATOR );
+         }
+         URLString.append( key );
+         URLString.append( DELIMITER );
+         URLString.append( filters.get( key ) );
+      }
+      return URLString.toString();
+   }
+   
+   private void setFilter( String key, String value )
+   {
+      filters.put( key, value );
+   }
+   
 }

@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main;
+package com.futmesa.client.module.config;
 
 import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.URLFilter;
@@ -18,7 +18,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.shared.GWT;
 
-public class MainModule extends ModuleInterface implements ServiceInterface {
+public class ConfigModule extends ModuleInterface implements ServiceInterface {
+	
+	private static final String PLAYER_PANEL = "player";
 	
 	/**
 	 * Constantes de mensagens.
@@ -40,7 +42,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 	/**
 	 * Construtor padrão.
 	 */
-	public MainModule() {
+	public ConfigModule() {
 		classificationViewport = new ClassificationViewport();
 		playerViewport = new PlayerViewport();
 		serviceChampionship = new ServiceChampionship(this);
@@ -55,7 +57,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 	@Override
 	public void updatePanel(URLFilter filter) {
 		
-		if ( MainModulePanel.PLAYER_PANEL.equals(filter.getView() ) ) {
+		if ( PLAYER_PANEL.equals(filter.getView() ) ) {
 			String id = filter.getFilter( "id" );
 			servicePlayer.requestPlayer( parseIntSafe( id ) );
 			

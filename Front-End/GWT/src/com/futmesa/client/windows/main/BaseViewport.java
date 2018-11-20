@@ -1,9 +1,12 @@
 package com.futmesa.client.windows.main;
 
 import com.futmesa.client.base.ModuleInterface;
+import com.futmesa.client.base.Modules;
+import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.module.main.MainModulePanel;
 import com.futmesa.client.module.main.dialogs.about.AboutDialog;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -264,7 +267,9 @@ public final class BaseViewport
          {
             public void execute()
             {
-               Window.Location.assign( "?view=championship&id=" + String.valueOf( championships.get( index ).getId() ) );
+               URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL );
+               filter.addFilter( "id", String.valueOf( championships.get( index ).getId() ) );
+               Window.Location.assign( filter.toURLString() );
             }
          };
          championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
@@ -280,7 +285,9 @@ public final class BaseViewport
          {
             public void execute()
             {
-               Window.Location.assign( "?view=player&id=" + String.valueOf( players.get( index ).getId() ) );
+               URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.PLAYER_PANEL );
+               filter.addFilter( "id", String.valueOf( players.get( index ).getId() ) );
+               Window.Location.assign( filter.toURLString() );
             }
          };
          playerMenu.addItem( new MenuItem( players.get( i ).getName(), menuCommand ) );
