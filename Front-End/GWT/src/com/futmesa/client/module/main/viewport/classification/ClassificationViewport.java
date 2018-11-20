@@ -83,6 +83,11 @@ public class ClassificationViewport implements ViewportInterface {
 		return panel;
 	}
 
+	public Championship getChampionship()
+	{
+	   return championship;
+	}
+	
 	public void setChampionship( Championship championship )
 	{
 		this.championship = championship;

@@ -73,7 +73,7 @@ public class FutMesa implements EntryPoint, ServiceInterface
          //BaseViewport.getInstance().addModule( mainModule );
          configModule.updatePanel( filter );
       }
-      else
+      else if ( Modules.MAIN_MODULE.equalsIgnoreCase( moduleFilter ) )
       {
          // módulo default
          mainModule = new MainModule();

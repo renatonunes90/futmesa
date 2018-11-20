@@ -122,7 +122,9 @@ public final class BaseViewport
       {
          public void execute()
          {
-            Window.Location.assign( "?view=championship&id=1"  );
+            URLFilter filter = new URLFilter( Modules.CONFIG_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL );
+            filter.addFilter( "id", String.valueOf( "1" ) );
+            Window.Location.assign( filter.toURLString() );
          }
       };
       
@@ -132,7 +134,9 @@ public final class BaseViewport
       {
          public void execute()
          {
-            Window.Location.assign( "?view=championship&id=1"  );
+            URLFilter filter = new URLFilter( Modules.CONFIG_MODULE, MainModulePanel.PLAYER_PANEL );
+            filter.addFilter( "id", String.valueOf( "1" ) );
+            Window.Location.assign( filter.toURLString() );
          }
       };
       

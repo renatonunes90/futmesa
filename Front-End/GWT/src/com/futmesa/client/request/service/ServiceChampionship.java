@@ -16,6 +16,7 @@ public class ServiceChampionship extends ServiceAbstract {
 	public static final String SERVICE = "Championship";
 
 	public static final String GET_ALL_CHAMPIONSHIPS = "getAllChampionships";
+	public static final String GET_CHAMPIONSHIP = "getChampionship";
 	public static final String GET_LAST_CLASSIFICATIONS = "getLastClassifications";
 	public static final String GET_ALL_ROUNDS = "getAllRounds";
 	public static final String INSERT_RESULTS = "insertResults";
@@ -30,6 +31,14 @@ public class ServiceChampionship extends ServiceAbstract {
 		request( "function=" + GET_ALL_CHAMPIONSHIPS, GET_ALL_CHAMPIONSHIPS );
 	}
 	
+	public void requestChampionship( int id )
+   {
+      List<String> params = new ArrayList<String>();
+      params.add( "id=" + String.valueOf( id ) );
+      params.add( "function=" + GET_CHAMPIONSHIP );
+      request( params, GET_CHAMPIONSHIP );
+   }
+	  
 	public void requestClassification( int id )
 	{
 		List<String> params = new ArrayList<String>();
