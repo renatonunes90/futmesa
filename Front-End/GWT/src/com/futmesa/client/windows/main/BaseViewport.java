@@ -4,6 +4,7 @@ import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.module.main.dialogs.about.AboutDialog;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -138,7 +139,8 @@ public final class BaseViewport
    @UiHandler ( "helpButton" )
    protected void helpButtonClicked( ClickEvent e )
    {
-      Window.alert( "AJUDA" );
+      AboutDialog about = new AboutDialog();
+      about.show();
    }
 
    /**
