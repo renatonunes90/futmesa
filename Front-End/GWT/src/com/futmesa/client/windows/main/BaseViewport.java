@@ -71,6 +71,8 @@ public final class BaseViewport
    private MenuBar playerMenu;
 
    private MenuBar championshipMenu;
+   
+   private Championship lastChampionship;
 
    /**
     * Construtor padrão.
@@ -224,6 +226,11 @@ public final class BaseViewport
          };
          championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
       }
+      
+      if ( championships.length() > 0 ) 
+      {
+         lastChampionship = championships.get( championships.length() -1 );
+      }
    }
 
    public void setPlayers( JsArray< Player > players )
@@ -247,6 +254,10 @@ public final class BaseViewport
    public void showLandingPage()
    {
       LandingViewport landing = new LandingViewport();
+      if ( lastChampionship != null )
+      {
+         landing.setLastChampionshipLink( lastChampionship.getId() );
+      }
       setViewportContent( landing );
    }
 }
