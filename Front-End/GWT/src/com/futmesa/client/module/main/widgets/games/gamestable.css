@@ -18,7 +18,7 @@
     border-bottom: 1px solid #c0c0c0;
     width: 360px;
     font-size: 11px;
-    font-family: opensans;
+    font-family: opensans !important;
     text-transform: uppercase;
     color: #999999;
     padding-top: 10px;
@@ -29,7 +29,7 @@
     text-align: center;
     padding-top: 10px;
     font-size: 11px;
-    font-family: opensans;
+    font-family: opensans !important;
  }
   
  .customColumn {
@@ -38,7 +38,7 @@
     padding-top: 10px;
     padding-bottom: 15px;
     font-size: 14px;
-    font-family: opensans;
+    font-family: opensans !important;
  }
  
  .customNextBtn {

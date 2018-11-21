@@ -51,6 +51,8 @@ public class ClassificationTable {
 		String customClassificationHeader();
 
 		String customColumn();
+		
+	   String customSpanPlayerColumn();
 
 		String customEvenColumn();
 
@@ -200,6 +202,7 @@ public class ClassificationTable {
 
 		private final StringBuilder evenCellStyles;
 		private final String cellStyles;
+		private final String customSpanStyle;
 		private final String winStyle;
 		private final String neutralStyle;
 		private final String lossStyle;
@@ -213,6 +216,8 @@ public class ClassificationTable {
 			evenCellStyles = new StringBuilder(resources.styles().customEvenColumn());
 			evenCellStyles.append(" " + resources.styles().customColumn());
 
+			customSpanStyle = resources.styles().customSpanPlayerColumn();
+			
 			winStyle = resources.styles().customIcon() + " " + resources.styles().customWinIcon(); 
 			neutralStyle = resources.styles().customIcon() + " " + resources.styles().customNeutralIcon(); 
 			lossStyle = resources.styles().customIcon() + " " + resources.styles().customLossIcon(); 
@@ -264,7 +269,7 @@ public class ClassificationTable {
 			td.className(cellStyles);
 			td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
 			SpanBuilder sp = td.startSpan();
-			sp.style().cursor( Cursor.POINTER ).endStyle();
+			sp.className( customSpanStyle );
 			renderCell(sp, createContext(0), playerColumn, rowValue);
 			sp.endSpan();
 			td.endTD();

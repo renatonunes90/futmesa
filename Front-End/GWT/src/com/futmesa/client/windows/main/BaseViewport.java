@@ -1,19 +1,17 @@
 package com.futmesa.client.windows.main;
 
-import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.Modules;
 import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.main.MainModulePanel;
-import com.futmesa.client.module.main.dialogs.about.AboutDialog;
+import com.futmesa.client.windows.main.about.AboutDialog;
+import com.futmesa.client.windows.main.landing.LandingViewport;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -53,6 +51,9 @@ public final class BaseViewport
    protected Label championshipLabel;
 
    @UiField
+   protected FocusPanel homeShortcut;
+   
+   @UiField
    protected MenuBar configMenuBar;
 
    @UiField
@@ -81,7 +82,15 @@ public final class BaseViewport
       createMainMenu();
       createConfigMenu();
 
+      homeShortcut.addClickHandler( handler -> {
+         Window.Location.assign( Window.Location.getPath() );
+      });
+      
       helpButton.setPixelSize( 24, 24 );
+      helpButton.addClickHandler( handler -> {
+         AboutDialog about = new AboutDialog();
+         about.show();
+      });
    }
 
    private void createMainMenu()
@@ -143,13 +152,6 @@ public final class BaseViewport
       mainMenu.addItem( new MenuItem( "Editar Jogadores", menuCommand ) );
    }
 
-   @UiHandler ( "helpButton" )
-   protected void helpButtonClicked( ClickEvent e )
-   {
-      AboutDialog about = new AboutDialog();
-      about.show();
-   }
-
    /**
     * Muda o conteúdo da viewport principal do site.
     * 
@@ -160,13 +162,6 @@ public final class BaseViewport
    {
       // Deleta o conteúdo atual.
       mainPanel.clear();
-
-      // Atualiza o help do módulo.
-      // SafeHtmlBuilder sb = new SafeHtmlBuilder();
-      // String help = panel.getHelp();
-      // sb.appendHtmlConstant( "<div style='width: 400px;'>" + help + "</div>" );
-      // btnHelp.setToolTip( sb.toSafeHtml() );
-      // btnHelp.setVisible( help != null && !help.isEmpty() );
 
       // Coloca a tela na viewport e atualiza ela com o filtro.
       mainPanel.add( panel );
@@ -179,35 +174,6 @@ public final class BaseViewport
    public void ableAdvancedConfigModule()
    {
       // btnOptions.setVisible( true );
-   }
-
-   /**
-    * Habilita o Módulo Base de configurações de usuário da interface.
-    */
-   public void ableUserConfig()
-   {
-      // btnUser.setVisible( true );
-   }
-
-   /**
-    * Adiciona os menus para um Módulo na interface.
-    * 
-    * @param module
-    *           Módulo a ser adicionado.
-    */
-   public void addModule( ModuleInterface module )
-   {
-      // modulesMenu.add( module.getMenuBtn(), ( BoxLayoutData ) btnUser.getLayoutData() );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Log de Mensagens".
-    * 
-    * @param target
-    */
-   public void setMessageLogLinkTarget( String target )
-   {
-      // linkMessageLog.setTargetHistoryToken( target );
    }
 
    public void setChampionshipLabel( String text )
@@ -224,26 +190,6 @@ public final class BaseViewport
    public void setUserLogged( String username )
    {
       // btnUser.setText( username );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Gerenciador de Usuários".
-    * 
-    * @param target
-    */
-   public void setUserManagerLinkTarget( String target )
-   {
-      // linkUserManager.setTargetHistoryToken( target );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Gerenciador de Grupos de Usuários".
-    * 
-    * @param target
-    */
-   public void setUserGroupManagerLinkTarget( String target )
-   {
-      // linkUserGroupManager.setTargetHistoryToken( target );
    }
 
    /**
@@ -296,5 +242,11 @@ public final class BaseViewport
          };
          playerMenu.addItem( new MenuItem( players.get( i ).getName(), menuCommand ) );
       }
+   }
+   
+   public void showLandingPage()
+   {
+      LandingViewport landing = new LandingViewport();
+      setViewportContent( landing );
    }
 }

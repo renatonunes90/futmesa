@@ -13,7 +13,7 @@
     border-top: 1px solid #c0c0c0;
     width: 60px;
     font-size: 11px;
-    font-family: opensans;
+    font-family: opensans !important;
     text-transform: uppercase;
     color: #999999;
     padding-top: 10px;
@@ -30,7 +30,12 @@
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 14px;
-    font-family: opensans;
+    font-family: opensans !important;
+ }
+ 
+ .customSpanPlayerColumn {
+    font-family: opensans !important;
+    cursor: pointer;
  }
 
  .customIcon {

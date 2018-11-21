@@ -11,7 +11,9 @@
             <g:HorizontalPanel addStyleNames="{style.headerPanel} {style.gradientBar}">
                <g:HorizontalPanel addStyleNames="{style.headerLeftPanel}">
                		<g:MenuBar ui:field="menuBar" styleName="{style.customMenuBar}"></g:MenuBar>
-               		<g:Label styleName="{style.appTitle}" text='{consts.pageTitle}'></g:Label>
+               		<g:FocusPanel ui:field="homeShortcut" styleName="{style.appTitle}">
+               		    <g:Label text='{consts.pageTitle}'></g:Label>
+               		</g:FocusPanel>
                </g:HorizontalPanel>
                <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
                <g:HorizontalPanel addStyleNames="{style.headerRightPanel}">

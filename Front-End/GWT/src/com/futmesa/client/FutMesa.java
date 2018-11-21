@@ -26,6 +26,7 @@ public class FutMesa implements EntryPoint, ServiceInterface
    private ServiceChampionship serviceChampionship;
 
    private ServicePlayer servicePlayer;
+
    
    private MainModule mainModule;
    
@@ -67,18 +68,20 @@ public class FutMesa implements EntryPoint, ServiceInterface
    {
       URLFilter filter = new URLFilter( Window.Location.getQueryString() );
       String moduleFilter = filter.getFilter( URLFilter.MODULE );
-      if ( Modules.CONFIG_MODULE.equalsIgnoreCase( moduleFilter ) )
+      if ( Modules.MAIN_MODULE.equalsIgnoreCase( moduleFilter ) )
+      {
+         mainModule = new MainModule();
+         mainModule.updatePanel( filter );
+      }
+      else if ( Modules.CONFIG_MODULE.equalsIgnoreCase( moduleFilter ) )
       {
          configModule = new ConfigModule();
-         //BaseViewport.getInstance().addModule( mainModule );
          configModule.updatePanel( filter );
       }
-      else if ( Modules.MAIN_MODULE.equalsIgnoreCase( moduleFilter ) )
+      else 
       {
          // módulo default
-         mainModule = new MainModule();
-         //BaseViewport.getInstance().addModule( mainModule );
-         mainModule.updatePanel( filter );
+         BaseViewport.getInstance().showLandingPage();
       }
    }
    
