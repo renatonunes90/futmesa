@@ -88,7 +88,7 @@ public class MainModule extends ModuleInterface
          JsArray< Round > rounds = records.cast();
          classificationViewport.updateRounds( rounds );
 
-         BaseViewport.getInstance().setChampionshipLabel( classificationViewport.getChampionship().getName() );
+         BaseViewport.getInstance().setTitleHeaderLabel( classificationViewport.getChampionship().getName() );
          BaseViewport.getInstance().setViewportContent( classificationViewport );
       }
       else if ( ServicePlayer.GET_PLAYER.equals( requestId ) )

@@ -26,7 +26,8 @@
 	<set-configuration-property name="CssResource.conversionMode" value="strict" />
 
 	<!-- only build for Firefox -->
-	<set-property name="user.agent" value="gecko1_8" />
+<!-- 	<set-property name="user.agent" value="gecko1_8" /> -->
+   <set-property name="user.agent" value="safari" />
 
 	<!-- Diminuindo o número de permutações, tira compilações mobile. -->
 <!-- 	<collapse-property name="gxt.device" values="*" /> -->

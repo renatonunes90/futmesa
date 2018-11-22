@@ -3,50 +3,38 @@ package com.futmesa.client.module.config;
 import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.Modules;
 import com.futmesa.client.base.URLFilter;
-import com.futmesa.client.module.main.viewport.classification.ClassificationViewport;
-import com.futmesa.client.module.main.viewport.player.PlayerViewport;
-import com.futmesa.client.request.service.ServiceChampionship;
-import com.futmesa.client.request.service.ServicePlayer;
-import com.futmesa.client.request.service.base.ServiceInterface;
-import com.google.gwt.core.client.JavaScriptObject;
+import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
+import com.futmesa.client.module.config.controller.player.PlayerConfigController;
 
+/**
+ * Gerencia os controllers e a navegação entre as páginas do módulo.
+ */
 public class ConfigModule extends ModuleInterface
-   implements ServiceInterface
 {
 
-   private ServiceChampionship serviceChampionship;
+   private ChampionshipConfigController championshipConfigController;
 
-   private ServicePlayer servicePlayer;
-
-   private ClassificationViewport classificationViewport;
-
-   private PlayerViewport playerViewport;
+   private PlayerConfigController playerConfigController;
 
    /**
     * Construtor padrão.
     */
    public ConfigModule()
    {
-      classificationViewport = new ClassificationViewport();
-      playerViewport = new PlayerViewport();
-      serviceChampionship = new ServiceChampionship( this );
-      servicePlayer = new ServicePlayer( this );
-
-      // super.addMenu(consts.examplePage(), "module=main");
-      // super.addMenu(consts.exampleTables(), "module=main&panel=table");
+      championshipConfigController = new ChampionshipConfigController();
+      playerConfigController = new PlayerConfigController();
    }
 
    @Override
    public void updatePanel( URLFilter filter )
    {
-      if ( "panel".equals( filter.getView() ) )
+      if ( ConfigModulePanel.PLAYER_PANEL.equals( filter.getView() ) )
       {
-         String id = filter.getFilter( "id" );
-
+         playerConfigController.openViewport();
       }
       else
       {
-         String championshipId = filter.getFilter( "championship" );
+         championshipConfigController.openViewport();
       }
    }
 
@@ -54,12 +42,6 @@ public class ConfigModule extends ModuleInterface
    public String getModuleName()
    {
       return Modules.CONFIG_MODULE;
-   }
-
-   @Override
-   public void onServiceResult( JavaScriptObject records, String requestId )
-   {
-
    }
 
 }

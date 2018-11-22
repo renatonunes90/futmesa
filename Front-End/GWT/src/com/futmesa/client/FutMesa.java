@@ -17,8 +17,8 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
-
 /**
+ * Ponto de entrada do sistema. Carrega os menus e a viewport conforme os parâmetros.
  */
 public class FutMesa implements EntryPoint, ServiceInterface
 {
@@ -26,7 +26,6 @@ public class FutMesa implements EntryPoint, ServiceInterface
    private ServiceChampionship serviceChampionship;
 
    private ServicePlayer servicePlayer;
-
    
    private MainModule mainModule;
    
