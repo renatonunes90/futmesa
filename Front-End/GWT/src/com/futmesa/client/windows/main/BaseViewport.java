@@ -93,7 +93,7 @@ public final class BaseViewport
     */
    private BaseViewport()
    {
-      constants = GWT.create(BaseViewportConsts.class);
+      constants = GWT.create( BaseViewportConsts.class );
       
       uiBinder.createAndBindUi( this );
 

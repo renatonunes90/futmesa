@@ -2,12 +2,16 @@ package com.futmesa.client.module.config.viewport.championship;
 
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
-import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipsTable;
+import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -20,13 +24,19 @@ public class ChampionshipConfigViewport
    private static final ChampionshipViewportUiBinder uiBinder = GWT.create( ChampionshipViewportUiBinder.class );
 
    interface ChampionshipViewportUiBinder
-      extends UiBinder< HorizontalPanel, ChampionshipConfigViewport >
+      extends UiBinder< VerticalPanel, ChampionshipConfigViewport >
    {}
 
    @UiField ( provided = false )
-   protected HorizontalPanel panel;
+   protected VerticalPanel panel;
+   
+   @UiField ( provided = false )
+   protected ScrollPanel championshipPanel;
 
-   private ChampionshipsTable championshipTable = new ChampionshipsTable();
+   @UiField ( provided = false )
+   protected Button addBtn;
+   
+   private ChampionshipTable championshipTable = new ChampionshipTable();
    
    /**
     * Construtor padrão.
@@ -35,7 +45,14 @@ public class ChampionshipConfigViewport
    {
       uiBinder.createAndBindUi( this );
       
-      panel.add( championshipTable.asWidget() );
+      championshipPanel.add( championshipTable.asWidget() );
+
+      panel.setCellHorizontalAlignment( championshipPanel, HasHorizontalAlignment.ALIGN_CENTER);
+      panel.setCellHorizontalAlignment( addBtn, HasHorizontalAlignment.ALIGN_CENTER);
+      
+      addBtn.addClickHandler( handler -> {
+         Window.alert( "Vai adicionar um novo campeonato!" );
+      });
    }
 
    @Override

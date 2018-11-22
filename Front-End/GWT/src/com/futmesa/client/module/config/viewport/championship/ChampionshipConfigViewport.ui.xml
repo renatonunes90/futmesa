@@ -1,13 +1,14 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder
-  xmlns:ui="urn:ui:com.google.gwt.uibinder"
-  xmlns:g="urn:import:com.google.gwt.user.client.ui"
-  xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+   xmlns:g="urn:import:com.google.gwt.user.client.ui"
+   xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-<!--   <ui:with field="consts" type="com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts" />  -->
-  	
-<!--   <ui:style src="classificationviewport.css" />  -->
+   <ui:with field="consts" type="com.futmesa.client.module.config.ConfigModuleConsts" />
 
-  <g:HorizontalPanel ui:field='panel'>
-  </g:HorizontalPanel>
+   <ui:style src="championshipconfigviewport.css" />
+
+   <g:VerticalPanel ui:field='panel'>
+      <g:ScrollPanel ui:field='championshipPanel' addStyleNames='{style.tablePanel}'></g:ScrollPanel>
+      <g:Button ui:field='addBtn' text="{consts.addBtn}"></g:Button>
+   </g:VerticalPanel>
 </ui:UiBinder>

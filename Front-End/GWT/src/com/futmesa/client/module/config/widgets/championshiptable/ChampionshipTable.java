@@ -25,14 +25,14 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Implementa a tabela de campeonatos do sistema da tela de gerenciamento.
  */
-public class ChampionshipsTable
+public class ChampionshipTable
 {
 
    interface Resources
       extends ClientBundle
    {
 
-      @Source ( "championshipstable.css" )
+      @Source ( "championshiptable.css" )
       Styles styles();
    }
 
@@ -60,6 +60,11 @@ public class ChampionshipsTable
     */
    private Resources resources;
 
+   /**
+    * Constantes da classe.
+    */
+   private ChampionshipTableConsts constants;
+
    private CellTable< Championship > table;
 
    private Column< Championship, String > editColumn;
@@ -69,25 +74,26 @@ public class ChampionshipsTable
    /**
     * Construtor padrão.
     */
-   public ChampionshipsTable()
+   public ChampionshipTable()
    {
       resources = GWT.create( Resources.class );
       resources.styles().ensureInjected();
+
+      constants = GWT.create( ChampionshipTableConsts.class );
 
       table = new CellTable< Championship >();
       table.setTableBuilder( new CustomTableBuilder( table ) );
       table.setSkipRowHoverStyleUpdate( true );
       table.setStyleName( resources.styles().customTable() );
-      table.setWidth( "1080px" );
 
-      createColumn( "Nome", 200 );
-      createColumn( "Temporada", 120 );
-      createColumn( "Tipo", 160 );
-      createColumn( "Data Base", 120 );
-      createColumn( "Jogos p/ Rodada", 100 );
-      createColumn( "Rodadas p/ Dia", 100 );
-      createColumn( "Incremento de Datas", 100 );
-      createColumn( "Encerrado", 100 );
+      createColumn( constants.nameLabel(), 200 );
+      createColumn( constants.seasonLabel(), 120 );
+      createColumn( constants.typeLabel(), 160 );
+      createColumn( constants.baseDateLabel(), 120 );
+      createColumn( constants.gamesbByRoundLabel(), 100 );
+      createColumn( constants.roundsByDayLabel(), 100 );
+      createColumn( constants.dateIncrLabel(), 100 );
+      createColumn( constants.finishedLabel(), 100 );
 
       // alterar
       TextHeader header = new TextHeader( "" );
@@ -159,7 +165,7 @@ public class ChampionshipsTable
    {
       TextHeader header = new TextHeader( label );
       header.setHeaderStyleNames( resources.styles().customHeader() );
-      
+
       Column< Championship, String > column = new Column< Championship, String >( new TextCell() )
       {
          @Override
@@ -168,7 +174,7 @@ public class ChampionshipsTable
             return "";
          }
       };
-      
+
       table.addColumn( column, header );
       table.setColumnWidth( column, size, Unit.PX );
    }
