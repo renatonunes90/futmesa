@@ -9,6 +9,5 @@
 <!--   <ui:style src="classificationviewport.css" />  -->
 
   <g:HorizontalPanel ui:field='panel'>
-      <g:Label>EM CONSTRUÇÂO</g:Label>
   </g:HorizontalPanel>
 </ui:UiBinder>

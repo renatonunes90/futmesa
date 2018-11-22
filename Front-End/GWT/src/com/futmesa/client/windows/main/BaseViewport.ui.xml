@@ -10,15 +10,15 @@
         <g:north size='7'>
             <g:HorizontalPanel addStyleNames="{style.headerPanel} {style.gradientBar}">
                <g:HorizontalPanel addStyleNames="{style.headerLeftPanel}">
-               		<g:MenuBar ui:field="menuBar" styleName="{style.customMenuBar}"></g:MenuBar>
+               		<g:MenuBar ui:field="menuBar" styleName="{style.customBtn} {style.customMenuBar}"></g:MenuBar>
                		<g:FocusPanel ui:field="homeShortcut" styleName="{style.appTitle}">
                		    <g:Label text='{consts.pageTitle}'></g:Label>
                		</g:FocusPanel>
                </g:HorizontalPanel>
                <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
                <g:HorizontalPanel addStyleNames="{style.headerRightPanel}">
-                     <g:MenuBar ui:field="configMenuBar" styleName="{style.customConfigMenuBar}"></g:MenuBar>
-                     <g:FocusPanel ui:field="helpButton" styleName="{style.customHelpButton}"></g:FocusPanel>
+                     <g:MenuBar ui:field="configMenuBar" styleName="{style.customBtn} {style.customConfigMenuBar}"></g:MenuBar>
+                     <g:FocusPanel ui:field="helpButton" styleName="{style.customBtn} {style.customHelpButton}"></g:FocusPanel>
                </g:HorizontalPanel>
             </g:HorizontalPanel>
         </g:north>

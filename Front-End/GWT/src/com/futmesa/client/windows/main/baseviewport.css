@@ -14,11 +14,7 @@
 
 .mainPanel {
   position: relative;
-  left:0.5em;
-  right: 0.5em;
-  top: 0.5em;
-  bottom: 0.5em;
-  margin: 40px;
+  margin: 40px 10px 40px 10px;
   background-color: #ffffff;
   width: 100%;
 }
@@ -48,15 +44,19 @@
 	top: 0px;
 }
 
-.customMenuBar {
+.customBtn {
 	cursor: pointer;
+   border: 0px;
+   padding-bottom: 12px;
+   background-repeat: no-repeat;
+   height: 24px;
+   width: 24px;
+}
+
+.customMenuBar {
 	margin-top: 0.9em;
   	margin-left: 6.5em;
-  	padding-bottom: 12px;
-  	border: 0px;
   	background-image: url("resources/images/menu.png");
-  	height: 24px;
-  	width: 24px;
 }
  
 .appTitle {
@@ -85,23 +85,15 @@
 }
 
 .customConfigMenuBar {
-   cursor: pointer;
    margin-top: 1.2em;
    margin-right: 1em;
-   border: 0px;
    background-image: url("resources/images/config.png");
-   height: 24px;
-   width: 24px;
 }
 
 .customHelpButton {
-   cursor: pointer;
    margin-top: 1.2em;
    margin-right: 6.5em;
-   border: 0px;
    background-image: url("resources/images/help.png");
-   height: 24px;
-   width: 24px;
 }
 
 /* .a-button { */

@@ -135,7 +135,7 @@ public final class BaseViewport
    {
       configMenuBar.setAutoOpen( true );
       configMenuBar.setAnimationEnabled( true );
-
+      
       MenuBar mainMenu = new MenuBar( true );
       mainMenu.setAnimationEnabled( true );
 

@@ -82,7 +82,7 @@ public class ClassificationTable {
 
 	public ClassificationTable() {
 
-	    constants = GWT.create(ClassificationTableConsts.class);
+	   constants = GWT.create(ClassificationTableConsts.class);
 		
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
