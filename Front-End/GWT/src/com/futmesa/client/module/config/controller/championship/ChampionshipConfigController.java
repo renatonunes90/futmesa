@@ -38,16 +38,6 @@ public class ChampionshipConfigController
       serviceChampionship = new ServiceChampionship( this );
       serviceCRUDChampionship = new ServiceCRUDChampionship( this );
       
-      EventBus.getInstance().addHandler( REMOVE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
-      {
-         @Override
-         public void onEvent( CustomEvent event )
-         {
-            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
-            Window.alert( "Vai remover o campeonato '" + c.getName() + "'." );
-         }
-      } );
-      
       EventBus.getInstance().addHandler( EDIT_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
       {
          @Override
@@ -55,6 +45,16 @@ public class ChampionshipConfigController
          {
             Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
             Window.alert( "Vai editar um campeonato '" + c.getName() + "'." );
+         }
+      } );
+      
+      EventBus.getInstance().addHandler( REMOVE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
+      {
+         @Override
+         public void onEvent( CustomEvent event )
+         {
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            serviceCRUDChampionship.deleteChampionship( c.getId() );
          }
       } );
    }
@@ -75,6 +75,19 @@ public class ChampionshipConfigController
          championshipConfigViewport.setChampionships( championships );
          BaseViewport.getInstance().setTitleHeaderLabel( "Gerenciamento de Campeonatos" );
          BaseViewport.getInstance().setViewportContent( championshipConfigViewport );
+      }
+      else if ( ServiceCRUDChampionship.DELETE_CHAMPIONSHIP.equals( requestId ) )
+      {
+         boolean response = Boolean.valueOf( records.toString() );
+         if ( response )
+         {
+            Window.alert( "Campeonato removido com sucesso." );
+            serviceChampionship.requestChampionships();
+         }
+         else
+         {
+            Window.alert( "Erro removendo o campeonato, tente novamente mais tarde." );
+         }
       }
    }
 
