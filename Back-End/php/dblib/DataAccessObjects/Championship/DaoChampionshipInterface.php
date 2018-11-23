@@ -38,11 +38,11 @@ interface DaoChampionshipInterface
    public function getParticipants( int $championshipId ) : array;
    
   /**
-   * Inclui novos objetos na tabela no banco de dados.
+   * Inclui novos campeonatos na tabela no banco de dados.
    *
-   * @param array $objects
-   *           Array de objetos \ValueObject\TableObject com os dados a serem inseridos. 
-   * @return bool Flag indicando se foi possível inserir os objetos.
+   * @param array $championships
+   *           Array de campeonatos \ValueObject\Championship com os dados a serem inseridos. 
+   * @return bool Flag indicando se foi possível inserir os campeonatos.
    */
    public function createChampionships( array $championships ) : bool;
    
@@ -50,17 +50,17 @@ interface DaoChampionshipInterface
  * Atualiza os dados de objetos na tabela.
  *
  * @param array $objects
- *           Array de objetos \ValueObject\TableObject com os dados atualizados.
+ *           Array de campeonatos \ValueObject\TableObject com os dados atualizados.
  * @return bool Flag indicando se foi possível atualizar os objetos.
  */
    // public function updateTableObjects( array $objects ): bool;
 
-/**
- * Deleta objetos através de seus identificadores.
- *
- * @param array $ids
- *           Array de identificadores de objetos.
- * @return bool Flag indicando se foi possível remover os objetos.
- */
-   // public function deleteTableObjects( array $ids ): bool;
+   /**
+    * Deleta campeonatos através de seus identificadores.
+    *
+    * @param array $ids
+    *           Array de identificadores de campeonatos.
+    * @return bool Flag indicando se foi possível remover os campeonatos.
+    */
+   public function deleteChampionships( array $ids ): bool;
 }

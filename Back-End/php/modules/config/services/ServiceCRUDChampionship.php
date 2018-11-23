@@ -31,7 +31,12 @@ class ServiceCRUDChampionship
       $champ->gamesbyround = $obj->gamesbyround;
       $champs = array( $champ );
       return $this->provider_->createChampionships( $champs ); 
-
+   }
+   
+   public function deleteChampionship( string $id ): bool
+   {
+      $champs = array( $id );
+      return $this->provider_->deleteChampionships( $champs ); 
    }
 }
 

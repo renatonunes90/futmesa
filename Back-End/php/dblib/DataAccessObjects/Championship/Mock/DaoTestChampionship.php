@@ -108,22 +108,22 @@ class DaoTestChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::deleteTableObjects()
+    * @see \DAO\DaoChampionshipInterface::deleteChampionships()
     */
-   // public function deleteTableObjects( array $ids ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
+   public function deleteChampionships( array $ids ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
 
-   // foreach( $ids as $id )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $id;
-   // $result &= $database->removeItems( $filter );
-   // }
+      foreach( $ids as $id )
+      {
+         $filter = array ();
+         $filter[ "ID" ] = $id;
+         $result &= $database->removeItems( $filter );
+      }
 
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     * Converte o resultado do banco de dados em um campeonato.

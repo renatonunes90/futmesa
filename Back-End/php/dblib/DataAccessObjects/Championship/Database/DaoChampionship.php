@@ -137,26 +137,26 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::deleteTableObjects()
+    * @see \DAO\DaoChampionshipInterface::deleteChampionships()
     */
-   // public function deleteTableObjects( array $ids ): bool
-   // {
-   // $result = true;
+   public function deleteChampionships( array $ids ): bool
+   {
+      $result = true;
 
-   // if( count( $ids ) > 0 )
-   // {
-   // $values = array ();
-   // foreach( $ids as $id )
-   // {
-   // $values[] = array ( $id );
-   // }
-   // $query = "DELETE FROM tableobject
-   // WHERE id = ?";
-   // $result = $this->db_->executeMultiplePrepared( $query, $values );
-   // }
+      if( count( $ids ) > 0 )
+      {
+         $values = array ();
+         foreach( $ids as $id )
+         {
+            $values[] = array ( $id );
+         }
+         $query = "DELETE FROM championship
+                    WHERE id = ?";
+         $result = $this->db_->executeMultiplePrepared( $query, $values );
+      }
 
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     * Converte o resultado do banco de dados em um campeonato.
