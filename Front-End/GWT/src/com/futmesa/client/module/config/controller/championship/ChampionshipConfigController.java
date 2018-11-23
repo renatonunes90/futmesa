@@ -5,11 +5,13 @@ import com.futmesa.client.base.event.CustomEventHandler;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.module.config.ConfigModuleConsts;
 import com.futmesa.client.module.config.viewport.championship.ChampionshipConfigViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.base.ServiceInterface;
 import com.futmesa.client.request.service.config.ServiceCRUDChampionship;
 import com.futmesa.client.windows.main.BaseViewport;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.Window;
@@ -21,6 +23,11 @@ public class ChampionshipConfigController
    implements ServiceInterface
 {
 
+   /**
+    * Constantes da classe.
+    */
+   private ConfigModuleConsts constants;
+   
    public static CustomEvent CREATE_CHAMPIONSHIP = new CustomEvent();
    public static CustomEvent REMOVE_CHAMPIONSHIP = new CustomEvent();
    public static CustomEvent UPDATE_CHAMPIONSHIP = new CustomEvent();
@@ -36,6 +43,8 @@ public class ChampionshipConfigController
     */
    public ChampionshipConfigController()
    {
+      constants = GWT.create( ConfigModuleConsts.class );
+      
       serviceChampionship = new ServiceChampionship( this );
       serviceCRUDChampionship = new ServiceCRUDChampionship( this );
       
@@ -65,7 +74,7 @@ public class ChampionshipConfigController
          public void onEvent( CustomEvent event )
          {
             Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
-            if ( Window.confirm( "Tem certeza que deseja remover o campeonato? Esta operação não pode ser desfeita." ) ) 
+            if ( Window.confirm( constants.confirmRemoveMsg( constants.championshipLabel() ) ) ) 
             {
                serviceCRUDChampionship.deleteChampionship( c.getId() );
             }
@@ -95,12 +104,12 @@ public class ChampionshipConfigController
          boolean response = Boolean.valueOf( records.toString() );
          if ( response )
          {
-            Window.alert( "Campeonato removido com sucesso." );
+            Window.alert( constants.removeSuccessMsg( constants.championshipLabel() ) );
             serviceChampionship.requestChampionships();
          }
          else
          {
-            Window.alert( "Erro removendo o campeonato, tente novamente mais tarde." );
+            Window.alert( constants.removeErrorMsg( constants.championshipLabel() ) );
          }
       }
       else if ( ServiceCRUDChampionship.CREATE_CHAMPIONSHIP.equals( requestId ) )
@@ -108,12 +117,12 @@ public class ChampionshipConfigController
          boolean response = Boolean.valueOf( records.toString() );
          if ( response )
          {
-            Window.alert( "Campeonato adicionado com sucesso." );
+            Window.alert( constants.addSuccessMsg( constants.championshipLabel() ) );
             serviceChampionship.requestChampionships();
          }
          else
          {
-            Window.alert( "Erro adicionando o campeonato, tente novamente mais tarde." );
+            Window.alert( constants.addErrorMsg( constants.championshipLabel() ) );
          }
       }
    }
