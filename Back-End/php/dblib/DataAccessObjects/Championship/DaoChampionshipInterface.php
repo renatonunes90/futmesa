@@ -37,15 +37,15 @@ interface DaoChampionshipInterface
     */
    public function getParticipants( int $championshipId ) : array;
    
-/**
- * Inclui novos objetos na tabela no banco de dados.
- *
- * @param array $objects
- *           Array de objetos \ValueObject\TableObject com os dados a serem inseridos.
- * @return bool Flag indicando se foi possível inserir os objetos.
- */
-   // public function insertTableObjects( array $objects ): bool;
-
+  /**
+   * Inclui novos objetos na tabela no banco de dados.
+   *
+   * @param array $objects
+   *           Array de objetos \ValueObject\TableObject com os dados a serem inseridos. 
+   * @return bool Flag indicando se foi possível inserir os objetos.
+   */
+   public function createChampionships( array $championships ) : bool;
+   
 /**
  * Atualiza os dados de objetos na tabela.
  *

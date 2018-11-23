@@ -74,29 +74,33 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::insertTableObjects()
+    * @see \DAO\DaoChampionshipInterface::createChampionships()
     */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // $result = true;
+   public function createChampionships( array $championships ): bool
+   {
+      $result = true;
 
-   // if( count( $objects ) > 0 )
-   // {
-   // $values = array ();
-   // foreach( $objects as $objVO )
-   // {
-   // $val = array_values( ( array ) $objVO );
-   // array_shift( $val );
-   // $values[] = $val;
-   // }
+      if( count( $championships ) > 0 )
+      {
+         $values = array ();
+         foreach( $championships as $c )
+         {
+            $val = array();
+            $val[] = $c->name;
+            $val[] = $c->basedate;
+            $val[] = $c->dateincr;
+            $val[] = $c->roundsbyday;
+            $val[] = $c->gamesbyround;
+            $values[] = $val;
+         }
+  
+         $query = "INSERT INTO championship ( name, basedate, dateincr, roundsbyday, gamesbyround )
+                   VALUES ( ?, ?, ?, ?, ? )";
+         $result = $this->db_->executeMultiplePrepared( $query, $values );
+      }
 
-   // $query = "INSERT INTO tableobject ( name, description )
-   // VALUES ( ?, ? )";
-   // $result = $this->db_->executeMultiplePrepared( $query, $values );
-   // }
-
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     *

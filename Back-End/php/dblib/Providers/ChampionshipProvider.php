@@ -115,16 +115,16 @@ class ChampionshipProvider
    }
 
    /**
-    * Insere um novo objeto.
+    * Insere uma lista de campeonatos.
     *
-    * @param array $objects
-    *           Lista de objetos a serem inseridos.
+    * @param array $championships
+    *           Lista de campeonatos a serem inseridos.
     * @return bool Indica se foi possível inserir o objeto ou não.
     */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // return $this->daoTableObject_->insertTableObjects( $objects );
-   // }
+   public function createChampionships( array $championships ): bool
+   {
+      return $this->daoChampionship_->createChampionships( $championships );
+   }
 
    /**
     * Atualiza os dados de um objeto no banco de dados.

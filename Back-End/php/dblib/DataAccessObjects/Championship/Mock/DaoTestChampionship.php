@@ -56,28 +56,31 @@ class DaoTestChampionship implements DaoChampionshipInterface
 
       return $participants;
    }
-
+   
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::insertTableObjects()
+    * @see \DAO\DaoChampionshipInterface::createChampionships()
     */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
-   // $input = array ();
-   // $input[ self::ID ] = null;
+   public function createChampionships( array $championships ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+      $input = array ();
+      $input[ "IDCHAMPIONSHIP" ] = null;
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= ( $database->insertItem( $input ) > 0 );
-   // }
+      foreach( $championships as &$c )
+      {
+         $input[ "NAME" ] = $c->name;
+         $input[ "BASEDATE" ] = $c->basedate;
+         $input[ "DATEINCR" ] = $c->dateincr;
+         $input[ "ROUNDSBYDAY" ] = $c->roundsbyday;
+         $input[ "GAMESBYROUND" ] = $c->gamesbyround;
+         $result &= ( $database->insertItem( $input ) > 0 );
+       }
 
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     *
