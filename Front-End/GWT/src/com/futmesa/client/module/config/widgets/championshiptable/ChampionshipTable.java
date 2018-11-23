@@ -113,8 +113,8 @@ public class ChampionshipTable
          @Override
          public void update( int index, Championship object, String value )
          {
-            ChampionshipConfigController.EDIT_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
-            EventBus.getInstance().fireEvent( ChampionshipConfigController.EDIT_CHAMPIONSHIP );
+            ChampionshipConfigController.UPDATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
+            EventBus.getInstance().fireEvent( ChampionshipConfigController.UPDATE_CHAMPIONSHIP );
          }
       } );
       table.addColumn( editColumn, header );

@@ -1,13 +1,16 @@
 package com.futmesa.client.module.config.viewport.championship;
 
 import com.futmesa.client.base.ViewportInterface;
+import com.futmesa.client.base.event.EventBus;
+import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -51,7 +54,15 @@ public class ChampionshipConfigViewport
       panel.setCellHorizontalAlignment( addBtn, HasHorizontalAlignment.ALIGN_CENTER);
       
       addBtn.addClickHandler( handler -> {
-         Window.alert( "Vai adicionar um novo campeonato!" );
+         Championship c = ( Championship ) JavaScriptObject.createObject();
+         c.setId( -1 );
+         c.setName( "Teste " + Math.random() * 100 );
+//         c.setBaseDate( "opa" );
+         c.setDateIncr( 2 );
+         c.setGamesByRound( 3 );
+         c.setRoundsByDay( 4 );
+         ChampionshipConfigController.CREATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, c );
+         EventBus.getInstance().fireEvent( ChampionshipConfigController.CREATE_CHAMPIONSHIP );
       });
    }
 

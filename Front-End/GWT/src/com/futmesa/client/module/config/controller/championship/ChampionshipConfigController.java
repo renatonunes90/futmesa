@@ -21,8 +21,9 @@ public class ChampionshipConfigController
    implements ServiceInterface
 {
 
-   public static CustomEvent EDIT_CHAMPIONSHIP = new CustomEvent();
+   public static CustomEvent CREATE_CHAMPIONSHIP = new CustomEvent();
    public static CustomEvent REMOVE_CHAMPIONSHIP = new CustomEvent();
+   public static CustomEvent UPDATE_CHAMPIONSHIP = new CustomEvent();
    
    private ServiceChampionship serviceChampionship;
 
@@ -38,7 +39,17 @@ public class ChampionshipConfigController
       serviceChampionship = new ServiceChampionship( this );
       serviceCRUDChampionship = new ServiceCRUDChampionship( this );
       
-      EventBus.getInstance().addHandler( EDIT_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
+      EventBus.getInstance().addHandler( CREATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
+      {
+         @Override
+         public void onEvent( CustomEvent event )
+         {
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            serviceCRUDChampionship.createChampionship( c );
+         }
+      } );
+      
+      EventBus.getInstance().addHandler( UPDATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
       {
          @Override
          public void onEvent( CustomEvent event )
@@ -54,7 +65,10 @@ public class ChampionshipConfigController
          public void onEvent( CustomEvent event )
          {
             Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
-            serviceCRUDChampionship.deleteChampionship( c.getId() );
+            if ( Window.confirm( "Tem certeza que deseja remover o campeonato? Esta operação não pode ser desfeita." ) ) 
+            {
+               serviceCRUDChampionship.deleteChampionship( c.getId() );
+            }
          }
       } );
    }
@@ -87,6 +101,19 @@ public class ChampionshipConfigController
          else
          {
             Window.alert( "Erro removendo o campeonato, tente novamente mais tarde." );
+         }
+      }
+      else if ( ServiceCRUDChampionship.CREATE_CHAMPIONSHIP.equals( requestId ) )
+      {
+         boolean response = Boolean.valueOf( records.toString() );
+         if ( response )
+         {
+            Window.alert( "Campeonato adicionado com sucesso." );
+            serviceChampionship.requestChampionships();
+         }
+         else
+         {
+            Window.alert( "Erro adicionando o campeonato, tente novamente mais tarde." );
          }
       }
    }
