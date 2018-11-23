@@ -3,8 +3,8 @@ package com.futmesa.client.module.config.widgets.championshiptable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.futmesa.client.base.event.CustomEvent;
 import com.futmesa.client.base.event.EventBus;
+import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.google.gwt.cell.client.ClickableTextCell;
@@ -16,15 +16,12 @@ import com.google.gwt.dom.builder.shared.DivBuilder;
 import com.google.gwt.dom.builder.shared.TableCellBuilder;
 import com.google.gwt.dom.builder.shared.TableRowBuilder;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.TextHeader;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -116,9 +113,7 @@ public class ChampionshipTable
          @Override
          public void update( int index, Championship object, String value )
          {
-            // URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.PLAYER_PANEL );
-            // filter.addFilter( "id", String.valueOf( object.getId() ) );
-            // Window.Location.assign( filter.toURLString() );
+            ChampionshipConfigController.EDIT_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
             EventBus.getInstance().fireEvent( ChampionshipConfigController.EDIT_CHAMPIONSHIP );
          }
       } );
@@ -141,9 +136,7 @@ public class ChampionshipTable
          @Override
          public void update( int index, Championship object, String value )
          {
-            // URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.PLAYER_PANEL );
-            // filter.addFilter( "id", String.valueOf( object.getId() ) );
-            // Window.Location.assign( filter.toURLString() );
+            ChampionshipConfigController.REMOVE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
             EventBus.getInstance().fireEvent( ChampionshipConfigController.REMOVE_CHAMPIONSHIP );
          }
       } );

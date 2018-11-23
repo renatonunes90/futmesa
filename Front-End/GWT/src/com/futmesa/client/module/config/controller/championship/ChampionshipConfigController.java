@@ -3,6 +3,7 @@ package com.futmesa.client.module.config.controller.championship;
 import com.futmesa.client.base.event.CustomEvent;
 import com.futmesa.client.base.event.CustomEventHandler;
 import com.futmesa.client.base.event.EventBus;
+import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.module.config.viewport.championship.ChampionshipConfigViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
@@ -42,7 +43,8 @@ public class ChampionshipConfigController
          @Override
          public void onEvent( CustomEvent event )
          {
-            Window.alert( "Vai remover um campeonato." );
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            Window.alert( "Vai remover o campeonato '" + c.getName() + "'." );
          }
       } );
       
@@ -51,7 +53,8 @@ public class ChampionshipConfigController
          @Override
          public void onEvent( CustomEvent event )
          {
-            Window.alert( "Vai editar um campeonato." );
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            Window.alert( "Vai editar um campeonato '" + c.getName() + "'." );
          }
       } );
    }
