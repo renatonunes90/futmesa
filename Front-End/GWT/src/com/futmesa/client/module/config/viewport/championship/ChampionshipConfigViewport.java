@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -31,7 +32,7 @@ public class ChampionshipConfigViewport
    protected VerticalPanel panel;
    
    @UiField ( provided = false )
-   protected ScrollPanel championshipPanel;
+   protected SimplePanel championshipPanel;
 
    @UiField ( provided = false )
    protected Button addBtn;

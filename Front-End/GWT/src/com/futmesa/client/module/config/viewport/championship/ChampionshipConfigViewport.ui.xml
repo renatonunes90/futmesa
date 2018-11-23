@@ -8,7 +8,7 @@
    <ui:style src="championshipconfigviewport.css" />
 
    <g:VerticalPanel ui:field='panel'>
-      <g:ScrollPanel ui:field='championshipPanel' addStyleNames='{style.tablePanel}'></g:ScrollPanel>
+      <g:SimplePanel ui:field='championshipPanel' addStyleNames='{style.tablePanel}'></g:SimplePanel>
       <g:Button ui:field='addBtn' text="{consts.addBtn}"></g:Button>
    </g:VerticalPanel>
 </ui:UiBinder>

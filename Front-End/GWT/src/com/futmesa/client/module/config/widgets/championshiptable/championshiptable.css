@@ -2,14 +2,18 @@
     margin-top: 15px;
     margin-left: 15px;
     margin-right: 15px;
-    width: 1080px;
+    border: 1px solid #000000;
+    overflow: scroll;
+    height: 500px;
+    width: 1120px;
 }
  
 .customHeader {
     text-align: center !important;
-    border-bottom: 1px solid #c0c0c0 !important;
+    border-bottom: 1px solid #000000 !important;
+    white-space: normal !important;
     border-top: 1px solid #c0c0c0;
-    font-size: 14px;
+    font-size: 12px;
     font-family: opensans !important;
     text-transform: uppercase;
     text-shadow: none !important;

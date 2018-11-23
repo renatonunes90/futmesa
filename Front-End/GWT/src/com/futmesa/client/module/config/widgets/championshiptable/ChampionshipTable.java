@@ -16,8 +16,8 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.cellview.client.AbstractCellTableBuilder;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
@@ -65,7 +65,7 @@ public class ChampionshipTable
     */
    private ChampionshipTableConsts constants;
 
-   private CellTable< Championship > table;
+   private DataGrid< Championship > table;
 
    private Column< Championship, String > editColumn;
 
@@ -81,7 +81,7 @@ public class ChampionshipTable
 
       constants = GWT.create( ChampionshipTableConsts.class );
 
-      table = new CellTable< Championship >();
+      table = new DataGrid< Championship >();
       table.setTableBuilder( new CustomTableBuilder( table ) );
       table.setSkipRowHoverStyleUpdate( true );
       table.setStyleName( resources.styles().customTable() );
@@ -92,8 +92,8 @@ public class ChampionshipTable
       createColumn( constants.baseDateLabel(), 120 );
       createColumn( constants.gamesbByRoundLabel(), 100 );
       createColumn( constants.roundsByDayLabel(), 100 );
-      createColumn( constants.dateIncrLabel(), 100 );
-      createColumn( constants.finishedLabel(), 100 );
+      createColumn( constants.dateIncrLabel(), 110 );
+      createColumn( constants.finishedLabel(), 110 );
 
       // alterar
       TextHeader header = new TextHeader( "" );
@@ -144,6 +144,9 @@ public class ChampionshipTable
       } );
       table.addColumn( removeColumn, header );
       table.setColumnWidth( removeColumn, 40, Unit.PX );
+      
+      // coluna para o scroll
+      createColumn( "", 20 );
    }
 
    public Widget asWidget()
@@ -192,7 +195,7 @@ public class ChampionshipTable
 
       private final String removeBtnStyle;
 
-      public CustomTableBuilder( CellTable< Championship > dataGrid )
+      public CustomTableBuilder( DataGrid< Championship > dataGrid )
       {
          super( dataGrid );
 
@@ -223,6 +226,7 @@ public class ChampionshipTable
          buildRow( row, "Não" );
          buildButtonCell( row, rowValue, false );
          buildButtonCell( row, rowValue, true );
+         buildRow( row, "" );
 
          row.endTR();
       }
