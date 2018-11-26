@@ -5,9 +5,11 @@ import com.futmesa.client.base.event.CustomEventHandler;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.config.ConfigModuleConsts;
 import com.futmesa.client.module.config.viewport.championship.ChampionshipConfigViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
+import com.futmesa.client.request.service.ServicePlayer;
 import com.futmesa.client.request.service.base.ServiceInterface;
 import com.futmesa.client.request.service.config.ServiceCRUDChampionship;
 import com.futmesa.client.windows.main.BaseViewport;
@@ -34,8 +36,8 @@ public class ChampionshipConfigController
    public static CustomEvent UPDATE_CHAMPIONSHIP = new CustomEvent();
    
    private ServiceChampionship serviceChampionship;
-
    private ServiceCRUDChampionship serviceCRUDChampionship;
+   private ServicePlayer servicePlayer;
    
    private ChampionshipConfigViewport championshipConfigViewport;
 
@@ -48,6 +50,7 @@ public class ChampionshipConfigController
       
       serviceChampionship = new ServiceChampionship( this );
       serviceCRUDChampionship = new ServiceCRUDChampionship( this );
+      servicePlayer = new ServicePlayer( this );
       
       EventBus.getInstance().addHandler( CREATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
       {
@@ -106,6 +109,14 @@ public class ChampionshipConfigController
       {
          JsArray<Championship> championships = records.cast();
          championshipConfigViewport.setChampionships( championships );
+
+         servicePlayer.requestPlayers();
+      }
+      else if ( ServicePlayer.GET_ALL_PLAYERS.equals( requestId ) ) 
+      {
+         JsArray< Player > players = records.cast();
+         championshipConfigViewport.setPlayers( players );
+
          BaseViewport.getInstance().setTitleHeaderLabel( "Gerenciamento de Campeonatos" );
          BaseViewport.getInstance().setViewportContent( championshipConfigViewport );
       }

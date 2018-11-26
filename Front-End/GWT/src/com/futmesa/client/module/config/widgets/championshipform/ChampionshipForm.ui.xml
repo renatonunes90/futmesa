@@ -41,9 +41,14 @@
       </g:VerticalPanel>
       <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
          <g:Label addStyleNames='{style.championshipEditTitle}' text='{consts2.participantsTitle}'></g:Label>
-         <g:SimplePanel ui:field='participantsPanel'>
-         
-         </g:SimplePanel>
+         <g:HorizontalPanel>
+            <g:VerticalPanel ui:field='participantsPanelColumn1'>
+            </g:VerticalPanel>
+            <g:VerticalPanel ui:field='participantsPanelColumn2'>
+            </g:VerticalPanel>
+            <g:VerticalPanel ui:field='participantsPanelColumn3'>
+            </g:VerticalPanel>
+         </g:HorizontalPanel>
       </g:VerticalPanel>
    </g:HorizontalPanel>
 </ui:UiBinder>

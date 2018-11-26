@@ -34,7 +34,6 @@ public class ChampionshipTable
    interface Resources
       extends ClientBundle
    {
-
       @Source ( "championshiptable.css" )
       Styles styles();
    }

@@ -41,8 +41,8 @@ public class ServiceCRUDChampionship extends ServiceAbstract {
    {
       List<String> params = new ArrayList<String>();
       params.add( "championship=" + JsonUtils.stringify(championship) );
-      params.add( "function=" + CREATE_CHAMPIONSHIP );
-      request( params, CREATE_CHAMPIONSHIP );
+      params.add( "function=" + UPDATE_CHAMPIONSHIP );
+      request( params, UPDATE_CHAMPIONSHIP );
    }
 	  
 }

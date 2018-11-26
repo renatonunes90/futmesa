@@ -4,6 +4,7 @@ import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.futmesa.client.module.config.widgets.championshipform.ChampionshipForm;
 import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
@@ -130,5 +131,10 @@ public class ChampionshipConfigViewport
    public void setChampionships( JsArray< Championship > championships ) 
    {
       championshipTable.updateTableInfo( championships );
+   }
+   
+   public void setPlayers( JsArray< Player > players )
+   {
+      championshipForm.setPlayers( players );
    }
 }
