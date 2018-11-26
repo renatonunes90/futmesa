@@ -17,7 +17,10 @@ interface DaoChampionshipInterface
    // -- ValueObjects
    // Tabela
    const ID = "ID";
+   const IDSEASON = "IDSEASON";
    const NAME = "NAME";
+   const TYPE = "TYPE";
+   const ISFINISHED = "ISFINISHED";
    const BASEDATE = "BASEDATE";
    const DATEINCR = "DATEINCR";
    const ROUNDSBYDAY = "ROUNDSBYDAY";
@@ -32,11 +35,13 @@ interface DaoChampionshipInterface
 
    /**
     * Busca todos os participantes de um campeonato.
-    * @param int $championshipId Identificador do campeonato.
+    *
+    * @param int $championshipId
+    *           Identificador do campeonato.
     * @return array Lista com os identificadores dos participantes.
     */
-   public function getParticipants( int $championshipId ) : array;
-   
+   public function getParticipants( int $championshipId ): array;
+
   /**
    * Inclui novos campeonatos na tabela no banco de dados.
    *

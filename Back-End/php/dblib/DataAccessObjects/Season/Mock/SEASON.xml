@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="SEASON" primary="ID">
+    <column>ID</column>
+    <column>NAME</column>
+    <row>
+      <value>1</value>
+      <value>2017</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>2018</value>
+    </row>
+  </table>
+</dataset>

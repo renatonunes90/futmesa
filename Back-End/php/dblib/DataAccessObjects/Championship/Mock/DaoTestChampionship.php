@@ -136,7 +136,10 @@ class DaoTestChampionship implements DaoChampionshipInterface
    {
       $object = new \ValueObject\Championship();
       $object->id = $result[ self::ID ];
+      $object->idseason = $result[ self::IDSEASON ];
       $object->name = $result[ self::NAME ];
+      $object->type = $result[ self::TYPE ];
+      $object->isfinished = $result[ self::ISFINISHED ];
       $object->basedate = $result[ self::BASEDATE ];
       $object->dateincr = $result[ self::DATEINCR ];
       $object->roundsbyday = $result[ self::ROUNDSBYDAY ];
