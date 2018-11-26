@@ -9,13 +9,13 @@ namespace DAO;
 
 use Database\Database;
 
-require_once "DataAccessObjects/Championship/DaoChampionshipInterface.php";
-require_once "ValueObjects/Championship.php";
+require_once "DataAccessObjects/Season/DaoSeasonInterface.php";
+require_once "ValueObjects/Season.php";
 
 /**
- * Objeto para acessar o banco de dados dos campeonatos.
+ * Objeto para acessar o banco de dados das temporadas.
  */
-class DaoChampionship implements DaoChampionshipInterface
+class DaoSeason implements DaoSeasonInterface
 {
 
    /**
@@ -38,34 +38,16 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see \DAO\DaoChampionshipInterface::getAllChampionships()
+    * @see DaoSeasonInterface::getAllSeasons()
     */
-   public function getAllChampionships(): array
+   public function getAllSeasons(): array
    {
       $objects = array ();
-      $result = $this->db_->selectAll( "SELECT * FROM championship" );
+      $result = $this->db_->selectAll( "SELECT * FROM season" );
 
       foreach ( $result as &$r )
       {
-         $objects[] = $this->convertToChampionship( $r );
-      }
-
-      return $objects;
-   }
-
-   /**
-    *
-    * {@inheritdoc}
-    * @see \DAO\DaoChampionshipInterface::getParticipants()
-    */
-   public function getParticipants( int $championshipId ): array
-   {
-      $objects = array ();
-      $result = $this->db_->selectAll( "SELECT p.idplayer FROM participant p WHERE p.idchampionship = $championshipId" );
-
-      foreach ( $result as &$r )
-      {
-         $objects[] = $r[ "IDPLAYER" ];
+         $objects[] = $this->convertToSeason( $r );
       }
 
       return $objects;
@@ -155,24 +137,17 @@ class DaoChampionship implements DaoChampionshipInterface
    // }
 
    /**
-    * Converte o resultado do banco de dados em um campeonato.
+    * Converte o resultado do banco de dados em uma temporada.
     *
     * @param array $result
-    *           Mapa de resultados do banco para um campeonato.
-    * @return \ValueObject\Championship Campeonato.
+    *           Mapa de resultados do banco para uma temporada.
+    * @return \ValueObject\Season Temporada.
     */
-   private function convertToChampionship( array $result ): \ValueObject\Championship
+   private function convertToSeason( array $result ): \ValueObject\Season
    {
-      $object = new \ValueObject\Championship();
+      $object = new \ValueObject\Season();
       $object->id = $result[ self::ID ];
-      $object->idseason = $result[ self::IDSEASON ];
       $object->name = $result[ self::NAME ];
-      $object->type = $result[ self::TYPE ];
-      $object->isfinished = $result[ self::ISFINISHED ];
-      $object->basedate = $result[ self::BASEDATE ];
-      $object->dateincr = $result[ self::DATEINCR ];
-      $object->roundsbyday = $result[ self::ROUNDSBYDAY ];
-      $object->gamesbyround = $result[ self::GAMESBYROUND ];
       return $object;
    }
 }

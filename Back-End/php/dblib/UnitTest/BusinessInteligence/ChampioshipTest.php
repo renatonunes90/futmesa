@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 require_once "BusinessInteligence\Championship\Championship.php";
 require_once "Providers\ChampionshipProvider.php";
-require_once "ErrorHandlers/errorhandler.php";
 
 /**
  * Testes unitários para a classe Championship.

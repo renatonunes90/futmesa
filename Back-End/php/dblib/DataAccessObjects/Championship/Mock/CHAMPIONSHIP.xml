@@ -3,14 +3,20 @@
 <dataset>
   <table name="CHAMPIONSHIP" primary="ID">
     <column>ID</column>
+    <column>IDSEASON</column>
     <column>NAME</column>
+    <column>TYPE</column>
+    <column>ISFINISHED</column>
     <column>BASEDATE</column>
     <column>DATEINCR</column>
     <column>ROUNDSBYDAY</column>
     <column>GAMESBYROUND</column>
     <row>
       <value>1</value>
+      <value>2</value>
       <value>Campeonato A</value>
+      <value>1</value>
+      <value>0</value>
       <value></value>
       <value></value>
       <value></value>
