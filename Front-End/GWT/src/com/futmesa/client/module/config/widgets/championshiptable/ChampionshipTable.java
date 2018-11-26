@@ -3,6 +3,8 @@ package com.futmesa.client.module.config.widgets.championshiptable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.futmesa.client.base.ChampionshipType;
+import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
@@ -91,7 +93,7 @@ public class ChampionshipTable
       createColumn( constants.nameLabel(), 200 );
       createColumn( constants.seasonLabel(), 120 );
       createColumn( constants.typeLabel(), 160 );
-      createColumn( constants.baseDateLabel(), 120 );
+      createColumn( constants.baseDateLabel(), 200 );
       createColumn( constants.gamesbByRoundLabel(), 100 );
       createColumn( constants.roundsByDayLabel(), 100 );
       createColumn( constants.dateIncrLabel(), 110 );
@@ -216,12 +218,12 @@ public class ChampionshipTable
 
          buildRow( row, rowValue.getName() );
          buildRow( row, "2018" );
-         buildRow( row, "Free-For-All" );
-         buildRow( row, rowValue.getBaseDate() );
+         buildRow( row, ChampionshipType.getLabelIndex( rowValue.getType() ) );
+         buildRow( row, DateUtil.convertPattern( rowValue.getBaseDate(), DateUtil.DB_FORMAT, DateUtil.SIMPLE_DATETIME ) );
          buildRow( row, String.valueOf( rowValue.getGamesByRound() ) );
          buildRow( row, String.valueOf( rowValue.getRoundsByDay() ) );
          buildRow( row, String.valueOf( rowValue.getDateIncr() ) );
-         buildRow( row, "Não" );
+         buildRow( row, rowValue.getIsFinished() == 0 ? "Não" : "Sim" );
          buildButtonCell( row, rowValue, false );
          buildButtonCell( row, rowValue, true );
          buildRow( row, "" );

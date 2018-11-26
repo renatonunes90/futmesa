@@ -1,26 +1,32 @@
 package com.futmesa.client.module.config.widgets.championshipform;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.futmesa.client.base.ChampionshipType;
+import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
  * Widget com o formulário de configuração de um campeonato.
@@ -54,7 +60,7 @@ public class ChampionshipForm
       String customRow();
    
       String customLabel();
-   
+      
       String customCheck();
    }
    
@@ -70,14 +76,17 @@ public class ChampionshipForm
    protected TextBox nameInput;
 
    @UiField ( provided = false )
-   protected TextBox seasonInput;
+   protected ListBox seasonInput;
+   
+   @UiField ( provided = false )
+   protected ListBox typeInput;
 
    @UiField ( provided = false )
-   protected TextBox typeInput;
-
+   protected DateBox baseDateInput;
+   
    @UiField ( provided = false )
-   protected TextBox baseDateInput;
-
+   protected ListBox baseTimeInput;
+   
    @UiField ( provided = false )
    protected TextBox gamesByRoundInput;
 
@@ -122,8 +131,27 @@ public class ChampionshipForm
       championship = null;
       players = new ArrayList<>();
       participants = new HashMap<>();
+      
       // Create the UiBinder.
       uiBinder.createAndBindUi( this );
+      
+      DateTimeFormat dateFormat = DateTimeFormat.getFormat( DateUtil.SIMPLE_DATE );
+      baseDateInput.setFormat( new DateBox.DefaultFormat( dateFormat ) );
+      baseDateInput.getDatePicker().setYearArrowsVisible( true );
+      
+      for ( int i = 0; i < 24; i++ ) 
+      {
+         String hour = i < 10 ? "0" : "";
+         hour += String.valueOf( i ) + ":00";
+         baseTimeInput.addItem( hour );
+      }
+      
+      typeInput.addItem( ChampionshipType.FREE_FOR_ALL.getLabel() );
+      typeInput.addItem( ChampionshipType.CLASSIFICATORY_GROUPS.getLabel() );
+      typeInput.addItem( ChampionshipType.CLASSIFICATORY_DEATHMATCH.getLabel() );
+      
+      seasonInput.addItem( "2017" );
+      seasonInput.addItem( "2018" );
    }
 
    @Override
@@ -136,15 +164,17 @@ public class ChampionshipForm
    public Championship getChampionship()
    {
       championship.setName( nameInput.getValue() );
-      championship.setBaseDate( baseDateInput.getValue() );
 
-      int value = !seasonInput.getValue().isEmpty() ? Integer.parseInt( seasonInput.getValue() ) : 0;
-      championship.setIdSeason( value );
+      String dateString = DateUtil.dateToString( baseDateInput.getValue(), DateUtil.DB_FORMAT );
+      dateString = dateString.substring( 0, dateString.indexOf( " " ) );
+      dateString += " " + baseTimeInput.getSelectedItemText();
+      championship.setBaseDate( dateString );
 
-      value = !typeInput.getValue().isEmpty() ? Integer.parseInt( typeInput.getValue() ) : 0;
-      championship.setType( value );
+      championship.setIdSeason( seasonInput.getSelectedIndex() + 1 );
 
-      value = !gamesByRoundInput.getValue().isEmpty() ? Integer.parseInt( gamesByRoundInput.getValue() ) : 0;
+      championship.setType( typeInput.getSelectedIndex() );
+
+      int value = !gamesByRoundInput.getValue().isEmpty() ? Integer.parseInt( gamesByRoundInput.getValue() ) : 0;
       championship.setGamesByRound( value );
 
       value = !roundsByDayInput.getValue().isEmpty() ? Integer.parseInt( roundsByDayInput.getValue() ) : 0;
@@ -173,9 +203,21 @@ public class ChampionshipForm
       clearForm();
 
       nameInput.setValue( championship.getName() );
-      seasonInput.setValue( String.valueOf( championship.getIdSeason() ) );
-      typeInput.setValue( String.valueOf( championship.getIdSeason() ) );
-      baseDateInput.setValue( championship.getBaseDate() );
+      seasonInput.setSelectedIndex( championship.getIdSeason() - 1 );
+      typeInput.setSelectedIndex( championship.getType() );
+      
+      if ( championship.getBaseDate() == null )
+      {
+         baseDateInput.setValue( new Date() );
+      }
+      else
+      {
+         String baseDate = championship.getBaseDate();
+         Date date = DateUtil.stringToDate( baseDate, DateUtil.DB_FORMAT );
+         baseDateInput.setValue( date );
+         baseTimeInput.setSelectedIndex( Integer.parseInt( baseDate.substring( baseDate.indexOf( " " ), baseDate.indexOf( ":" ) ) ) );
+      }
+      
       gamesByRoundInput.setValue( String.valueOf( championship.getGamesByRound() ) );
       roundsByDayInput.setValue( String.valueOf( championship.getRoundsByDay() ) );
       dateIncrInput.setValue( String.valueOf( championship.getDateIncr() ) );
@@ -188,6 +230,9 @@ public class ChampionshipForm
             if ( checkP.getId() == p.getId() )
             {
                participants.get( checkP ).setValue( true );
+               
+               // não é possível remover um participante do campeonato
+               participants.get( checkP ).setEnabled( false );
                break;
             }
          }
@@ -244,9 +289,10 @@ public class ChampionshipForm
    private void clearForm()
    {
       nameInput.setValue( "" );
-      seasonInput.setValue( "0" );
-      typeInput.setValue( "1" );
-      baseDateInput.setValue( "" );
+      seasonInput.setSelectedIndex( 1 );
+      typeInput.setSelectedIndex( 0 );
+      baseDateInput.setValue( new Date() );
+      baseTimeInput.setSelectedIndex( 0 );
       gamesByRoundInput.setValue( "0" );
       roundsByDayInput.setValue( "0" );
       dateIncrInput.setValue( "0" );
@@ -254,6 +300,7 @@ public class ChampionshipForm
       for ( Player checkP : participants.keySet() )
       {
          participants.get( checkP ).setValue( false );
+         participants.get( checkP ).setEnabled( true );
       }
    }
 }

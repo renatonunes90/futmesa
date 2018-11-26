@@ -17,8 +17,11 @@ public interface ChampionshipCommonConsts
    @DefaultStringValue ( "Type" )
    String typeLabel();
    
-   @DefaultStringValue ( "Base Date" )
+   @DefaultStringValue ( "Initial Date" )
    String baseDateLabel();
+
+   @DefaultStringValue ( "Initial Hour" )
+   String baseTimeLabel();
    
    @DefaultStringValue ( "Games By Round" )
    String gamesbByRoundLabel();
