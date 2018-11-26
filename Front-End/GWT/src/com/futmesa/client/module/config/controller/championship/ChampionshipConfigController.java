@@ -67,7 +67,8 @@ public class ChampionshipConfigController
          @Override
          public void onEvent( CustomEvent event )
          {
-            championshipConfigViewport.showChampionshipForm( ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP ) );
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            serviceChampionship.requestChampionshipCompleteInfo( c.getId() );
          }
       } );
       
@@ -119,6 +120,11 @@ public class ChampionshipConfigController
 
          BaseViewport.getInstance().setTitleHeaderLabel( "Gerenciamento de Campeonatos" );
          BaseViewport.getInstance().setViewportContent( championshipConfigViewport );
+      }
+      else if ( ServiceChampionship.GET_CHAMPIONSHIP_INFO.equals( requestId ) )
+      {
+         Championship c = records.cast();
+         championshipConfigViewport.showChampionshipForm( c );
       }
       else if ( ServiceCRUDChampionship.DELETE_CHAMPIONSHIP.equals( requestId ) )
       {

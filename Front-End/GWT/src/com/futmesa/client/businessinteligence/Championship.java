@@ -1,6 +1,7 @@
 package com.futmesa.client.businessinteligence;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.view.client.ProvidesKey;
 
 /**
@@ -77,19 +78,33 @@ public final class Championship extends JavaScriptObject
    public final native int getDateIncr() /*-{
 		return this.dateincr;
    }-*/;
-
+   
+   /**
+    * @return Jogos por rodada.
+    */
+   public final native int getGamesByRound() /*-{
+      return this.gamesbyround;
+   }-*/;
+   
    /**
     * @return Rodadas por dia de jogo.
     */
    public final native int getRoundsByDay() /*-{
 		return this.roundsbyday;
    }-*/;
+   
+   /**
+    * @return Participantes do campeaonato.
+    */
+   public final native JsArray<Player> getPlayers() /*-{
+      return this.players;
+   }-*/;
 
    /**
-    * @return Jogos por rodada.
+    * @return Rodadas do campeaonato.
     */
-   public final native int getGamesByRound() /*-{
-		return this.gamesbyround;
+   public final native JsArray<Round> getRounds() /*-{
+      return this.rounds;
    }-*/;
 
    public final native void setId( int id ) /*-{
@@ -126,5 +141,13 @@ public final class Championship extends JavaScriptObject
 
    public final native void setGamesByRound( int gamesbyround ) /*-{
 		this.gamesbyround = gamesbyround;
+   }-*/;
+   
+   public final native void setPlayers( JsArray<Player> players ) /*-{
+      this.players = players;
+   }-*/;
+   
+   public final native void setRounds( JsArray<Round> rounds) /*-{
+      this.rounds = rounds;
    }-*/;
 }

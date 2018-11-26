@@ -10,6 +10,7 @@ import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
@@ -131,6 +132,7 @@ public class ChampionshipForm
       return panel;
    }
 
+   @SuppressWarnings ( "unchecked" )
    public Championship getChampionship()
    {
       championship.setName( nameInput.getValue() );
@@ -151,25 +153,24 @@ public class ChampionshipForm
       value = !dateIncrInput.getValue().isEmpty() ? Integer.parseInt( dateIncrInput.getValue() ) : 0;
       championship.setDateIncr( value );
 
-      return championship;
-   }
-   
-   public List< Player > getParticipants()
-   {
-      List<Player> selected = new ArrayList<>();
+      JsArray<Player> players = ( JsArray< Player > ) JavaScriptObject.createArray();
       for ( Entry< Player, CheckBox > check : participants.entrySet() )
       {
          if ( check.getValue().getValue() )
          {
-            selected.add( check.getKey() );
+            players.push( check.getKey() );
          }
       }
-      return selected;
+      championship.setPlayers( players );
+      
+      return championship;
    }
 
    public void setChampionship( Championship championship )
    {
       this.championship = championship;
+      
+      clearForm();
 
       nameInput.setValue( championship.getName() );
       seasonInput.setValue( String.valueOf( championship.getIdSeason() ) );
@@ -178,6 +179,19 @@ public class ChampionshipForm
       gamesByRoundInput.setValue( String.valueOf( championship.getGamesByRound() ) );
       roundsByDayInput.setValue( String.valueOf( championship.getRoundsByDay() ) );
       dateIncrInput.setValue( String.valueOf( championship.getDateIncr() ) );
+      
+      for ( int i = 0; i < championship.getPlayers().length(); i++ )
+      {
+         Player p = championship.getPlayers().get( i );
+         for ( Player checkP : participants.keySet() )
+         {
+            if ( checkP.getId() == p.getId() )
+            {
+               participants.get( checkP ).setValue( true );
+               break;
+            }
+         }
+      }
    }
 
    public void setPlayers( JsArray< Player > players )
@@ -227,4 +241,19 @@ public class ChampionshipForm
       }
    }
 
+   private void clearForm()
+   {
+      nameInput.setValue( "" );
+      seasonInput.setValue( "0" );
+      typeInput.setValue( "1" );
+      baseDateInput.setValue( "" );
+      gamesByRoundInput.setValue( "0" );
+      roundsByDayInput.setValue( "0" );
+      dateIncrInput.setValue( "0" );
+      
+      for ( Player checkP : participants.keySet() )
+      {
+         participants.get( checkP ).setValue( false );
+      }
+   }
 }

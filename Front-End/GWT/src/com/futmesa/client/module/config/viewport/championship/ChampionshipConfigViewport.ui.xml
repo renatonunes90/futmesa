@@ -10,8 +10,8 @@
       <g:SimplePanel ui:field='championshipPanel' addStyleNames='{style.tablePanel}'></g:SimplePanel>
       <g:HorizontalPanel ui:field='btnPanel'>
          <g:Button addStyleNames='{style.customBtn}' ui:field='addBtn' text="{consts.addBtn}"></g:Button>
-         <g:Button addStyleNames='{style.customBtn}' ui:field='saveBtn' text="{consts.saveBtn}"></g:Button>
          <g:Button addStyleNames='{style.customBtn}' ui:field='cancelBtn' text="{consts.cancelBtn}"></g:Button>
+         <g:Button addStyleNames='{style.customBtn}' ui:field='saveBtn' text="{consts.saveBtn}"></g:Button>
       </g:HorizontalPanel> 
    </g:VerticalPanel>
 </ui:UiBinder>

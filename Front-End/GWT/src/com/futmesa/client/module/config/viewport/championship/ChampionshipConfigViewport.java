@@ -3,13 +3,13 @@ package com.futmesa.client.module.config.viewport.championship;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
+import com.futmesa.client.builder.ChampionshipBuilder;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.futmesa.client.module.config.widgets.championshipform.ChampionshipForm;
 import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -69,14 +69,7 @@ public class ChampionshipConfigViewport
       panel.setCellHorizontalAlignment( btnPanel, HasHorizontalAlignment.ALIGN_CENTER);
       
       addBtn.addClickHandler( handler -> {
-         Championship c = ( Championship ) JavaScriptObject.createObject();
-         c.setId( 0 );
-         c.setIdSeason( 0 );
-         c.setType( 0 );
-         c.setGamesByRound( 0 );
-         c.setRoundsByDay( 0 );
-         c.setDateIncr( 0 );
-         showChampionshipForm( c );
+         showChampionshipForm( ChampionshipBuilder.buildEmpty() );
       });
       
       cancelBtn.addClickHandler( handler -> {
