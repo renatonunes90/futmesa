@@ -86,7 +86,10 @@ class DaoChampionship implements DaoChampionshipInterface
          foreach( $championships as $c )
          {
             $val = array();
+            $val[] = $c->idseason;
             $val[] = $c->name;
+            $val[] = $c->type;
+            $val[] = $c->isfinished;
             $val[] = $c->basedate;
             $val[] = $c->dateincr;
             $val[] = $c->roundsbyday;
@@ -94,8 +97,8 @@ class DaoChampionship implements DaoChampionshipInterface
             $values[] = $val;
          }
   
-         $query = "INSERT INTO championship ( name, basedate, dateincr, roundsbyday, gamesbyround )
-                   VALUES ( ?, ?, ?, ?, ? )";
+         $query = "INSERT INTO championship ( idseason, name, type, isfinished, basedate, dateincr, roundsbyday, gamesbyround )
+                   VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
          $result = $this->db_->executeMultiplePrepared( $query, $values );
       }
 

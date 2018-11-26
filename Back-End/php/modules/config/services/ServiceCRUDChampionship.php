@@ -24,7 +24,10 @@ class ServiceCRUDChampionship
    {
       $obj = json_decode( $championship );
       $champ = new \ValueObject\Championship();
+      $champ->idseason = $obj->idseason;
       $champ->name = $obj->name;
+      $champ->type = $obj->type;
+      $champ->isfinished = $obj->isfinished;
       $champ->basedate = $obj->basedate;
       $champ->dateincr = $obj->dateincr;
       $champ->roundsbyday = $obj->roundsbyday;

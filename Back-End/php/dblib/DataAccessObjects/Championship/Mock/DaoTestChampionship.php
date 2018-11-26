@@ -67,15 +67,18 @@ class DaoTestChampionship implements DaoChampionshipInterface
       $database = new XMLInterface( self::PATH );
       $result = true;
       $input = array ();
-      $input[ "IDCHAMPIONSHIP" ] = null;
+      $input[ self::ID ] = null;
 
       foreach( $championships as &$c )
       {
-         $input[ "NAME" ] = $c->name;
-         $input[ "BASEDATE" ] = $c->basedate;
-         $input[ "DATEINCR" ] = $c->dateincr;
-         $input[ "ROUNDSBYDAY" ] = $c->roundsbyday;
-         $input[ "GAMESBYROUND" ] = $c->gamesbyround;
+         $input[ self::IDSEASON ] = $c->idseason;
+         $input[ self::NAME ] = $c->name;
+         $input[ self::TYPE ] = $c->type;
+         $input[ self::ISFINISHED ] = $c->isfinished;
+         $input[ self::BASEDATE ] = $c->basedate;
+         $input[ self::DATEINCR ] = $c->dateincr;
+         $input[ self::ROUNDSBYDAY ] = $c->roundsbyday;
+         $input[ self::GAMESBYROUND ] = $c->gamesbyround;
          $result &= ( $database->insertItem( $input ) > 0 );
        }
 
