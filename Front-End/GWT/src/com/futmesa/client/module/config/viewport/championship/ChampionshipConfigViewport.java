@@ -5,6 +5,7 @@ import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
+import com.futmesa.client.module.config.widgets.championshipform.ChampionshipForm;
 import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -13,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,11 +37,22 @@ public class ChampionshipConfigViewport
    
    @UiField ( provided = false )
    protected SimplePanel championshipPanel;
+   
+   @UiField ( provided = false )
+   protected HorizontalPanel btnPanel;
 
    @UiField ( provided = false )
    protected Button addBtn;
    
-   private ChampionshipTable championshipTable = new ChampionshipTable();
+   @UiField ( provided = false )
+   protected Button cancelBtn;
+   
+   @UiField ( provided = false )
+   protected Button saveBtn;
+   
+   private ChampionshipTable championshipTable;
+   
+   private ChampionshipForm championshipForm;
    
    /**
     * Construtor padrão.
@@ -48,31 +61,70 @@ public class ChampionshipConfigViewport
    {
       uiBinder.createAndBindUi( this );
       
-      championshipPanel.add( championshipTable.asWidget() );
-
+      championshipForm =  new ChampionshipForm();
+      championshipTable = new ChampionshipTable();
+      
       panel.setCellHorizontalAlignment( championshipPanel, HasHorizontalAlignment.ALIGN_CENTER);
-      panel.setCellHorizontalAlignment( addBtn, HasHorizontalAlignment.ALIGN_CENTER);
+      panel.setCellHorizontalAlignment( btnPanel, HasHorizontalAlignment.ALIGN_CENTER);
       
       addBtn.addClickHandler( handler -> {
          Championship c = ( Championship ) JavaScriptObject.createObject();
-         c.setId( -1 );
-         c.setIdSeason( 2 );
-         c.setName( "Teste " + Math.random() * 100 );
-         c.setType( 1 );
-         c.setIsFinished( 0 );
-//         c.setBaseDate( "opa" );
-         c.setDateIncr( 2 );
-         c.setGamesByRound( 3 );
-         c.setRoundsByDay( 4 );
-         ChampionshipConfigController.CREATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, c );
-         EventBus.getInstance().fireEvent( ChampionshipConfigController.CREATE_CHAMPIONSHIP );
+         c.setId( 0 );
+         c.setIdSeason( 0 );
+         c.setType( 0 );
+         c.setGamesByRound( 0 );
+         c.setRoundsByDay( 0 );
+         c.setDateIncr( 0 );
+         showChampionshipForm( c );
       });
+      
+      cancelBtn.addClickHandler( handler -> {
+         showChampionshipList();
+      });
+      
+      saveBtn.addClickHandler( handler -> {
+         Championship c = championshipForm.getChampionship();
+         if ( c.getId() > 0 )
+         {
+            ChampionshipConfigController.UPDATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, c );
+            EventBus.getInstance().fireEvent( ChampionshipConfigController.UPDATE_CHAMPIONSHIP );
+         }
+         else
+         {
+            c.setIsFinished( 0 );
+            ChampionshipConfigController.CREATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, c );
+            EventBus.getInstance().fireEvent( ChampionshipConfigController.CREATE_CHAMPIONSHIP );
+         }
+      });
+      
+      showChampionshipList();
    }
 
    @Override
    public Widget asWidget()
    {
       return panel;
+   }
+
+   public void showChampionshipForm( Championship championship )
+   {
+      championshipPanel.clear();
+      championshipForm.setChampionship( championship );
+      championshipPanel.add( championshipForm.asWidget() );
+
+      addBtn.setVisible( false );
+      cancelBtn.setVisible( true );
+      saveBtn.setVisible( true );
+   }
+   
+   public void showChampionshipList()
+   {
+      championshipPanel.clear();
+      championshipPanel.add( championshipTable.asWidget() );
+
+      addBtn.setVisible( true );
+      cancelBtn.setVisible( false );
+      saveBtn.setVisible( false );
    }
    
    public void setChampionships( JsArray< Championship > championships ) 

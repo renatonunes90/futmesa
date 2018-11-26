@@ -17,6 +17,9 @@ public interface ConfigModuleConsts
    @DefaultMessage ( "{0} added successfuly." )
    String addSuccessMsg( String value );
    
+   @DefaultMessage ( "Cancel" )
+   String cancelBtn();
+   
    @DefaultMessage ( "Championship" )
    String championshipLabel();
    
@@ -28,4 +31,8 @@ public interface ConfigModuleConsts
    
    @DefaultMessage ( "{0} removed successfuly." )
    String removeSuccessMsg( String value );
+   
+   @DefaultMessage ( "Save" )
+   String saveBtn();
+   
 }

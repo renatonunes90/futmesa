@@ -15,6 +15,7 @@ public class ServiceCRUDChampionship extends ServiceAbstract {
 
 	public static final String CREATE_CHAMPIONSHIP = "createChampionship";
 	public static final String DELETE_CHAMPIONSHIP = "deleteChampionship";
+   public static final String UPDATE_CHAMPIONSHIP = "updateChampionship";
 	
 	public ServiceCRUDChampionship(ServiceInterface parent) {
 		super(parent, MODULE, SERVICE);
@@ -34,6 +35,14 @@ public class ServiceCRUDChampionship extends ServiceAbstract {
       params.add( "id=" + String.valueOf( id ) );
       params.add( "function=" + DELETE_CHAMPIONSHIP );
       request( params, DELETE_CHAMPIONSHIP );
+   }
+   
+   public void updateChampionship( Championship championship )
+   {
+      List<String> params = new ArrayList<String>();
+      params.add( "championship=" + JsonUtils.stringify(championship) );
+      params.add( "function=" + CREATE_CHAMPIONSHIP );
+      request( params, CREATE_CHAMPIONSHIP );
    }
 	  
 }

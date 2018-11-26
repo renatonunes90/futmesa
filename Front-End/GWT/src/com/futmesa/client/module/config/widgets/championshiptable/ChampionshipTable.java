@@ -7,6 +7,7 @@ import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
+import com.futmesa.client.module.config.widgets.common.ChampionshipCommonConsts;
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -65,7 +66,7 @@ public class ChampionshipTable
    /**
     * Constantes da classe.
     */
-   private ChampionshipTableConsts constants;
+   private ChampionshipCommonConsts constants;
 
    private DataGrid< Championship > table;
 
@@ -81,7 +82,7 @@ public class ChampionshipTable
       resources = GWT.create( Resources.class );
       resources.styles().ensureInjected();
 
-      constants = GWT.create( ChampionshipTableConsts.class );
+      constants = GWT.create( ChampionshipCommonConsts.class );
 
       table = new DataGrid< Championship >();
       table.setTableBuilder( new CustomTableBuilder( table ) );
@@ -113,8 +114,8 @@ public class ChampionshipTable
          @Override
          public void update( int index, Championship object, String value )
          {
-            ChampionshipConfigController.UPDATE_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
-            EventBus.getInstance().fireEvent( ChampionshipConfigController.UPDATE_CHAMPIONSHIP );
+            ChampionshipConfigController.EDIT_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, object );
+            EventBus.getInstance().fireEvent( ChampionshipConfigController.EDIT_CHAMPIONSHIP );
          }
       } );
       table.addColumn( editColumn, header );

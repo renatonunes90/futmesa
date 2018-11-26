@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+   xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+   <ui:with field="consts" type="com.futmesa.client.module.config.widgets.common.ChampionshipCommonConsts" />
+   <ui:with field="consts2" type="com.futmesa.client.module.config.widgets.championshipform.ChampionshipFormConsts" />
+
+   <ui:style src="championshipform.css" />
+   
+   <g:HorizontalPanel ui:field='panel'>
+      <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
+         <g:Label addStyleNames='{style.championshipEditTitle}' text='{consts2.configTitle}'></g:Label>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.nameLabel}:'></g:Label>
+               <g:TextBox ui:field='nameInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text="{consts.seasonLabel}:"></g:Label>
+               <g:TextBox ui:field='seasonInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.typeLabel}:'></g:Label>
+               <g:TextBox ui:field='typeInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.baseDateLabel}:'></g:Label>
+               <g:TextBox ui:field='baseDateInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.gamesbByRoundLabel}:'></g:Label>
+               <g:TextBox ui:field='gamesByRoundInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.roundsByDayLabel}:'></g:Label>
+               <g:TextBox ui:field='roundsByDayInput'></g:TextBox> 
+            </g:HorizontalPanel>
+            <g:HorizontalPanel addStyleNames='{style.customRow}'>
+               <g:Label addStyleNames='{style.customLabel}' text='{consts.dateIncrLabel}:'></g:Label>
+               <g:TextBox ui:field='dateIncrInput'></g:TextBox> 
+            </g:HorizontalPanel>
+      </g:VerticalPanel>
+      <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
+         <g:Label addStyleNames='{style.championshipEditTitle}' text='{consts2.participantsTitle}'></g:Label>
+         <g:SimplePanel ui:field='participantsPanel'>
+         
+         </g:SimplePanel>
+      </g:VerticalPanel>
+   </g:HorizontalPanel>
+</ui:UiBinder>

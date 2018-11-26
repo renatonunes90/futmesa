@@ -1,12 +1,12 @@
-package com.futmesa.client.module.config.widgets.championshiptable;
+package com.futmesa.client.module.config.widgets.common;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.i18n.client.Constants;
 
-public interface ChampionshipTableConsts
+public interface ChampionshipCommonConsts
    extends Constants
 {
-   public static final ChampionshipTableConsts INSTANCE = GWT.create( ChampionshipTableConsts.class );
+   public static final ChampionshipCommonConsts INSTANCE = GWT.create( ChampionshipCommonConsts.class );
 
    @DefaultStringValue ( "Name" )
    String nameLabel();

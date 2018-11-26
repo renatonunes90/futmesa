@@ -29,6 +29,7 @@ public class ChampionshipConfigController
    private ConfigModuleConsts constants;
    
    public static CustomEvent CREATE_CHAMPIONSHIP = new CustomEvent();
+   public static CustomEvent EDIT_CHAMPIONSHIP = new CustomEvent();
    public static CustomEvent REMOVE_CHAMPIONSHIP = new CustomEvent();
    public static CustomEvent UPDATE_CHAMPIONSHIP = new CustomEvent();
    
@@ -58,13 +59,12 @@ public class ChampionshipConfigController
          }
       } );
       
-      EventBus.getInstance().addHandler( UPDATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
+      EventBus.getInstance().addHandler( EDIT_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
       {
          @Override
          public void onEvent( CustomEvent event )
          {
-            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
-            Window.alert( "Vai editar um campeonato '" + c.getName() + "'." );
+            championshipConfigViewport.showChampionshipForm( ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP ) );
          }
       } );
       
@@ -78,6 +78,16 @@ public class ChampionshipConfigController
             {
                serviceCRUDChampionship.deleteChampionship( c.getId() );
             }
+         }
+      } );
+      
+      EventBus.getInstance().addHandler( UPDATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
+      {
+         @Override
+         public void onEvent( CustomEvent event )
+         {
+            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            serviceCRUDChampionship.updateChampionship( c );
          }
       } );
    }
@@ -118,13 +128,32 @@ public class ChampionshipConfigController
          if ( response )
          {
             Window.alert( constants.addSuccessMsg( constants.championshipLabel() ) );
-            serviceChampionship.requestChampionships();
+            reloadList();
          }
          else
          {
             Window.alert( constants.addErrorMsg( constants.championshipLabel() ) );
          }
       }
+      else if ( ServiceCRUDChampionship.UPDATE_CHAMPIONSHIP.equals( requestId ) )
+      {
+         boolean response = Boolean.valueOf( records.toString() );
+         if ( response )
+         {
+            Window.alert( constants.addSuccessMsg( constants.championshipLabel() ) );
+            reloadList();
+         }
+         else
+         {
+            Window.alert( constants.addErrorMsg( constants.championshipLabel() ) );
+         }
+      }
+   }
+
+   private void reloadList()
+   {
+      championshipConfigViewport.showChampionshipList();
+      serviceChampionship.requestChampionships();
    }
 
 }
