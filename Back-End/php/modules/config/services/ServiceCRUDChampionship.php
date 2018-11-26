@@ -32,8 +32,19 @@ class ServiceCRUDChampionship
       $champ->dateincr = $obj->dateincr;
       $champ->roundsbyday = $obj->roundsbyday;
       $champ->gamesbyround = $obj->gamesbyround;
-      $champs = array( $champ );
-      return $this->provider_->createChampionships( $champs ); 
+      $champBI = new \DbLib\Championship( $champ );
+      
+      $players = array();
+      foreach ( $obj->players as $pObj )
+      {
+         $p = new \ValueObject\Player();
+         $p->id = $pObj->id;
+         $p->name = $pObj->name;
+         $players[] = new \DbLib\Player( $p );
+      }
+      $champBI->setPlayers( $players );
+      
+      return $champBI->save();
    }
    
    public function deleteChampionship( string $id ): bool

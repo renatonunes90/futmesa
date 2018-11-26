@@ -74,6 +74,24 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getLastInsertedId()
+    */
+   public function getLastInsertedId(): int
+   {
+      $id = 0;
+      $result = $this->db_->selectAll( "SELECT MAX(ID) as ID FROM championship" );
+      
+      foreach ( $result as &$r )
+      {
+         $id = $r[ self::ID ];
+      }
+      
+      return $id;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see \DAO\DaoChampionshipInterface::createChampionships()
     */
    public function createChampionships( array $championships ): bool
@@ -161,6 +179,34 @@ class DaoChampionship implements DaoChampionshipInterface
       return $result;
    }
 
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::saveParticipants()
+    */
+   public function saveParticipants( array $participants ) : bool
+   {
+      $result = true;
+      
+      if( count( $participants ) > 0 )
+      {
+         $values = array ();
+         foreach( $participants as $p )
+         {
+            $val = array();
+            $val[] = $p->idchampionship;
+            $val[] = $p->idplayer;
+            $values[] = $val;
+         }
+         
+         $query = "INSERT INTO participant ( idchampionship, idplayer )
+                   VALUES ( ?, ? )";
+         $result = $this->db_->executeMultiplePrepared( $query, $values );
+      }
+      
+      return $result;
+   }
+   
    /**
     * Converte o resultado do banco de dados em um campeonato.
     *

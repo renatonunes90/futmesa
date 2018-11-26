@@ -60,6 +60,28 @@ class DaoTestChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getLastInsertedId()
+    */
+   public function getLastInsertedId(): int
+   {
+      $id = 0;
+      $database = new XMLInterface( self::PATH );
+      $result = $database->getAllObjects( self::CHAMPIONSHIP );
+      
+      foreach ( $result as &$item )
+      {
+         if ( $id < $item[ self::ID ] )
+         {
+            $id = $item[ self::ID ];
+         }
+      }
+
+      return $id;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see \DAO\DaoChampionshipInterface::createChampionships()
     */
    public function createChampionships( array $championships ): bool
@@ -125,6 +147,27 @@ class DaoTestChampionship implements DaoChampionshipInterface
          $result &= $database->removeItems( $filter );
       }
 
+      return $result;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::saveParticipants()
+    */
+   public function saveParticipants( array $participants ) : bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+      $input = array ();
+      
+      foreach( $participants as &$p )
+      {
+         $input[ "idchampionship" ] = $p->idchampionship;
+         $input[ "idplayer" ] = $p->idplayer;
+         $result &= ( $database->insertItem( $input ) > 0 );
+      }
+      
       return $result;
    }
 

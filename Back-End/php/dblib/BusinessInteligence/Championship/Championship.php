@@ -16,6 +16,7 @@ require_once "BusinessInteligence/Round/Round.php";
 require_once "DataAccessObjects/Game/DaoGameFactory.php";
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ValueObjects/Championship.php";
+require_once "ValueObjects/Participant.php";
 
 /**
  * A responsabilidade desta classe é ter todos os atributos e funções lógicas de acesso aos dados de campeonatos.
@@ -154,6 +155,34 @@ class Championship
 
       $this->loadPlayers( true );
       $this->loadRounds( true );
+   }
+   
+   public function save(): bool
+   {
+      $champs = array( $this->championshipVO_ );
+      $result = DaoChampionshipFactory::getDaoChampionship()->createChampionships( $champs );
+      if ( $result )
+      {
+         $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
+         
+         $participants = array();
+         foreach ( $this->players_ as $p )
+         {
+            $part = new \ValueObject\Participant();
+            $part->idchampionship = $this->championshipVO_->id;
+            $part->idplayer = $p->getPlayerVO()->id;
+            $participants[] = $part;
+         }
+         
+         $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
+      }
+         
+      return $result;
+   }
+   
+   public function setPlayers( array $players ): void
+   {
+      $this->players_ = $players;
    }
 
    private function loadPlayers( bool $forceReload = false): void
