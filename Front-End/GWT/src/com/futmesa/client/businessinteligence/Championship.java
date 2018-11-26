@@ -35,12 +35,33 @@ public final class Championship extends JavaScriptObject
    public final native int getId() /*-{
 		return this.id;
    }-*/;
+   
+   /**
+    * @return Retorna o identificador da temporada.
+    */
+   public final native int getIdSeason() /*-{
+      return this.idseason;
+   }-*/;
 
    /**
     * @return Retorna o nome do campeonato.
     */
    public final native String getName() /*-{
 		return this.name;
+   }-*/;
+   
+   /**
+    * @return Retorna o tipo de campeonato.
+    */
+   public final native int getType() /*-{
+      return this.type;
+   }-*/;
+   
+   /**
+    * @return Retorna flag indicando se o campenato já foi finalizado.
+    */
+   public final native int getIsFinished() /*-{
+      return this.isfinished;
    }-*/;
 
    /**
@@ -74,9 +95,21 @@ public final class Championship extends JavaScriptObject
    public final native void setId( int id ) /*-{
 		this.id = id;
    }-*/;
+   
+   public final native void setIdSeason( int idseason ) /*-{
+      this.idseason = idseason;
+   }-*/;
 
    public final native void setName( String name ) /*-{
 		this.name = name;
+   }-*/;
+   
+   public final native void setType( int type ) /*-{
+      this.type = type;
+   }-*/;
+   
+   public final native void setIsFinished( int isfinished ) /*-{
+      this.isfinished = isfinished;
    }-*/;
 
    public final native void setBaseDate( String basedate ) /*-{

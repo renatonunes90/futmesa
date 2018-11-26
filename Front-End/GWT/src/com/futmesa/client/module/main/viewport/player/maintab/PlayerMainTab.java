@@ -3,7 +3,6 @@ package com.futmesa.client.module.main.viewport.player.maintab;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.businessinteligence.tablestructures.SimpleMapInfo;
 import com.futmesa.client.module.main.viewport.player.PlayerViewport;
 import com.futmesa.client.module.main.widgets.donutchart.DonutChart;
@@ -18,7 +17,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.googlecode.gwt.charts.client.ChartLoader;
 import com.googlecode.gwt.charts.client.ChartPackage;
-import com.googlecode.gwt.charts.client.corechart.PieChart;
 
 /**
  * Viewport datela de um campeonato, com a sua classificação e rodadas.
@@ -49,8 +47,8 @@ public class PlayerMainTab {
 	
 	private HorizontalPanel panel;
 	
-	private PlayerViewport parent;
-	private Player player;
+//	private PlayerViewport parent;
+//	private Player player;
 	
 	private SimpleTable reviewTable;
 //	private SimpleTable staticticsTable;
@@ -70,8 +68,8 @@ public class PlayerMainTab {
 
 		constants = GWT.create(PlayerMainTabConsts.class);
 		
-		this.parent = parent;
-		player = null;
+//		this.parent = parent;
+//		player = null;
 		
 		panel = new HorizontalPanel();
 		

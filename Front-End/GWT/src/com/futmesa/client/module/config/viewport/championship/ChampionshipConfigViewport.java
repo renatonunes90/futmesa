@@ -56,7 +56,10 @@ public class ChampionshipConfigViewport
       addBtn.addClickHandler( handler -> {
          Championship c = ( Championship ) JavaScriptObject.createObject();
          c.setId( -1 );
+         c.setIdSeason( 2 );
          c.setName( "Teste " + Math.random() * 100 );
+         c.setType( 1 );
+         c.setIsFinished( 0 );
 //         c.setBaseDate( "opa" );
          c.setDateIncr( 2 );
          c.setGamesByRound( 3 );
