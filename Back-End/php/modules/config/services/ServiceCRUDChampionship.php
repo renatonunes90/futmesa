@@ -22,8 +22,7 @@ class ServiceCRUDChampionship
    
    public function createChampionship( string $championship ): bool
    {
-      $champBI = $this->parseChampionship( $championship );
-      return $champBI->save();
+      return $this->saveChampionship( $championship );
    }
    
    public function deleteChampionship( string $id ): bool
@@ -34,8 +33,26 @@ class ServiceCRUDChampionship
    
    public function updateChampionship( string $championship ): bool
    {
+      return $this->saveChampionship( $championship );
+   }
+   
+   private function saveChampionship( string $championship ) : bool
+   {
+      $result = false;
+      
       $champBI = $this->parseChampionship( $championship );
-      return $champBI->save();
+      
+      try
+      {
+         $result = $champBI->save();
+      }
+      catch ( Exception $e )
+      {
+         $result = false;
+         throwServerError( $e->getMessage() );
+      }
+      
+      return $result;
    }
    
    private function parseChampionship( string $json ) : \DbLib\Championship
