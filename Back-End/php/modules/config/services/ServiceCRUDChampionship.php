@@ -22,8 +22,27 @@ class ServiceCRUDChampionship
    
    public function createChampionship( string $championship ): bool
    {
-      $obj = json_decode( $championship );
+      $champBI = $this->parseChampionship( $championship );
+      return $champBI->save();
+   }
+   
+   public function deleteChampionship( string $id ): bool
+   {
+      $champs = array( $id );
+      return $this->provider_->deleteChampionships( $champs ); 
+   }
+   
+   public function updateChampionship( string $championship ): bool
+   {
+      $champBI = $this->parseChampionship( $championship );
+      return $champBI->save();
+   }
+   
+   private function parseChampionship( string $json ) : \DbLib\Championship
+   {
+      $obj = json_decode( $json );
       $champ = new \ValueObject\Championship();
+      $champ->id = $obj->id;
       $champ->idseason = $obj->idseason;
       $champ->name = $obj->name;
       $champ->type = $obj->type;
@@ -44,13 +63,7 @@ class ServiceCRUDChampionship
       }
       $champBI->setPlayers( $players );
       
-      return $champBI->save();
-   }
-   
-   public function deleteChampionship( string $id ): bool
-   {
-      $champs = array( $id );
-      return $this->provider_->deleteChampionships( $champs ); 
+      return $champBI;
    }
 }
 

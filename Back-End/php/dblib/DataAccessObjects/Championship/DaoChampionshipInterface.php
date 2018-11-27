@@ -52,21 +52,14 @@ interface DaoChampionshipInterface
    public function createChampionships( array $championships ) : bool;
    
    /**
-    * Retorna o identificador do último campeonato adicionado no banco de dados.
-    * 
-    * @return int
+    * Atualiza os campeonatos na tabela.
+    *
+    * @param array $championships
+    *           Array de campeonatos \ValueObject\Championship com os dados atualizados.
+    * @return bool Flag indicando se foi possível atualizar os campeonatos objetos.
     */
-   public function getLastInsertedId(): int;
+   public function updateChampionships( array $championships ): bool;
    
-/**
- * Atualiza os dados de objetos na tabela.
- *
- * @param array $objects
- *           Array de campeonatos \ValueObject\TableObject com os dados atualizados.
- * @return bool Flag indicando se foi possível atualizar os objetos.
- */
-   // public function updateTableObjects( array $objects ): bool;
-
    /**
     * Deleta campeonatos através de seus identificadores.
     *
@@ -83,4 +76,11 @@ interface DaoChampionshipInterface
     * @return bool Flag indicando se foi possível salvar os participantes.
     */
    public function saveParticipants( array $participants ) : bool;
+   
+   /**
+    * Retorna o identificador do último campeonato adicionado no banco de dados.
+    *
+    * @return int
+    */
+   public function getLastInsertedId(): int;
 }

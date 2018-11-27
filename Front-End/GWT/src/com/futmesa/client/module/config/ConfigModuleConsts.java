@@ -35,4 +35,10 @@ public interface ConfigModuleConsts
    @DefaultMessage ( "Save" )
    String saveBtn();
    
+   @DefaultMessage ( "Error updating {0}, try again later." )
+   String updateErrorMsg( String value );
+   
+   @DefaultMessage ( "{0} updated successfuly." )
+   String updateSuccessMsg( String value );
+   
 }

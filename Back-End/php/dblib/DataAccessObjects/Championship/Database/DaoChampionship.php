@@ -126,34 +126,38 @@ class DaoChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::updateTableObjects()
+    * @see \DAO\DaoChampionshipInterface::updateChampionships()
     */
-   // public function updateTableObjects( array $objects ): bool
-   // {
-   // $result = true;
-
-   // if( count( $objects ) > 0 )
-   // {
-   // $values = array ();
-   // foreach( $objects as $objVO )
-   // {
-   // $id = $objVO->id;
-   // $val = array_values( ( array ) $objVO );
-
-   // // passa o id para o final pois é o último argumento da query
-   // array_shift( $val );
-   // array_push( $val, $id );
-
-   // $values[] = $val;
-   // }
-   // $sql = "UPDATE tableobject
-   // SET name = ?, description = ?
-   // WHERE id = ?";
-   // $result = $this->db_->executeMultiplePrepared( $sql, $values );
-   // }
-
-   // return $result;
-   // }
+   public function updateChampionships( array $championships ): bool
+   {
+      $result = true;
+   
+      $values = array ();
+      if( count( $championships ) > 0 )
+      {
+         foreach( $championships as $c )
+         {
+            $val = array();
+            $val[] = $c->idseason;
+            $val[] = $c->name;
+            $val[] = $c->type;
+            $val[] = $c->isfinished;
+            $val[] = $c->basedate;
+            $val[] = $c->dateincr;
+            $val[] = $c->roundsbyday;
+            $val[] = $c->gamesbyround;
+            $val[] = $c->id;
+            $values[] = $val;
+         }
+         
+         $query = "UPDATE championship 
+                      SET idseason=?, name=?, type=?, isfinished=?, basedate=?, dateincr=?, roundsbyday=?, gamesbyround=?
+                    WHERE id=?";
+         $result = $this->db_->executeMultiplePrepared( $query, $values );
+      }
+   
+      return $result;
+   }
 
    /**
     *

@@ -110,25 +110,31 @@ class DaoTestChampionship implements DaoChampionshipInterface
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::updateTableObjects()
+    *  @see \DAO\DaoChampionshipInterface::updateChampionships()
     */
-   // public function updateTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
+   public function updateChampionships( array $championships ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+   
+      foreach( $championships as &$c )
+      {
+         $filter = array ();
+         $filter[ self::ID ] = $c->id;
+         $input = array ();
+         $input[ self::IDSEASON ] = $c->idseason;
+         $input[ self::NAME ] = $c->name;
+         $input[ self::TYPE ] = $c->type;
+         $input[ self::ISFINISHED ] = $c->isfinished;
+         $input[ self::BASEDATE ] = $c->basedate;
+         $input[ self::DATEINCR ] = $c->dateincr;
+         $input[ self::ROUNDSBYDAY ] = $c->roundsbyday;
+         $input[ self::GAMESBYROUND ] = $c->gamesbyround;
+         $result &= $database->updateFile( $filter, $input );
+      }
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $objVO->idasset;
-   // $input = array ();
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= $database->updateFile( $filter, $input );
-   // }
-
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     *

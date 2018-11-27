@@ -160,21 +160,28 @@ class Championship
    public function save(): bool
    {
       $champs = array( $this->championshipVO_ );
-      $result = DaoChampionshipFactory::getDaoChampionship()->createChampionships( $champs );
-      if ( $result )
+      if ( $this->championshipVO_->id <= 0 )
       {
-         $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
-         
-         $participants = array();
-         foreach ( $this->players_ as $p )
+         $result = DaoChampionshipFactory::getDaoChampionship()->createChampionships( $champs );
+         if ( $result )
          {
-            $part = new \ValueObject\Participant();
-            $part->idchampionship = $this->championshipVO_->id;
-            $part->idplayer = $p->getPlayerVO()->id;
-            $participants[] = $part;
+            $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
+            
+            $participants = array();
+            foreach ( $this->players_ as $p )
+            {
+               $part = new \ValueObject\Participant();
+               $part->idchampionship = $this->championshipVO_->id;
+               $part->idplayer = $p->getPlayerVO()->id;
+               $participants[] = $part;
+            }
+            
+            $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
          }
-         
-         $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
+      }
+      else 
+      {
+         $result = DaoChampionshipFactory::getDaoChampionship()->updateChampionships( $champs );
       }
          
       return $result;

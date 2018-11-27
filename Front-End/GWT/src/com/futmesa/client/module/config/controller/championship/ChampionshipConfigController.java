@@ -182,12 +182,12 @@ public class ChampionshipConfigController
          boolean response = Boolean.valueOf( records.toString() );
          if ( response )
          {
-            Window.alert( constants.addSuccessMsg( constants.championshipLabel() ) );
+            Window.alert( constants.updateSuccessMsg( constants.championshipLabel() ) );
             reloadList();
          }
          else
          {
-            Window.alert( constants.addErrorMsg( constants.championshipLabel() ) );
+            Window.alert( constants.updateErrorMsg( constants.championshipLabel() ) );
          }
       }
    }

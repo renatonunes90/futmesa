@@ -244,13 +244,13 @@ public class ChampionshipForm
             if ( checkP.getId() == p.getId() )
             {
                participants.get( checkP ).setValue( true );
-               
-               // não é possível remover um participante do campeonato
-               participants.get( checkP ).setEnabled( false );
                break;
             }
          }
       }
+      
+      // desbilita campos que não podem ser editados
+      enableFields( championship.getId() <= 0 );
    }
 
    public void setPlayers( JsArray< Player > players )
@@ -329,6 +329,21 @@ public class ChampionshipForm
       }
    }
 
+   private void enableFields( boolean enable )
+   {
+      typeInput.setEnabled( enable );
+      baseDateInput.setEnabled( enable );
+      baseTimeInput.setEnabled( enable );
+      gamesByRoundInput.setEnabled( enable );
+      roundsByDayInput.setEnabled( enable );
+      dateIncrInput.setEnabled( enable );
+      
+      for ( Player checkP : participants.keySet() )
+      {
+         participants.get( checkP ).setEnabled( enable );
+      }
+   }
+   
    private void clearForm()
    {
       nameInput.setValue( "" );
