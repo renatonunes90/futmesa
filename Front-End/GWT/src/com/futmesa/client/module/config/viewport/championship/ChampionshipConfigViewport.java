@@ -6,6 +6,7 @@ import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.builder.ChampionshipBuilder;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.businessinteligence.Season;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.futmesa.client.module.config.widgets.championshipform.ChampionshipForm;
 import com.futmesa.client.module.config.widgets.championshiptable.ChampionshipTable;
@@ -69,7 +70,8 @@ public class ChampionshipConfigViewport
       panel.setCellHorizontalAlignment( btnPanel, HasHorizontalAlignment.ALIGN_CENTER);
       
       addBtn.addClickHandler( handler -> {
-         showChampionshipForm( ChampionshipBuilder.buildEmpty() );
+         ChampionshipConfigController.EDIT_CHAMPIONSHIP.setProperty( EventProperty.CHAMPIONSHIP, ChampionshipBuilder.buildEmpty() );
+         EventBus.getInstance().fireEvent( ChampionshipConfigController.EDIT_CHAMPIONSHIP );
       });
       
       cancelBtn.addClickHandler( handler -> {
@@ -129,5 +131,11 @@ public class ChampionshipConfigViewport
    public void setPlayers( JsArray< Player > players )
    {
       championshipForm.setPlayers( players );
+   }
+   
+   public void setSeasons( JsArray< Season > seasons )
+   {
+      championshipTable.setSeasons( seasons );
+      championshipForm.setSeasons( seasons );
    }
 }

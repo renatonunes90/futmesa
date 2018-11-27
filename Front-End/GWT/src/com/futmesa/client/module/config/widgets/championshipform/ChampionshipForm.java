@@ -12,6 +12,7 @@ import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.businessinteligence.Season;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -60,6 +61,8 @@ public class ChampionshipForm
       String customRow();
    
       String customLabel();
+
+      String customSelect();
       
       String customCheck();
    }
@@ -114,6 +117,11 @@ public class ChampionshipForm
     * Lista de participantes do campeonato.
     */
    private Map< Player, CheckBox > participants;
+
+   /**
+    * Lista de temporadas possíveis para o campeonato.
+    */
+   private List< Season > seasons;
    
    /**
     * Lista de jogadores cadastrados no sistema para serem selecionados como participantes.
@@ -131,6 +139,7 @@ public class ChampionshipForm
       championship = null;
       players = new ArrayList<>();
       participants = new HashMap<>();
+      seasons = new ArrayList<>();
       
       // Create the UiBinder.
       uiBinder.createAndBindUi( this );
@@ -139,19 +148,8 @@ public class ChampionshipForm
       baseDateInput.setFormat( new DateBox.DefaultFormat( dateFormat ) );
       baseDateInput.getDatePicker().setYearArrowsVisible( true );
       
-      for ( int i = 0; i < 24; i++ ) 
-      {
-         String hour = i < 10 ? "0" : "";
-         hour += String.valueOf( i ) + ":00";
-         baseTimeInput.addItem( hour );
-      }
-      
-      typeInput.addItem( ChampionshipType.FREE_FOR_ALL.getLabel() );
-      typeInput.addItem( ChampionshipType.CLASSIFICATORY_GROUPS.getLabel() );
-      typeInput.addItem( ChampionshipType.CLASSIFICATORY_DEATHMATCH.getLabel() );
-      
-      seasonInput.addItem( "2017" );
-      seasonInput.addItem( "2018" );
+      createHourSelect();
+      createTypeSelect();
    }
 
    @Override
@@ -164,13 +162,20 @@ public class ChampionshipForm
    public Championship getChampionship()
    {
       championship.setName( nameInput.getValue() );
+      
+      for ( Season s : seasons )
+      {
+         if ( s.getName().equals( seasonInput.getSelectedItemText() ) )
+         {
+            championship.setIdSeason( s.getId() );
+            break;
+         }
+      }
 
       String dateString = DateUtil.dateToString( baseDateInput.getValue(), DateUtil.DB_FORMAT );
       dateString = dateString.substring( 0, dateString.indexOf( " " ) );
       dateString += " " + baseTimeInput.getSelectedItemText();
       championship.setBaseDate( dateString );
-
-      championship.setIdSeason( seasonInput.getSelectedIndex() + 1 );
 
       championship.setType( typeInput.getSelectedIndex() );
 
@@ -203,7 +208,16 @@ public class ChampionshipForm
       clearForm();
 
       nameInput.setValue( championship.getName() );
-      seasonInput.setSelectedIndex( championship.getIdSeason() - 1 );
+      
+      for ( int i = 0; i < seasons.size(); i++ )
+      {
+         if ( seasons.get( i ).getId() == championship.getIdSeason() )
+         {
+            seasonInput.setSelectedIndex( i );
+            break;
+         }
+      }
+      
       typeInput.setSelectedIndex( championship.getType() );
       
       if ( championship.getBaseDate() == null )
@@ -215,7 +229,7 @@ public class ChampionshipForm
          String baseDate = championship.getBaseDate();
          Date date = DateUtil.stringToDate( baseDate, DateUtil.DB_FORMAT );
          baseDateInput.setValue( date );
-         baseTimeInput.setSelectedIndex( Integer.parseInt( baseDate.substring( baseDate.indexOf( " " ), baseDate.indexOf( ":" ) ) ) );
+         baseTimeInput.setSelectedIndex( Integer.parseInt( baseDate.substring( baseDate.indexOf( " " ) + 1, baseDate.indexOf( ":" ) ) ) );
       }
       
       gamesByRoundInput.setValue( String.valueOf( championship.getGamesByRound() ) );
@@ -250,7 +264,36 @@ public class ChampionshipForm
       
       updateParticipantsOptions();
    }
+   
+   public void setSeasons( JsArray< Season > seasons )
+   {
+      this.seasons.clear();
+      seasonInput.clear();
 
+      for ( int i = 0; i < seasons.length(); i++ )
+      {
+         this.seasons.add( seasons.get( i ) );
+         seasonInput.addItem( seasons.get( i ).getName() );
+      }
+   }
+
+   private void createTypeSelect()
+   {
+      typeInput.addItem( ChampionshipType.FREE_FOR_ALL.getLabel() );
+      typeInput.addItem( ChampionshipType.CLASSIFICATORY_GROUPS.getLabel() );
+      typeInput.addItem( ChampionshipType.CLASSIFICATORY_DEATHMATCH.getLabel() );
+   }
+
+   private void createHourSelect()
+   {
+      for ( int i = 0; i < 24; i++ ) 
+      {
+         String hour = i < 10 ? "0" : "";
+         hour += String.valueOf( i ) + ":00";
+         baseTimeInput.addItem( hour );
+      }
+   }
+   
    private void updateParticipantsOptions()
    {
       participantsPanelColumn1.clear();
@@ -265,13 +308,13 @@ public class ChampionshipForm
          checkBox.setStyleName( resources.styles().customCheck() );
          participants.put( player, checkBox );
          
-         if ( i < 8 )
+         if ( i < 10 )
          {
             participantsPanelColumn1.add( checkBox );
             participantsPanelColumn1.setCellHeight( checkBox, "31px" );
             participantsPanelColumn1.setCellWidth( checkBox, "150px" );
          }
-         else if ( i >= 8 && i < 16 )
+         else if ( i >= 10 && i < 20 )
          {
             participantsPanelColumn2.add( checkBox );
             participantsPanelColumn2.setCellHeight( checkBox, "31px" );

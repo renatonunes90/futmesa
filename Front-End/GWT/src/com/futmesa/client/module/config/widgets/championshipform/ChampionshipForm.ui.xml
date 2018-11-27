@@ -17,11 +17,11 @@
             </g:HorizontalPanel>
             <g:HorizontalPanel addStyleNames='{style.customRow}'>
                <g:Label addStyleNames='{style.customLabel}' text="{consts.seasonLabel}:"></g:Label>
-               <g:ListBox ui:field='seasonInput'></g:ListBox> 
+               <g:ListBox ui:field='seasonInput' addStyleNames='{style.customSelect}'></g:ListBox> 
             </g:HorizontalPanel>
             <g:HorizontalPanel addStyleNames='{style.customRow}'>
                <g:Label addStyleNames='{style.customLabel}' text='{consts.typeLabel}:'></g:Label>
-               <g:ListBox ui:field='typeInput'></g:ListBox> 
+               <g:ListBox ui:field='typeInput' addStyleNames='{style.customSelect}'></g:ListBox> 
             </g:HorizontalPanel>
             <g:HorizontalPanel addStyleNames='{style.customRow}'>
                <g:Label addStyleNames='{style.customLabel}' text='{consts.baseDateLabel}:'></g:Label>
@@ -29,7 +29,7 @@
             </g:HorizontalPanel>
             <g:HorizontalPanel addStyleNames='{style.customRow}'>
                <g:Label addStyleNames='{style.customLabel}' text='{consts.baseTimeLabel}:'></g:Label>
-               <g:ListBox ui:field='baseTimeInput'></g:ListBox> 
+               <g:ListBox ui:field='baseTimeInput' addStyleNames='{style.customSelect}'></g:ListBox> 
             </g:HorizontalPanel>
             <g:HorizontalPanel addStyleNames='{style.customRow}'>
                <g:Label addStyleNames='{style.customLabel}' text='{consts.gamesbByRoundLabel}:'></g:Label>

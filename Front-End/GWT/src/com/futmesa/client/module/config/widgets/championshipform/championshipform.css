@@ -26,6 +26,10 @@
 	width: 150px;
 }
 
+.customSelect {
+   height: 27px;
+}
+
 .customCheck {
    font-size: 17px;
    font-family: opensans !important;

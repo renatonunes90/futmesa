@@ -1,13 +1,16 @@
 package com.futmesa.client.module.config.widgets.championshiptable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.futmesa.client.base.ChampionshipType;
 import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
+import com.futmesa.client.businessinteligence.Season;
 import com.futmesa.client.module.config.controller.championship.ChampionshipConfigController;
 import com.futmesa.client.module.config.widgets.common.ChampionshipCommonConsts;
 import com.google.gwt.cell.client.ClickableTextCell;
@@ -74,6 +77,8 @@ public class ChampionshipTable
    private Column< Championship, String > editColumn;
 
    private Column< Championship, String > removeColumn;
+   
+   private Map<Integer, String> seasons;
 
    /**
     * Construtor padrão.
@@ -85,6 +90,8 @@ public class ChampionshipTable
 
       constants = GWT.create( ChampionshipCommonConsts.class );
 
+      seasons = new HashMap<>();
+      
       table = new DataGrid< Championship >();
       table.setTableBuilder( new CustomTableBuilder( table ) );
       table.setSkipRowHoverStyleUpdate( true );
@@ -154,6 +161,16 @@ public class ChampionshipTable
       return table;
    }
 
+   public void setSeasons( JsArray< Season > seasons )
+   {
+      this.seasons.clear();
+
+      for ( int i = 0; i < seasons.length(); i++ )
+      {
+         this.seasons.put( seasons.get( i ).getId(), seasons.get( i ).getName() );
+      }
+   }
+   
    public void updateTableInfo( JsArray< Championship > infos )
    {
       List< Championship > data = new ArrayList< Championship >();
@@ -217,12 +234,12 @@ public class ChampionshipTable
          }
 
          buildRow( row, rowValue.getName() );
-         buildRow( row, "2018" );
+         buildRow( row, seasons.get( rowValue.getIdSeason() ) != null ? seasons.get( rowValue.getIdSeason() ) : "-" );
          buildRow( row, ChampionshipType.getLabelIndex( rowValue.getType() ) );
          buildRow( row, DateUtil.convertPattern( rowValue.getBaseDate(), DateUtil.DB_FORMAT, DateUtil.SIMPLE_DATETIME ) );
-         buildRow( row, String.valueOf( rowValue.getGamesByRound() ) );
-         buildRow( row, String.valueOf( rowValue.getRoundsByDay() ) );
-         buildRow( row, String.valueOf( rowValue.getDateIncr() ) );
+         buildRow( row, parseIntSafe( rowValue.getGamesByRound() ) );
+         buildRow( row, parseIntSafe( rowValue.getRoundsByDay() ) );
+         buildRow( row, parseIntSafe( rowValue.getDateIncr() ) );
          buildRow( row, rowValue.getIsFinished() == 0 ? "Não" : "Sim" );
          buildButtonCell( row, rowValue, false );
          buildButtonCell( row, rowValue, true );
@@ -250,6 +267,12 @@ public class ChampionshipTable
          td.endTD();
       }
 
+      private String parseIntSafe( int value )
+      {
+         String result = String.valueOf( value );
+         return result == null || result.isEmpty() ? "-" : result;
+      }
    }
+   
 
 }

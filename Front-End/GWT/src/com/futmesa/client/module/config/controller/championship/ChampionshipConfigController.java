@@ -6,10 +6,12 @@ import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.businessinteligence.Season;
 import com.futmesa.client.module.config.ConfigModuleConsts;
 import com.futmesa.client.module.config.viewport.championship.ChampionshipConfigViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.ServicePlayer;
+import com.futmesa.client.request.service.ServiceSeason;
 import com.futmesa.client.request.service.base.ServiceInterface;
 import com.futmesa.client.request.service.config.ServiceCRUDChampionship;
 import com.futmesa.client.windows.main.BaseViewport;
@@ -38,8 +40,14 @@ public class ChampionshipConfigController
    private ServiceChampionship serviceChampionship;
    private ServiceCRUDChampionship serviceCRUDChampionship;
    private ServicePlayer servicePlayer;
+   private ServiceSeason serviceSeason;
    
    private ChampionshipConfigViewport championshipConfigViewport;
+   
+   /**
+    * Armazena o próximo campeonato que será exibido após carregar as informações do formulário.
+    */
+   private Championship championship;
 
    /**
     * Construtor padrão.
@@ -51,6 +59,7 @@ public class ChampionshipConfigController
       serviceChampionship = new ServiceChampionship( this );
       serviceCRUDChampionship = new ServiceCRUDChampionship( this );
       servicePlayer = new ServicePlayer( this );
+      serviceSeason = new ServiceSeason( this );
       
       EventBus.getInstance().addHandler( CREATE_CHAMPIONSHIP.getAssociatedType(), new CustomEventHandler()
       {
@@ -67,8 +76,9 @@ public class ChampionshipConfigController
          @Override
          public void onEvent( CustomEvent event )
          {
-            Championship c = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
-            serviceChampionship.requestChampionshipCompleteInfo( c.getId() );
+            championship = ( Championship ) event.getProperty( EventProperty.CHAMPIONSHIP );
+            
+            servicePlayer.requestPlayers();
          }
       } );
       
@@ -99,27 +109,42 @@ public class ChampionshipConfigController
    public void openViewport()
    {
       championshipConfigViewport = new ChampionshipConfigViewport();
-      serviceChampionship.requestChampionships();
+      serviceSeason.requestSeasons();
    }
    
    
    @Override
    public void onServiceResult( JavaScriptObject records, String requestId )
    {
-      if ( ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals( requestId ) ) 
+      if ( ServiceSeason.GET_ALL_SEASONS.equals( requestId ) ) 
+      {
+         JsArray< Season > seasons = records.cast();
+         championshipConfigViewport.setSeasons( seasons );
+         
+         serviceChampionship.requestChampionships();
+      }
+      else if ( ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals( requestId ) ) 
       {
          JsArray<Championship> championships = records.cast();
          championshipConfigViewport.setChampionships( championships );
 
-         servicePlayer.requestPlayers();
+         BaseViewport.getInstance().setTitleHeaderLabel( "Gerenciamento de Campeonatos" );
+         BaseViewport.getInstance().setViewportContent( championshipConfigViewport );
       }
       else if ( ServicePlayer.GET_ALL_PLAYERS.equals( requestId ) ) 
       {
          JsArray< Player > players = records.cast();
          championshipConfigViewport.setPlayers( players );
-
-         BaseViewport.getInstance().setTitleHeaderLabel( "Gerenciamento de Campeonatos" );
-         BaseViewport.getInstance().setViewportContent( championshipConfigViewport );
+         
+         if ( championship.getId() > 0 )
+         {
+            serviceChampionship.requestChampionshipCompleteInfo( championship.getId() );
+         }
+         else
+         {
+            championshipConfigViewport.showChampionshipForm( championship );
+         }
+         
       }
       else if ( ServiceChampionship.GET_CHAMPIONSHIP_INFO.equals( requestId ) )
       {
