@@ -1,0 +1,6 @@
+version: "3.5"
+services:
+    futmesa-frontend:
+        image: futmesa-frontend
+        ports:
+            - "80:80"

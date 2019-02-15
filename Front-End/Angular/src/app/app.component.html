@@ -1,0 +1,30 @@
+<ng-http-loader [backgroundColor]="'#d1e0e0'" [spinner]="spinkit.skRotatingPlane" [debounceDelay]="100"
+  [minDuration]="300" [extraDuration]="300"></ng-http-loader>
+
+<div *ngIf="isLoggedIn$ | async; else loginBlock" class="d-flex flex-column flex-fill ">
+  <app-header></app-header>
+  <div class="d-flex flex-row flex-fill ml-0 mr-0 ">
+    <div class="col-3 flex-fill ml-0 pl-0 pr-0">
+
+    </div>
+    <div class="col-9 flex-fill ml-4 mr-4 pl-0 pr-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #loginBlock>
+  <div class="row flex-fill">
+    <div class="col-sm-12 flex-fill">
+      <main class="main login">
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col-md-5">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</ng-template>

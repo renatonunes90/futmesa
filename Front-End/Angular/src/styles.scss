@@ -1,0 +1,13 @@
+@import '~angular-tree-component/dist/angular-tree-component.css';
+@import '~bootstrap-scss/bootstrap.scss';
+@import '~ngx-toastr/toastr.css';
+
+html, body {
+    min-height:100vh;
+}
+
+.flex-container {
+    min-height:100vh;
+	display: flex;
+	flex-direction: column;
+}

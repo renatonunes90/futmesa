@@ -1,0 +1,18 @@
+<form *ngIf="!showCostCenter; else costCenterBlock" action="" class="box-shadow login__box" id="js-frm-login" method="post">
+    <div class="message-box-absolute" role="alert">
+        <span class="message message--error">{{errorMessage}}</span>
+    </div>
+    <div class="p-form-group">
+        <label class="sr-only" for="txt_user">Usuário de Rede</label>
+        <input class="p-form-control" id="txt_user" maxlength="60" name="txt_user" placeholder="Usuário de Rede" type="text"
+            [formControl]="usernameControl" />
+    </div>
+    <div class="p-form-group">
+        <label class="sr-only" for="txt_pass">Senha</label>
+        <input class="p-form-control" id="txt_pass" maxlength="30" name="txt_pass" placeholder="Senha" type="password"
+            [formControl]="passwordControl" />
+        <button class="p-btn p-btn-toggle-pass" id="js-toggle-pass" type="button">Mostrar</button>
+    </div>
+    <input class="p-btn p-btn-primary p-btn-large p-btn-full" id="btn_login" name="btn_login" type="submit" value="Entrar"
+        (click)="doLogin()" />
+</form>

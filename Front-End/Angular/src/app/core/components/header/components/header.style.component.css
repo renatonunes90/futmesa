@@ -1,0 +1,32 @@
+.headerDiv {
+    width: 100%;
+    height: 98px;
+    background: RGB(14, 57, 112);
+    background-image: url('/assets/images/linha_degrade100.png');
+    background-repeat: repeat-x;
+    font-family: Verdana, Tahoma, Arial;
+    font-size: 16pt;
+}
+
+.environmentName {
+    color: #E2B116;
+    padding: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.headerIcon {
+    height: 90px;
+}
+
+.headerAppName {
+    color: RGB(230, 230, 230);
+}
+
+.headerUserName {
+    font-family: Verdana, Tahoma, Arial;
+    font-size: 9px;
+    color: rgb(230, 230, 230);
+    height: 20px;
+    font-weight: bold;
+}
