@@ -3,7 +3,7 @@
   xmlns:ui="urn:ui:com.google.gwt.uibinder"
   xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-  <ui:with field="consts" type="com.futmesa.client.module.main.dialogs.about.AboutDialogConsts" /> 
+  <ui:with field="consts" type="com.futmesa.client.windows.main.about.AboutDialogConsts" /> 
   	
   <ui:style src="aboutdialog.css" /> 
 

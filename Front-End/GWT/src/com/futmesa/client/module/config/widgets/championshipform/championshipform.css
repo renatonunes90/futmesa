@@ -1,0 +1,36 @@
+.championshipEditTitle {
+	font-weight: bold;
+	font-size: 26px;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.customLeftPanel {
+	padding-right: 30px;
+	border-right: 1px solid #c0c0c0;
+}
+
+.customRightPanel {
+	padding-left: 20px;
+}
+
+.customRow {
+	margin-bottom: 10px;
+}
+
+.customLabel {
+	text-align: right;
+	margin-right: 10px;
+	font-size: 17px;
+	font-family: opensans !important;
+	width: 150px;
+}
+
+.customSelect {
+   height: 27px;
+}
+
+.customCheck {
+   font-size: 17px;
+   font-family: opensans !important;
+}

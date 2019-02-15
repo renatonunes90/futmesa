@@ -1,16 +1,17 @@
 package com.futmesa.client.windows.main;
 
-import com.futmesa.client.base.ModuleInterface;
+import com.futmesa.client.base.Modules;
+import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
-import com.futmesa.client.module.main.dialogs.about.AboutDialog;
+import com.futmesa.client.module.main.MainModulePanel;
+import com.futmesa.client.windows.main.about.AboutDialog;
+import com.futmesa.client.windows.main.landing.LandingViewport;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -40,6 +41,11 @@ public final class BaseViewport
     */
    private static BaseViewport singleton;
 
+   /**
+    * Constantes da classe.
+    */
+   private BaseViewportConsts constants;
+   
    @UiField
    protected HorizontalPanel mainPanel;
 
@@ -49,6 +55,9 @@ public final class BaseViewport
    @UiField
    protected Label championshipLabel;
 
+   @UiField
+   protected FocusPanel homeShortcut;
+   
    @UiField
    protected MenuBar configMenuBar;
 
@@ -64,53 +73,73 @@ public final class BaseViewport
    @UiField
    protected DockLayoutPanel vLayout;
 
+   /**
+    * Menu de campeonatos. Instância dinamicamente seus subitens conforme os campeonatos cadastrados no sistema.
+    */
+   private MenuBar championshipMenu;
+
+   /**
+    * Menu de jogadores. Instância dinamicamente seus subitens conforme os jogadores cadastrados no sistema.
+    */
    private MenuBar playerMenu;
 
-   private MenuBar championshipMenu;
+   /**
+    * Instância do campeonato mais recente.
+    */
+   private Championship lastChampionship;
 
    /**
     * Construtor padrão.
     */
    private BaseViewport()
    {
+      constants = GWT.create( BaseViewportConsts.class );
+      
       uiBinder.createAndBindUi( this );
 
       createMainMenu();
       createConfigMenu();
 
+      homeShortcut.addClickHandler( handler -> {
+         Window.Location.assign( Window.Location.getPath() );
+      });
+      
       helpButton.setPixelSize( 24, 24 );
+      helpButton.addClickHandler( handler -> {
+         AboutDialog about = new AboutDialog();
+         about.show();
+      });
    }
 
    private void createMainMenu()
    {
-      // Create a menu bar
       menuBar.setAutoOpen( true );
       menuBar.setAnimationEnabled( true );
 
-      // Create a sub menu of recent documents
       championshipMenu = new MenuBar( true );
       playerMenu = new MenuBar( true );
 
-      // Create the file menu
       MenuBar mainMenu = new MenuBar( true );
       mainMenu.setAnimationEnabled( true );
 
+      // item raiz vazio somente para abrir os submenus
       MenuItem mainItem = new MenuItem( "   ", mainMenu );
       mainItem.setPixelSize( 24, 24 );
       menuBar.addItem( mainItem );
 
-      mainMenu.addItem( new MenuItem( "Campeonatos", championshipMenu ) );
-      mainMenu.addItem( new MenuItem( "Jogadores", playerMenu ) );
+      mainMenu.addItem( new MenuItem( constants.championshipMenu(), championshipMenu ) );
+      mainMenu.addItem( new MenuItem( constants.playerMenu(), playerMenu ) );
    }
 
    private void createConfigMenu()
    {
       configMenuBar.setAutoOpen( true );
       configMenuBar.setAnimationEnabled( true );
-
+      
       MenuBar mainMenu = new MenuBar( true );
       mainMenu.setAnimationEnabled( true );
 
+      // item raiz vazio somente para abrir os submenus
       MenuItem mainItem = new MenuItem( "   ", mainMenu );
       mainItem.setPixelSize( 24, 24 );
       configMenuBar.addItem( mainItem );
@@ -119,28 +148,21 @@ public final class BaseViewport
       {
          public void execute()
          {
-            Window.Location.assign( "?view=championship&id=1"  );
+            URLFilter filter = new URLFilter( Modules.CONFIG_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL );
+            Window.Location.assign( filter.toURLString() );
          }
       };
-      
-      mainMenu.addItem( new MenuItem( "Editar Campeonatos", menuCommand ) );
+      mainMenu.addItem( new MenuItem( constants.manageChampionshipMenu(), menuCommand ) );
       
       menuCommand = new Command()
       {
          public void execute()
          {
-            Window.Location.assign( "?view=championship&id=1"  );
+            URLFilter filter = new URLFilter( Modules.CONFIG_MODULE, MainModulePanel.PLAYER_PANEL );
+            Window.Location.assign( filter.toURLString() );
          }
       };
-      
-      mainMenu.addItem( new MenuItem( "Editar Jogadores", menuCommand ) );
-   }
-
-   @UiHandler ( "helpButton" )
-   protected void helpButtonClicked( ClickEvent e )
-   {
-      AboutDialog about = new AboutDialog();
-      about.show();
+      mainMenu.addItem( new MenuItem( constants.managePlayersMenu(), menuCommand ) );
    }
 
    /**
@@ -151,59 +173,27 @@ public final class BaseViewport
     */
    public void setViewportContent( ViewportInterface panel )
    {
-      // Deleta o conteúdo atual.
+      // deleta o conteúdo atual
       mainPanel.clear();
 
-      // Atualiza o help do módulo.
-      // SafeHtmlBuilder sb = new SafeHtmlBuilder();
-      // String help = panel.getHelp();
-      // sb.appendHtmlConstant( "<div style='width: 400px;'>" + help + "</div>" );
-      // btnHelp.setToolTip( sb.toSafeHtml() );
-      // btnHelp.setVisible( help != null && !help.isEmpty() );
-
-      // Coloca a tela na viewport e atualiza ela com o filtro.
+      // coloca a tela na viewport e atualiza ela com o filtro
       mainPanel.add( panel );
-      // cpContent.forceLayout();
    }
 
    /**
-    * Habilita o Módulo de configuração avançada da interface.
+    * Habilita o Módulo de configuração da interface.
     */
-   public void ableAdvancedConfigModule()
+   public void ableConfigModule()
    {
-      // btnOptions.setVisible( true );
+      configMenuBar.setVisible( true );
    }
 
    /**
-    * Habilita o Módulo Base de configurações de usuário da interface.
-    */
-   public void ableUserConfig()
-   {
-      // btnUser.setVisible( true );
-   }
-
-   /**
-    * Adiciona os menus para um Módulo na interface.
+    * Coloca o texto no header centralizado da página.
     * 
-    * @param module
-    *           Módulo a ser adicionado.
+    * @param text
     */
-   public void addModule( ModuleInterface module )
-   {
-      // modulesMenu.add( module.getMenuBtn(), ( BoxLayoutData ) btnUser.getLayoutData() );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Log de Mensagens".
-    * 
-    * @param target
-    */
-   public void setMessageLogLinkTarget( String target )
-   {
-      // linkMessageLog.setTargetHistoryToken( target );
-   }
-
-   public void setChampionshipLabel( String text )
+   public void setTitleHeaderLabel( String text )
    {
       championshipLabel.setText( text );
    }
@@ -217,26 +207,6 @@ public final class BaseViewport
    public void setUserLogged( String username )
    {
       // btnUser.setText( username );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Gerenciador de Usuários".
-    * 
-    * @param target
-    */
-   public void setUserManagerLinkTarget( String target )
-   {
-      // linkUserManager.setTargetHistoryToken( target );
-   }
-
-   /**
-    * Seta o link que será utilizado no botão de "Gerenciador de Grupos de Usuários".
-    * 
-    * @param target
-    */
-   public void setUserGroupManagerLinkTarget( String target )
-   {
-      // linkUserGroupManager.setTargetHistoryToken( target );
    }
 
    /**
@@ -255,6 +225,11 @@ public final class BaseViewport
       return vLayout;
    }
 
+   /**
+    * Cria os links para cada campeonato no menu.
+    * 
+    * @param championships
+    */
    public void setChampionships( JsArray< Championship > championships )
    {
       for ( int i = 0; i < championships.length(); i++ )
@@ -264,13 +239,25 @@ public final class BaseViewport
          {
             public void execute()
             {
-               Window.Location.assign( "?view=championship&id=" + String.valueOf( championships.get( index ).getId() ) );
+               URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL );
+               filter.addFilter( "id", String.valueOf( championships.get( index ).getId() ) );
+               Window.Location.assign( filter.toURLString() );
             }
          };
          championshipMenu.addItem( new MenuItem( championships.get( i ).getName(), menuCommand ) );
       }
+      
+      if ( championships.length() > 0 ) 
+      {
+         lastChampionship = championships.get( championships.length() -1 );
+      }
    }
 
+   /**
+    * Cria os links para cada jogador no menu.
+    * 
+    * @param players
+    */
    public void setPlayers( JsArray< Player > players )
    {
       for ( int i = 0; i < players.length(); i++ )
@@ -280,10 +267,25 @@ public final class BaseViewport
          {
             public void execute()
             {
-               Window.Location.assign( "?view=player&id=" + String.valueOf( players.get( index ).getId() ) );
+               URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.PLAYER_PANEL );
+               filter.addFilter( "id", String.valueOf( players.get( index ).getId() ) );
+               Window.Location.assign( filter.toURLString() );
             }
          };
          playerMenu.addItem( new MenuItem( players.get( i ).getName(), menuCommand ) );
       }
+   }
+   
+   /**
+    * Mostra uma página inicial.
+    */
+   public void showLandingPage()
+   {
+      LandingViewport landing = new LandingViewport();
+      if ( lastChampionship != null )
+      {
+         landing.setLastChampionshipLink( lastChampionship.getId() );
+      }
+      setViewportContent( landing );
    }
 }

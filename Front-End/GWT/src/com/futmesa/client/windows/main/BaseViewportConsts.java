@@ -11,4 +11,15 @@ public interface BaseViewportConsts
    @DefaultStringValue ( "FM Manager" )
    String pageTitle();
 
+   @DefaultStringValue ( "Championships" )
+   String championshipMenu();
+
+   @DefaultStringValue ( "Players" )
+   String playerMenu();
+   
+   @DefaultStringValue ( "Manage Championships" )
+   String manageChampionshipMenu();
+
+   @DefaultStringValue ( "Manage Players" )
+   String managePlayersMenu();
 }

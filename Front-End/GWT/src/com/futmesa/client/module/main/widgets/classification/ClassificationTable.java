@@ -3,7 +3,10 @@ package com.futmesa.client.module.main.widgets.classification;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.futmesa.client.base.Modules;
+import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.businessinteligence.Classification;
+import com.futmesa.client.module.main.MainModulePanel;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -13,7 +16,6 @@ import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.builder.shared.SpanBuilder;
 import com.google.gwt.dom.builder.shared.TableCellBuilder;
 import com.google.gwt.dom.builder.shared.TableRowBuilder;
-import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
@@ -48,6 +50,8 @@ public class ClassificationTable {
 		String customClassificationHeader();
 
 		String customColumn();
+		
+	   String customSpanPlayerColumn();
 
 		String customEvenColumn();
 
@@ -78,7 +82,7 @@ public class ClassificationTable {
 
 	public ClassificationTable() {
 
-	    constants = GWT.create(ClassificationTableConsts.class);
+	   constants = GWT.create(ClassificationTableConsts.class);
 		
 		resources = GWT.create(Resources.class);
 		resources.styles().ensureInjected();
@@ -90,14 +94,16 @@ public class ClassificationTable {
 		playerColumn = new Column<Classification, String>(new ClickableTextCell()) {
 		      @Override
 		      public String getValue(Classification object) {
-		    	  return String.valueOf(object.getPosition()) + " " + object.getPlayerName();
+		         return String.valueOf(object.getPosition()) + " " + object.getPlayerName();
 		      }
 		    };
 		    
 		playerColumn.setFieldUpdater(new FieldUpdater<Classification, String>() {
 		      @Override
 		      public void update(int index, Classification object, String value) {
-		    	  Window.Location.assign( "?view=player&id=" + String.valueOf( object.getPlayerId() ) );
+		         URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.PLAYER_PANEL );
+		         filter.addFilter( "id", String.valueOf( object.getPlayerId() ) );
+		         Window.Location.assign( filter.toURLString()  );
 		      }
 		    });
 			
@@ -195,6 +201,7 @@ public class ClassificationTable {
 
 		private final StringBuilder evenCellStyles;
 		private final String cellStyles;
+		private final String customSpanStyle;
 		private final String winStyle;
 		private final String neutralStyle;
 		private final String lossStyle;
@@ -208,6 +215,8 @@ public class ClassificationTable {
 			evenCellStyles = new StringBuilder(resources.styles().customEvenColumn());
 			evenCellStyles.append(" " + resources.styles().customColumn());
 
+			customSpanStyle = resources.styles().customSpanPlayerColumn();
+			
 			winStyle = resources.styles().customIcon() + " " + resources.styles().customWinIcon(); 
 			neutralStyle = resources.styles().customIcon() + " " + resources.styles().customNeutralIcon(); 
 			lossStyle = resources.styles().customIcon() + " " + resources.styles().customLossIcon(); 
@@ -259,7 +268,7 @@ public class ClassificationTable {
 			td.className(cellStyles);
 			td.style().textAlign(TextAlign.LEFT).fontSize(17, Unit.PX).endStyle();
 			SpanBuilder sp = td.startSpan();
-			sp.style().cursor( Cursor.POINTER ).endStyle();
+			sp.className( customSpanStyle );
 			renderCell(sp, createContext(0), playerColumn, rowValue);
 			sp.endSpan();
 			td.endTD();

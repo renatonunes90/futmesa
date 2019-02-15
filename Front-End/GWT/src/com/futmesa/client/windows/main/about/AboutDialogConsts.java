@@ -1,4 +1,4 @@
-package com.futmesa.client.module.main.dialogs.about;
+package com.futmesa.client.windows.main.about;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Constants;

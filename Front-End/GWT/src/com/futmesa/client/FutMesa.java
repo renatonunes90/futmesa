@@ -1,8 +1,10 @@
 package com.futmesa.client;
 
+import com.futmesa.client.base.Modules;
 import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Player;
+import com.futmesa.client.module.config.ConfigModule;
 import com.futmesa.client.module.main.MainModule;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.ServicePlayer;
@@ -15,8 +17,8 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
-
 /**
+ * Ponto de entrada do sistema. Carrega os menus e a viewport conforme os parâmetros.
  */
 public class FutMesa implements EntryPoint, ServiceInterface
 {
@@ -26,6 +28,8 @@ public class FutMesa implements EntryPoint, ServiceInterface
    private ServicePlayer servicePlayer;
    
    private MainModule mainModule;
+   
+   private ConfigModule configModule;
 
    /**
     * Construtor padrão.
@@ -56,8 +60,6 @@ public class FutMesa implements EntryPoint, ServiceInterface
       // listener para chamar o update da viewport quando a url é alterada
       History.addValueChangeHandler( handler -> updateViewport() );
 
-      mainModule = new MainModule();
-      BaseViewport.getInstance().addModule( mainModule );
       this.updateViewport();
    }
    
@@ -65,11 +67,21 @@ public class FutMesa implements EntryPoint, ServiceInterface
    {
       URLFilter filter = new URLFilter( Window.Location.getQueryString() );
       String moduleFilter = filter.getFilter( URLFilter.MODULE );
-      // if ( moduleFilter.equalsIgnoreCase( "sample" ) )
+      if ( Modules.MAIN_MODULE.equalsIgnoreCase( moduleFilter ) )
+      {
+         mainModule = new MainModule();
          mainModule.updatePanel( filter );
-      // else
-      // // módulo default
-      // baseModule.updatePanel( filter );
+      }
+      else if ( Modules.CONFIG_MODULE.equalsIgnoreCase( moduleFilter ) )
+      {
+         configModule = new ConfigModule();
+         configModule.updatePanel( filter );
+      }
+      else 
+      {
+         // módulo default
+         BaseViewport.getInstance().showLandingPage();
+      }
    }
    
    @Override

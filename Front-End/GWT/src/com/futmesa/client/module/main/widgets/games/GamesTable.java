@@ -382,7 +382,7 @@ public class GamesTable {
 				roundStr.append( " " + String.valueOf( round.getNumber() ) );
 				
 				Date date = DateTimeFormat.getFormat( "yyyy-dd-MM HH:mm:ss"  ).parse( round.getBaseDate() + " " + round.getBaseHour() );
-				String dateString = DateTimeFormat.getFormat("dd-MM-yy hh:mm").format( date );
+				String dateString = DateTimeFormat.getFormat( "dd-MM-yy hh:mm" ).format( date );
 				roundStr.append( " - " + dateString );
 			}
 			return roundStr.toString();

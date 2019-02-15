@@ -15,7 +15,9 @@ require_once "BusinessInteligence/Game/Game.php";
 require_once "BusinessInteligence/Round/Round.php";
 require_once "DataAccessObjects/Game/DaoGameFactory.php";
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
+require_once "ErrorHandlers/ChampionshipException.php";
 require_once "ValueObjects/Championship.php";
+require_once "ValueObjects/Participant.php";
 
 /**
  * A responsabilidade desta classe é ter todos os atributos e funções lógicas de acesso aos dados de campeonatos.
@@ -155,6 +157,45 @@ class Championship
       $this->loadPlayers( true );
       $this->loadRounds( true );
    }
+   
+   public function save(): bool
+   {
+      $champs = array( $this->championshipVO_ );
+      
+      // valida os campos do campenonato
+      $this->validate();
+      
+      if ( $this->championshipVO_->id <= 0 )
+      {
+         $result = DaoChampionshipFactory::getDaoChampionship()->createChampionships( $champs );
+         if ( $result )
+         {
+            $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
+            
+            $participants = array();
+            foreach ( $this->players_ as $p )
+            {
+               $part = new \ValueObject\Participant();
+               $part->idchampionship = $this->championshipVO_->id;
+               $part->idplayer = $p->getPlayerVO()->id;
+               $participants[] = $part;
+            }
+            
+            $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
+         }
+      }
+      else 
+      {
+         $result = DaoChampionshipFactory::getDaoChampionship()->updateChampionships( $champs );
+      }
+         
+      return $result;
+   }
+   
+   public function setPlayers( array $players ): void
+   {
+      $this->players_ = $players;
+   }
 
    private function loadPlayers( bool $forceReload = false): void
    {
@@ -194,6 +235,74 @@ class Championship
                $this->rounds_[ $r->number ]->setGames( $gamesByRound[ $r->id ] );
             }
          }
+      }
+   }
+   
+   private function validate() : void
+   {
+      $emptyFields = array(); 
+      if ( $this->championshipVO_->idseason === "" )
+      {
+         $emptyFields[] = "Temporada";
+      }
+      if ( $this->championshipVO_->name == "" )
+      {
+         $emptyFields[] = "Nome";
+      }
+      if ( $this->championshipVO_->type === "" )
+      {
+         $emptyFields[] = "Tipo";
+      }
+      if ( $this->championshipVO_->basedate === "" )
+      {
+         $emptyFields[] = "Data Base";
+      }
+      if ( $this->championshipVO_->isfinished != 0 && $this->championshipVO_->isfinished != 1 )
+      {
+         $emptyFields[] = "Encerrado";
+      }
+      if ( $this->championshipVO_->roundsbyday === "" )
+      {
+         $emptyFields[] = "Rodadas P/ Dia";
+      }
+      if ( $this->championshipVO_->gamesbyround === "" )
+      {
+         $emptyFields[] = "Jogos P/ Rodada";
+      }
+      if ( $this->championshipVO_->dateincr === "" )
+      {
+         $emptyFields[] = "Incremento de Datas";
+      }
+         
+      if ( sizeOf( $emptyFields ) > 0 )
+      {
+         throw new ChampionshipManagerException( "Os seguintes campos não podem ser vazios: " . implode( ", ", $emptyFields ) );
+      }
+        
+      if ( $this->championshipVO_->idseason <= 0 )
+      {
+         throw new ChampionshipManagerException( "Temporada inválida." );
+      }
+      if ( $this->championshipVO_->type < 0 ||  $this->championshipVO_->type > 2 )
+      {
+         throw new ChampionshipManagerException( "Tipo inválido." );
+      }
+      if ( $this->championshipVO_->roundsbyday <= 0 )
+      {
+         throw new ChampionshipManagerException( "Rodadas p/ dia deve ser maior que 0." );
+      }
+      if ( $this->championshipVO_->gamesbyround <= 0 )
+      {
+         throw new ChampionshipManagerException( "Jogos p/ rodada deve ser maior que 0." );
+      }
+      if ( $this->championshipVO_->dateincr <= 0 )
+      {
+         throw new ChampionshipManagerException( "Incremento de datas deve ser maior que 0." );
+      }
+      
+      if ( sizeOf( $this->players_ ) <= 1 )
+      {
+         throw new ChampionshipManagerException( "Campeonato deve possuir ao menos 2 participantes." );
       }
    }
 }

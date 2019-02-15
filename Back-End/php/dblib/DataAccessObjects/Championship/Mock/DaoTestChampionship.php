@@ -56,71 +56,126 @@ class DaoTestChampionship implements DaoChampionshipInterface
 
       return $participants;
    }
+   
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::getLastInsertedId()
+    */
+   public function getLastInsertedId(): int
+   {
+      $id = 0;
+      $database = new XMLInterface( self::PATH );
+      $result = $database->getAllObjects( self::CHAMPIONSHIP );
+      
+      foreach ( $result as &$item )
+      {
+         if ( $id < $item[ self::ID ] )
+         {
+            $id = $item[ self::ID ];
+         }
+      }
+
+      return $id;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoChampionshipInterface::createChampionships()
+    */
+   public function createChampionships( array $championships ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+      $input = array ();
+      $input[ self::ID ] = null;
+
+      foreach( $championships as &$c )
+      {
+         $input[ self::IDSEASON ] = $c->idseason;
+         $input[ self::NAME ] = $c->name;
+         $input[ self::TYPE ] = $c->type;
+         $input[ self::ISFINISHED ] = $c->isfinished;
+         $input[ self::BASEDATE ] = $c->basedate;
+         $input[ self::DATEINCR ] = $c->dateincr;
+         $input[ self::ROUNDSBYDAY ] = $c->roundsbyday;
+         $input[ self::GAMESBYROUND ] = $c->gamesbyround;
+         $result &= ( $database->insertItem( $input ) > 0 );
+       }
+
+      return $result;
+   }
 
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::insertTableObjects()
+    *  @see \DAO\DaoChampionshipInterface::updateChampionships()
     */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
-   // $input = array ();
-   // $input[ self::ID ] = null;
+   public function updateChampionships( array $championships ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+   
+      foreach( $championships as &$c )
+      {
+         $filter = array ();
+         $filter[ self::ID ] = $c->id;
+         $input = array ();
+         $input[ self::IDSEASON ] = $c->idseason;
+         $input[ self::NAME ] = $c->name;
+         $input[ self::TYPE ] = $c->type;
+         $input[ self::ISFINISHED ] = $c->isfinished;
+         $input[ self::BASEDATE ] = $c->basedate;
+         $input[ self::DATEINCR ] = $c->dateincr;
+         $input[ self::ROUNDSBYDAY ] = $c->roundsbyday;
+         $input[ self::GAMESBYROUND ] = $c->gamesbyround;
+         $result &= $database->updateFile( $filter, $input );
+      }
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= ( $database->insertItem( $input ) > 0 );
-   // }
-
-   // return $result;
-   // }
+      return $result;
+   }
 
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::updateTableObjects()
+    * @see \DAO\DaoChampionshipInterface::deleteChampionships()
     */
-   // public function updateTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
+   public function deleteChampionships( array $ids ): bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $objVO->idasset;
-   // $input = array ();
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= $database->updateFile( $filter, $input );
-   // }
+      foreach( $ids as $id )
+      {
+         $filter = array ();
+         $filter[ "ID" ] = $id;
+         $result &= $database->removeItems( $filter );
+      }
 
-   // return $result;
-   // }
-
+      return $result;
+   }
+   
    /**
     *
     * {@inheritdoc}
-    * @see DaoTableObjectInterface::deleteTableObjects()
+    * @see \DAO\DaoChampionshipInterface::saveParticipants()
     */
-   // public function deleteTableObjects( array $ids ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
-
-   // foreach( $ids as $id )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $id;
-   // $result &= $database->removeItems( $filter );
-   // }
-
-   // return $result;
-   // }
+   public function saveParticipants( array $participants ) : bool
+   {
+      $database = new XMLInterface( self::PATH );
+      $result = true;
+      $input = array ();
+      
+      foreach( $participants as &$p )
+      {
+         $input[ "idchampionship" ] = $p->idchampionship;
+         $input[ "idplayer" ] = $p->idplayer;
+         $result &= ( $database->insertItem( $input ) > 0 );
+      }
+      
+      return $result;
+   }
 
    /**
     * Converte o resultado do banco de dados em um campeonato.
@@ -133,7 +188,10 @@ class DaoTestChampionship implements DaoChampionshipInterface
    {
       $object = new \ValueObject\Championship();
       $object->id = $result[ self::ID ];
+      $object->idseason = $result[ self::IDSEASON ];
       $object->name = $result[ self::NAME ];
+      $object->type = $result[ self::TYPE ];
+      $object->isfinished = $result[ self::ISFINISHED ];
       $object->basedate = $result[ self::BASEDATE ];
       $object->dateincr = $result[ self::DATEINCR ];
       $object->roundsbyday = $result[ self::ROUNDSBYDAY ];

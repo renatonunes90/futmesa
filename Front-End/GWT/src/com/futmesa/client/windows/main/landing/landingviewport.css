@@ -1,0 +1,26 @@
+.landingPanel {
+	text-align: center;
+   margin: 15px;
+}
+
+.welcomeTitle {
+   font-weight: bold;
+   font-size: 26px;	
+   text-transform: uppercase;
+} 
+
+.shortcutBtn {
+   cursor: pointer;
+   margin-top: 1.2em;
+   margin-bottom: 1.2em;
+   border: 0px;
+   background-image: url("resources/images/trophy.png");
+   height: 320px;
+   width: 320px;
+}
+ 
+.helpText {
+   text-align: center;
+   font-size: 12px;   
+   width: 320px;
+}

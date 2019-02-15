@@ -115,16 +115,16 @@ class ChampionshipProvider
    }
 
    /**
-    * Insere um novo objeto.
+    * Insere uma lista de campeonatos.
     *
-    * @param array $objects
-    *           Lista de objetos a serem inseridos.
+    * @param array $championships
+    *           Lista de campeonatos a serem inseridos.
     * @return bool Indica se foi possível inserir o objeto ou não.
     */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // return $this->daoTableObject_->insertTableObjects( $objects );
-   // }
+   public function createChampionships( array $championships ): bool
+   {
+      return $this->daoChampionship_->createChampionships( $championships );
+   }
 
    /**
     * Atualiza os dados de um objeto no banco de dados.
@@ -139,16 +139,16 @@ class ChampionshipProvider
    // }
 
    /**
-    * Remove um array de objetos a partir de seus IDs.
+    * Remove um array de campeonatos a partir de seus IDs.
     *
     * @param array $ids
-    *           Array de identificadores de objetos.
-    * @return int A quantidade de objetos removidos.
+    *           Array de identificadores de campeonatos.
+    * @return int A quantidade de campeonatos removidos.
     */
-   // public function deleteWebUsers( array $ids ): int
-   // {
-   // return $this->daoTableObject_->deleteTableObjects( $ids );
-   // }
+   public function deleteChampionships( array $ids ): int
+   {
+      return $this->daoChampionship_->deleteChampionships( $ids );
+   }
 
    /**
     * Carrega um mapa de todos os campeonatos.
