@@ -181,10 +181,12 @@ class ChampionshipManager extends Championship
       for ( $i = 1; $i <= $roundNumber; $i++ )
       {
          $round = $this->getRound( $i );
-         $game = $round->getGameOfPlayer( $playerId );
-         if ( $game != null && $game->hasResult() )
-         {
-            $games[] = $game;
+         $playedGames = $round->getGamesOfPlayer( $playerId );
+         foreach ( $playedGames as $pg ) {
+             if ( $pg != null && $pg->hasResult() )
+             {
+                $games[] = $pg;
+             }
          }
       }
       return $games;

@@ -103,21 +103,20 @@ class Round
     *           Identificador do jogador.
     * @return \DBLib\Game|NULL Objeto contendo o jogo do jogador ou null se ele não existir.
     */
-   public function getGameOfPlayer( int $playerId ): ?\DBLib\Game
+   public function getGamesOfPlayer( int $playerId ): array
    {
-      $game = null;
+      $games = array();
       $this->loadGames();
 
       foreach ( $this->games_ as $g )
       {
          if ( $g->hasPlayer( $playerId ) )
          {
-            $game = $g;
-            break;
+            $games[] = $g;
          }
       }
 
-      return $game;
+      return $games;
    }
 
    /**
