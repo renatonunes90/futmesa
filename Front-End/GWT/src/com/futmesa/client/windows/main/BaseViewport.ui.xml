@@ -17,7 +17,6 @@
                </g:HorizontalPanel>
                <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
                <g:HorizontalPanel addStyleNames="{style.headerRightPanel}">
-                     <g:MenuBar ui:field="configMenuBar" styleName="{style.customBtn} {style.customConfigMenuBar}"></g:MenuBar>
                      <g:FocusPanel ui:field="helpButton" styleName="{style.customBtn} {style.customHelpButton}"></g:FocusPanel>
                </g:HorizontalPanel>
             </g:HorizontalPanel>

@@ -15,7 +15,6 @@
      <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
         <g:Label addStyleNames='{style.classificationTitle}' text='{consts.gamesTitle}'></g:Label>
         <g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
-       	<g:Button ui:field='insertResultBtn' addStyleNames='{style.insertResultBtn}' text='{consts.alterResultsLabel}'></g:Button>
      </g:VerticalPanel>
   </g:HorizontalPanel>
 </ui:UiBinder>

@@ -58,8 +58,8 @@ public final class BaseViewport
    @UiField
    protected FocusPanel homeShortcut;
    
-   @UiField
-   protected MenuBar configMenuBar;
+   //@UiField
+   //protected MenuBar configMenuBar;
 
    @UiField
    protected FocusPanel helpButton;
@@ -133,7 +133,7 @@ public final class BaseViewport
 
    private void createConfigMenu()
    {
-      configMenuBar.setAutoOpen( true );
+      /*configMenuBar.setAutoOpen( true );
       configMenuBar.setAnimationEnabled( true );
       
       MenuBar mainMenu = new MenuBar( true );
@@ -162,7 +162,7 @@ public final class BaseViewport
             Window.Location.assign( filter.toURLString() );
          }
       };
-      mainMenu.addItem( new MenuItem( constants.managePlayersMenu(), menuCommand ) );
+      mainMenu.addItem( new MenuItem( constants.managePlayersMenu(), menuCommand ) );*/
    }
 
    /**
@@ -185,7 +185,7 @@ public final class BaseViewport
     */
    public void ableConfigModule()
    {
-      configMenuBar.setVisible( true );
+      // configMenuBar.setVisible( true );
    }
 
    /**

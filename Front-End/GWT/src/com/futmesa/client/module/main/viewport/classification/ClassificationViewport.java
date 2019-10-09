@@ -40,8 +40,8 @@ public class ClassificationViewport implements ViewportInterface {
 	@UiField(provided = false)
 	protected SimplePanel gameTablePanel;
 
-	@UiField(provided = false)
-	protected Button insertResultBtn;
+	//@UiField(provided = false)
+	//protected Button insertResultBtn;
 	
 	private Championship championship;
 	
@@ -67,15 +67,15 @@ public class ClassificationViewport implements ViewportInterface {
 		leftPanel.add(classification.asWidget());
 		gameTablePanel.add(games.asWidget());
 		
-		rightPanel.setCellHorizontalAlignment( insertResultBtn, HasHorizontalAlignment.ALIGN_RIGHT);
+		// rightPanel.setCellHorizontalAlignment( insertResultBtn, HasHorizontalAlignment.ALIGN_RIGHT);
 		//panel.setCellHorizontalAlignment( championshipLabel, HasHorizontalAlignment.ALIGN_CENTER );
 		
-		insertResultBtn.addClickHandler( handler ->{
+		/*insertResultBtn.addClickHandler( handler ->{
 			resultsDialog.setChampionship( championship );
 			resultsDialog.setGames( games.getDisplayedGames() );
 			resultsDialog.getDialog().center();
 			resultsDialog.getDialog();
-		});
+		})*/;
 	}
 
 	@Override
@@ -98,6 +98,6 @@ public class ClassificationViewport implements ViewportInterface {
 	}
 	
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds( rounds, 7 );
+		games.setRounds( rounds, 21 );
 	}
 }
