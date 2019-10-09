@@ -13,6 +13,7 @@ use DAO\DaoGameFactory;
 
 require_once "BusinessInteligence/Game/Game.php";
 require_once "BusinessInteligence/Round/Round.php";
+require_once "BusinessInteligence/Championship/ChampionshipCreator.php";
 require_once "DataAccessObjects/Game/DaoGameFactory.php";
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
 require_once "ErrorHandlers/ChampionshipException.php";
@@ -170,18 +171,33 @@ class Championship
          $result = DaoChampionshipFactory::getDaoChampionship()->createChampionships( $champs );
          if ( $result )
          {
-            $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
-            
-            $participants = array();
-            foreach ( $this->players_ as $p )
-            {
-               $part = new \ValueObject\Participant();
-               $part->idchampionship = $this->championshipVO_->id;
-               $part->idplayer = $p->getPlayerVO()->id;
-               $participants[] = $part;
-            }
-            
-            $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
+             $this->championshipVO_->id = DaoChampionshipFactory::getDaoChampionship()->getLastInsertedId();
+             
+             $participants = array();
+             foreach ( $this->players_ as $p )
+             {
+                 $part = new \ValueObject\Participant();
+                 $part->idchampionship = $this->championshipVO_->id;
+                 $part->idplayer = $p->getPlayerVO()->id;
+                 $participants[] = $part;
+                }
+                
+                $result = DaoChampionshipFactory::getDaoChampionship()->saveParticipants( $participants );
+                DaoChampionshipFactory::getDaoChampionship()->deleteChampionships( array( $this->championshipVO_->id ) ); 
+                
+                $creator = new ChampionshipCreator($this);
+                $creator->populateRoundsAndGames();
+
+                foreach( $this->rounds_ as $r ) {
+
+                    foreach ( $r->getGames() as $g ) {
+                        $game = $g->getGameVO();
+
+                        $gameStr = "Rodada: " . $game->idround . " - "  . $game->idplayer1 . " VS " . $game->idplayer2 . " mesa " . $game->gametable ."\n";
+                        test( $gameStr );
+                    }
+
+                }            
          }
       }
       else 
@@ -205,6 +221,11 @@ class Championship
          $participantIds = $dao->getParticipants( $this->championshipVO_->id );
          $this->players_ = PlayerProvider::getInstance()->getPlayers( $participantIds );
       }
+   }
+
+   public function setRounds( array $rounds ): void
+   {
+      $this->rounds_ = $rounds;
    }
 
    private function loadRounds( bool $forceReload = false): void
