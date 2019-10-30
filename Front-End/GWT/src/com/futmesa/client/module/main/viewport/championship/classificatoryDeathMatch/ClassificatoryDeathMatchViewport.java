@@ -6,12 +6,11 @@ import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
 import com.futmesa.client.module.main.widgets.classification.ClassificationTable;
 import com.futmesa.client.module.main.widgets.games.GamesTable;
-import com.github.gwtbootstrap.client.ui.Column;
-import com.github.gwtbootstrap.client.ui.FluidContainer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -23,17 +22,17 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 
 	private static final ClassificatoryDeathMatchUiBinder uiBinder = GWT.create(ClassificatoryDeathMatchUiBinder.class);
 
-	interface ClassificatoryDeathMatchUiBinder extends UiBinder<FluidContainer, ClassificatoryDeathMatchViewport> {
+	interface ClassificatoryDeathMatchUiBinder extends UiBinder<HorizontalPanel, ClassificatoryDeathMatchViewport> {
 	}
 
 	@UiField(provided = false)
-	protected FluidContainer panel;
+	protected HorizontalPanel panel;
 
 	@UiField(provided = false)
-	protected Column leftPanel;
+	protected VerticalPanel leftPanel;
 
 	@UiField(provided = false)
-	protected Column rightPanel;
+	protected VerticalPanel rightPanel;
 
 	@UiField(provided = false)
 	protected SimplePanel gameTablePanel;
