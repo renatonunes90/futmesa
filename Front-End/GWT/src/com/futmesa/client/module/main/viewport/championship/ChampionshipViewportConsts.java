@@ -1,12 +1,12 @@
-package com.futmesa.client.module.main.viewport.classification;
+package com.futmesa.client.module.main.viewport.championship;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.Constants;
 
-public interface ClassificationViewportConsts
+public interface ChampionshipViewportConsts
    extends Constants
 {
-   public static final ClassificationViewportConsts INSTANCE = GWT.create( ClassificationViewportConsts.class );
+   public static final ChampionshipViewportConsts INSTANCE = GWT.create( ChampionshipViewportConsts.class );
 
    @DefaultStringValue ( "Table" )
    String classificationTitle();
