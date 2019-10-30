@@ -4,9 +4,9 @@
   xmlns:g="urn:import:com.google.gwt.user.client.ui"
   xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-  <ui:with field="consts" type="com.futmesa.client.module.main.viewport.classification.ClassificationViewportConsts" /> 
+  <ui:with field="consts" type="com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts" /> 
   	
-  <ui:style src="classificationviewport.css" /> 
+  <ui:style src="freeforallviewport.css" /> 
 
   <g:HorizontalPanel ui:field='panel'>
     <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>

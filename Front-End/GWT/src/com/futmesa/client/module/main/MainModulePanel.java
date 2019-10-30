@@ -1,7 +1,7 @@
 package com.futmesa.client.module.main;
 
 /**
- * Constantes dos painéis do módulo principal.
+ * Main module constants.
  */
 public final class MainModulePanel
 {

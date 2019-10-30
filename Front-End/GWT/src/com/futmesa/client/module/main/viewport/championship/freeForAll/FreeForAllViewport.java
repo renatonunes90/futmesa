@@ -1,10 +1,11 @@
-package com.futmesa.client.module.main.viewport.classification;
+package com.futmesa.client.module.main.viewport.championship.freeForAll;
 
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
+import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
 import com.futmesa.client.module.main.widgets.classification.ClassificationTable;
 import com.futmesa.client.module.main.widgets.games.GamesTable;
 import com.google.gwt.core.client.GWT;
@@ -19,13 +20,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Viewport datela de um campeonato, com a sua classificação e rodadas.
+ * Viewport to championship free for all.
  */
-public class ClassificationViewport implements ViewportInterface {
+public class FreeForAllViewport extends ChampionshipViewport {
 
 	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-	interface ClassificationViewportUiBinder extends UiBinder<HorizontalPanel, ClassificationViewport> {
+	interface ClassificationViewportUiBinder extends UiBinder<HorizontalPanel, FreeForAllViewport> {
 	}
 
 	@UiField(provided = false)
@@ -43,20 +44,14 @@ public class ClassificationViewport implements ViewportInterface {
 	//@UiField(provided = false)
 	//protected Button insertResultBtn;
 	
-	private Championship championship;
-	
 	private ClassificationTable classification;
 
 	private GamesTable games;
 
 	private ResultsDialog resultsDialog;
 	
-	/**
-	 * Construtor padrão.
-	 */
-	public ClassificationViewport() {
+	public FreeForAllViewport() {
 
-		championship = null;
 		classification = new ClassificationTable();
 		games = new GamesTable();
 		resultsDialog = new ResultsDialog();
@@ -83,21 +78,14 @@ public class ClassificationViewport implements ViewportInterface {
 		return panel;
 	}
 
-	public Championship getChampionship()
-	{
-	   return championship;
+	@Override
+	public void updateClassification(JsArray<Classification> classification) {
+		this.classification.updateClassification(classification);
 	}
-	
-	public void setChampionship( Championship championship )
-	{
-		this.championship = championship;
-	}
-	
-	public void updateClassification(JsArray<Classification> classifications) {
-		classification.updateClassification(classifications);
-	}
-	
+
+	@Override
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds( rounds, 21 );
+		games.setRounds(rounds, 21);
 	}
+
 }
