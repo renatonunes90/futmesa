@@ -16,6 +16,8 @@
 
 	<!-- Other module inherits -->
 	<inherits name = "com.googlecode.gwt.charts.Charts"/>
+	<inherits name="com.github.gwtbootstrap.Bootstrap" />
+	
 	<!--<inherits name='com.example.project.client.GWTSample' /> -->
 
 	<!-- Specify the app entry point class. -->
