@@ -2,16 +2,32 @@
 <ui:UiBinder
    xmlns:ui="urn:ui:com.google.gwt.uibinder"
    xmlns:g="urn:import:com.google.gwt.user.client.ui"
-   xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+   xmlns:b="urn:import:com.github.gwtbootstrap.client.ui" >
 
    <ui:with field="consts" type="com.futmesa.client.FutMesaConsts" /> 
   	
    <ui:style src="landingviewport.css" /> 
 
-	<b:Container ui:field='panel' addStyleNames='{style.landing-container}'>
-		<g:Label addStyleNames='{style.welcome-title}' text='{consts.welcomeTitle}'></g:Label>	
-		<g:FocusPanel ui:field="shortcutBtn" styleName="{style.shortcut-btn}"></g:FocusPanel>
-		<g:Label ui:field="helpText" addStyleNames='{style.help-text}' text='{consts.helpText}'></g:Label>		
-	</b:Container>
+	<b:FluidRow ui:field='panel'  addStyleNames='{style.landing-container}' >
+		<b:Column size="4"></b:Column>
+		<b:Column size="4">
+			<g:Label addStyleNames='{style.welcome-title}' text='{consts.welcomeTitle}'></g:Label>	
+			<b:Row>
+				<b:Column size="3"></b:Column>
+				<b:Column size="5">		
+					<g:FocusPanel ui:field="shortcutBtn" styleName="{style.shortcut-btn}"></g:FocusPanel>
+				</b:Column>
+				<b:Column size="4"></b:Column>
+			</b:Row>
+			<b:Row>
+				<b:Column size="3"></b:Column>
+				<b:Column size="5">
+					<g:Label ui:field="helpText" addStyleNames='{style.help-text}' text='{consts.helpText}'></g:Label>
+				</b:Column>
+				<b:Column size="4"></b:Column>
+			</b:Row>
+		</b:Column>
+		<b:Column size="4"></b:Column>	
+	</b:FluidRow> 
 
 </ui:UiBinder>

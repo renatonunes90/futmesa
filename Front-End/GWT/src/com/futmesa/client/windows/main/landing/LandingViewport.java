@@ -4,7 +4,7 @@ import com.futmesa.client.base.Modules;
 import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.module.main.MainModulePanel;
-import com.github.gwtbootstrap.client.ui.Container;
+import com.github.gwtbootstrap.client.ui.FluidRow;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -20,11 +20,11 @@ public class LandingViewport implements ViewportInterface {
 
 	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-	interface ClassificationViewportUiBinder extends UiBinder<Container, LandingViewport> {
+	interface ClassificationViewportUiBinder extends UiBinder<FluidRow, LandingViewport> {
 	}
 
 	@UiField(provided = false)
-	protected Container panel;
+	protected FluidRow panel;
 
 	@UiField(provided = false)
 	protected FocusPanel shortcutBtn;
