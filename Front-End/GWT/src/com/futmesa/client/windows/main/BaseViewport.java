@@ -45,7 +45,7 @@ public final class BaseViewport implements IsWidget {
 	private FutMesaConsts constants;
 
 	@UiField
-	protected HorizontalPanel mainPanel;
+	protected FluidContainer mainPanel;
 
 	@UiField
 	protected MenuBar menuBar;

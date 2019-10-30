@@ -29,9 +29,9 @@
 			</b:Column>
 	  	</b:FluidRow>
 	    
-	    <b:Row styleName="{style.center-container}" >
-            <g:HorizontalPanel styleName="{style.main-panel}" ui:field='mainPanel' horizontalAlignment="center"></g:HorizontalPanel>
-	  	</b:Row>
+	    <b:FluidRow styleName="{style.center-container}" >
+            <b:FluidContainer styleName="{style.main-panel}" ui:field='mainPanel'></b:FluidContainer>
+	  	</b:FluidRow>
   	</b:FluidContainer>
     
 </ui:UiBinder> 

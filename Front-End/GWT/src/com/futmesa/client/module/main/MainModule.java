@@ -10,6 +10,8 @@ import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.businessinteligence.tablestructures.SimpleMapInfo;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
+import com.futmesa.client.module.main.viewport.championship.classificatoryDeathMatch.ClassificatoryDeathMatchViewport;
+import com.futmesa.client.module.main.viewport.championship.classificatoryGroups.ClassificatoryGroupsViewport;
 import com.futmesa.client.module.main.viewport.championship.freeForAll.FreeForAllViewport;
 import com.futmesa.client.module.main.viewport.player.PlayerViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
@@ -92,9 +94,9 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 		if ( championship.getType() == ChampionshipType.FREE_FOR_ALL.getKey() ) {
 			championshipViewport = new FreeForAllViewport();
 		} else if ( championship.getType() == ChampionshipType.CLASSIFICATORY_GROUPS.getKey() ) {
-			championshipViewport = new FreeForAllViewport();
+			championshipViewport = new ClassificatoryGroupsViewport();
 		} else if ( championship.getType() == ChampionshipType.CLASSIFICATORY_DEATHMATCH.getKey() ) {
-			championshipViewport = new FreeForAllViewport();
+			championshipViewport = new ClassificatoryDeathMatchViewport();
 		}
 	}
 	
