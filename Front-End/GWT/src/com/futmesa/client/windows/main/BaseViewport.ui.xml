@@ -16,7 +16,7 @@
 					</b:Column>   		
 			   		<b:Column size="8">
 		    			<g:FocusPanel ui:field="homeShortcut" styleName="{style.app-title}">
-		  		   			<g:Label text='{consts.pageTitle}'></g:Label>
+		  		   			<g:Label text='{consts.appName}'></g:Label>
 		    			</g:FocusPanel>
 	   				</b:Column>
 				</b:Row>

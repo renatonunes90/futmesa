@@ -1,78 +1,42 @@
 package com.futmesa.client.windows.main.about;
 
+import com.github.gwtbootstrap.client.ui.Modal;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Diálogo de sobre da aplicação.
+ * App about dialog.
  */
-public class AboutDialog
-{
+public class AboutDialog {
 
-   private static final ResultsDialogUiBinder uiBinder = GWT.create( ResultsDialogUiBinder.class );
+	private static final AboutDialogUiBinder uiBinder = GWT.create(AboutDialogUiBinder.class);
 
-   interface ResultsDialogUiBinder
-      extends UiBinder< VerticalPanel, AboutDialog >
-   {}
+	interface AboutDialogUiBinder extends UiBinder<Modal, AboutDialog> {
+	}
 
-   /**
-    * Constantes da classe.
-    */
-   private AboutDialogConsts constants;
+	@UiField(provided = false)
+	protected Modal modal;
 
-   private DialogBox dialogBox;
+	@UiField(provided = false)
+	protected Button closeBtn;
 
-   @UiField ( provided = false )
-   protected VerticalPanel panel;
-  
-   @UiField(provided = false)
-   protected Button closeBtn;
-   
-   /**
-    * Construtor padrão.
-    */
-   public AboutDialog()
-   {
-      constants = GWT.create( AboutDialogConsts.class );
+	public AboutDialog() {
+		// Create the UiBinder.
+		uiBinder.createAndBindUi(this);
 
-      // Create the UiBinder.
-      uiBinder.createAndBindUi( this );
+		closeBtn.addClickHandler(handler -> {
+			modal.hide();
+		});
+	}
 
-      panel.setCellHorizontalAlignment( panel, HasHorizontalAlignment.ALIGN_CENTER );
-      panel.setCellHorizontalAlignment( closeBtn, HasHorizontalAlignment.ALIGN_CENTER );
+	public Widget asWidget() {
+		return modal;
+	}
 
-      // Create the dialog box
-      dialogBox = new DialogBox();
-      dialogBox.setGlassEnabled( true );
-      dialogBox.setAnimationEnabled( true );
-      dialogBox.setText( constants.aboutTitle() );
-      dialogBox.setWidget( panel );
-      dialogBox.center();
-      dialogBox.setPopupPosition( dialogBox.getPopupLeft(), dialogBox.getPopupTop() - 100 );
-      
-      closeBtn.addClickHandler(handler -> {
-         dialogBox.hide();
-      });
-   }
-
-   public Widget asWidget()
-   {
-      return panel;
-   }
-
-   public DialogBox getDialog()
-   {
-      return dialogBox;
-   }
-   
-   public void show()
-   {
-      dialogBox.show();
-   }
+	public void show() {
+		modal.show();
+	}
 }

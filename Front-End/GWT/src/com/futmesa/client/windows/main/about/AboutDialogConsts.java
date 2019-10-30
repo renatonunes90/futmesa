@@ -11,9 +11,6 @@ public interface AboutDialogConsts
    @DefaultStringValue ( "About" )
    String aboutTitle();
 
-   @DefaultStringValue ( "FM Manager" )
-   String appName();
-   
    @DefaultStringValue ( "System for management of table soccer championships." )
    String aboutLabel();
 

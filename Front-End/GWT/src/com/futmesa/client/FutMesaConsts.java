@@ -9,7 +9,7 @@ public interface FutMesaConsts
    public static final FutMesaConsts INSTANCE = GWT.create( FutMesaConsts.class );
 
    @DefaultStringValue ( "FM Manager" )
-   String pageTitle();
+   String appName();
 
    @DefaultStringValue ( "Championships" )
    String championshipMenu();
@@ -22,5 +22,11 @@ public interface FutMesaConsts
 
    @DefaultStringValue ( "Manage Players" )
    String managePlayersMenu();
+   
+   @DefaultStringValue ( "Welcome to FM Manager!" )
+   String welcomeTitle();
+
+   @DefaultStringValue ( "Click on the image to view the last championship table or select a page in the upper menu." )
+   String helpText();
 
 }

@@ -1,15 +1,17 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder
    xmlns:ui="urn:ui:com.google.gwt.uibinder"
-   xmlns:g="urn:import:com.google.gwt.user.client.ui">
+   xmlns:g="urn:import:com.google.gwt.user.client.ui"
+   xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
-   <ui:with field="consts" type="com.futmesa.client.windows.main.landing.LandingViewportConsts" /> 
+   <ui:with field="consts" type="com.futmesa.client.FutMesaConsts" /> 
   	
    <ui:style src="landingviewport.css" /> 
 
-	<g:VerticalPanel ui:field='panel' addStyleNames='{style.landingPanel}'>
-		<g:Label addStyleNames='{style.welcomeTitle}' text='{consts.welcomeTitle}'></g:Label>
-		<g:FocusPanel ui:field="shortcutBtn" styleName="{style.shortcutBtn}"></g:FocusPanel>
-		<g:Label ui:field="helpText" addStyleNames='{style.helpText}' text='{consts.helpText}'></g:Label>
-	</g:VerticalPanel>
+	<b:Container ui:field='panel' addStyleNames='{style.landing-container}'>
+		<g:Label addStyleNames='{style.welcome-title}' text='{consts.welcomeTitle}'></g:Label>	
+		<g:FocusPanel ui:field="shortcutBtn" styleName="{style.shortcut-btn}"></g:FocusPanel>
+		<g:Label ui:field="helpText" addStyleNames='{style.help-text}' text='{consts.helpText}'></g:Label>		
+	</b:Container>
+
 </ui:UiBinder>

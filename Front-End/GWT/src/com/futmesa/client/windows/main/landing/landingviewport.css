@@ -1,15 +1,14 @@
-.landingPanel {
-	text-align: center;
+.landing-container {
    margin: 15px;
 }
 
-.welcomeTitle {
+.welcome-title {
    font-weight: bold;
    font-size: 26px;	
    text-transform: uppercase;
 } 
 
-.shortcutBtn {
+.shortcut-btn {
    cursor: pointer;
    margin-top: 1.2em;
    margin-bottom: 1.2em;
@@ -19,7 +18,7 @@
    width: 320px;
 }
  
-.helpText {
+.help-text {
    text-align: center;
    font-size: 12px;   
    width: 320px;
