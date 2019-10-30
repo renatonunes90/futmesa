@@ -1,5 +1,6 @@
 package com.futmesa.client.windows.main;
 
+import com.futmesa.client.FutMesaConsts;
 import com.futmesa.client.base.Modules;
 import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.base.ViewportInterface;
@@ -8,13 +9,13 @@ import com.futmesa.client.businessinteligence.Player;
 import com.futmesa.client.module.main.MainModulePanel;
 import com.futmesa.client.windows.main.about.AboutDialog;
 import com.futmesa.client.windows.main.landing.LandingViewport;
+import com.github.gwtbootstrap.client.ui.FluidContainer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -33,18 +34,18 @@ public final class BaseViewport
    private static final ModulesViewportUiBinder uiBinder = GWT.create( ModulesViewportUiBinder.class );
 
    interface ModulesViewportUiBinder
-      extends UiBinder< DockLayoutPanel, BaseViewport >
+      extends UiBinder< FluidContainer, BaseViewport >
    {}
 
    /**
-    * Única instância da tela.
+    * Screen single instance.
     */
    private static BaseViewport singleton;
 
    /**
-    * Constantes da classe.
+    * Class constants.
     */
-   private BaseViewportConsts constants;
+   private FutMesaConsts constants;
    
    @UiField
    protected HorizontalPanel mainPanel;
@@ -71,7 +72,7 @@ public final class BaseViewport
    // protected Button miLogout;
 
    @UiField
-   protected DockLayoutPanel vLayout;
+   protected FluidContainer vLayout;
 
    /**
     * Menu de campeonatos. Instância dinamicamente seus subitens conforme os campeonatos cadastrados no sistema.
@@ -93,7 +94,7 @@ public final class BaseViewport
     */
    private BaseViewport()
    {
-      constants = GWT.create( BaseViewportConsts.class );
+      constants = GWT.create( FutMesaConsts.class );
       
       uiBinder.createAndBindUi( this );
 

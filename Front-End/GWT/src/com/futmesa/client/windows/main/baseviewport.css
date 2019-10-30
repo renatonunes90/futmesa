@@ -1,25 +1,13 @@
-.dockLayout {
+.root-container {
 	background-color: #ffffff;
 }
 
-.centerContainer {
-	overflow: auto;
-}
-
-.headerPanel {
+.header-panel {
 	margin-top: 3em;
-    width: 100%;
-    height: 100%;
+    padding-right: 0px;
 }
 
-.mainPanel {
-  position: relative;
-  margin: 40px 10px 40px 10px;
-  background-color: #ffffff;
-  width: 100%;
-}
-
-.gradientBar {
+.gradient-bar {
 	background: rgba(0, 22, 59, 1);
 	background: -moz-linear-gradient(left, rgba(59, 156, 0, 1) 0%,
 		rgba(59, 240, 0, 1) 100%);
@@ -38,51 +26,58 @@
 		);
 }
 
-.headerLeftPanel {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-}
-
-.customBtn {
+.custom-btn {
 	cursor: pointer;
-   border: 0px;
-   padding-bottom: 12px;
-   background-repeat: no-repeat;
-   height: 24px;
-   width: 24px;
+	border: 0px;
+  	padding-bottom: 12px;
+  	background-repeat: no-repeat;
+  	height: 24px;
+	width: 24px;
 }
 
-.customMenuBar {
+.custom-menu-bar {
 	margin-top: 0.9em;
   	margin-left: 6.5em;
   	background-image: url("resources/images/menu.png");
 }
  
-.appTitle {
+.app-title {
 	cursor: pointer;
 	font-size: 24px;
 	font-color: #ffffff;
   	margin-left: 0.5em;
-	margin-top: 0.5em;
-   text-transform: uppercase;
+	margin-top: 18px;
+   	text-transform: uppercase;
 }
 
-.pageTitle {
-  text-align: center;
-  font-size: 30px;
-  margin-top: 0.4em;
-  font-color: #ffffff;
-  text-transform: uppercase;
-  width: 100%;
-  font-weight: bold; 
+.page-title {
+	text-align: center;
+	font-size: 30px;
+	margin-top: 18px;
+	font-color: #ffffff;
+	text-transform: uppercase;
+	width: 100%;
+	font-weight: bold; 
 } 
 
-.headerRightPanel {
-   position: absolute;
-   right: 0px;
-   top: 0px;
+.custom-help-button {
+	margin-top: 1.2em;
+	margin-right: 6.5em;
+	background-image: url("resources/images/help.png");
 }
+
+.center-container {
+	height: 100%;
+	overflow: auto;
+}
+
+.main-panel {
+  position: relative;
+  margin: 40px 10px 40px 10px;
+  background-color: #ffffff;
+  width: 100%;
+}
+
 
 .customConfigMenuBar {
    margin-top: 1.2em;
@@ -90,11 +85,7 @@
    background-image: url("resources/images/config.png");
 }
 
-.customHelpButton {
-   margin-top: 1.2em;
-   margin-right: 6.5em;
-   background-image: url("resources/images/help.png");
-}
+
 
 /* .a-button { */
 /* 	height: 70px; */

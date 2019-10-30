@@ -5,28 +5,33 @@
 
  	<ui:style src="baseviewport.css" /> 
 	
-  	<ui:with field="consts" type="com.futmesa.client.windows.main.BaseViewportConsts" /> 
+  	<ui:with field="consts" type="com.futmesa.client.FutMesaConsts" /> 
   
-    <g:DockLayoutPanel styleName="{style.dockLayout}" unit='EM' height="100%" ui:field='vLayout'>
-        <g:north size='7'>
-            <g:HorizontalPanel addStyleNames="{style.headerPanel} {style.gradientBar}">
-               <g:HorizontalPanel addStyleNames="{style.headerLeftPanel}">
-               		<g:MenuBar ui:field="menuBar" styleName="{style.customBtn} {style.customMenuBar}"></g:MenuBar>
-               		<g:FocusPanel ui:field="homeShortcut" styleName="{style.appTitle}">
-               		    <g:Label text='{consts.pageTitle}'></g:Label>
-               		</g:FocusPanel>
-               </g:HorizontalPanel>
-               <g:Label ui:field='championshipLabel' addStyleNames='{style.pageTitle}'></g:Label>
-               <g:HorizontalPanel addStyleNames="{style.headerRightPanel}">
-                     <g:FocusPanel ui:field="helpButton" styleName="{style.customBtn} {style.customHelpButton}"></g:FocusPanel>
-               </g:HorizontalPanel>
-            </g:HorizontalPanel>
-        </g:north>
-        <g:center>
-            <g:SimplePanel styleName="{style.centerContainer}">
-	            <g:HorizontalPanel styleName="{style.mainPanel}" ui:field='mainPanel' horizontalAlignment="center"></g:HorizontalPanel>
-            </g:SimplePanel>
-        </g:center>     
-     </g:DockLayoutPanel>
+    <b:FluidContainer styleName="{style.root-container}" ui:field='vLayout'>
+	  	<b:FluidRow height="56px" addStyleNames="{style.header-panel} {style.gradient-bar}">
+			<b:Column size="2">
+				<b:Row>
+					<b:Column size="4">
+		   				<g:MenuBar ui:field="menuBar" styleName="{style.custom-btn} {style.custom-menu-bar}"></g:MenuBar>
+					</b:Column>   		
+			   		<b:Column size="8">
+		    			<g:FocusPanel ui:field="homeShortcut" styleName="{style.app-title}">
+		  		   			<g:Label text='{consts.pageTitle}'></g:Label>
+		    			</g:FocusPanel>
+	   				</b:Column>
+				</b:Row>
+			</b:Column>
+			<b:Column size="8">
+            	<g:Label ui:field='championshipLabel' addStyleNames='{style.page-title}'></g:Label>
+			</b:Column>
+			<b:Column size="2">
+           		<g:FocusPanel ui:field="helpButton" styleName="{style.custom-btn} {style.custom-help-button}"></g:FocusPanel>
+			</b:Column>
+	  	</b:FluidRow>
+	    
+	    <b:Row styleName="{style.center-container}" >
+            <g:HorizontalPanel styleName="{style.main-panel}" ui:field='mainPanel' horizontalAlignment="center"></g:HorizontalPanel>
+	  	</b:Row>
+  	</b:FluidContainer>
     
 </ui:UiBinder> 
