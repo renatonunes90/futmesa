@@ -2,22 +2,16 @@ package com.futmesa.client.module.main.viewport.championship.classificatoryDeath
 
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
-import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts;
-import com.futmesa.client.module.main.widgets.classification.ClassificationTable;
-import com.futmesa.client.module.main.widgets.games.GamesTable;
-import com.futmesa.client.module.main.widgets.games.GamesTableConsts;
+import com.futmesa.client.module.main.viewport.championship.phase.qualify.QualifyPhase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -35,15 +29,6 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 	
 	@UiField(provided = false)
 	protected VerticalPanel panel;
-
-	@UiField(provided = false)
-	protected VerticalPanel leftPanel;
-
-	@UiField(provided = false)
-	protected VerticalPanel rightPanel;
-
-	@UiField(provided = false)
-	protected SimplePanel gameTablePanel;
 	
 	@UiField(provided = false)
 	protected Button prevPhaseBtn;
@@ -54,29 +39,21 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 	@UiField(provided = false)
 	protected Label phaseLabel;
 	
-	// @UiField(provided = false)
-	// protected Button insertResultBtn;
-
-	private ClassificationTable classification;
-
-	private GamesTable games;
-
-	private ResultsDialog resultsDialog;
-
+	@UiField(provided = false)
+	protected HorizontalPanel phasePanel;
+	
+	private QualifyPhase qualifyPhase;
+	
 	public ClassificatoryDeathMatchViewport() {
 
 		constants = GWT.create(ChampionshipViewportConsts.class);
 		 
-		classification = new ClassificationTable();
-		games = new GamesTable();
-		resultsDialog = new ResultsDialog();
-
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
-		leftPanel.add(classification.asWidget());
-		gameTablePanel.add(games.asWidget());
-
+		qualifyPhase = new QualifyPhase();
+		phasePanel.add(qualifyPhase.asWidget());
+		
 		prevPhaseBtn.setEnabled(false);
 		nextPhaseBtn.setEnabled(true);
 		
@@ -85,6 +62,9 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 			phaseLabel.setText(constants.qualifyPhase());
 			prevPhaseBtn.setEnabled(false);
 			nextPhaseBtn.setEnabled(true);
+			
+			phasePanel.clear();
+			phasePanel.add(qualifyPhase.asWidget());
 		});
 		
 		nextPhaseBtn.setText(">>");
@@ -92,17 +72,9 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 			phaseLabel.setText(constants.deathMatchPhase());
 			prevPhaseBtn.setEnabled(true);
 			nextPhaseBtn.setEnabled(false);
+			phasePanel.clear();
+			
 		});
-		// rightPanel.setCellHorizontalAlignment( insertResultBtn,
-		// HasHorizontalAlignment.ALIGN_RIGHT);
-		// panel.setCellHorizontalAlignment( championshipLabel,
-		// HasHorizontalAlignment.ALIGN_CENTER );
-
-		/*
-		 * insertResultBtn.addClickHandler( handler ->{ resultsDialog.setChampionship(
-		 * championship ); resultsDialog.setGames( games.getDisplayedGames() );
-		 * resultsDialog.getDialog().center(); resultsDialog.getDialog(); })
-		 */;
 	}
 
 	@Override
@@ -112,12 +84,12 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 
 	@Override
 	public void updateClassification(JsArray<Classification> classification) {
-		this.classification.updateClassification(classification);
+		qualifyPhase.updateClassification(classification);
 	}
 
 	@Override
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds(rounds, 21);
+		qualifyPhase.updateRounds(rounds);
 	}
 
 }

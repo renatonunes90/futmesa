@@ -11,17 +11,10 @@
 	<g:VerticalPanel ui:field='panel'>
 		<g:HorizontalPanel addStyleNames='{style.phase-toolbar}'>
 			<g:Button ui:field='prevPhaseBtn' addStyleNames='{style.phase-toolbar-content}' ></g:Button>
-			<g:Label ui:field='phaseLabel' addStyleNames='{style.classification-title} {style.phase-toolbar-content} text-center' text='{consts.qualifyPhase}'></g:Label>
+			<g:Label ui:field='phaseLabel' addStyleNames='{style.phase-title} {style.phase-toolbar-content} text-center' text='{consts.qualifyPhase}'></g:Label>
 			<g:Button ui:field='nextPhaseBtn' addStyleNames='{style.phase-toolbar-content} float-right' ></g:Button>
 		</g:HorizontalPanel>
-		<g:HorizontalPanel>
-			<g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.custom-left-panel}'>
-				<g:Label addStyleNames='{style.classification-title}' text='{consts.classificationTitle}'></g:Label>
-			</g:VerticalPanel>
-			<g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.custom-right-panel}'>
-				<g:Label addStyleNames='{style.classification-title}' text='{consts.gamesTitle}'></g:Label>
-				<g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
-			</g:VerticalPanel>
+		<g:HorizontalPanel ui:field='phasePanel'>
 		</g:HorizontalPanel>
 	</g:VerticalPanel>
 

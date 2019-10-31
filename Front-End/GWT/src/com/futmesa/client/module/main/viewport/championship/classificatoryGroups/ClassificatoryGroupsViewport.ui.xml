@@ -8,13 +8,13 @@
   	
   <ui:style src="classificatorygroupsviewport.css" /> 
 
-  <g:HorizontalPanel ui:field='panel'>
-    <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
-     	<g:Label addStyleNames='{style.classificationTitle}' text='{consts.classificationTitle}'></g:Label>
-     </g:VerticalPanel>
-     <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
-        <g:Label addStyleNames='{style.classificationTitle}' text='{consts.gamesTitle}'></g:Label>
-        <g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
-     </g:VerticalPanel>
-  </g:HorizontalPanel>
+  <g:VerticalPanel ui:field='panel'>
+		<g:HorizontalPanel addStyleNames='{style.phase-toolbar}'>
+			<g:Button ui:field='prevPhaseBtn' addStyleNames='{style.phase-toolbar-content}' ></g:Button>
+			<g:Label ui:field='phaseLabel' addStyleNames='{style.phase-title} {style.phase-toolbar-content} text-center' text='{consts.qualifyPhase}'></g:Label>
+			<g:Button ui:field='nextPhaseBtn' addStyleNames='{style.phase-toolbar-content} float-right' ></g:Button>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel ui:field='phasePanel'>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
 </ui:UiBinder>
