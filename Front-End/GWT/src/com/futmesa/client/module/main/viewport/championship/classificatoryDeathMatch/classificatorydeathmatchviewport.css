@@ -1,21 +1,32 @@
- .classification-title {
-  font-weight: bold;
-  font-size: 26px;	
-  margin-bottom: 15px;
-  text-transform: uppercase;
- } 
+.phase-toolbar {
+	width: 100%;
+	border-top: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	margin-bottom: 15px;
+}
 
- .custom-left-panel {
-  padding-right: 20px;
- }
- 
- .custom-right-panel {
-  padding-left: 30px;
-  border-left: 1px solid #c0c0c0;
-  height: 100%;
-  overflow: auto;
- }
- 
- .insert-result-btn {
-    margin-top: 15px;
- }
+.phase-toolbar-content {
+	margin-top: 14px;
+}
+
+.classification-title {
+	font-weight: bold;
+	font-size: 26px;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.custom-left-panel {
+	padding-right: 20px;
+}
+
+.custom-right-panel {
+	padding-left: 30px;
+	border-left: 1px solid #c0c0c0;
+	height: 100%;
+	overflow: auto;
+}
+
+.insert-result-btn {
+	margin-top: 15px;
+}
