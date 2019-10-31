@@ -15,54 +15,44 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Viewport da tela inicial do sistema.
+ * App initial viewport.
  */
-public class LandingViewport
-   implements ViewportInterface
-{
+public class LandingViewport implements ViewportInterface {
 
-   private static final ClassificationViewportUiBinder uiBinder = GWT.create( ClassificationViewportUiBinder.class );
+	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-   interface ClassificationViewportUiBinder
-      extends UiBinder< VerticalPanel, LandingViewport >
-   {}
+	interface ClassificationViewportUiBinder extends UiBinder<VerticalPanel, LandingViewport> {
+	}
 
-   @UiField ( provided = false )
-   protected VerticalPanel panel;
+	@UiField(provided = false)
+	protected VerticalPanel panel;
 
-   @UiField ( provided = false )
-   protected FocusPanel shortcutBtn;
+	@UiField(provided = false)
+	protected FocusPanel shortcutBtn;
 
-   @UiField ( provided = false )
-   protected Label helpText;
+	@UiField(provided = false)
+	protected Label helpText;
 
-   /**
-    * Construtor padrão.
-    */
-   public LandingViewport()
-   {
+	public LandingViewport() {
 
-      // Create the UiBinder.
-      uiBinder.createAndBindUi( this );
+		// Create the UiBinder.
+		uiBinder.createAndBindUi(this);
 
-      panel.setCellHorizontalAlignment( shortcutBtn, HasHorizontalAlignment.ALIGN_CENTER );
-      panel.setCellHorizontalAlignment( helpText, HasHorizontalAlignment.ALIGN_CENTER );
-   }
+		panel.setCellHorizontalAlignment(shortcutBtn, HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setCellHorizontalAlignment(helpText, HasHorizontalAlignment.ALIGN_CENTER);
+	}
 
-   @Override
-   public Widget asWidget()
-   {
-      return panel;
-   }
+	@Override
+	public Widget asWidget() {
+		return panel;
+	}
 
-   public void setLastChampionshipLink( int idChampionship ) 
-   {
-      shortcutBtn.addClickHandler( handler ->
-      {
-         URLFilter filter = new URLFilter( Modules.MAIN_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL );
-         filter.addFilter( "id", String.valueOf( idChampionship ) );
-         Window.Location.assign( filter.toURLString()  );
-      } );
-   }
+	public void setLastChampionshipLink(int idChampionship) {
+		shortcutBtn.addClickHandler(handler -> {
+			URLFilter filter = new URLFilter(Modules.MAIN_MODULE, MainModulePanel.CHAMPIONSHIP_PANEL);
+			filter.addFilter("id", String.valueOf(idChampionship));
+			Window.Location.assign(filter.toURLString());
+		});
+	}
 
 }

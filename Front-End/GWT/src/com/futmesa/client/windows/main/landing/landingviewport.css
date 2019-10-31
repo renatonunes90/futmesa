@@ -1,26 +1,26 @@
-.landingPanel {
+.landing-panel {
 	text-align: center;
-   margin: 15px;
+	margin: 15px;
 }
 
-.welcomeTitle {
-   font-weight: bold;
-   font-size: 26px;	
-   text-transform: uppercase;
-} 
-
-.shortcutBtn {
-   cursor: pointer;
-   margin-top: 1.2em;
-   margin-bottom: 1.2em;
-   border: 0px;
-   background-image: url("resources/images/trophy.png");
-   height: 320px;
-   width: 320px;
+.welcome-title {
+	font-weight: bold;
+	font-size: 26px;
+	text-transform: uppercase;
 }
- 
-.helpText {
-   text-align: center;
-   font-size: 12px;   
-   width: 320px;
+
+.shortcut-btn {
+	cursor: pointer;
+	margin-top: 1.2em;
+	margin-bottom: 1.2em;
+	border: 0px;
+	background-image: url("resources/images/trophy.png");
+	height: 320px;
+	width: 320px;
+}
+
+.help-text {
+	text-align: center;
+	font-size: 12px;
+	width: 320px;
 }

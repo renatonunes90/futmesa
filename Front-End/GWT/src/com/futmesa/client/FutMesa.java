@@ -18,88 +18,70 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 /**
- * Ponto de entrada do sistema. Carrega os menus e a viewport conforme os parâmetros.
+ * System entry point. Loads menus and the viewport according to parameters.
  */
-public class FutMesa implements EntryPoint, ServiceInterface
-{
+public class FutMesa implements EntryPoint, ServiceInterface {
 
-   private ServiceChampionship serviceChampionship;
+	private ServiceChampionship serviceChampionship;
 
-   private ServicePlayer servicePlayer;
-   
-   private MainModule mainModule;
-   
-   private ConfigModule configModule;
+	private ServicePlayer servicePlayer;
 
-   /**
-    * Construtor padrão.
-    */
-   public FutMesa()
-   {
-      // Não faz nada por enquanto...
-   }
+	private MainModule mainModule;
 
-   /**
-    */
-   public void onModuleLoad()
-   {
-      //AuthWindow.getInstance().checkAuth();
-      serviceChampionship = new ServiceChampionship( this );
-      servicePlayer = new ServicePlayer( this );
-      
-      serviceChampionship.requestChampionships();
-   }
+	private ConfigModule configModule;
 
-   /**
-    * Inicializa a viewport principal da ferramenta.
-    */
-   private void initializeViewport()
-   {
-      RootLayoutPanel.get().add( BaseViewport.getInstance() );
+	public FutMesa() {
+	}
 
-      // listener para chamar o update da viewport quando a url é alterada
-      History.addValueChangeHandler( handler -> updateViewport() );
+	/**
+	*/
+	public void onModuleLoad() {
+		// AuthWindow.getInstance().checkAuth();
+		serviceChampionship = new ServiceChampionship(this);
+		servicePlayer = new ServicePlayer(this);
 
-      this.updateViewport();
-   }
-   
-   public void updateViewport()
-   {
-      URLFilter filter = new URLFilter( Window.Location.getQueryString() );
-      String moduleFilter = filter.getFilter( URLFilter.MODULE );
-      if ( Modules.MAIN_MODULE.equalsIgnoreCase( moduleFilter ) )
-      {
-         mainModule = new MainModule();
-         mainModule.updatePanel( filter );
-      }
-      else if ( Modules.CONFIG_MODULE.equalsIgnoreCase( moduleFilter ) )
-      {
-         configModule = new ConfigModule();
-         configModule.updatePanel( filter );
-      }
-      else 
-      {
-         // módulo default
-         BaseViewport.getInstance().showLandingPage();
-      }
-   }
-   
-   @Override
-   public void onServiceResult( JavaScriptObject records, String requestId )
-   {
-      if ( ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals( requestId )  ) 
-      {
-         JsArray<Championship> championships = records.cast();
-         BaseViewport.getInstance().setChampionships( championships );
-         
-         servicePlayer.requestPlayers();
-      }
-      else if ( ServicePlayer.GET_ALL_PLAYERS.equals( requestId ) )
-      {
-         JsArray<Player> players = records.cast();
-         BaseViewport.getInstance().setPlayers( players );
-         
-         initializeViewport();
-      }
-   }
+		serviceChampionship.requestChampionships();
+	}
+
+	/**
+	 * Initializes the main viewport.
+	 */
+	private void initializeViewport() {
+		RootLayoutPanel.get().add(BaseViewport.getInstance());
+
+		// listener para chamar o update da viewport quando a url é alterada
+		History.addValueChangeHandler(handler -> updateViewport());
+
+		this.updateViewport();
+	}
+
+	public void updateViewport() {
+		URLFilter filter = new URLFilter(Window.Location.getQueryString());
+		String moduleFilter = filter.getFilter(URLFilter.MODULE);
+		if (Modules.MAIN_MODULE.equalsIgnoreCase(moduleFilter)) {
+			mainModule = new MainModule();
+			mainModule.updatePanel(filter);
+		} else if (Modules.CONFIG_MODULE.equalsIgnoreCase(moduleFilter)) {
+			configModule = new ConfigModule();
+			configModule.updatePanel(filter);
+		} else {
+			// default module
+			BaseViewport.getInstance().showLandingPage();
+		}
+	}
+
+	@Override
+	public void onServiceResult(JavaScriptObject records, String requestId) {
+		if (ServiceChampionship.GET_ALL_CHAMPIONSHIPS.equals(requestId)) {
+			JsArray<Championship> championships = records.cast();
+			BaseViewport.getInstance().setChampionships(championships);
+
+			servicePlayer.requestPlayers();
+		} else if (ServicePlayer.GET_ALL_PLAYERS.equals(requestId)) {
+			JsArray<Player> players = records.cast();
+			BaseViewport.getInstance().setPlayers(players);
+
+			initializeViewport();
+		}
+	}
 }

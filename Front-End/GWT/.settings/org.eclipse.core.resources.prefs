@@ -9,6 +9,5 @@ encoding//src/com/futmesa/client/module/main/viewport/player/maintab/PlayerMainT
 encoding//src/com/futmesa/client/module/main/widgets/classification/ClassificationTableConsts_pt_BR.properties=UTF-8
 encoding//src/com/futmesa/client/module/main/widgets/games/GamesTableConsts_pt_BR.properties=UTF-8
 encoding//src/com/futmesa/client/request/base/PHPConsts_pt_BR.properties=UTF-8
-encoding//src/com/futmesa/client/windows/main/BaseViewportConsts_pt_BR.properties=UTF-8
-encoding//src/com/futmesa/client/windows/main/landing/LandingViewportConsts_pt_BR.properties=UTF-8
+encoding//src/com/futmesa/client/windows/main/about/AboutDialogConsts_pt_BR.properties=UTF-8
 encoding/<project>=UTF-8

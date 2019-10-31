@@ -10,69 +10,57 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Diálogo de sobre da aplicação.
+ * About app dialog.
  */
-public class AboutDialog
-{
+public class AboutDialog {
 
-   private static final ResultsDialogUiBinder uiBinder = GWT.create( ResultsDialogUiBinder.class );
+	private static final ResultsDialogUiBinder uiBinder = GWT.create(ResultsDialogUiBinder.class);
 
-   interface ResultsDialogUiBinder
-      extends UiBinder< VerticalPanel, AboutDialog >
-   {}
+	interface ResultsDialogUiBinder extends UiBinder<VerticalPanel, AboutDialog> {
+	}
 
-   /**
-    * Constantes da classe.
-    */
-   private AboutDialogConsts constants;
+	private AboutDialogConsts constants;
 
-   private DialogBox dialogBox;
+	private DialogBox dialogBox;
 
-   @UiField ( provided = false )
-   protected VerticalPanel panel;
-  
-   @UiField(provided = false)
-   protected Button closeBtn;
-   
-   /**
-    * Construtor padrão.
-    */
-   public AboutDialog()
-   {
-      constants = GWT.create( AboutDialogConsts.class );
+	@UiField(provided = false)
+	protected VerticalPanel panel;
 
-      // Create the UiBinder.
-      uiBinder.createAndBindUi( this );
+	@UiField(provided = false)
+	protected Button closeBtn;
 
-      panel.setCellHorizontalAlignment( panel, HasHorizontalAlignment.ALIGN_CENTER );
-      panel.setCellHorizontalAlignment( closeBtn, HasHorizontalAlignment.ALIGN_CENTER );
+	public AboutDialog() {
+		constants = GWT.create(AboutDialogConsts.class);
 
-      // Create the dialog box
-      dialogBox = new DialogBox();
-      dialogBox.setGlassEnabled( true );
-      dialogBox.setAnimationEnabled( true );
-      dialogBox.setText( constants.aboutTitle() );
-      dialogBox.setWidget( panel );
-      dialogBox.center();
-      dialogBox.setPopupPosition( dialogBox.getPopupLeft(), dialogBox.getPopupTop() - 100 );
-      
-      closeBtn.addClickHandler(handler -> {
-         dialogBox.hide();
-      });
-   }
+		// Create the UiBinder.
+		uiBinder.createAndBindUi(this);
 
-   public Widget asWidget()
-   {
-      return panel;
-   }
+		panel.setCellHorizontalAlignment(panel, HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setCellHorizontalAlignment(closeBtn, HasHorizontalAlignment.ALIGN_CENTER);
 
-   public DialogBox getDialog()
-   {
-      return dialogBox;
-   }
-   
-   public void show()
-   {
-      dialogBox.show();
-   }
+		// Create the dialog box
+		dialogBox = new DialogBox();
+		dialogBox.setGlassEnabled(true);
+		dialogBox.setAnimationEnabled(true);
+		dialogBox.setText(constants.aboutTitle());
+		dialogBox.setWidget(panel);
+		dialogBox.center();
+		dialogBox.setPopupPosition(dialogBox.getPopupLeft(), dialogBox.getPopupTop() - 100);
+
+		closeBtn.addClickHandler(handler -> {
+			dialogBox.hide();
+		});
+	}
+
+	public Widget asWidget() {
+		return panel;
+	}
+
+	public DialogBox getDialog() {
+		return dialogBox;
+	}
+
+	public void show() {
+		dialogBox.show();
+	}
 }

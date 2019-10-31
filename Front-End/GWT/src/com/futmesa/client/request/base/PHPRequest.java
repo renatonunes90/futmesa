@@ -7,8 +7,7 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
 
 /**
- * Classe para fazer requisições ao PHP.
- * 
+ * Class to make requests to backend (PHP).
  */
 public final class PHPRequest
 {
