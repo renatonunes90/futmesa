@@ -29,8 +29,8 @@
 					<g:Label addStyleNames='{style.player-label} text-right' text='0'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
-			<g:VerticalPanel>
-				<g:HorizontalPanel addStyleNames='{style.player-spot} {style.semi-up}'>
+			<g:VerticalPanel addStyleNames='{style.semi-panel}'>
+				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='Player 2'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='1'></g:Label>		
 				</g:HorizontalPanel>
@@ -53,8 +53,8 @@
 					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
-			<g:VerticalPanel>
-				<g:HorizontalPanel addStyleNames='{style.player-spot} {style.semi-up}'>
+			<g:VerticalPanel addStyleNames='{style.semi-panel}'>
+				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='1'></g:Label>		
 					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>		
 				</g:HorizontalPanel>
