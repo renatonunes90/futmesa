@@ -13,9 +13,10 @@
 		<g:HorizontalPanel ui:field='leftPanel' addStyleNames='{style.custom-left-panel}'>
 			<g:VerticalPanel>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
-					<g:Label addStyleNames='{style.player-label} text-left' text='Player 1'></g:Label>
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-left' text='Player 1'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='1'></g:Label>		
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='Player 2'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='2'></g:Label>		
@@ -24,8 +25,9 @@
 					<g:Label addStyleNames='{style.player-label} text-left' text='Player 3'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='1'></g:Label>		
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
-					<g:Label addStyleNames='{style.player-label} text-left' text='Player 4'></g:Label>
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-left' text='Player 4'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='0'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
@@ -34,8 +36,9 @@
 					<g:Label addStyleNames='{style.player-label} text-left' text='Player 2'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='1'></g:Label>		
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.semi-panel} {style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot} {style.semi-down}'>
-					<g:Label addStyleNames='{style.player-label} text-left' text='Player 3'></g:Label>
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-left' text='Player 3'></g:Label>
 					<g:Label addStyleNames='{style.player-label} text-right' text='0'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
@@ -46,11 +49,12 @@
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 		</g:HorizontalPanel>
+		<g:Label addStyleNames='{style.versus-central} {style.versus-label} text-center' text='X'></g:Label>
 		<g:HorizontalPanel ui:field='rightPanel' addStyleNames='{style.custom-right-panel}'>
 			<g:VerticalPanel addStyleNames='{style.final-panel}'>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='0'></g:Label>		
-					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>		
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-right' text='Player 5'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 			<g:VerticalPanel addStyleNames='{style.semi-panel}'>
@@ -58,9 +62,10 @@
 					<g:Label addStyleNames='{style.player-label} text-left' text='1'></g:Label>		
 					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>		
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.semi-panel} {style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot} {style.semi-down}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='0'></g:Label>		
-					<g:Label addStyleNames='{style.player-label} text-right' text='Player 8'></g:Label>		
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-right' text='Player 8'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
 			<g:VerticalPanel>
@@ -68,14 +73,16 @@
 					<g:Label addStyleNames='{style.player-label} text-left' text='1'></g:Label>		
 					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='0'></g:Label>		
-					<g:Label addStyleNames='{style.player-label} text-right' text='Player 5'></g:Label>		
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-right' text='Player 6'></g:Label>		
 				</g:HorizontalPanel>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='1'></g:Label>		
-					<g:Label addStyleNames='{style.player-label} text-right' text='Player 7'></g:Label>	
+					<g:Label addStyleNames='{style.player-label} {style.player-disqualified} text-right' text='Player 7'></g:Label>	
 				</g:HorizontalPanel>
+				<g:Label addStyleNames='{style.versus-label} text-center' text='X'></g:Label>
 				<g:HorizontalPanel addStyleNames='{style.player-spot}'>
 					<g:Label addStyleNames='{style.player-label} text-left' text='2'></g:Label>		
 					<g:Label addStyleNames='{style.player-label} text-right' text='Player 8'></g:Label>	
