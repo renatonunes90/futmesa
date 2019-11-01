@@ -4,6 +4,7 @@ import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts;
+import com.futmesa.client.module.main.viewport.championship.phase.deathMatch.DeathMatchPhase;
 import com.futmesa.client.module.main.viewport.championship.phase.qualify.QualifyPhase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
@@ -44,6 +45,8 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 	
 	private QualifyPhase qualifyPhase;
 	
+	private DeathMatchPhase deathMatchPhase;
+	
 	public ClassificatoryDeathMatchViewport() {
 
 		constants = GWT.create(ChampionshipViewportConsts.class);
@@ -52,6 +55,8 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 		uiBinder.createAndBindUi(this);
 
 		qualifyPhase = new QualifyPhase();
+		deathMatchPhase = new DeathMatchPhase();
+		
 		phasePanel.add(qualifyPhase.asWidget());
 		
 		prevPhaseBtn.setEnabled(false);
@@ -73,7 +78,7 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 			prevPhaseBtn.setEnabled(true);
 			nextPhaseBtn.setEnabled(false);
 			phasePanel.clear();
-			
+			phasePanel.add(deathMatchPhase.asWidget());
 		});
 	}
 

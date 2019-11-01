@@ -1,0 +1,36 @@
+.player-label {
+    border-bottom: 1px solid #ccc;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-family: opensans !important;
+}
+
+.custom-left-panel {
+	padding-right: 20px;
+	width: 637px 
+}
+
+.custom-right-panel {
+	padding-left: 20px;
+	width: 638px
+}
+
+.player-spot {
+	width: 200px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.semi-up {
+	margin-top: 63px;	
+}
+
+.semi-down {
+	margin-top: 190px;	
+}
+
+.final-panel {
+	margin-top: 198px;
+}
+
