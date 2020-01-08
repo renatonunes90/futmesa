@@ -69,5 +69,12 @@ public final class Round extends JavaScriptObject
   public final native JsArray<Game> getGames() /*-{
   	 return this.games;
   }-*/;
+  
+  /**
+   * @return Jogos da rodada.
+   */
+  public final native void setGames(JsArray<Game> games) /*-{
+  	 this.games = games;
+  }-*/;
 }
 

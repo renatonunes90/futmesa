@@ -1,4 +1,4 @@
-.player-label {
+.playerLabel {
     border-bottom: 1px solid #ccc;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -6,45 +6,45 @@
     font-family: opensans !important;
 }
 
-.player-disqualified {
+.playerDisqualified {
 	color: #ccc; 	
 }
 
-.versus-label {
+.versusLabel {
     font-size: 16px;
     font-family: opensans !important;
 }
 
-.versus-central {
+.versusCentral {
 	margin-top: 253px;
 }
 
-.custom-left-panel {
+.customLeftPanel {
 	margin-right: 20px;
 	width: 610px 
 }
 
-.custom-right-panel {
+.customRightPanel {
 	margin-left: 20px;
 	width: 610px
 }
 
-.player-spot {
+.playerSpot {
 	width: 190px;
 	margin-top: 40px;
 	margin-bottom: 40px;
 }
 
-.semi-panel {
+.semiPanel {
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-top: 63px;	
 }
 
-.semi-down {
+.semiDown {
 	margin-top: 108px;	
 }
 
-.final-panel {
+.finalPanel {
 	margin-top: 198px;
 }

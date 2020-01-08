@@ -112,5 +112,19 @@ public final class Game extends JavaScriptObject
 		this.score2 = score;
 	}-*/;
 
+	public final native void setPlayer1Name(String name) /*-{
+		  if (!this.player1) {
+		  	this.player1 = {};
+		  }
+	      this.player1.name = name;
+	   }-*/;
+
+	public final native void setPlayer2Name(String name) /*-{
+		if (!this.player2) {
+		  	this.player2 = {};
+		  }
+	      this.player2.name = name;
+	   }-*/;
+
 }
 
