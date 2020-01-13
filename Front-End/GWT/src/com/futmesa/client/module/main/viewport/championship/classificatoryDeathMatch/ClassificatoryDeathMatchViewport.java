@@ -100,35 +100,47 @@ public class ClassificatoryDeathMatchViewport extends ChampionshipViewport {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void updateRounds(JsArray<Round> rounds) {
-		qualifyPhase.updateRounds(rounds);
 		
-		JsArray<Game> games = ( JsArray< Game > ) JavaScriptObject.createArray(); 
+		JsArray<Round> classificationRounds = ( JsArray< Round > ) JavaScriptObject.createArray(); 
+		JsArray<Round> deathMatchRounds = ( JsArray< Round > ) JavaScriptObject.createArray(); 
+		for ( int i =0; i < rounds.length(); i++) {
+			if ( rounds.get(i).getPhase() == 1 ) {
+				classificationRounds.push(rounds.get(i));
+			} else {
+				deathMatchRounds.push(rounds.get(i));
+			}
+				
+		}
+		qualifyPhase.updateRounds(classificationRounds);
+		deathMatchPhase.updateRounds(deathMatchRounds);
 		
-		games.push(GameBuilder.buildGame("Player 1", "Player 2", 1, 2));
-		games.push(GameBuilder.buildGame("Player 3", "Player 4", 1, 0));
-		games.push(GameBuilder.buildGame("Player 5", "Player 6", 1, 0));
-		games.push(GameBuilder.buildGame("Player 7", "Player 8", 1, 2));
-		
-		JsArray<Game> gamesSemi = ( JsArray< Game > ) JavaScriptObject.createArray(); 
-		
-		gamesSemi.push(GameBuilder.buildGame("Player 2", "Player 3", 1, 0));
-		gamesSemi.push(GameBuilder.buildGame("Player 5", "Player 8", 1, 0));
-		
-		
-		JsArray<Game> gameFinal = ( JsArray< Game > ) JavaScriptObject.createArray(); 
-		
-		gameFinal.push(GameBuilder.buildGame("Player 2", "Player 5", 1, 0));
-		
-		Round secondRound = RoundBuilder.build(games);
-		Round thirdRound = RoundBuilder.build(gamesSemi);
-		Round finalRound = RoundBuilder.build(gameFinal);
-		
-		JsArray<Round> secondRounds = ( JsArray< Round > ) JavaScriptObject.createArray(); 
-		secondRounds.push(secondRound);
-		secondRounds.push(thirdRound);
-		secondRounds.push(finalRound);
-		
-		deathMatchPhase.updateRounds(secondRounds);
+//		JsArray<Game> games = ( JsArray< Game > ) JavaScriptObject.createArray(); 
+//		
+//		games.push(GameBuilder.buildGame("Player 1", "Player 2", 1, 2));
+//		games.push(GameBuilder.buildGame("Player 3", "Player 4", 1, 0));
+//		games.push(GameBuilder.buildGame("Player 5", "Player 6", 1, 0));
+//		games.push(GameBuilder.buildGame("Player 7", "Player 8", 1, 2));
+//		
+//		JsArray<Game> gamesSemi = ( JsArray< Game > ) JavaScriptObject.createArray(); 
+//		
+//		gamesSemi.push(GameBuilder.buildGame("Player 2", "Player 3", 1, 0));
+//		gamesSemi.push(GameBuilder.buildGame("Player 5", "Player 8", 1, 0));
+//		
+//		
+//		JsArray<Game> gameFinal = ( JsArray< Game > ) JavaScriptObject.createArray(); 
+//		
+//		gameFinal.push(GameBuilder.buildGame("Player 2", "Player 5", 1, 0));
+//		
+//		Round secondRound = RoundBuilder.build(games);
+//		Round thirdRound = RoundBuilder.build(gamesSemi);
+//		Round finalRound = RoundBuilder.build(gameFinal);
+//		
+//		JsArray<Round> secondRounds = ( JsArray< Round > ) JavaScriptObject.createArray(); 
+//		secondRounds.push(secondRound);
+//		secondRounds.push(thirdRound);
+//		secondRounds.push(finalRound);
+//		
+//		deathMatchPhase.updateRounds(deathMatchRounds);
 	}
 
 }

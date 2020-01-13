@@ -79,14 +79,14 @@ public final class Game extends JavaScriptObject
   /**
    * @return Gols do jogador 1 no jogo.
    */
-  public final native int getScore1() /*-{
+  public final native Integer getScore1() /*-{
   	 return this.score1;
   }-*/;
 
   /**
    * @return Gols do jogador 2 no jogo.
    */
-  public final native int getScore2() /*-{
+  public final native Integer getScore2() /*-{
   	 return this.score2;
   }-*/;
 

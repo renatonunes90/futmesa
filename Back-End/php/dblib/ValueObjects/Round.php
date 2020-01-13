@@ -28,6 +28,12 @@ class Round extends ValueObject
    public $idchampionship;
 
    /**
+    * 
+    * @var int Round phase.
+    */
+   public $phase;
+   
+   /**
     *
     * @var mixed Data base da rodada.
     */
@@ -54,6 +60,7 @@ class Round extends ValueObject
    {
       $this->id = $round->id;
       $this->idchampionship = $round->idchampionship;
+      $this->phase = $round->phase;
       $this->basedate = $round->basedate;
       $this->basehour = $round->basehour;
       $this->number = $round->number;

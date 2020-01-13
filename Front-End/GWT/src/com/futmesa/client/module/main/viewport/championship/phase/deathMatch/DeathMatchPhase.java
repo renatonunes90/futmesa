@@ -208,21 +208,21 @@ public class DeathMatchPhase {
 
 	public void updateRounds(JsArray<Round> rounds) {
 		
-		if ( rounds.length() > 0 ) {
+		if ( rounds.length() > 0 && rounds.get(0).getGames().length() > 0) {
 			JsArray<Game> games = rounds.get(0).getGames();
 			int playerCount = 0;
 			for ( int i=0; i< games.length(); i++ ) {
 				fillGame(games.get(i), playerRef.get(playerCount), playerScoreRef.get(playerCount++), playerRef.get(playerCount), playerScoreRef.get(playerCount++));
 			}
 			
-			if ( rounds.length() > 1 ) {
+			if ( rounds.length() > 1 && rounds.get(1).getGames().length() > 0 ) {
 				games = rounds.get(1).getGames();
 				int playerSemiCount = 0;
 				for ( int i=0; i< games.length(); i++ ) {
 					fillGame(games.get(i), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++));
 				}
 				
-				if ( rounds.length() > 2 ) {
+				if ( rounds.length() > 2 && rounds.get(2).getGames().length() > 0 ) {
 					games = rounds.get(2).getGames();
 					fillGame(games.get(0), playerFinalRef.get(0), playerFinalScoreRef.get(0), playerFinalRef.get(1), playerFinalScoreRef.get(1));
 					
@@ -244,24 +244,32 @@ public class DeathMatchPhase {
 	
 	private void fillGame(Game game, Label player1, Label score1, Label player2, Label score2) {
 		player1.setText(game.getPlayer1Name());
-		score1.setText(String.valueOf(game.getScore1()));
 		player2.setText(game.getPlayer2Name());
-		score2.setText(String.valueOf(game.getScore2()));
-		
-		if ( game.getScore1() > game.getScore2() ) {
-			player2.addStyleName(resources.styles().playerDisqualified());
-			score2.addStyleName(resources.styles().playerDisqualified());
+
+		if ( game.getScore1() != null && game.getScore2() != null ) {
+			score1.setText(String.valueOf(game.getScore1()));
+			score2.setText(String.valueOf(game.getScore2()));
+			
+			if ( game.getScore1() > game.getScore2() ) {
+				player2.addStyleName(resources.styles().playerDisqualified());
+				score2.addStyleName(resources.styles().playerDisqualified());
+			} else {
+				player1.addStyleName(resources.styles().playerDisqualified());
+				score1.addStyleName(resources.styles().playerDisqualified());
+			}
 		} else {
-			player1.addStyleName(resources.styles().playerDisqualified());
-			score1.addStyleName(resources.styles().playerDisqualified());
+			score1.setText("0");
+			score2.setText("0");
 		}
 	}
 	
 	private void resolveGame(Game game, Label player) {
-		if ( game.getScore1() > game.getScore2() ) {
-			player.setText(game.getPlayer1Name());
-		} else {
-			player.setText(game.getPlayer2Name());
+		if ( game.getScore1() != null && game.getScore2() != null ) {
+			if ( game.getScore1() > game.getScore2() ) {
+				player.setText(game.getPlayer1Name());
+			} else {
+				player.setText(game.getPlayer2Name());
+			}
 		}
 	}
 

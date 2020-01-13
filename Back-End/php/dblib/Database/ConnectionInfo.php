@@ -71,7 +71,7 @@ class ConnectionInfo
          $this->username = "SYSDBA";
          $this->pass = "masterkey";
          $this->host = "localhost";
-         $this->database = "D:/Projetos/Futmesa/Database/FUTMESA.FDB";
+         $this->database = "D:/Projects/Futmesa/Database/FUTMESA.FDB";
       }
    }
 }

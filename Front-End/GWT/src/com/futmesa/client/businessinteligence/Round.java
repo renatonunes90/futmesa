@@ -42,6 +42,13 @@ public final class Round extends JavaScriptObject
       return this.idchampionsip;
    }-*/;
 
+   /**
+    * @return Round phase.
+    */
+   public final native int getPhase() /*-{
+   	 return this.phase;
+   }-*/;
+   
   /**
    * @return Horário da rodada.
    */
