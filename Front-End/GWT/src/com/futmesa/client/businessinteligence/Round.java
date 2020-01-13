@@ -42,6 +42,13 @@ public final class Round extends JavaScriptObject
       return this.idchampionsip;
    }-*/;
 
+   /**
+    * @return Round phase.
+    */
+   public final native int getPhase() /*-{
+   	 return this.phase;
+   }-*/;
+   
   /**
    * @return Horário da rodada.
    */
@@ -68,6 +75,13 @@ public final class Round extends JavaScriptObject
    */
   public final native JsArray<Game> getGames() /*-{
   	 return this.games;
+  }-*/;
+  
+  /**
+   * @return Jogos da rodada.
+   */
+  public final native void setGames(JsArray<Game> games) /*-{
+  	 this.games = games;
   }-*/;
 }
 

@@ -1,21 +1,17 @@
 package com.futmesa.client.module.main.viewport.championship.classificatoryGroups;
 
-import com.futmesa.client.base.ViewportInterface;
-import com.futmesa.client.businessinteligence.Championship;
 import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Round;
-import com.futmesa.client.module.main.dialogs.results.ResultsDialog;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
-import com.futmesa.client.module.main.widgets.classification.ClassificationTable;
-import com.futmesa.client.module.main.widgets.games.GamesTable;
+import com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts;
+import com.futmesa.client.module.main.viewport.championship.phase.qualify.QualifyPhase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,51 +22,59 @@ public class ClassificatoryGroupsViewport extends ChampionshipViewport {
 
 	private static final ClassificationViewportUiBinder uiBinder = GWT.create(ClassificationViewportUiBinder.class);
 
-	interface ClassificationViewportUiBinder extends UiBinder<HorizontalPanel, ClassificatoryGroupsViewport> {
+	interface ClassificationViewportUiBinder extends UiBinder<VerticalPanel, ClassificatoryGroupsViewport> {
 	}
 
-	@UiField(provided = false)
-	protected HorizontalPanel panel;
+	private ChampionshipViewportConsts constants;
 	
 	@UiField(provided = false)
-	protected VerticalPanel leftPanel;
-
-	@UiField(provided = false)
-	protected VerticalPanel rightPanel;
+	protected VerticalPanel panel;
 	
 	@UiField(provided = false)
-	protected SimplePanel gameTablePanel;
+	protected Button prevPhaseBtn;
 
-	//@UiField(provided = false)
-	//protected Button insertResultBtn;
+	@UiField(provided = false)
+	protected Button nextPhaseBtn;
 	
-	private ClassificationTable classification;
-
-	private GamesTable games;
-
-	private ResultsDialog resultsDialog;
+	@UiField(provided = false)
+	protected Label phaseLabel;
+	
+	@UiField(provided = false)
+	protected HorizontalPanel phasePanel;
+	
+	private QualifyPhase qualifyPhase;
 	
 	public ClassificatoryGroupsViewport() {
 
-		classification = new ClassificationTable();
-		games = new GamesTable();
-		resultsDialog = new ResultsDialog();
-
+		constants = GWT.create(ChampionshipViewportConsts.class);
+		 
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
-		leftPanel.add(classification.asWidget());
-		gameTablePanel.add(games.asWidget());
+		qualifyPhase = new QualifyPhase();
+		phasePanel.add(qualifyPhase.asWidget());
 		
-		// rightPanel.setCellHorizontalAlignment( insertResultBtn, HasHorizontalAlignment.ALIGN_RIGHT);
-		//panel.setCellHorizontalAlignment( championshipLabel, HasHorizontalAlignment.ALIGN_CENTER );
+		prevPhaseBtn.setEnabled(false);
+		nextPhaseBtn.setEnabled(true);
 		
-		/*insertResultBtn.addClickHandler( handler ->{
-			resultsDialog.setChampionship( championship );
-			resultsDialog.setGames( games.getDisplayedGames() );
-			resultsDialog.getDialog().center();
-			resultsDialog.getDialog();
-		})*/;
+		prevPhaseBtn.setText("<<");
+		prevPhaseBtn.addClickHandler(handler -> {
+			phaseLabel.setText(constants.qualifyPhase());
+			prevPhaseBtn.setEnabled(false);
+			nextPhaseBtn.setEnabled(true);
+			
+			phasePanel.clear();
+			phasePanel.add(qualifyPhase.asWidget());
+		});
+		
+		nextPhaseBtn.setText(">>");
+		nextPhaseBtn.addClickHandler(handler -> {
+			phaseLabel.setText(constants.groupsPhase());
+			prevPhaseBtn.setEnabled(true);
+			nextPhaseBtn.setEnabled(false);
+			phasePanel.clear();
+			
+		});
 	}
 
 	@Override
@@ -80,12 +84,12 @@ public class ClassificatoryGroupsViewport extends ChampionshipViewport {
 
 	@Override
 	public void updateClassification(JsArray<Classification> classification) {
-		this.classification.updateClassification(classification);
+		qualifyPhase.updateClassification(classification);
 	}
 
 	@Override
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds(rounds, 21);
+		qualifyPhase.updateRounds(rounds);
 	}
 
 }

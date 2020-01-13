@@ -1,21 +1,21 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder
-  xmlns:ui="urn:ui:com.google.gwt.uibinder"
-  xmlns:g="urn:import:com.google.gwt.user.client.ui"
-  xmlns:c="urn:import:com.google.gwt.user.cellview.client" >
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-  <ui:with field="consts" type="com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts" /> 
-  	
-  <ui:style src="classificatorydeathmatchviewport.css" /> 
+	<ui:with field="consts"
+		type="com.futmesa.client.module.main.viewport.championship.ChampionshipViewportConsts" />
 
-  <g:HorizontalPanel ui:field='panel'>
-    <g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
-     	<g:Label addStyleNames='{style.classificationTitle}' text='{consts.classificationTitle}'></g:Label>
-     </g:VerticalPanel>
-     <g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.customRightPanel}'>
-        <g:Label addStyleNames='{style.classificationTitle}' text='{consts.gamesTitle}'></g:Label>
-        <g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
-     </g:VerticalPanel>
-  </g:HorizontalPanel>
-  
+	<ui:style src="classificatorydeathmatchviewport.css" />
+	
+	<g:VerticalPanel ui:field='panel'>
+		<g:HorizontalPanel addStyleNames='{style.phase-toolbar}'>
+			<g:Button ui:field='prevPhaseBtn' addStyleNames='{style.phase-toolbar-content}' ></g:Button>
+			<g:Label ui:field='phaseLabel' addStyleNames='{style.phase-title} {style.phase-toolbar-content} text-center' text='{consts.qualifyPhase}'></g:Label>
+			<g:Button ui:field='nextPhaseBtn' addStyleNames='{style.phase-toolbar-content} float-right' ></g:Button>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel ui:field='phasePanel'>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
+
 </ui:UiBinder>

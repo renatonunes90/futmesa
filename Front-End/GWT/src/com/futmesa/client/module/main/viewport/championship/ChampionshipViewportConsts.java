@@ -16,4 +16,13 @@ public interface ChampionshipViewportConsts
    
    @DefaultStringValue ( "Alter Results" )
    String alterResultsLabel();
+   
+   @DefaultStringValue ( "Qualify Phase" )
+   String qualifyPhase();
+   
+   @DefaultStringValue ( "Death Match Phase" )
+   String deathMatchPhase();
+   
+   @DefaultStringValue ( "Groups Phase" )
+   String groupsPhase();
 }

@@ -12,8 +12,8 @@ import com.google.gwt.http.client.URL;
 public final class PHPRequest
 {
    
-   private final String SERVER_ADDRESS = "http://www.keko.kinghost.net/futmesa/server/main.php";
-   //private final String SERVER_ADDRESS ="server/main.php";
+   //private final String SERVER_ADDRESS = "http://www.keko.kinghost.net/futmesa/server/main.php";
+   private final String SERVER_ADDRESS ="http://localhost/futmesa/server/main.php";
    
    /**
     * Classe pai que vai receber o resultado das requisições.

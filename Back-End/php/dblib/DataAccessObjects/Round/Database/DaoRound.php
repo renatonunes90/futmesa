@@ -148,6 +148,7 @@ class DaoRound implements DaoRoundInterface
       $object = new \ValueObject\Round();
       $object->id = $result[ self::ID ];
       $object->idchampionship = $result[ self::IDCHAMPIONSHIP ];
+      $object->phase = $result[ self::PHASE ];
       $object->basedate = $result[ self::BASEDATE ];
       $object->basehour = $result[ self::BASEHOUR ];
       $object->number = $result[ self::NUMBER ];

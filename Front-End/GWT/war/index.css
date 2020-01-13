@@ -32,6 +32,21 @@ a, body, button, div, form, input, h1, h2, h3, h4, h5, h6, html, li, p,
 	background-size: contain;
 }
 
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.float-right {
+	float: right;
+}
 /* .centered-cover-image { */
 /* 	background-position: center; */
 /* 	background-repeat: no-repeat; */
