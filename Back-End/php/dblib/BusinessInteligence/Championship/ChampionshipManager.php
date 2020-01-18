@@ -61,6 +61,14 @@ class ChampionshipManager extends Championship
       }
    }
    
+   public function insertGames( array $games ): void {
+       $daoGame = DaoGameFactory::getDaoGame();
+       if ( !$daoGame->insertGames( $games ) )
+       {
+           throw new ChampionshipManagerException( "Erro inserindo resultado no banco de dados." );
+       }
+   }
+   
    /**
     * Calcula a classificação do campeonato em uma dada rodada.
     *

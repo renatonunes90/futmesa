@@ -1,0 +1,136 @@
+1;Roberto Bopp;1;1;Val;1
+1;Thiago Leao;2;1;Luzardo Carpes;2
+1;Xico;0;0;Nei Barbieri;3
+1;Cristiano Carneiro;1;1;Robin Antonelo;4
+1;Renato Barbieri;1;0;Jorge Macedo;5
+1;Mano;0;0;Mauro;6
+1;Jeferson Lucas;1;0;Ricardo Gothe;7
+2;Roberto Bopp;0;0;Xico;1
+2;Val;0;0;Luzardo Carpes;2
+2;Robin Antonelo;2;1;Mauro;3
+2;Nei Barbieri;1;0;Renato Barbieri;4
+2;Cristiano Carneiro;0;0;Thiago Leao;5
+2;Mano;1;0;Jeferson Lucas;6
+2;Jorge Macedo;0;0;Ricardo Gothe;7
+3;FC;0;4;Ricardo Gothe;1
+3;Mano;0;0;Val;2
+3;Nei Barbieri;0;0;Jeferson Lucas;3
+3;Robin Antonelo;0;2;Renato Barbieri;4
+3;Luzardo Carpes;0;0;Mauro;5
+3;Cristiano Carneiro;3;0;Xico;6
+3;Thiago Leao;2;3;Roberto Bopp;7
+4;FC;1;0;Thiago Leao;1
+4;Mauro;2;0;Roberto Bopp;2
+4;Otavio Germano;1;3;Nei Barbieri;3
+4;Cristiano Carneiro;0;0;Ricardo Gothe;4
+4;Val;0;0;Jeferson Lucas;5
+4;Mano;1;0;Jorge Macedo;6
+5;Mano;1;0;Roberto Bopp;1
+5;Jorge Macedo;0;0;Xico;2
+5;Ricardo Gothe;1;0;Nei Barbieri;3
+5;Otavio Germano;0;0;Luzardo Carpes;4
+6;Ricardo Gothe;0;0;Luzardo Carpes;1
+6;Mano;1;1;Robin Antonelo;2
+6;Jorge Macedo;1;1;Roberto Bopp;3
+6;Jeferson Lucas;0;0;Renato Barbieri;4
+6;Mano;4;0;Xico;5
+7;Otavio Germano;1;1;Thiago Leao;1
+7;Robin Antonelo;1;0;Nei Barbieri;2
+7;Cristiano Carneiro;2;0;Jeferson Lucas;1
+7;Thiago Leao;0;1;Mauro;2
+7;FC;1;0;Renato Barbieri;3
+7;Val;0;1;Ricardo Gothe;4
+7;Renato Barbieri;0;0;Luzardo Carpes;5
+8;Otavio Germano;0;0;Mauro;1
+8;Thiago Leao;1;0;Jeferson Lucas;2
+8;Cristiano Carneiro;2;0;Renato Barbieri;3
+9;Robin Antonelo;1;1;Xico;1
+9;Jeferson Lucas;0;1;Mauro;2
+9;Val;1;3;Cristiano Carneiro;3
+9;Roberto Bopp;0;0;Otavio Germano;4
+9;Thiago Leao;1;0;Renato Barbieri;5
+9;FC;2;1;Nei Barbieri;6
+10;Thiago Leao;2;0;Nei Barbieri;1
+10;Roberto Bopp;1;5;Jeferson Lucas;2
+10;FC;3;0;Xico;3
+10;Otavio Germano;1;2;Val;4
+10;Cristiano Carneiro;2;0;Mauro;5
+11;Roberto Bopp;0;1;Renato Barbieri;1
+11;Xico;0;4;Ricardo Gothe;2
+11;Thiago Leao;1;1;Mano;3
+11;Val;1;1;Nei Barbieri;4
+12;Xico;0;1;Jeferson Lucas;1
+12;Otavio Germano;0;2;Mano;2
+12;Robin Antonelo;0;0;Ricardo Gothe;3
+12;Roberto Bopp;1;0;Nei Barbieri;4
+12;Val;0;2;Mauro;5
+12;Mano;1;0;FC;6
+12;Thiago Leao;2;1;Jorge Macedo;1
+12;Robin Antonelo;2;0;Luzardo Carpes;2
+13;FC;0;0;Jorge Macedo;1
+13;Jorge Macedo;0;0;Cristiano Carneiro;2
+14;Jorge Macedo;0;2;Jeferson Lucas;1
+14;Renato Barbieri;1;2;Mano;2
+14;Luzardo Carpes;1;0;Nei Barbieri;3
+14;Mauro;0;0;Ricardo Gothe;4
+14;Val;0;1;Robin Antonelo;5
+14;Otavio Germano;1;0;Xico;6
+14;FC;0;0;Roberto Bopp;7
+15;FC;0;0;Jeferson Lucas;1
+15;Otavio Germano;1;1;Jorge Macedo;2
+15;Roberto Bopp;0;1;Luzardo Carpes;3
+15;Cristiano Carneiro;1;0;Nei Barbieri;4
+15;Val;0;1;Thiago Leao;5
+15;Renato Barbieri;0;2;Mauro;6
+16;Robin Antonelo;2;0;Jorge Macedo;1
+17;Mano;3;0;Nei Barbieri;3
+17;Robin Antonelo;2;1;Jeferson Lucas;1
+18;FC;0;2;Robin Antonelo;1
+18;Mano;0;0;Ricardo Gothe;2
+18;Jorge Macedo;1;1;Nei Barbieri;3
+18;Jeferson Lucas;0;0;Luzardo Carpes;4
+18;Val;0;1;Renato Barbieri;5
+18;Xico;1;2;Mauro;6
+18;Otavio Germano;0;3;Cristiano Carneiro;7
+19;FC;0;3;Luzardo Carpes;1
+19;Mauro;1;1;Nei Barbieri;2
+19;Cristiano Carneiro;0;1;Mano;3
+19;Roberto Bopp;0;1;Ricardo Gothe;4
+19;Xico;0;0;Renato Barbieri;5
+19;Robin Antonelo;5;1;Otavio Germano;6
+20;Jorge Macedo;0;0;Val;1
+20;FC;1;0;Val;1
+20;FC;0;0;Cristiano Carneiro;1
+21;Robin Antonelo;2;0;Thiago Leao;2
+21;Luzardo Carpes;1;0;Jorge Macedo;3
+21;FC;0;0;Mauro;4
+21;Roberto Bopp;1;0;Cristiano Carneiro;5
+22;Jorge Macedo;1;2;Mauro;1
+22;Luzardo Carpes;0;0;Mano;2
+22;Roberto Bopp;0;4;Robin Antonelo;3
+22;Thiago Leao;3;0;Xico;4
+22;Ricardo Gothe;2;0;Otavio Germano;2
+23;Luzardo Carpes;1;1;Cristiano Carneiro;1
+23;Otavio Germano;1;0;Jeferson Lucas;2
+23;Renato Barbieri;0;0;Ricardo Gothe;3
+23;Val;0;1;Xico;4
+24;Otavio Germano;1;1;Renato Barbieri;2
+24;Thiago Leao;1;0;Ricardo Gothe;3
+24;Luzardo Carpes;1;0;Xico;4
+24;Otavio Germano;1;0;FC;1
+11;Cristian Costa;0;1;Thiago Leao;5
+11;Cristian Costa;3;1;Otavio Germano;6
+13;Cristian Costa;3;2;Xico;3
+13;Cristian Costa;0;2;Mano;4
+13;Cristian Costa;1;1;Renato Barbieri;5
+13;Cristian Costa;1;1;Jeferson Lucas;6
+16;Cristian Costa;0;2;FC;2
+16;Cristian Costa;4;3;Roberto Bopp;3
+16;Cristian Costa;0;0;Cristiano Carneiro;4
+16;Cristian Costa;1;0;Jorge Macedo;5
+16;Cristian Costa;3;2;Nei Barbieri;6
+17;Cristian Costa;1;0;Mauro;3
+17;Cristian Costa;2;1;Val;4
+23;Cristian Costa;0;0;Ricardo Gothe;5
+24;Cristian Costa;1;3;Robin Antonelo;5
+24;Cristian Costa;1;1;Luzardo Carpes;6

@@ -18,7 +18,7 @@ interface DaoRoundInterface
    // Tabela
    const ID = "ID";
    const IDCHAMPIONSHIP = "IDCHAMPIONSHIP";
-   const PHASE = "PHASE";
+   const IDPHASE = "IDPHASE";
    const BASEDATE = "BASEDATE";
    const BASEHOUR = "BASEHOUR";
    const NUMBER = "NUMBER";
