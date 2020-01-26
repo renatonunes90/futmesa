@@ -52,8 +52,7 @@ class ServiceChampionship
       $result = null;
       
       $championship = $this->provider_->getChampionship( $id );
-      if ( $championship != null )
-      {
+      if ( $championship != null ) {
          $result = $championship->getChampionshipVO();
       }
       
@@ -72,15 +71,16 @@ class ServiceChampionship
       
       return $result;
    }
+
    
-   public function getLastClassifications( int $id ): array
+   public function getLastClassifications( int $id, int $phaseNumber ): array
    {
       $result = null;
       
       $championship = $this->provider_->getChampionship( $id );
       if ( $championship != null )
       {
-         $classification = $championship->getClassification();
+         $classification = $championship->getClassification($phaseNumber);
          foreach ( $classification as $c )
          {
             $result[] = new DtoClassification( $c );

@@ -75,14 +75,15 @@ class ChampionshipManager extends Championship
     * @param int $roundNumber
     * @return array Lista ordenada do melhor ao pior classificado no campeonato, com suas estatísticas.
     */
-   public function getClassification( int $roundNumber = 0 ): array
+   public function getClassification( int $phaseNumber, int $roundNumber = 0 ): array
    {
       $classifications = array ();
 
+      $phase = $this->getPhase($phaseNumber);
       $players = $this->getPlayers();
       foreach ( $players as $p )
       {
-         $classifications[] = $this->evaluateClassification( $p->getPlayerVO()->id, $roundNumber );
+          $classifications[] = $this->evaluateClassification( $p->getPlayerVO()->id, $phase, $roundNumber );
       }
 
       usort( $classifications,
@@ -121,9 +122,9 @@ class ChampionshipManager extends Championship
       return $classifications;
    }
 
-   private function evaluateClassification( int $playerId, int $roundNumber ): Classification
+   private function evaluateClassification( int $playerId, Phase $phase, int $roundNumber ): Classification
    {
-      $games = $this->getGamesOfPlayer( $playerId, $roundNumber );
+       $games = $this->getGamesOfPlayer( $playerId, $phase, $roundNumber );
       $classification = new Classification( $playerId, $roundNumber );
 
       $gameStatus = array();
@@ -181,14 +182,14 @@ class ChampionshipManager extends Championship
       return $game;
    }
 
-   private function getGamesOfPlayer( int $playerId, int $roundNumber = 0 ): array
+   private function getGamesOfPlayer( int $playerId, Phase $phase, int $roundNumber = 0 ): array
    {
-      $roundNumber = $roundNumber == 0 ? $this->getMaxRounds() : $roundNumber;
-      
+       $roundNumber = $roundNumber == 0 ? $this->getMaxRounds($phase) : $roundNumber;
+
       $games = array ();
       for ( $i = 1; $i <= $roundNumber; $i++ )
       {
-         $round = $this->getRound( $i );
+          $round = $phase->getRound( $i );
          $playedGames = $round->getGamesOfPlayer( $playerId );
          foreach ( $playedGames as $pg ) {
              if ( $pg != null && $pg->hasResult() )
@@ -200,8 +201,8 @@ class ChampionshipManager extends Championship
       return $games;
    }
    
-   private function getMaxRounds() : int
+   private function getMaxRounds( Phase $phase ) : int
    {
-      return max( array_keys( $this->getRounds() ) );
+       return sizeOf( $phase->getRounds() );
    }
 }

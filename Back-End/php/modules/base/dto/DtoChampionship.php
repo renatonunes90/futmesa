@@ -9,31 +9,27 @@ require_once "BusinessInteligence/Championship/Championship.php";
 require_once "ValueObjects/Championship.php";
 
 require_once "dto/DtoPlayer.php";
-require_once "dto/DtoRound.php";
 
 /**
- * A responsabilidade desta classe é encapsular os atributos de um campeonato para retonar em uma requisição HTTP.
  */
 class DtoChampionship extends \ValueObject\Championship
 {
 
    /**
     *
-    * @var array Mapa de objetos do tipo DtoPlayer com os participantes do campeonato.
+    * @var array
     */
    public $players;
 
    /**
     *
-    * @var array Mapa de objetos do tipo DtoRound com as rodadas do campeonato.
+    * @var array
     */
-   public $rounds;
+   public $phases;
 
    /**
-    * Construtor padrão.
     *
     * @param \DbLib\Championship $championship
-    *           Objeto retornado da DBLib contendo as informações de um campeonato.
     */
    public function __construct( \DbLib\Championship $championship )
    {
@@ -44,16 +40,15 @@ class DtoChampionship extends \ValueObject\Championship
       {
          $this->players[] = new DtoPlayer( $p ); 
       }
-      $this->rounds = array();
-      $rounds = $championship->getRounds();
-      foreach ( $rounds as $r )
+      $this->phases = array();
+      $phases = $championship->getPhases();
+      foreach ( $phases as $p )
       {
-         $this->rounds[] = new DtoRound( $r );
+          $this->phases[] = $p->getPhaseVO();
       }
    }
 
    /**
-    * Função para clonar um campeonato.
     */
    public function __clone()
    {
@@ -64,17 +59,17 @@ class DtoChampionship extends \ValueObject\Championship
       }
       $this->players = $newPlayers;
 
-      $newRounds = array ();
-      foreach ( $this->rounds as $r )
+      $newPhases = array ();
+      foreach ( $this->phases as $p )
       {
-         $newRounds[] = clone $r;
+          $newPhases[] = clone $p;
       }
-      $this->rounds = $newRounds;
+      $this->phases = $newPhases;
    }
    
    /**
     *
-    * @return array Lista de objetos de tipo DtoPlayer que participam do campeonato.
+    * @return array 
     */
    public function getPlayers(): array
    {
@@ -83,10 +78,10 @@ class DtoChampionship extends \ValueObject\Championship
    
    /**
     *
-    * @return array Lista de objetos de tipo DtoRound.
+    * @return array
     */
-   public function getRounds(): array
+   public function getPhases(): array
    {
-      return $this->rounds;
+      return $this->phases;
    }
 }

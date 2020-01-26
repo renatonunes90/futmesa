@@ -30,6 +30,8 @@ interface DaoRoundInterface
     * @return array Mapa de objetos do tipo Round indexados pelo seu identificador.
     */
    public function getAllRounds( int $championshipId ): array;
+   
+   public function getRoundsByPhase( int $phaseId ): array;
 
 /**
  * Inclui novos objetos na tabela no banco de dados.

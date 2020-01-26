@@ -56,6 +56,24 @@ class DaoRound implements DaoRoundInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoRoundInterface::getRoundsByPhase()
+    */
+   public function getRoundsByPhase( int $phaseId ): array
+   {
+       $objects = array ();
+       $result = $this->db_->selectAll( "SELECT r.* FROM round r WHERE r.idphase = $phaseId" );
+       
+       foreach ( $result as &$r )
+       {
+           $objects[ $r[ self::ID ] ] = $this->convertToRound( $r );
+       }
+       
+       return $objects;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool

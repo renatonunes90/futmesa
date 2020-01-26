@@ -40,6 +40,26 @@ class DaoTestRound implements DaoRoundInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoRoundInterface::getRoundsByPhase()
+    */
+   public function getRoundsByPhase( int $phaseId ): array
+   {
+       $rounds = array ();
+       $database = new XMLInterface( self::PATH );
+       $result = $database->getFilteredObjects( self::ROUND, array ( self::IDPHASE => $phaseId ) );
+       
+       foreach ( $result as &$item )
+       {
+           $rounds[ $item[ self::ID ] ] = $this->convertToRound( $item );
+       }
+       
+       return $rounds;
+   }
+   
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool
