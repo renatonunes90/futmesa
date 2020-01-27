@@ -8,12 +8,19 @@
 require_once "BusinessInteligence/Phase/Phase.php";
 require_once "ValueObjects/Phase.php";
 
+require_once "dto/DtoGroups.php";
 require_once "dto/DtoRound.php";
 
 /**
  */
 class DtoPhase extends \ValueObject\Phase
 {
+    
+    /**
+     *
+     * @var Array
+     */
+    public $groups;
 
     /**
      *
@@ -33,6 +40,11 @@ class DtoPhase extends \ValueObject\Phase
         foreach ($allRounds as $r) {
             $this->rounds[] = new DtoRound($r);
         }
+        $this->groups = array();
+        $allGroups = $phase->getGroups();
+        foreach ($allGroups as $g) {
+            $this->groups[] = new DtoGroups($g);
+        }
     }
 
     /**
@@ -44,8 +56,23 @@ class DtoPhase extends \ValueObject\Phase
             $newRounds[] = clone $r;
         }
         $this->rounds = $newRounds;
+        
+        $newGroups = array();
+        foreach ($this->groups as $g) {
+            $newGroups[] = clone $g;
+        }
+        $this->rounds = $newGroups;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getGroups(): array
+    {
+        return $this->groups;
+    }
+    
     /**
      *
      * @return array

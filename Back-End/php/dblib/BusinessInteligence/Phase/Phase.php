@@ -8,8 +8,13 @@
 namespace DBLib;
 
 use DAO\DaoGameFactory;
+use DAO\DaoGroupsFactory;
 use DAO\DaoRoundFactory;
+
+require_once "BusinessInteligence/Groups/Groups.php";
+require_once "DataAccessObjects/Groups/DaoGroupsFactory.php";
 require_once "DataAccessObjects/Round/DaoRoundFactory.php";
+require_once "ValueObjects/Groups.php";
 require_once "ValueObjects/Round.php";
 
 /**
@@ -25,6 +30,12 @@ class Phase
 
     /**
      *
+     * @var Array Map with groups of phase indexed by your number.
+     */
+    private $groups_;
+    
+    /**
+     *
      * @var Array Map with rounds of phase indexed by your number.
      */
     private $rounds_;
@@ -37,6 +48,7 @@ class Phase
     {
         $this->phaseVO_ = $phaseVO;
         $this->rounds_ = array();
+        $this->groups_ = array();
     }
 
     /**
@@ -50,6 +62,12 @@ class Phase
             $newRounds[] = clone $r;
         }
         $this->rounds_ = $newRounds;
+        
+        $newGroups = array();
+        foreach ($this->groups_ as $g) {
+            $newGroups[] = clone $g;
+        }
+        $this->groups_ = $newGroups;
     }
 
     /**
@@ -71,6 +89,16 @@ class Phase
         return $this->rounds_;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getGroups(): array
+    {
+        $this->loadGroups();
+        return $this->groups_;
+    }
+    
     /**
      *
      * @param int $roundNumber
@@ -96,10 +124,24 @@ class Phase
     {
         $this->rounds_ = $rounds;
     }
+    
+    /**
+     *
+     * @param array $groups
+     */
+    public function setGroups(array $groups): void
+    {
+        $this->groups_ = $groups;
+    }
 
+    private function isGroupsPhase() 
+    {
+        return $this->phaseVO_->type === 2;    
+    }
+    
     private function loadRounds(bool $forceReload = false): void
     {
-        if ( sizeOf( $this->rounds_ ) == 0 || $forceReload )
+        if ( !$this->isGroupsPhase() && (sizeOf( $this->rounds_ ) == 0 || $forceReload ))
         {
             $daoGames = DaoGameFactory::getDaoGame();
             $allGames = $daoGames->getAllGames( $this->phaseVO_->idchampionship );
@@ -124,6 +166,19 @@ class Phase
                 {
                     $this->rounds_[ $r->number ]->setGames( $gamesByRound[ $r->id ] );
                 }
+            }
+        }
+    }
+    
+    private function loadGroups(bool $forceReload = false): void
+    {
+        if ( sizeOf( $this->groups_ ) == 0 || $forceReload )
+        {
+            $daoGroups = DaoGroupsFactory::getDaoGroups();
+            $groups = $daoGroups->getAllGroups( $this->phaseVO_->idchampionship, $this->phaseVO_->id );
+            foreach ( $groups as $g )
+            {
+                $this->groups_[ $g->id ] = new Groups( $g );
             }
         }
     }
