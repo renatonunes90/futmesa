@@ -6,7 +6,9 @@
  * @version 0.1
  */
 use DBLib\ChampionshipProvider;
+use DBLib\EvalClassification;
 
+require_once "dto/DtoClassification.php";
 require_once "dto/DtoPhase.php";
 
 class ServicePhase
@@ -49,6 +51,25 @@ class ServicePhase
         return $result;
     }
 
+    public function getLastClassifications(int $idChampionship, int $phaseNumber): array
+    {
+        $result = array();
+        
+        $championship = $this->provider_->getChampionship($idChampionship);
+        if ($championship != null) {
+            $phase = $championship->getPhase($phaseNumber);
+            if ($phase != null) {                
+                $evalClassification = new EvalClassification();
+                $classification = $evalClassification->getClassification($phase->getRounds(), $championship->getPlayers());
+                foreach ($classification as $c) {
+                    $result[] = new DtoClassification($c);
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
     public function getPhaseByNumber(int $idChampionship, int $phaseNumber): ?ValueObject\Phase
     {
         $result = array();

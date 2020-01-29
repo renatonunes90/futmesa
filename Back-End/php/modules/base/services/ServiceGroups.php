@@ -22,7 +22,7 @@ class ServiceGroups
 
     public function getLastClassifications(int $idChampionship, int $phaseNumber, int $idGroup): array
     {
-        $result = null;
+        $result = array();
 
         $championship = $this->provider_->getChampionship($idChampionship);
         if ($championship != null) {

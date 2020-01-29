@@ -9,7 +9,6 @@
 use DBLib\ChampionshipProvider;
 
 require_once "dto/DtoChampionship.php";
-require_once "dto/DtoClassification.php";
 
 class ServiceChampionship
 {
@@ -67,24 +66,6 @@ class ServiceChampionship
       if ( $championship != null )
       {
          $result = new DtoChampionship( $championship );
-      }
-      
-      return $result;
-   }
-
-   
-   public function getLastClassifications( int $id, int $phaseNumber ): array
-   {
-      $result = null;
-      
-      $championship = $this->provider_->getChampionship( $id );
-      if ( $championship != null )
-      {
-         $classification = $championship->getClassification($phaseNumber);
-         foreach ( $classification as $c )
-         {
-            $result[] = new DtoClassification( $c );
-         }
       }
       
       return $result;
