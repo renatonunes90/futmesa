@@ -73,7 +73,7 @@ class Classification
     * @param int $playerId
     * @param int $roundId
     */
-   public function __construct( int $playerId, int $roundNumber )
+   public function __construct( int $playerId, int $roundNumber = 0 )
    {
       $this->player_ = PlayerProvider::getInstance()->getPlayer( $playerId );
       $this->roundNumber_ = $roundNumber;

@@ -8,7 +8,7 @@
 use PHPUnit\Framework\TestCase;
 use DBLib\Classification;
 
-require_once "BusinessInteligence\Championship\Classification.php";
+require_once "BusinessInteligence\Classification\Classification.php";
 
 /**
  * Testes unitários para a classe Classification.

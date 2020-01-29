@@ -5,7 +5,7 @@
  * @copyright : Renato Martins Barbieri Nunes
  * @version 0.1
  */
-require_once "BusinessInteligence/Championship/Classification.php";
+require_once "BusinessInteligence/Classification/Classification.php";
 
 require_once "dto/DtoPlayer.php";
 

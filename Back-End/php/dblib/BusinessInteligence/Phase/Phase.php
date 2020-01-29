@@ -101,6 +101,23 @@ class Phase
     
     /**
      *
+     * @param int $groupId
+     * @return \DBLib\Groups|NULL
+     */
+    public function getGroup(int $groupId): ?\DBLib\Groups
+    {
+        $group = null;
+        $this->loadGroups();
+        
+        if (array_key_exists($groupId, $this->groups_)) {
+            $group = $this->groups_[$groupId];
+        }
+        
+        return $group;
+    }
+    
+    /**
+     *
      * @param int $roundNumber
      * @return \DBLib\Round|NULL
      */
