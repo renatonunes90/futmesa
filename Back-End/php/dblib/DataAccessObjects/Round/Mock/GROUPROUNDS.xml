@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="GROUPROUNDS">
+    <column>IDGROUP</column>
+    <column>IDROUND</column>
+    <row>
+      <value>1</value>
+      <value>3</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>4</value>
+    </row>
+  </table>
+</dataset>

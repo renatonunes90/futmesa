@@ -74,6 +74,24 @@ class DaoRound implements DaoRoundInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoRoundInterface::getRoundsByGroup()
+    */
+   public function getRoundsByGroup( int $groupId ): array
+   {
+       $objects = array ();
+       $result = $this->db_->selectAll( "SELECT r.* FROM round r JOIN grouprounds gr ON gr.idround = r.id WHERE gr.idgroup = $groupId" );
+       
+       foreach ( $result as &$r )
+       {
+           $objects[ $r[ self::ID ] ] = $this->convertToRound( $r );
+       }
+       
+       return $objects;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool

@@ -19,6 +19,12 @@ class DtoGroups extends \ValueObject\Groups
      *
      * @var Array
      */
+    public $members;
+    
+    /**
+     *
+     * @var Array
+     */
     public $rounds;
 
     /**
@@ -28,6 +34,11 @@ class DtoGroups extends \ValueObject\Groups
     public function __construct(\DbLib\Groups $groups)
     {
         $this->copyData($groups->getGroupsVO());
+        $this->members = array();
+        $allMembers = $groups->getMembers();
+        foreach ($allMembers as $m) {
+            $this->members[] = new DtoPlayer($m);
+        }
         $this->rounds = array();
         $allRounds = $groups->getRounds();
         foreach ($allRounds as $r) {
@@ -39,6 +50,11 @@ class DtoGroups extends \ValueObject\Groups
      */
     public function __clone()
     {
+        $newMembers = array();
+        foreach ($this->members as $m) {
+            $newMembers[] = clone $m;
+        }
+        $this->members = $newMembers;
         $newRounds = array();
         foreach ($this->rounds as $r) {
             $newRounds[] = clone $r;
@@ -46,6 +62,15 @@ class DtoGroups extends \ValueObject\Groups
         $this->rounds = $newRounds;
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getMembers(): array
+    {
+        return $this->members;
+    }
+    
     /**
      *
      * @return array

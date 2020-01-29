@@ -33,6 +33,8 @@ interface DaoRoundInterface
    
    public function getRoundsByPhase( int $phaseId ): array;
 
+   public function getRoundsByGroup( int $groupId ): array;
+   
 /**
  * Inclui novos objetos na tabela no banco de dados.
  *

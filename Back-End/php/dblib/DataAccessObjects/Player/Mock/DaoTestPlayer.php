@@ -16,105 +16,136 @@ require_once "ValueObjects/Player.php";
  */
 class DaoTestPlayer implements DaoPlayerInterface
 {
-   const PATH = "DataAccessObjects\\Player\\Mock\\PLAYER.xml";
 
-   /**
-    *
-    * {@inheritdoc}
-    * @see DaoPlayerInterface::getAllPlayers()
-    */
-   public function getAllPlayers(): array
-   {
-      $players = array ();
-      $database = new XMLInterface( self::PATH );
-      $result = $database->getAllObjects( self::PLAYER );
+    const PATH = "DataAccessObjects\\Player\\Mock\\PLAYER.xml";
 
-      foreach ( $result as &$item )
-      {
-         $players[] = $this->convertToPlayer( $item );
-      }
+    const GROUPMEMBERS_PATH = "DataAccessObjects\\Player\\Mock\\GROUPMEMBERS.xml";
 
-      return $players;
-   }
+    /**
+     *
+     * {@inheritdoc}
+     * @see DaoPlayerInterface::getAllPlayers()
+     */
+    public function getAllPlayers(): array
+    {
+        $players = array();
+        $database = new XMLInterface(self::PATH);
+        $result = $database->getAllObjects(self::PLAYER);
 
-   /**
-    *
-    * {@inheritdoc}
-    * @see DaoTableObjectInterface::insertTableObjects()
-    */
-   // public function insertTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
-   // $input = array ();
-   // $input[ self::ID ] = null;
+        foreach ($result as &$item) {
+            $players[] = $this->convertToPlayer($item);
+        }
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= ( $database->insertItem( $input ) > 0 );
-   // }
+        return $players;
+    }
 
-   // return $result;
-   // }
+    /**
+     *
+     * {@inheritdoc}
+     * @see DaoPlayerInterface::getByGroup()
+     */
+    public function getByGroup(int $groupId): array
+    {
+        $players = array();
+        $database = new XMLInterface(self::PATH);
+        $groupsDatabase = new XMLInterface(self::GROUPMEMBERS_PATH);
+        $result = $groupsDatabase->getFilteredObjects("GROUPMEMBERS", array(
+            "IDGROUP" => $groupId
+        ));
+        $playerIds = [];
+        foreach ($result as &$item) {
+            $playerIds[] = $item["IDPLAYER"];
+        }
 
-   /**
-    *
-    * {@inheritdoc}
-    * @see DaoTableObjectInterface::updateTableObjects()
-    */
-   // public function updateTableObjects( array $objects ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
+        $playersDb = $database->getFilteredObjects(self::PLAYER, array(
+            self::ID => $playerIds
+        ));
 
-   // foreach( $objects as &$objVO )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $objVO->idasset;
-   // $input = array ();
-   // $input[ self::NAME ] = $objVO->name;
-   // $input[ self::DESCRIPTION ] = $objVO->description;
-   // $result &= $database->updateFile( $filter, $input );
-   // }
+        foreach ($playersDb as &$item) {
+            $players[] = $this->convertToPlayer($item);
+        }
 
-   // return $result;
-   // }
+        return $players;
+    }
 
-   /**
-    *
-    * {@inheritdoc}
-    * @see DaoTableObjectInterface::deleteTableObjects()
-    */
-   // public function deleteTableObjects( array $ids ): bool
-   // {
-   // $database = new XMLInterface( self::PATH );
-   // $result = true;
+    /**
+     *
+     * {@inheritdoc}
+     * @see DaoTableObjectInterface::insertTableObjects()
+     */
+    // public function insertTableObjects( array $objects ): bool
+    // {
+    // $database = new XMLInterface( self::PATH );
+    // $result = true;
+    // $input = array ();
+    // $input[ self::ID ] = null;
 
-   // foreach( $ids as $id )
-   // {
-   // $filter = array ();
-   // $filter[ self::ID ] = $id;
-   // $result &= $database->removeItems( $filter );
-   // }
+    // foreach( $objects as &$objVO )
+    // {
+    // $input[ self::NAME ] = $objVO->name;
+    // $input[ self::DESCRIPTION ] = $objVO->description;
+    // $result &= ( $database->insertItem( $input ) > 0 );
+    // }
 
-   // return $result;
-   // }
+    // return $result;
+    // }
 
-   /**
-    * Converte o resultado do banco de dados em um jogador.
-    *
-    * @param array $result
-    *           Mapa de resultados do banco para um jogador.
-    * @return \ValueObject\Player Jogador.
-    */
-   private function convertToPlayer( array $result ): \ValueObject\Player
-   {
-      $object = new \ValueObject\Player();
-      $object->id = $result[ self::ID ];
-      $object->name = $result[ self::NAME ];
-      return $object;
-   }
+    /**
+     *
+     * {@inheritdoc}
+     * @see DaoTableObjectInterface::updateTableObjects()
+     */
+    // public function updateTableObjects( array $objects ): bool
+    // {
+    // $database = new XMLInterface( self::PATH );
+    // $result = true;
+
+    // foreach( $objects as &$objVO )
+    // {
+    // $filter = array ();
+    // $filter[ self::ID ] = $objVO->idasset;
+    // $input = array ();
+    // $input[ self::NAME ] = $objVO->name;
+    // $input[ self::DESCRIPTION ] = $objVO->description;
+    // $result &= $database->updateFile( $filter, $input );
+    // }
+
+    // return $result;
+    // }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see DaoTableObjectInterface::deleteTableObjects()
+     */
+    // public function deleteTableObjects( array $ids ): bool
+    // {
+    // $database = new XMLInterface( self::PATH );
+    // $result = true;
+
+    // foreach( $ids as $id )
+    // {
+    // $filter = array ();
+    // $filter[ self::ID ] = $id;
+    // $result &= $database->removeItems( $filter );
+    // }
+
+    // return $result;
+    // }
+
+    /**
+     * Converte o resultado do banco de dados em um jogador.
+     *
+     * @param array $result
+     *            Mapa de resultados do banco para um jogador.
+     * @return \ValueObject\Player Jogador.
+     */
+    private function convertToPlayer(array $result): \ValueObject\Player
+    {
+        $object = new \ValueObject\Player();
+        $object->id = $result[self::ID];
+        $object->name = $result[self::NAME];
+        return $object;
+    }
 }
 ?>
