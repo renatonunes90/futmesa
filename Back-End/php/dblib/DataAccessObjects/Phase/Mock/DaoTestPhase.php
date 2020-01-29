@@ -7,7 +7,7 @@
  */
 namespace DAO;
 
-require_once "DataAccessObjects/Round/DaoPhaseInterface.php";
+require_once "DataAccessObjects/Phase/DaoPhaseInterface.php";
 require_once "DataAccessObjects/XMLInterface.php";
 require_once "ValueObjects/Phase.php";
 

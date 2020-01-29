@@ -7,25 +7,28 @@
  */
 use PHPUnit\Framework\TestCase;
 
-require_once "BusinessInteligence\Championship\ChampionshipManager.php";
+require_once "BusinessInteligence\Phase\Phase.php";
 require_once "Providers\ChampionshipProvider.php";
 
 /**
  * Testes unitários para a classe ChampionshipManager.
  */
-class ChampionshipManagerTest extends TestCase
+class PhaseTest extends TestCase
 {
 
    /**
     * Instância do objeto testado.
     *
-    * @var \DBLib\ChampionshipManager
+    * @var \DBLib\Phase
     */
    private $instance_;
+   
+   private $championship_;
 
    public function setUp()
    {
-      $this->instance_ = \DBLib\ChampionshipProvider::getInstance()->getChampionship( 1 );
+       $this->championship_ = \DBLib\ChampionshipProvider::getInstance()->getChampionship( 1 );
+       $this->instance_ = $this->championship_->getPhase(1);
    }
 
    public function testInsertResult()
@@ -35,7 +38,7 @@ class ChampionshipManagerTest extends TestCase
       $game = $this->instance_->getRound( 4 )->getGame( 13 );
       $this->assertEquals( 1, $game->getWinner() );
 
-      $this->instance_->refresh();
+      $this->championship_->refresh();
       $game = $this->instance_->getRound( 4 )->getGame( 13 );
       $this->assertEquals( 1, $game->getWinner() );
    }

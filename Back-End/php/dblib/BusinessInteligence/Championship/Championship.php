@@ -154,7 +154,7 @@ class Championship
       $this->phases_ = array ();
 
       $this->loadPhases( true );
-      $this->loadRounds( true );
+      $this->loadPlayers( true );
    }
    
    public function save(): bool

@@ -4,10 +4,12 @@
   <table name="ROUND" primary="ID">
     <column>ID</column>
     <column>IDCHAMPIONSHIP</column>
+    <column>IDPHASE</column>
     <column>BASEDATE</column>
     <column>BASEHOUR</column>
     <column>NUMBER</column>
     <row>
+      <value>1</value>
       <value>1</value>
       <value>1</value>
       <value>07.01.2018</value>
@@ -16,6 +18,7 @@
     </row>
     <row>
       <value>2</value>
+      <value>1</value>
       <value>1</value>
       <value>07.01.2018</value>
       <value>20:00:00</value>
@@ -24,12 +27,14 @@
     <row>
       <value>3</value>
       <value>1</value>
+      <value>1</value>
       <value>07.02.2018</value>
       <value>19:00:00</value>
       <value>3</value>
     </row>
     <row>
       <value>4</value>
+      <value>1</value>
       <value>1</value>
       <value>07.02.2018</value>
       <value>20:00:00</value>
@@ -37,6 +42,7 @@
     </row>
     <row>
       <value>5</value>
+      <value>1</value>
       <value>1</value>
       <value>07.03.2018</value>
       <value>19:00:00</value>
@@ -44,6 +50,7 @@
     </row>
     <row>
       <value>6</value>
+      <value>1</value>
       <value>1</value>
       <value>07.03.2018</value>
       <value>20:00:00</value>
@@ -51,6 +58,7 @@
     </row>
     <row>
       <value>7</value>
+      <value>1</value>
       <value>1</value>
       <value>07.04.2018</value>
       <value>19:00:00</value>
@@ -58,6 +66,7 @@
     </row>
     <row>
       <value>8</value>
+      <value>1</value>
       <value>1</value>
       <value>07.04.2018</value>
       <value>20:00:00</value>

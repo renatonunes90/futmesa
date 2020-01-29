@@ -24,16 +24,17 @@ class GameTest extends TestCase
    private $instance_;
 
    /**
-    * Campeonato com todos os jogos de teste.
+    * Fase com todos os jogos de teste.
     *
-    * @var \DbLib\Championship
+    * @var \DbLib\Phase
     */
-   private $championship_;
+   private $phase_;
 
    public function setUp()
    {
-      $this->championship_ = ChampionshipProvider::getInstance()->getChampionship( 1 );
-      $round = $this->championship_->getRound( 1 );
+      $championship = ChampionshipProvider::getInstance()->getChampionship( 1 );
+      $this->phase_ = $championship->getPhase(1);
+      $round = $this->phase_->getRound( 1 );
       $this->instance_ = $round->getGame( 1 );
    }
 
@@ -77,7 +78,7 @@ class GameTest extends TestCase
    {
       $this->assertEquals( 0, $this->instance_->getWinner() );
 
-      $round = $this->championship_->getRound( 1 );
+      $round = $this->phase_->getRound( 1 );
       $anotherGame = $round->getGame( 2 );
       $this->assertEquals( 1, $anotherGame->getWinner() );
 
@@ -89,7 +90,7 @@ class GameTest extends TestCase
    {
       $this->assertEquals( 0, $this->instance_->getWinnerId() );
 
-      $round = $this->championship_->getRound( 1 );
+      $round = $this->phase_->getRound( 1 );
       $anotherGame = $round->getGame( 2 );
       $this->assertEquals( 3, $anotherGame->getWinnerId() );
 

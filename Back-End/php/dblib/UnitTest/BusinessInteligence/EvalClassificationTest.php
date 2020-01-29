@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use DBLib\EvalClassification;
 
 require_once "BusinessInteligence\Classification\Classification.php";
+require_once "BusinessInteligence\Classification\EvalClassification.php";
 require_once "Providers\ChampionshipProvider.php";
 
 /**
@@ -34,7 +35,12 @@ class EvalClassificationTest extends TestCase
 
    public function testGetClassification()
    {
-       $classification = $this->instance_->getClassification( $this->championship_->getPhase(1), $this->championship_->getPlayers() );
+       $roundsToQualify = [];
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(1);
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(2);
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(3);
+       
+       $classification = $this->instance_->getClassification( $roundsToQualify, $this->championship_->getPlayers() );
 
       $this->assertEquals( "Jogador C", $classification[ 0 ]->getPlayer()->getPlayerVO()->name );
       $this->assertEquals( 7, $classification[ 0 ]->getPoints() );
