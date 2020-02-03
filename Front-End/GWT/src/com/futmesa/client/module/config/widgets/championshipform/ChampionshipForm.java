@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.futmesa.client.base.ChampionshipType;
+import com.futmesa.client.base.PhaseType;
 import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.ViewportInterface;
 import com.futmesa.client.businessinteligence.Championship;
@@ -279,9 +279,9 @@ public class ChampionshipForm
 
    private void createTypeSelect()
    {
-      typeInput.addItem( ChampionshipType.FREE_FOR_ALL.getLabel() );
-      typeInput.addItem( ChampionshipType.CLASSIFICATORY_GROUPS.getLabel() );
-      typeInput.addItem( ChampionshipType.CLASSIFICATORY_DEATHMATCH.getLabel() );
+      typeInput.addItem( PhaseType.FREE_FOR_ALL.getLabel() );
+//      typeInput.addItem( PhaseType.CLASSIFICATORY_GROUPS.getLabel() );
+//      typeInput.addItem( PhaseType.CLASSIFICATORY_DEATHMATCH.getLabel() );
    }
 
    private void createHourSelect()

@@ -78,7 +78,7 @@ public class QualifyPhase {
 	}
 
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds(rounds, 21);
+		games.setRounds(rounds, 1);
 	}
 
 }

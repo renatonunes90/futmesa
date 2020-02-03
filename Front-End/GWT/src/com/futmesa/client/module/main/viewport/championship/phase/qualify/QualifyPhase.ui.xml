@@ -8,7 +8,7 @@
 
 	<ui:style src="qualifyphase.css" />
 	
-	<g:HorizontalPanel ui:field='qualifyPhasePanel'>
+	<g:HorizontalPanel ui:field='qualifyPhasePanel' addStyleNames='{style.qualify-panel}'>
 		<g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.custom-left-panel}'>
 			<g:Label addStyleNames='{style.classification-title}' text='{consts.classificationTitle}'></g:Label>
 		</g:VerticalPanel>
