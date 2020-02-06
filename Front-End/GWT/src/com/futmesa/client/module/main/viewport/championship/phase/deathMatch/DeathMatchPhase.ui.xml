@@ -11,7 +11,7 @@
 	<g:HorizontalPanel ui:field='deathMatchPhasePanel'>
 	
 		<g:HorizontalPanel ui:field='leftPanel' addStyleNames='{style.customLeftPanel}'>
-			<g:VerticalPanel>
+			<g:VerticalPanel ui:field='quarterLeftPanel'>
 				<g:HorizontalPanel addStyleNames='{style.playerSpot}'>
 					<g:Label ui:field='playerName1' addStyleNames='{style.playerLabel} text-left'></g:Label>
 					<g:Label ui:field='playerScore1' addStyleNames='{style.playerLabel} text-right'></g:Label>		
@@ -68,7 +68,7 @@
 					<g:Label ui:field='playerSemi4' addStyleNames='{style.playerLabel} text-right'></g:Label>		
 				</g:HorizontalPanel>
 			</g:VerticalPanel>
-			<g:VerticalPanel>
+			<g:VerticalPanel ui:field='quarterRightPanel'>
 				<g:HorizontalPanel addStyleNames='{style.playerSpot}'>
 					<g:Label ui:field='playerScore5' addStyleNames='{style.playerLabel} text-left'></g:Label>		
 					<g:Label ui:field='playerName5' addStyleNames='{style.playerLabel} text-right'></g:Label>
