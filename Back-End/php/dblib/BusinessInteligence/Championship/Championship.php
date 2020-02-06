@@ -146,6 +146,25 @@ class Championship
    }
 
    /**
+    *
+    * @param int $roundNumber
+    * @return \DBLib\Round|NULL
+    */
+   public function getRound(int $roundNumber): ?\DBLib\Round
+   {
+       $round = null;
+       $phases = $this->getPhases();
+       foreach( $phases as $phase ) {
+           if ( $phase->getRound($roundNumber) !== null ) {
+               $round = $phase->getRound($roundNumber);
+               test("ACHOU");
+               break;
+           }
+       }
+       return $round;
+   }
+   
+   /**
     * Força o recarregamento das informações do campeonato.
     */
    public function refresh(): void

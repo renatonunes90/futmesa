@@ -125,8 +125,19 @@ class Phase
         $round = null;
         $this->loadRounds();
 
-        if (array_key_exists($roundNumber, $this->rounds_)) {
-            $round = $this->rounds_[$roundNumber];
+        if ( !$this->isGroupsPhase() ) {
+            if (array_key_exists($roundNumber, $this->rounds_)) {
+                $round = $this->rounds_[$roundNumber];
+            }
+        } else {
+            $round = null;
+            $groups = $this->getGroups();
+            foreach( $groups as $group ) {
+                if ( $group->getRound($roundNumber) !== null ) {
+                    $round = $group->getRound($roundNumber);
+                    break;
+                }
+            }
         }
 
         return $round;
@@ -204,7 +215,7 @@ class Phase
 
     private function loadRounds(bool $forceReload = false): void
     {
-        if (! $this->isGroupsPhase() && (sizeOf($this->rounds_) == 0 || $forceReload)) {
+        if (!$this->isGroupsPhase() && (sizeOf($this->rounds_) == 0 || $forceReload)) {
             $daoGames = DaoGameFactory::getDaoGame();
             $allGames = $daoGames->getAllGames($this->phaseVO_->idchampionship);
             $gamesByRound = array();
