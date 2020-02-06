@@ -8,14 +8,17 @@
 
 	<ui:style src="qualifyphase.css" />
 	
-	<g:HorizontalPanel ui:field='qualifyPhasePanel' addStyleNames='{style.qualify-panel}'>
-		<g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.custom-left-panel}'>
-			<g:Label addStyleNames='{style.classification-title}' text='{consts.classificationTitle}'></g:Label>
-		</g:VerticalPanel>
-		<g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.custom-right-panel}'>
-			<g:Label addStyleNames='{style.classification-title}' text='{consts.gamesTitle}'></g:Label>
-			<g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
-		</g:VerticalPanel>
-	</g:HorizontalPanel>
+	<g:VerticalPanel ui:field='qualifyPhasePanel' addStyleNames='{style.qualify-panel}'>
+		<g:Label ui:field='groupName' addStyleNames='{style.group-name}'></g:Label>
+		<g:HorizontalPanel>
+			<g:VerticalPanel ui:field='leftPanel' addStyleNames='{style.custom-left-panel}'>
+				<g:Label addStyleNames='{style.classification-title}' text='{consts.classificationTitle}'></g:Label>
+			</g:VerticalPanel>
+			<g:VerticalPanel ui:field='rightPanel' addStyleNames='{style.custom-right-panel}'>
+				<g:Label addStyleNames='{style.classification-title}' text='{consts.gamesTitle}'></g:Label>
+				<g:SimplePanel ui:field='gameTablePanel'></g:SimplePanel>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
 
 </ui:UiBinder>

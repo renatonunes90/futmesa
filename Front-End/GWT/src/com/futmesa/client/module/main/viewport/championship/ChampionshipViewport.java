@@ -122,6 +122,7 @@ public class ChampionshipViewport implements ViewportInterface, ServiceInterface
 					Group g = currentPhase.getGroups().get(i);
 					groups.put(g.getName(), new QualifyPhase());
 					groups.get(g.getName()).updateRounds(g.getRounds());
+					groups.get(g.getName()).setGroupName(g.getName());
 					
 					// add group
 					phasePanel.add(groups.get(g.getName()).asWidget());

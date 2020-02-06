@@ -5,7 +5,15 @@
 
 .classification-title {
 	font-weight: bold;
+	font-size: 22px;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.group-name {
+	border-bottom: 1px solid #c0c0c0;
 	font-size: 26px;
+	font-weight: bold;
 	margin-bottom: 15px;
 	text-transform: uppercase;
 }
