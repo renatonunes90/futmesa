@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="PHASE" primary="ID">
+    <column>ID</column>
+    <column>IDCHAMPIONSHIP</column>
+    <column>TYPE</column>
+    <column>NUMBER</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+      <value>3</value>
+      <value>2</value>
+    </row>
+  </table>
+</dataset>

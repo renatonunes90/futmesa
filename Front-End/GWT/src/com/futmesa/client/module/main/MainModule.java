@@ -1,18 +1,12 @@
 package com.futmesa.client.module.main;
 
-import com.futmesa.client.base.URLFilter;
-import com.futmesa.client.base.ChampionshipType;
 import com.futmesa.client.base.ModuleInterface;
 import com.futmesa.client.base.Modules;
+import com.futmesa.client.base.URLFilter;
 import com.futmesa.client.businessinteligence.Championship;
-import com.futmesa.client.businessinteligence.Classification;
 import com.futmesa.client.businessinteligence.Player;
-import com.futmesa.client.businessinteligence.Round;
 import com.futmesa.client.businessinteligence.tablestructures.SimpleMapInfo;
 import com.futmesa.client.module.main.viewport.championship.ChampionshipViewport;
-import com.futmesa.client.module.main.viewport.championship.classificatoryDeathMatch.ClassificatoryDeathMatchViewport;
-import com.futmesa.client.module.main.viewport.championship.classificatoryGroups.ClassificatoryGroupsViewport;
-import com.futmesa.client.module.main.viewport.championship.freeForAll.FreeForAllViewport;
 import com.futmesa.client.module.main.viewport.player.PlayerViewport;
 import com.futmesa.client.request.service.ServiceChampionship;
 import com.futmesa.client.request.service.ServicePlayer;
@@ -33,6 +27,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 	public MainModule() {
 		playerViewport = new PlayerViewport();
+		championshipViewport = new ChampionshipViewport();
 		serviceChampionship = new ServiceChampionship(this);
 		servicePlayer = new ServicePlayer(this);
 	}
@@ -44,7 +39,7 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 			servicePlayer.requestPlayer(parseIntSafe(id));
 		} else {
 			String championshipId = filter.getFilter("id");
-			serviceChampionship.requestChampionship(parseIntSafe(championshipId));
+			serviceChampionship.requestChampionshipCompleteInfo(parseIntSafe(championshipId));
 		}
 	}
 
@@ -55,24 +50,14 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 
 	@Override
 	public void onServiceResult(JavaScriptObject records, String requestId) {
-		if (ServiceChampionship.GET_CHAMPIONSHIP.equals(requestId)) {
+		if (ServiceChampionship.GET_CHAMPIONSHIP_INFO.equals(requestId)) {
 			Championship championship = records.cast();
-			if (championship != null) {
-				buildChampionshipViewport(championship);				
+			if (championship != null) {				
 				championshipViewport.setChampionship(championship);
-				serviceChampionship.requestClassification(championship.getId());
-			}
-		} else if (ServiceChampionship.GET_LAST_CLASSIFICATIONS.equals(requestId)) {
-			JsArray<Classification> classification = records.cast();
-			championshipViewport.updateClassification(classification);
-
-			serviceChampionship.requestAllRounds(championshipViewport.getChampionship().getId());
-		} else if (ServiceChampionship.GET_ALL_ROUNDS.equals(requestId)) {
-			JsArray<Round> rounds = records.cast();
-			championshipViewport.updateRounds(rounds);
-
-			BaseViewport.getInstance().setTitleHeaderLabel(championshipViewport.getChampionship().getName());
-			BaseViewport.getInstance().setViewportContent(championshipViewport);
+				
+				BaseViewport.getInstance().setTitleHeaderLabel(championshipViewport.getChampionship().getName());
+				BaseViewport.getInstance().setViewportContent(championshipViewport);
+			}			
 		} else if (ServicePlayer.GET_PLAYER.equals(requestId)) {
 			Player player = records.cast();
 			playerViewport.setPlayer(player);
@@ -87,16 +72,6 @@ public class MainModule extends ModuleInterface implements ServiceInterface {
 		} else if (ServicePlayer.GET_STATISTICS_INFO.equals(requestId)) {
 			JsArray<SimpleMapInfo> infos = records.cast();
 			playerViewport.updateStatisticsInfo(infos);
-		}
-	}
-
-	private void buildChampionshipViewport(Championship championship) {
-		if ( championship.getType() == ChampionshipType.FREE_FOR_ALL.getKey() ) {
-			championshipViewport = new FreeForAllViewport();
-		} else if ( championship.getType() == ChampionshipType.CLASSIFICATORY_GROUPS.getKey() ) {
-			championshipViewport = new ClassificatoryGroupsViewport();
-		} else if ( championship.getType() == ChampionshipType.CLASSIFICATORY_DEATHMATCH.getKey() ) {
-			championshipViewport = new ClassificatoryDeathMatchViewport();
 		}
 	}
 	

@@ -18,7 +18,7 @@ interface DaoRoundInterface
    // Tabela
    const ID = "ID";
    const IDCHAMPIONSHIP = "IDCHAMPIONSHIP";
-   const PHASE = "PHASE";
+   const IDPHASE = "IDPHASE";
    const BASEDATE = "BASEDATE";
    const BASEHOUR = "BASEHOUR";
    const NUMBER = "NUMBER";
@@ -30,7 +30,11 @@ interface DaoRoundInterface
     * @return array Mapa de objetos do tipo Round indexados pelo seu identificador.
     */
    public function getAllRounds( int $championshipId ): array;
+   
+   public function getRoundsByPhase( int $phaseId ): array;
 
+   public function getRoundsByGroup( int $groupId ): array;
+   
 /**
  * Inclui novos objetos na tabela no banco de dados.
  *

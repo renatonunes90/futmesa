@@ -56,6 +56,42 @@ class DaoRound implements DaoRoundInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoRoundInterface::getRoundsByPhase()
+    */
+   public function getRoundsByPhase( int $phaseId ): array
+   {
+       $objects = array ();
+       $result = $this->db_->selectAll( "SELECT r.* FROM round r WHERE r.idphase = $phaseId" );
+       
+       foreach ( $result as &$r )
+       {
+           $objects[ $r[ self::ID ] ] = $this->convertToRound( $r );
+       }
+       
+       return $objects;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
+    * @see \DAO\DaoRoundInterface::getRoundsByGroup()
+    */
+   public function getRoundsByGroup( int $groupId ): array
+   {
+       $objects = array ();
+       $result = $this->db_->selectAll( "SELECT r.* FROM round r JOIN grouprounds gr ON gr.idround = r.id WHERE gr.idgroup = $groupId" );
+       
+       foreach ( $result as &$r )
+       {
+           $objects[ $r[ self::ID ] ] = $this->convertToRound( $r );
+       }
+       
+       return $objects;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see DaoTableObjectInterface::insertTableObjects()
     */
    // public function insertTableObjects( array $objects ): bool
@@ -148,7 +184,7 @@ class DaoRound implements DaoRoundInterface
       $object = new \ValueObject\Round();
       $object->id = $result[ self::ID ];
       $object->idchampionship = $result[ self::IDCHAMPIONSHIP ];
-      $object->phase = $result[ self::PHASE ];
+      $object->idphase = $result[ self::IDPHASE ];
       $object->basedate = $result[ self::BASEDATE ];
       $object->basehour = $result[ self::BASEHOUR ];
       $object->number = $result[ self::NUMBER ];

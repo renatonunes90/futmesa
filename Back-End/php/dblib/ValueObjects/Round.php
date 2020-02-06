@@ -31,7 +31,7 @@ class Round extends ValueObject
     * 
     * @var int Round phase.
     */
-   public $phase;
+   public $idphase;
    
    /**
     *
@@ -60,7 +60,7 @@ class Round extends ValueObject
    {
       $this->id = $round->id;
       $this->idchampionship = $round->idchampionship;
-      $this->phase = $round->phase;
+      $this->idphase = $round->idphase;
       $this->basedate = $round->basedate;
       $this->basehour = $round->basehour;
       $this->number = $round->number;

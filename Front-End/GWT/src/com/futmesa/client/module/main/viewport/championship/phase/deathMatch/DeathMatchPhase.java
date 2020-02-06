@@ -6,6 +6,7 @@ import java.util.List;
 import com.futmesa.client.businessinteligence.Game;
 import com.futmesa.client.businessinteligence.Round;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
@@ -13,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -59,6 +61,12 @@ public class DeathMatchPhase {
 
 	@UiField(provided = false)
 	protected HorizontalPanel rightPanel;
+	
+	@UiField(provided = false)
+	protected VerticalPanel quarterLeftPanel;
+	
+	@UiField(provided = false)
+	protected VerticalPanel quarterRightPanel;
 
 	@UiField(provided = false)
 	protected Label playerName1;
@@ -206,38 +214,60 @@ public class DeathMatchPhase {
 		return deathMatchPhasePanel;
 	}
 
-	public void updateRounds(JsArray<Round> rounds) {
+	@SuppressWarnings("unchecked")
+	public void updateRounds(JsArray<Round> rounds) {		
 		
-		if ( rounds.length() > 0 && rounds.get(0).getGames().length() > 0) {
+		if ( rounds.get(0).getGames().length() > 0) {
+			if ( rounds.length() > 2 ) {	
+				
+				quarterLeftPanel.setVisible(true);
+				quarterRightPanel.setVisible(true);
+				
+				JsArray<Game> games = rounds.get(0).getGames();
+				int playerCount = 0;
+				for ( int i=0; i< games.length(); i++ ) {
+					fillGame(games.get(i), playerRef.get(playerCount), playerScoreRef.get(playerCount++), playerRef.get(playerCount), playerScoreRef.get(playerCount++));
+				}
+				
+				JsArray<Round> semiRounds = ( JsArray< Round > ) JavaScriptObject.createArray();
+				for(int i = 1; i<rounds.length(); i++ ) {
+					semiRounds.push(rounds.get(i));
+				}
+				
+				fillSemiFinals(semiRounds);
+			} else if ( rounds.length() > 1 ) {
+				
+				quarterLeftPanel.setVisible(false);
+				quarterRightPanel.setVisible(false);
+				fillSemiFinals(rounds);
+			}
+		}
+	}
+	
+	
+	private void fillSemiFinals(JsArray<Round> rounds) {
+		if ( rounds.length() > 0 && rounds.get(0).getGames().length() > 0 ) {
 			JsArray<Game> games = rounds.get(0).getGames();
-			int playerCount = 0;
+			int playerSemiCount = 0;
 			for ( int i=0; i< games.length(); i++ ) {
-				fillGame(games.get(i), playerRef.get(playerCount), playerScoreRef.get(playerCount++), playerRef.get(playerCount), playerScoreRef.get(playerCount++));
+				fillGame(games.get(i), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++));
 			}
 			
 			if ( rounds.length() > 1 && rounds.get(1).getGames().length() > 0 ) {
 				games = rounds.get(1).getGames();
-				int playerSemiCount = 0;
-				for ( int i=0; i< games.length(); i++ ) {
-					fillGame(games.get(i), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++), playerSemiRef.get(playerSemiCount), playerSemiScoreRef.get(playerSemiCount++));
-				}
-				
-				if ( rounds.length() > 2 && rounds.get(2).getGames().length() > 0 ) {
-					games = rounds.get(2).getGames();
-					fillGame(games.get(0), playerFinalRef.get(0), playerFinalScoreRef.get(0), playerFinalRef.get(1), playerFinalScoreRef.get(1));
-					
-				} else {
-					games = rounds.get(1).getGames();
-					for ( int i=0; i< games.length(); i++ ) {
-						resolveGame(games.get(i), playerFinalRef.get(i));
-					}
-				}
+				fillGame(games.get(0), playerFinalRef.get(0), playerFinalScoreRef.get(0), playerFinalRef.get(1), playerFinalScoreRef.get(1));
 				
 			} else {
 				games = rounds.get(0).getGames();
 				for ( int i=0; i< games.length(); i++ ) {
-					resolveGame(games.get(i), playerSemiRef.get(i));
+					resolveGame(games.get(i), playerFinalRef.get(i));
 				}
+			}
+			
+		} else {
+			JsArray<Game> games = rounds.get(0).getGames();
+			for ( int i=0; i< games.length(); i++ ) {
+				resolveGame(games.get(i), playerSemiRef.get(i));
 			}
 		}
 	}
@@ -246,11 +276,11 @@ public class DeathMatchPhase {
 		player1.setText(game.getPlayer1Name());
 		player2.setText(game.getPlayer2Name());
 
-		if ( game.getScore1() != null && game.getScore2() != null ) {
+		if ( game.hasScores() ) {
 			score1.setText(String.valueOf(game.getScore1()));
 			score2.setText(String.valueOf(game.getScore2()));
 			
-			if ( game.getScore1() > game.getScore2() ) {
+			if ( game.player1IsWinner() ) {
 				player2.addStyleName(resources.styles().playerDisqualified());
 				score2.addStyleName(resources.styles().playerDisqualified());
 			} else {
@@ -264,7 +294,7 @@ public class DeathMatchPhase {
 	}
 	
 	private void resolveGame(Game game, Label player) {
-		if ( game.getScore1() != null && game.getScore2() != null ) {
+		if ( game.hasScores() ) {
 			if ( game.getScore1() > game.getScore2() ) {
 				player.setText(game.getPlayer1Name());
 			} else {

@@ -70,6 +70,21 @@ class PlayerProvider
       $this->loadAllPlayers();
       return array_key_exists( $id, $this->allPlayers_ ) ? $this->allPlayers_[ $id ] : null;
    }
+   
+   /**
+    * Search for a player by name.
+    *
+    * @param string $name
+    * @return Player|NULL A plyer or null if doesn't found.
+    */
+   public function getPlayerByName(string $name ): ?Player
+   {
+       $this->loadAllPlayers();
+       $result = array_filter($this->allPlayers_ , function($p) use ($name)  {
+           return $p->getPlayerVO()->name === $name;
+       });
+       return sizeOf($result) > 0 ? array_pop($result) : null;
+   }
 
    /**
     * Busca uma lista de jogadores pelos seus identificadores.

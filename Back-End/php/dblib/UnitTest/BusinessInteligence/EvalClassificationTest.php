@@ -6,14 +6,16 @@
  * @version 0.1
  */
 use PHPUnit\Framework\TestCase;
+use DBLib\EvalClassification;
 
-require_once "BusinessInteligence\Championship\ChampionshipManager.php";
+require_once "BusinessInteligence\Classification\Classification.php";
+require_once "BusinessInteligence\Classification\EvalClassification.php";
 require_once "Providers\ChampionshipProvider.php";
 
 /**
- * Testes unitários para a classe ChampionshipManager.
+ * Testes unitários para a classe EvalClassification.
  */
-class ChampionshipManagerTest extends TestCase
+class EvalClassificationTest extends TestCase
 {
 
    /**
@@ -22,37 +24,23 @@ class ChampionshipManagerTest extends TestCase
     * @var \DBLib\ChampionshipManager
     */
    private $instance_;
+   
+   private $championship_;
 
    public function setUp()
    {
-      $this->instance_ = \DBLib\ChampionshipProvider::getInstance()->getChampionship( 1 );
-   }
-
-   public function testInsertResult()
-   {
-      $this->instance_->insertResult( 13, 3, 0 );
-
-      $game = $this->instance_->getRound( 4 )->getGame( 13 );
-      $this->assertEquals( 1, $game->getWinner() );
-
-      $this->instance_->refresh();
-      $game = $this->instance_->getRound( 4 )->getGame( 13 );
-      $this->assertEquals( 1, $game->getWinner() );
-   }
-
-   /**
-    *
-    * @expectedException Exception
-    * @expectedExceptionMessage Tentativa de atribuir o resultado a uma partida inexistente neste campeonato.
-    */
-   public function testInsertResultException()
-   {
-      $this->instance_->insertResult( 29, 3, 0 );
+      $this->instance_ = new EvalClassification();
+      $this->championship_ = \DBLib\ChampionshipProvider::getInstance()->getChampionship( 1 );
    }
 
    public function testGetClassification()
    {
-      $classification = $this->instance_->getClassification( 3 );
+       $roundsToQualify = [];
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(1);
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(2);
+       $roundsToQualify[] = $this->championship_->getPhase(1)->getRound(3);
+       
+       $classification = $this->instance_->getClassification( $roundsToQualify, $this->championship_->getPlayers() );
 
       $this->assertEquals( "Jogador C", $classification[ 0 ]->getPlayer()->getPlayerVO()->name );
       $this->assertEquals( 7, $classification[ 0 ]->getPoints() );

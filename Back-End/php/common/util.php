@@ -103,7 +103,7 @@ function request( string $param, bool $runTriggerError = true): ?string
    else if( $runTriggerError )
    {
       $r = print_r( $_REQUEST, true );
-      serverError( "Parâmetro '$param' não encontrado na requisição.<br> \$_REQUEST = $r<br>", true );
+      throwServerError( "Parâmetro '$param' não encontrado na requisição.<br> \$_REQUEST = $r<br>", true );
    }
    else
    {

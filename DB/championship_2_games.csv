@@ -1,0 +1,66 @@
+1;Roberto Bopp;2;1;Renato Barbieri;1
+1;FC;1;3;Robin Antonelo;2
+1;Mano;1;0;Jeferson Lucas;3
+1;Xico;0;1;Nei Barbieri;4
+2;Xico;1;1;Jeferson Lucas;1
+2;Renato Barbieri;0;0;Mano;2
+2;Luzardo Carpes;1;1;Nei Barbieri;3
+2;Roberto Bopp;0;0;FC;4
+3;Jeferson Lucas;0;0;Luzardo Carpes;1
+3;Thiago Leao;4;0;Nei Barbieri;2
+3;Robin Antonelo;3;1;Renato Barbieri;3
+3;Jorge Macedo;2;0;Mano;4
+4;Thiago Leao;2;0;Renato Barbieri;1
+4;Mano;2;0;Nei Barbieri;2
+4;Jeferson Lucas;2;0;Roberto Bopp;3
+5;Thiago Leao;0;0;Mauro;1
+5;Roberto Bopp;0;3;Mano;2
+5;Xico;2;2;Renato Barbieri;3
+5;Robin Antonelo;2;0;Nei Barbieri;4
+6;Nei Barbieri;1;1;Renato Barbieri;1
+6;Thiago Leao;1;0;Mano;2
+6;Mauro;0;0;Robin Antonelo;3
+6;Xico;0;0;Roberto Bopp;4
+7;Jorge Macedo;2;0;Mauro;1
+8;FC;0;0;Nei Barbieri;2
+8;Luzardo Carpes;0;2;Renato Barbieri;3
+8;Roberto Bopp;1;2;Jorge Macedo;4
+8;Thiago Leao;1;0;Jeferson Lucas;5
+8;Xico;1;2;Mauro;6
+9;Jeferson Lucas;0;2;Robin Antonelo;1
+9;Mano;0;0;Mauro;2
+9;FC;0;0;Luzardo Carpes;3
+9;Roberto Bopp;0;0;Nei Barbieri;4
+9;Thiago Leao;2;0;Jorge Macedo;5
+10;Jeferson Lucas;0;0;Jorge Macedo;1
+10;Mano;1;0;Luzardo Carpes;2
+10;Nei Barbieri;1;0;Mauro;3
+10;Roberto Bopp;0;4;Robin Antonelo;4
+11;Jeferson Lucas;1;1;Nei Barbieri;1
+11;Renato Barbieri;1;0;Mauro;2
+11;FC;0;2;Thiago Leao;3
+11;Robin Antonelo;1;0;Luzardo Carpes;4
+11;Xico;1;1;Jorge Macedo;5
+12;Roberto Bopp;0;0;Luzardo Carpes;1
+12;Jeferson Lucas;0;0;Mauro;2
+12;Robin Antonelo;0;0;Thiago Leao;3
+12;FC;0;0;Renato Barbieri;4
+13;FC;0;2;Mano;1
+13;Luzardo Carpes;0;2;Mauro;2
+13;Robin Antonelo;2;1;Xico;3
+13;Renato Barbieri;1;0;Jorge Macedo;4
+14;Luzardo Carpes;2;1;Jorge Macedo;1
+14;FC;1;0;Mauro;2
+14;Robin Antonelo;0;1;Mano;3
+14;Xico;0;3;Thiago Leao;4
+15;FC;1;3;Jorge Macedo;1
+15;Xico;0;2;Luzardo Carpes;2
+16;FC;0;0;Jeferson Lucas;1
+16;Roberto Bopp;1;2;Mauro;2
+16;Thiago Leao;3;0;Luzardo Carpes;3
+16;Robin Antonelo;3;0;Jorge Macedo;4
+16;Xico;0;2;Mano;5
+17;Roberto Bopp;0;4;Thiago Leao;1
+17;Xico;2;2;FC;2
+17;Nei Barbieri;2;0;Jorge Macedo;3
+17;Renato Barbieri;0;1;Jeferson Lucas;4

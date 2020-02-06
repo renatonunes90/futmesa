@@ -62,8 +62,8 @@ public final class Championship extends JavaScriptObject {
 		return this.players;
 	}-*/;
 
-	public final native JsArray<Round> getRounds() /*-{
-		return this.rounds;
+	public final native JsArray<Phase> getPhases() /*-{
+		return this.phases;
 	}-*/;
 
 	public final native void setId(int id) /*-{
@@ -106,7 +106,27 @@ public final class Championship extends JavaScriptObject {
 		this.players = players;
 	}-*/;
 
-	public final native void setRounds(JsArray<Round> rounds) /*-{
-		this.rounds = rounds;
+	public final native void setPhases(JsArray<Round> phases) /*-{
+		this.phases = phases;
+	}-*/;
+	
+	public final native boolean isFirstPhase(int phaseNumber) /*-{
+		var isFirst = true;
+		for ( var i=0; i < this.phases.length; i++ ) {
+			if ( this.phases[i].number < phaseNumber ) {
+				isFirst = false;
+			}
+		}
+		return isFirst;
+	}-*/;
+	
+	public final native boolean isLastPhase(int phaseNumber) /*-{
+		var isLast = true;
+		for ( var i=0; i < this.phases.length; i++ ) {
+			if ( this.phases[i].number > phaseNumber ) {
+				isLast = false;
+			}
+		}
+		return isLast;
 	}-*/;
 }

@@ -26,7 +26,8 @@ class RoundTest extends TestCase
    public function setUp()
    {
       $championship = ChampionshipProvider::getInstance()->getChampionship( 1 );
-      $this->instance_ = $championship->getRound( 1 );
+      $phase = $championship->getPhase(1);
+      $this->instance_ = $phase->getRound( 1 );
    }
 
    public function testGetRoundVO()

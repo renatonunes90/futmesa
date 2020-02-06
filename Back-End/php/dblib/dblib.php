@@ -11,7 +11,8 @@ else
 {
     set_include_path( get_include_path() . ";dblib" );
 }
-    
+
+require_once "BusinessInteligence/Classification/EvalClassification.php";
 require_once "Providers/ChampionshipProvider.php";
 require_once "Providers/PlayerProvider.php";
 require_once "Providers/WebUserProvider.php";

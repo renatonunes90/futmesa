@@ -1,0 +1,93 @@
+1;Roberto Bopp;0;1;Mano;1
+1;Luzardo Carpes;1;1;Nei Barbieri;2
+1;Robin Antonelo;3;1;Xico;3
+1;Jeferson Lucas;0;0;Renato Barbieri;4
+2;Roberto Bopp;2;0;Xico;1
+2;Jeferson Lucas;0;0;Mano;2
+2;Nei Barbieri;0;1;Renato Barbieri;3
+2;Robin Antonelo;0;1;Luzardo Carpes;4
+3;Jorge Macedo;1;0;Nei Barbieri;1
+3;Roberto Bopp;1;2;Val;2
+3;Robin Antonelo;2;0;Jeferson Lucas;3
+3;Thiago Leao;0;0;Luzardo Carpes;4
+3;FC;1;1;Mauro;5
+3;Renato Barbieri;5;0;Xico;6
+4;Jorge Macedo;0;2;Luzardo Carpes;1
+4;Roberto Bopp;0;2;Jeferson Lucas;2
+4;Val;1;1;FC;3
+4;Nei Barbieri;2;1;Xico;4
+4;Thiago Leao;1;2;Renato Barbieri;5
+4;Robin Antonelo;1;2;Mauro;6
+5;Jorge Macedo;0;2;Thiago Leao;1
+5;Val;0;3;Robin Antonelo;2
+5;Xico;0;0;Luzardo Carpes;3
+5;Nei Barbieri;1;1;FC;4
+5;Mauro;0;0;Mano;5
+6;Jorge Macedo;0;0;Jeferson Lucas;1
+6;Val;0;2;Thiago Leao;2
+6;Nei Barbieri;1;2;Robin Antonelo;3
+6;FC;0;0;Mano;4
+6;Luzardo Carpes;0;0;Roberto Bopp;5
+6;Renato Barbieri;0;0;Mauro;6
+7;Roberto Bopp;0;0;Jorge Macedo;4
+7;Nei Barbieri;0;0;Mauro;5
+8;Nei Barbieri;0;0;Jeferson Lucas;1
+8;Roberto Bopp;1;2;Mauro;4
+9;Val;0;1;Jeferson Lucas;1
+9;Nei Barbieri;0;3;Thiago Leao;2
+9;Jorge Macedo;0;1;Renato Barbieri;3
+9;Roberto Bopp;0;1;FC;4
+9;Robin Antonelo;1;1;Mano;5
+9;Mauro;0;0;Xico;6
+10;Thiago Leao;4;0;FC;1
+10;Roberto Bopp;0;4;Nei Barbieri;2
+10;Mano;0;1;Xico;3
+10;Robin Antonelo;0;0;Renato Barbieri;4
+10;Jorge Macedo;0;0;Mauro;5
+11;Nei Barbieri;0;0;Mano;1
+11;Thiago Leao;5;1;Roberto Bopp;2
+11;Renato Barbieri;0;3;Luzardo Carpes;3
+11;Jeferson Lucas;3;0;FC;4
+11;Jorge Macedo;1;0;Robin Antonelo;5
+11;Val;2;0;Xico;6
+12;FC;0;3;Xico;1
+12;Jeferson Lucas;0;0;Luzardo Carpes;2
+12;Renato Barbieri;0;0;Roberto Bopp;3
+12;Thiago Leao;0;3;Robin Antonelo;4
+12;Jorge Macedo;1;0;Val;5
+13;Mano;3;0;Val;1
+14;Val;2;1;Mauro;1
+14;Renato Barbieri;0;0;FC;2
+14;Jorge Macedo;2;0;Xico;3
+14;Thiago Leao;1;0;Jeferson Lucas;4
+15;Jorge Macedo;0;2;FC;1
+15;Val;0;0;Renato Barbieri;2
+15;Thiago Leao;0;1;Mano;3
+15;Roberto Bopp;1;1;Robin Antonelo;4
+15;Jeferson Lucas;1;1;Mauro;5
+16;Luzardo Carpes;1;0;Val;1
+17;Thiago Leao;4;0;Xico;1
+17;Mano;3;0;Jorge Macedo;2
+17;Mauro;1;1;Luzardo Carpes;3
+18;Thiago Leao;3;1;Mauro;1
+18;Mano;1;1;Renato Barbieri;2
+18;Val;1;1;Nei Barbieri;3
+19;Mano;0;0;Luzardo Carpes;1
+19;FC;0;2;Robin Antonelo;4
+19;Xico;0;2;Jeferson Lucas;4
+20;FC;1;1;Luzardo Carpes;5
+21;Thiago Leao;2;0;FC;1
+21;Renato Barbieri;0;2;Jeferson Lucas;2
+22;Robin Antonelo;3;0;Jorge Macedo;3
+22;Luzardo Carpes;0;1;Mano;4
+24;Robin Antonelo;0;0;Mano;1
+24;Luzardo Carpes;3;1;Jorge Macedo;2
+23;Thiago Leao;1;0;Jeferson Lucas;3
+23;Renato Barbieri;4;0;FC;4
+26;Jorge Macedo;0;3;Mano;1
+25;FC;2;0;Jeferson Lucas;2
+26;Robin Antonelo;4;0;Luzardo Carpes;3
+25;Renato Barbieri;1;0;Thiago Leao;4
+27;Thiago Leao;2;1;Robin Antonelo;1
+27;Mano;0;1;Renato Barbieri;2
+28;Thiago Leao;1;0;Renato Barbieri;1

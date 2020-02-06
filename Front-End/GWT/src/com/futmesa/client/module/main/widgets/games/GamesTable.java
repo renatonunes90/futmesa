@@ -193,6 +193,10 @@ public class GamesTable {
 			}
 		}
 		
+		if ( currentRound == null ) {
+			currentRound = allRounds.get(0);
+		}
+		
 		for ( Round r : allRounds) {
 			if ( currentRound.getBaseDate().equals( r.getBaseDate() ) && r.getGames().length() > 0 )	{
 				data.add( r );

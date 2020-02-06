@@ -10,6 +10,7 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -21,11 +22,14 @@ public class QualifyPhase {
 
 	private static final QualifyPhaseUiBinder uiBinder = GWT.create(QualifyPhaseUiBinder.class);
 
-	interface QualifyPhaseUiBinder extends UiBinder<HorizontalPanel, QualifyPhase> {
+	interface QualifyPhaseUiBinder extends UiBinder<VerticalPanel, QualifyPhase> {
 	}
 	
 	@UiField(provided = false)
-	protected HorizontalPanel qualifyPhasePanel;
+	protected VerticalPanel qualifyPhasePanel;
+	
+	@UiField(provided = false)
+	protected Label groupName;
 
 	@UiField(provided = false)
 	protected VerticalPanel leftPanel;
@@ -54,6 +58,7 @@ public class QualifyPhase {
 		// Create the UiBinder.
 		uiBinder.createAndBindUi(this);
 
+		groupName.setVisible(false);
 		leftPanel.add(classification.asWidget());
 		gameTablePanel.add(games.asWidget());
 
@@ -78,7 +83,12 @@ public class QualifyPhase {
 	}
 
 	public void updateRounds(JsArray<Round> rounds) {
-		games.setRounds(rounds, 21);
+		games.setRounds(rounds, 1);
+	}
+	
+	public void setGroupName(String groupName) {
+		this.groupName.setText(groupName);
+		this.groupName.setVisible(true);
 	}
 
 }

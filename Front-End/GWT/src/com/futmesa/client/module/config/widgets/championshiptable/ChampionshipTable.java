@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.futmesa.client.base.ChampionshipType;
+import com.futmesa.client.base.PhaseType;
 import com.futmesa.client.base.DateUtil;
 import com.futmesa.client.base.event.EventBus;
 import com.futmesa.client.base.event.EventProperty;
@@ -235,7 +235,7 @@ public class ChampionshipTable
 
          buildRow( row, rowValue.getName() );
          buildRow( row, seasons.get( rowValue.getIdSeason() ) != null ? seasons.get( rowValue.getIdSeason() ) : "-" );
-         buildRow( row, ChampionshipType.getLabelIndex( rowValue.getType() ) );
+         buildRow( row, PhaseType.getLabelIndex( rowValue.getType() ) );
          buildRow( row, DateUtil.convertPattern( rowValue.getBaseDate(), DateUtil.DB_FORMAT, DateUtil.SIMPLE_DATETIME ) );
          buildRow( row, parseIntSafe( rowValue.getGamesByRound() ) );
          buildRow( row, parseIntSafe( rowValue.getRoundsByDay() ) );

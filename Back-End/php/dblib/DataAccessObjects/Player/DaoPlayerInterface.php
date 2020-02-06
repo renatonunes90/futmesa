@@ -27,6 +27,8 @@ interface DaoPlayerInterface
     * @return array Todos os jogadores do banco de dados.
     */
    public function getAllPlayers(): array;
+   
+   public function getByGroup(int $groupId): array;
 
 /**
  * Inclui novos objetos na tabela no banco de dados.

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<dataset>
+  <table name="GROUPS" primary="ID">
+    <column>ID</column>
+    <column>IDCHAMPIONSHIP</column>
+    <column>IDPHASE</column>
+    <column>NAME</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>Grupo A</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1</value>
+      <value>1</value>
+      <value>Grupo B</value>
+    </row>
+  </table>
+</dataset>

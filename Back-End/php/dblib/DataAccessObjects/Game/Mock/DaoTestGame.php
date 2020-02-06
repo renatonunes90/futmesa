@@ -61,6 +61,16 @@ class DaoTestGame implements DaoGameInterface
    /**
     *
     * {@inheritdoc}
+    * @see \DAO\DaoGameInterface::insertGames()
+    */
+   public function insertGames(array $games): bool
+   {
+       return true;
+   }
+   
+   /**
+    *
+    * {@inheritdoc}
     * @see \DAO\DaoGameInterface::updateResult()
     */
    public function updateResult( \ValueObject\Game $result ): bool

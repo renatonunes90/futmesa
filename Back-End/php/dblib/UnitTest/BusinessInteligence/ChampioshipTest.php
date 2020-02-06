@@ -55,26 +55,26 @@ class ChampionshipTest extends TestCase
       $this->assertNull( $player );
    }
 
-   public function testGetRounds()
+   public function testGetPhases()
    {
-      $rounds = $this->instance_->getRounds();
-      $this->assertCount( 8, $rounds );
-      foreach ( $rounds as $r )
+      $phases = $this->instance_->getPhases();
+      $this->assertCount( 2, $phases );
+      foreach ( $phases as $p )
       {
-         $this->assertInstanceOf( "\DbLib\Round", $r );
+         $this->assertInstanceOf( "\DbLib\Phase", $p );
       }
    }
 
-   public function testGetRound()
+   public function testGetPhase()
    {
-      $round = $this->instance_->getRound( 1 );
-      $this->assertInstanceOf( "\DbLib\Round", $round );
+      $phase = $this->instance_->getPhase( 1 );
+      $this->assertInstanceOf( "\DbLib\Phase", $phase );
 
-      $round = $this->instance_->getRound( -1 );
-      $this->assertNull( $round );
+      $phase = $this->instance_->getPhase( -1 );
+      $this->assertNull( $phase );
 
-      $round = $this->instance_->getRound( 9 );
-      $this->assertNull( $round );
+      $phase = $this->instance_->getPhase( 3 );
+      $this->assertNull( $phase );
    }
 }
 ?>

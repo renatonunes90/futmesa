@@ -8,14 +8,13 @@
 namespace DBLib;
 
 use DAO\DaoChampionshipFactory;
-use DAO\DaoRoundFactory;
-use DAO\DaoGameFactory;
+use DAO\DaoPhaseFactory;
 
 require_once "BusinessInteligence/Game/Game.php";
-require_once "BusinessInteligence/Round/Round.php";
+require_once "BusinessInteligence/Phase/Phase.php";
 require_once "BusinessInteligence/Championship/ChampionshipCreator.php";
 require_once "DataAccessObjects/Game/DaoGameFactory.php";
-require_once "DataAccessObjects/Round/DaoRoundFactory.php";
+require_once "DataAccessObjects/Phase/DaoPhaseFactory.php";
 require_once "ErrorHandlers/ChampionshipException.php";
 require_once "ValueObjects/Championship.php";
 require_once "ValueObjects/Participant.php";
@@ -40,9 +39,9 @@ class Championship
 
    /**
     *
-    * @var array Mapa de objetos do tipo Round com as rodadas do campeonato, indexado pelo seu número.
+    * @var array 
     */
-   private $rounds_;
+   private $phases_;
 
    /**
     * Construtor padrão.
@@ -54,7 +53,7 @@ class Championship
    {
       $this->championshipVO_ = $championshipVO;
       $this->players_ = array ();
-      $this->rounds_ = array ();
+      $this->phases_ = array ();
    }
 
    /**
@@ -71,12 +70,12 @@ class Championship
       }
       $this->players_ = $newPlayers;
 
-      $newRounds = array ();
-      foreach ( $this->rounds_ as $r )
+      $newPhases = array ();
+      foreach ( $this->phases_ as $r )
       {
-         $newRounds[] = clone $r;
+         $newPhases[] = clone $r;
       }
-      $this->rounds_ = $newRounds;
+      $this->phases_ = $newPhases;
    }
 
    /**
@@ -120,43 +119,61 @@ class Championship
 
    /**
     *
-    * @return array Lista de objetos de tipo Round.
+    * @return array 
     */
-   public function getRounds(): array
+   public function getPhases(): array
    {
-      $this->loadRounds();
-      return $this->rounds_;
+      $this->loadPhases();
+      return $this->phases_;
+   }
+
+   /**
+    *
+    * @param int $phaseNumber
+    * @return \DBLib\Phase|NULL
+    */
+   public function getPhase( int $phaseNumber ): ?\DBLib\Phase
+   {
+      $phase = null;
+      $this->loadPhases();
+
+      if ( array_key_exists( $phaseNumber, $this->phases_ ) )
+      {
+          $phase = $this->phases_[ $phaseNumber ];
+      }
+
+      return $phase;
    }
 
    /**
     *
     * @param int $roundNumber
-    *           Número da rodada do campeonato.
-    * @return \DBLib\Round|NULL Objeto contendo a rodada ou null se ela não existir.
+    * @return \DBLib\Round|NULL
     */
-   public function getRound( int $roundNumber ): ?\DBLib\Round
+   public function getRound(int $roundNumber): ?\DBLib\Round
    {
-      $round = null;
-      $this->loadRounds();
-
-      if ( array_key_exists( $roundNumber, $this->rounds_ ) )
-      {
-         $round = $this->rounds_[ $roundNumber ];
-      }
-
-      return $round;
+       $round = null;
+       $phases = $this->getPhases();
+       foreach( $phases as $phase ) {
+           if ( $phase->getRound($roundNumber) !== null ) {
+               $round = $phase->getRound($roundNumber);
+               test("ACHOU");
+               break;
+           }
+       }
+       return $round;
    }
-
+   
    /**
     * Força o recarregamento das informações do campeonato.
     */
    public function refresh(): void
    {
       $this->players_ = array ();
-      $this->rounds_ = array ();
+      $this->phases_ = array ();
 
+      $this->loadPhases( true );
       $this->loadPlayers( true );
-      $this->loadRounds( true );
    }
    
    public function save(): bool
@@ -188,7 +205,7 @@ class Championship
                 $creator = new ChampionshipCreator($this);
                 $creator->populateRoundsAndGames();
 
-                foreach( $this->rounds_ as $r ) {
+                foreach( $this->phases_ as $r ) {
 
                     foreach ( $r->getGames() as $g ) {
                         $game = $g->getGameVO();
@@ -223,38 +240,20 @@ class Championship
       }
    }
 
-   public function setRounds( array $rounds ): void
+   public function setPhases( array $phases ): void
    {
-      $this->rounds_ = $rounds;
+      $this->phases_ = $phases;
    }
 
-   private function loadRounds( bool $forceReload = false): void
+   private function loadPhases( bool $forceReload = false): void
    {
-      if ( sizeOf( $this->rounds_ ) == 0 || $forceReload )
+      if ( sizeOf( $this->phases_ ) == 0 || $forceReload )
       {
-         $daoGames = DaoGameFactory::getDaoGame();
-         $allGames = $daoGames->getAllGames( $this->championshipVO_->id );
-         $gamesByRound = array ();
-         foreach ( $allGames as $g )
+         $daoPhase = DaoPhaseFactory::getDaoPhase();
+         $phases = $daoPhase->getAllPhases( $this->championshipVO_->id );
+         foreach ( $phases as $p )
          {
-            if ( !array_key_exists( $g->idround, $gamesByRound ) )
-            {
-               $gamesByRound[ $g->idround ] = array ();
-            }
-
-            $game = new Game( $g );
-            $gamesByRound[ $g->idround ][ $g->id ] = $game;
-         }
-
-         $daoRound = DaoRoundFactory::getDaoRound();
-         $rounds = $daoRound->getAllRounds( $this->championshipVO_->id );
-         foreach ( $rounds as $r )
-         {
-            $this->rounds_[ $r->number ] = new Round( $r );
-            if ( isset( $gamesByRound[ $r->id ] ) )
-            {
-               $this->rounds_[ $r->number ]->setGames( $gamesByRound[ $r->id ] );
-            }
+            $this->phases_[ $p->number ] = new Phase( $p );
          }
       }
    }
