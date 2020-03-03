@@ -1,0 +1,105 @@
+1;Robin Antonelo;;;Val;1
+1;Thiago Leao;;;Xico;2
+1;Cristiano Carneiro;;;Roberto Bopp;3
+1;Mano;;;Nelson;4
+1;Cristian Costa;;;FC;5
+1;Renato Barbieri;;;Luzardo Carpes;6
+2;Thiago Leao;;;Val;1
+2;Cristiano Carneiro;;;Xico;2
+2;Mano;;;Roberto Bopp;3
+2;Cristian Costa;;;Nelson;4
+2;Renato Barbieri;;;FC;5
+2;Jeferson Lucas;;;Luzardo Carpes;6
+3;Cristiano Carneiro;;;Val;1
+3;Mano;;;Xico;2
+3;Cristian Costa;;;Roberto Bopp;3
+3;Renato Barbieri;;;Nelson;4
+3;Jeferson Lucas;;;FC;5
+3;Mauro;;;Luzardo Carpes;6
+4;Mano;;;Val;1
+4;Cristian Costa;;;Xico;2
+4;Renato Barbieri;;;Roberto Bopp;3
+4;Jeferson Lucas;;;Nelson;4
+4;Mauro;;;FC;5
+4;Nei Barbieri;;;Luzardo Carpes;6
+5;Robin Antonelo;;;Xico;1
+5;Cristiano Carneiro;;;Mano;2
+5;Cristiano Carneiro;;;Renato Barbieri;3
+5;Jeferson Lucas;;;Mauro;4
+5;Nei Barbieri;;;Val;5
+5;FC;;;Nelson;6
+6;Robin Antonelo;;;Xico;1
+6;Thiago Leao;;;Roberto Bopp;2
+6;Cristiano Carneiro;;;Nelson;3
+6;Mano;;;FC;4
+6;Luzardo Carpes;;;Val;5
+6;Renato Barbieri;;;Nei Barbieri;6
+7;Robin Antonelo;;;Roberto Bopp;1
+7;Thiago Leao;;;Nelson;2
+7;Cristiano Carneiro;;;FC;3
+7;Mano;;;Luzardo Carpes;4
+7;Cristian Costa;;;Nei Barbieri;5
+7;Renato Barbieri;;;Mauro;6
+8;Cristian Costa;;;Val;1
+8;Renato Barbieri;;;Xico;2
+8;Jeferson Lucas;;;Roberto Bopp;3
+8;Mauro;;;Nelson;4
+8;Nei Barbieri;;;FC;5
+8;Robin Antonelo;;;Thiago Leao;6
+9;Robin Antonelo;;;Nelson;1
+9;Thiago Leao;;;FC;2
+9;Cristiano Carneiro;;;Luzardo Carpes;3
+9;Mano;;;Nei Barbieri;4
+9;Cristian Costa;;;Mauro;5
+9;Renato Barbieri;;;Jeferson Lucas;6
+10;Mauro;;;Val;1
+10;Jeferson Lucas;;;Xico;2
+10;Thiago Leao;;;Cristiano Carneiro;3
+10;Nei Barbieri;;;Nelson;4
+10;Luzardo Carpes;;;FC;5
+10;Robin Antonelo;;;Cristiano Carneiro;6
+11;Robin Antonelo;;;FC;1
+11;Thiago Leao;;;Luzardo Carpes;2
+11;Cristiano Carneiro;;;Nei Barbieri;3
+11;Mano;;;Mauro;4
+11;Cristian Costa;;;Jeferson Lucas;5
+11;Nelson;;;Roberto Bopp;6
+12;Robin Antonelo;;;Luzardo Carpes;1
+12;Thiago Leao;;;Nei Barbieri;2
+12;Cristiano Carneiro;;;Mauro;3
+12;Mano;;;Jeferson Lucas;4
+12;Roberto Bopp;;;Xico;5
+12;FC;;;Val;6
+13;Robin Antonelo;;;Mauro;1
+13;Xico;;;Val;2
+13;Cristiano Carneiro;;;Renato Barbieri;3
+13;Mano;;;Cristian Costa;4
+13;Luzardo Carpes;;;Nelson;5
+13;FC;;;Roberto Bopp;6
+14;Robin Antonelo;;;Jeferson Lucas;1
+14;Thiago Leao;;;Renato Barbieri;2
+14;Cristiano Carneiro;;;Cristian Costa;3
+14;Mauro;;;Nei Barbieri;4
+14;Luzardo Carpes;;;Roberto Bopp;5
+14;FC;;;Xico;6
+15;Robin Antonelo;;;Renato Barbieri;1
+15;Thiago Leao;;;Cristiano Carneiro;2
+15;Luzardo Carpes;;;Xico;3
+15;Nelson;;;Val;4
+15;Jeferson Lucas;;;Nei Barbieri;5
+15;Mauro;;;Roberto Bopp;6
+16;Robin Antonelo;;;Cristiano Carneiro;1
+16;Thiago Leao;;;Mano;2
+16;Jeferson Lucas;;;Val;3
+16;Mauro;;;Xico;4
+16;Nei Barbieri;;;Roberto Bopp;5
+16;Cristian Costa;;;Luzardo Carpes;6
+17;Renato Barbieri;;;Val;1
+17;Nei Barbieri;;;Xico;2
+17;Thiago Leao;;;Jeferson Lucas;3
+18;Robin Antonelo;;;Nei Barbieri;1
+18;Thiago Leao;;;Mauro;2
+18;Cristiano Carneiro;;;Jeferson Lucas;3
+18;Mano;;;Renato Barbieri;4
+18;Nelson;;;Xico;5
+18;Roberto Bopp;;;Val;6
