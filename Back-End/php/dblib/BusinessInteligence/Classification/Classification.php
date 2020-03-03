@@ -164,7 +164,7 @@ class Classification
     */
    public function getWinRate(): float
    {
-      return $this->getPoints() * 100 / ( $this->getNumberOfGames() * 3 );
+      return $this->getNumberOfGames() > 0 ? $this->getPoints() * 100 / ( $this->getNumberOfGames() * 3 ) : 0;
    }
 
    /**

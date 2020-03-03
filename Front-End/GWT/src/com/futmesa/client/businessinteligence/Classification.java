@@ -71,9 +71,13 @@ public final class Classification extends JavaScriptObject {
 	}-*/;
 
 	public final native double getWinRate() /*-{
-		return this.@com.futmesa.client.businessinteligence.Classification::getPoints()()
-				* 100
-				/ (this.@com.futmesa.client.businessinteligence.Classification::getNumberOfGames()() * 3);
+		if ( this.@com.futmesa.client.businessinteligence.Classification::getNumberOfGames()() > 0 ) {
+			return this.@com.futmesa.client.businessinteligence.Classification::getPoints()()
+					* 100
+					/ (this.@com.futmesa.client.businessinteligence.Classification::getNumberOfGames()() * 3);
+		} else {
+			return 0;
+		}
 	}-*/;
 
 	public final native JsArrayString getLast5Games() /*-{

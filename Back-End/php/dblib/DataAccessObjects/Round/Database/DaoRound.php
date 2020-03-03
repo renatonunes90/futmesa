@@ -61,7 +61,7 @@ class DaoRound implements DaoRoundInterface
    public function getRoundsByPhase( int $phaseId ): array
    {
        $objects = array ();
-       $result = $this->db_->selectAll( "SELECT r.* FROM round r WHERE r.idphase = $phaseId" );
+       $result = $this->db_->selectAll( "SELECT r.* FROM round r WHERE r.idphase = $phaseId ORDER BY r.number ASC" );
        
        foreach ( $result as &$r )
        {
